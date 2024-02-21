@@ -1,1 +1,1 @@
-# Skills2024
+# Skills2024 go+angular
