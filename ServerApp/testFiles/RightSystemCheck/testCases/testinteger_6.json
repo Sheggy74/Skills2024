@@ -1,0 +1,12 @@
+{
+    "type": "filter",
+    "isAnd": [
+    ],
+    "filter": {
+        "value": "5",
+        "option": "Больше либо равно",
+        "attribute": "Test integer"
+    },
+    "groups": [
+    ]
+}

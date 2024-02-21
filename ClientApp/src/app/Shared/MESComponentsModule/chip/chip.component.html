@@ -1,0 +1,10 @@
+<section
+    [style.background-color]="backgroundColor"
+    class="{{styleClass}} h-6 px-[6px]  flex flex-row bg-green-100 w-auto text-xs mx-auto float-left rounded-[8px] hover:-translate-y-[2px] transition-all">
+    <span 
+        [style.color]="chipColor"
+        class="mr-[4px] my-auto material-symbols-outlined h-4 w-4">{{icon}}</span>
+    <p
+        [style.color]="textColor"
+        class="my-auto">{{caption}}</p>
+</section>

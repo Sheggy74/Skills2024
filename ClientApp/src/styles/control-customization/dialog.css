@@ -1,0 +1,9 @@
+::ng-deep .p-dialog .p-dialog-header .p-dialog-title{
+    color: var(--accent-color);
+}
+::ng-deep .p-dialog .p-dialog-header{
+    border-bottom: 1px solid lightgray;
+}
+::ng-deep .p-confirm-dialog .p-dialog-content{
+    @apply pt-4
+}

@@ -1,0 +1,59 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@layer utilities {
+    .border-1 {
+        border-width: 1px;
+    }
+}
+
+@layer utilities {
+    .hide-after-100 {
+        animation: hide-after 100ms forwards;
+    }
+    .hide-after-200 {
+        animation: hide-after 200ms forwards;
+    }
+    .hide-after-300 {
+        animation: hide-after 300ms forwards;
+    }
+    .hide-after-500 {
+        animation: hide-after 500ms forwards;
+    }
+    .hide-after-1000 {
+        animation: hide-after 1s forwards;
+    }
+}
+@keyframes hide-after{
+    0%{
+        display: block;
+    }
+    100%{
+        visibility: collapse;
+    }
+}
+@layer utilities {
+    .h-full-1{
+        height: calc(100% - 0.25rem);
+    }
+    .h-full-2{
+        height: calc(100% - 0.5rem);
+    }
+    .h-full-4{
+        height: calc(100% - 1rem);
+    }
+    .h-full-8{
+        height: calc(100% - 2rem);
+    }
+
+}
+@layer utilities {
+    .text-xxs{
+        font-size: 0.675rem/* 12px */;
+        line-height: 0.875rem/* 16px */;
+    }
+    .list-item-selected{
+        box-shadow: 0 0 0.4rem #79b5ff
+    }
+
+}

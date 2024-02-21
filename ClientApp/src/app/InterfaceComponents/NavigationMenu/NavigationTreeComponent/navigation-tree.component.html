@@ -1,0 +1,12 @@
+<div class="flex flex-col relative">
+   
+    <div *ngFor="let navigationButton of navigationButtons" class="z-20">
+        <app-tree-item 
+            [paddingLeft]="paddingLeft" 
+            [navigationButton] = "navigationButton"
+            [level]="level">
+
+        </app-tree-item>
+    </div>
+</div>
+

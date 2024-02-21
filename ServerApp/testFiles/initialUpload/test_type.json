@@ -1,0 +1,53 @@
+{
+"objects": [
+	{
+		"Обозначение%mainobj" : "test_value_1",
+		"Номер" : 1,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_2",
+		"Номер" : 2,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_3",
+		"Номер" : 3,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_4",
+		"Номер" : 4,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_5",
+		"Номер" : 5,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_6",
+		"Номер" : 6,
+		"Test UUID" : 28
+	},
+	{
+		"Обозначение%mainobj" : "test_value_7",
+		"Номер" : 7,
+		"Test UUID" : 28
+	},
+	{
+		"Обозначение%mainobj" : "test_value_8",
+		"Номер" : 8,
+		"Test UUID" : 28
+	},
+	{
+		"Обозначение%mainobj" : "test_value_9",
+		"Номер" : 9,
+		"Test UUID" : 28
+	},
+	{
+		"Обозначение%mainobj" : "test_value_10",
+		"Номер" : 10,
+		"Test UUID" : 28
+	}
+]}

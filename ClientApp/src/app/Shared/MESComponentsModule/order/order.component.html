@@ -1,0 +1,40 @@
+<app-toggle-button 
+    #tgl
+    class="ml-2 my-auto"
+    [(isChecked)]="isOpen"
+    [mirrorVertical]="!isDescending"
+    icon="sort"
+    (click)="overlayPanel.toggle($event)"></app-toggle-button>
+<p-overlayPanel #overlayPanel>
+    <ng-template pTemplate>
+        <div class="flex flex-col">
+            <button 
+                [ngClass]="item.isSelected ? 'bg-gray-200' : 'hover:bg-gray-100'"
+                *ngFor="let item of orderItems" class="order-item" (click)="selectItem(item)">
+                <i 
+                    [ngClass]="item.isSelected ? '' : 'opacity-0'"
+                    class="material-symbols-outlined mr-2 transition-all">done</i>
+                <p>{{item.caption}}</p>
+            </button>
+           <p-divider></p-divider>
+           <button 
+                class="order-item" 
+                [ngClass]="isDescending == false ? 'bg-gray-200' : 'hover:bg-gray-100'"
+                (click)="changeIsDescending(false)">
+                <i 
+                    [ngClass]="isDescending == false ? '' : 'opacity-0'"
+                    class="material-symbols-outlined mr-2 transition-all">done</i>
+                <p>По возрастанию</p>
+            </button>
+            <button 
+                [ngClass]="isDescending ? 'bg-gray-200' : 'hover:bg-gray-100'"
+                class="order-item" 
+                (click)="changeIsDescending(true)">
+                <i 
+                    [ngClass]="isDescending ? '' : 'opacity-0'"
+                    class="material-symbols-outlined mr-2 transition-all">done</i>
+                <p>По убыванию</p>
+            </button>
+        </div>            
+    </ng-template>
+</p-overlayPanel>

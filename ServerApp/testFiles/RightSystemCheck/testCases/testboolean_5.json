@@ -1,0 +1,11 @@
+{
+    "type": "filter",
+    "isAnd": [
+    ],
+    "filter": {
+        "option": "true",
+        "attribute": "Test boolean"
+    },
+    "groups": [
+    ]
+}

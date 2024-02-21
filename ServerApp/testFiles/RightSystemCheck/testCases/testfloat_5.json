@@ -1,0 +1,12 @@
+{
+    "type": "filter",
+    "isAnd": [
+    ],
+    "filter": {
+        "value": "6",
+        "option": "Больше либо равно",
+        "attribute": "Test float"
+    },
+    "groups": [
+    ]
+}

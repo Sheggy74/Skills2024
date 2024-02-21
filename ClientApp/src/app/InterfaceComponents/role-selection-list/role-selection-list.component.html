@@ -1,0 +1,13 @@
+<section class="navigation-content p-[100px]" gridColumns="1fr 18fr 1fr">
+    <div id="application-grid" class="my-auto col-start-2 row-start-1" >
+        <app-role-selection-item [role]="role" *ngFor="let role of roles"></app-role-selection-item>
+    </div>
+    <section *ngIf="roles.length == 0" class="flex flex-col m-auto col-start-2 row-start-1">
+        <p class="text-accent font-bold text-2xl">У вас нет доступа к модулям приложения. Обратитесь к администратору системы</p>
+        <div class="flex flex-row justify-around">
+
+            <button class="mx-auto mt-4" pButton (click)="router.navigateByUrl('auth')">Выйти</button>
+            <button class="mx-auto mt-4" pButton (click)="reloadApplication()">Обновить</button>
+        </div>
+    </section>
+</section>

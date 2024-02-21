@@ -1,0 +1,12 @@
+{
+    "type": "filter",
+    "isAnd": [
+    ],
+    "filter": {
+        "value": "string 1",
+        "option": "Содержит",
+        "attribute": "Test string"
+    },
+    "groups": [
+    ]
+}

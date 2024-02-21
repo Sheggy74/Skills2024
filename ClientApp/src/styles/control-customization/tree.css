@@ -1,0 +1,14 @@
+::ng-deep .p-tree{
+    @apply rounded-none p-0;
+    border: 0px solid #dee2e6
+}
+::ng-deep .p-tree .p-tree-container .p-treenode{
+    @apply p-0
+}
+
+::ng-deep .p-treenode-label{
+    @apply w-full;
+}
+/* ::ng-deep .p-tree .p-treenode-children{
+    @apply p-0
+} */

@@ -1,0 +1,12 @@
+#navigationButton[data-selected=true]{
+   background-color : rgb(213 223 235)
+}
+#navigationButton[data-selected=false]:hover{
+    @apply bg-slate-100
+}
+#navigationButton[data-selected=false]:active{
+    @apply bg-slate-200
+}
+#whatever{
+    border-radius: 40px ;
+}

@@ -1,0 +1,33 @@
+::ng-deep .p-progress-spinner{
+    width: 25px !important;
+    height: 25px !important;
+}
+.p-inputtext{
+    border-radius: 8px;
+}
+::ng-deep .p-tooltip{
+    font-size: 12px;
+}
+i{
+    transition: all 200ms !important;
+    color: black !important;    
+}
+.blue-text{
+    font-weight: 600;
+    color: #3B82F6 !important;
+}
+::ng-deep *[data-warning='true'] .p-badge{
+    background: red;
+}
+#search-button{
+    border-radius: 0 5px 5px 0;
+}
+#searchWrapper{
+    height: calc(100% - 2px);
+    top: 1px;
+    right: 1px;
+    @apply opacity-0
+}
+#rootElement:hover #searchWrapper{
+    @apply opacity-100
+}

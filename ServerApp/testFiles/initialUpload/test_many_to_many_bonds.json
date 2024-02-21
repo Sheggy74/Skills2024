@@ -1,0 +1,63 @@
+{
+"objects": [
+	{
+		"Обозначение%mainobj" : "test_value_1",
+		"Обозначение%childobj" : "test_many_value_10",
+		"Номер%keybondattr" : 1,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_2",
+		"Обозначение%childobj" : "test_many_value_9",
+		"Номер%keybondattr" : 2,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_3",
+		"Обозначение%childobj" : "test_many_value_8",
+		"Номер%keybondattr" : 3,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_4",
+		"Обозначение%childobj" : "test_many_value_7",
+		"Номер%keybondattr" : 4,
+		"Test UUID" : 40
+	},
+	{
+		"Обозначение%mainobj" : "test_value_5",
+		"Обозначение%childobj" : "test_many_value_6",
+		"Номер%keybondattr" : 5,
+		"Test UUID" : 25
+	},
+	{
+		"Обозначение%mainobj" : "test_value_6",
+		"Обозначение%childobj" : "test_many_value_5",
+		"Номер%keybondattr" : 6,
+		"Test UUID" : 28
+	},
+	{
+		"Обозначение%mainobj" : "test_value_7",
+		"Обозначение%childobj" : "test_many_value_4",
+		"Номер%keybondattr" : 7,
+		"Test UUID" : 23
+	},
+	{
+		"Обозначение%mainobj" : "test_value_8",
+		"Обозначение%childobj" : "test_many_value_3",
+		"Номер%keybondattr" : 8,
+		"Test UUID" : 23
+	},
+	{
+		"Обозначение%mainobj" : "test_value_9",
+		"Обозначение%childobj" : "test_many_value_2",
+		"Номер%keybondattr" : 9,
+		"Test UUID" : 28
+	},
+	{
+		"Обозначение%mainobj" : "test_value_10",
+		"Обозначение%childobj" : "test_many_value_1",
+		"Номер%keybondattr" : 10,
+		"Test UUID" : 28
+	}
+]}

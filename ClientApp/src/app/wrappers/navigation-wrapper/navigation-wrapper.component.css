@@ -1,0 +1,19 @@
+:host{
+    --shadow-size : 5px
+}
+.host{
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr;
+}
+.d1{
+    vertical-align: auto;    
+}
+.inner-shadow{    
+    --tw-shadow: 0 0 0 0 rgb(0 0 0 / 0.50);
+    box-shadow: inset var(--shadow-size) var(--shadow-size) var(--shadow-size) 0 rgb(0,0,0, 0.1) ;
+}
+::ng-deep .inner-shadow-right{    
+    --tw-shadow: 0 0 0 0 rgb(0 0 0 / 0.50);
+    box-shadow: inset var(--shadow-size) 0px var(--shadow-size) 0 rgb(0,0,0, 0.1) ;
+}

@@ -1,0 +1,50 @@
+::ng-deep  .p-inputtext.ng-dirty.ng-invalid:hover{
+    border-color: #e24c4c;
+   
+}
+::ng-deep  .p-inputtext.ng-dirty.ng-invalid:enabled:focus{
+    border-color: #e24c4c;
+    box-shadow: 0 0 0 4px #ffe7e7;
+   
+}
+::ng-deep .p-inputtext:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 4px #EFF4FF;
+    border-color: #84ADFF;
+}
+::ng-deep  .p-inputtext:enabled:hover {
+    border-color: #84ADFF;
+}
+
+::ng-deep .p-inputtext{
+    height: 40px;
+    border-radius: 8px;
+    padding: 0.5rem 0.75rem
+}
+::ng-deep .p-inputtextarea{
+    height: unset;
+}
+::ng-deep .p-dropdown-label{
+    height: auto;
+}
+::ng-deep .p-radiobutton .p-radiobutton-box:not(.p-disabled).p-focus{
+    box-shadow: 0 0 0 4px #EFF4FF;
+}
+::ng-deep .p-radiobutton .p-radiobutton-box .p-radiobutton-icon{
+    width: 8px;
+    height: 8px;
+}
+::ng-deep .p-radiobutton .p-radiobutton-box{
+    width: 16px;
+    height: 16px;
+    border: 1px solid #155EEF;
+}
+
+::ng-deep .p-float-label label {
+    top: 16px;
+    margin-top: -4px;
+}
+::ng-deep .p-float-label:has(:disabled)>label{
+    color: #ced4da;
+}  

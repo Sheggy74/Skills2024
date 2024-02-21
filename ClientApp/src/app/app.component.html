@@ -1,0 +1,11 @@
+<div class="main-wrapper bg-main " #mainDiv>
+  <router-outlet/>
+</div>
+
+<p-toast key="global-toast" #toast position="bottom-right"></p-toast>
+<!-- Для показа ошибок напрямую на экране -->
+<p-overlayPanel #errorOverlay>
+    <section class="p-2 max-w-[300px]">
+        {{errorService.overlayError}}
+    </section>
+</p-overlayPanel>

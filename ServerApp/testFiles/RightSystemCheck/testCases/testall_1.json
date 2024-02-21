@@ -1,0 +1,70 @@
+{
+    "type": "group",
+    "isAnd": [
+        true,
+        true,
+        true,
+        true
+    ],
+    "groups": [
+        {
+            "type": "filter",
+            "isAnd": [
+            ],
+            "filter": {
+                "value": "2023-01-09T07:13:34.000Z",
+                "option": "Больше",
+                "attribute": "Test date"
+            },
+            "groups": [
+            ]
+        },
+        {
+            "type": "filter",
+            "isAnd": [
+            ],
+            "filter": {
+                "value": "string 10",
+                "option": "Равно",
+                "attribute": "Test string"
+            },
+            "groups": [
+            ]
+        },
+        {
+            "type": "filter",
+            "isAnd": [
+            ],
+            "filter": {
+                "value": "10",
+                "option": "Больше либо равно",
+                "attribute": "Test integer"
+            },
+            "groups": [
+            ]
+        },
+        {
+            "type": "filter",
+            "isAnd": [
+            ],
+            "filter": {
+                "value": "10",
+                "option": "Больше либо равно",
+                "attribute": "Test float"
+            },
+            "groups": [
+            ]
+        },
+        {
+            "type": "filter",
+            "isAnd": [
+            ],
+            "filter": {
+                "option": "false",
+                "attribute": "Test boolean"
+            },
+            "groups": [
+            ]
+        }
+    ]
+}

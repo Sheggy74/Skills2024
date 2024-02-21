@@ -1,0 +1,25 @@
+
+::ng-deep .p-radiobutton {
+    background-color: white;
+    height: unset;
+}
+::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight {
+    background-color: white;
+}
+::ng-deep .p-radiobutton .p-radiobutton-box .p-radiobutton-icon{
+    background: #155EEF;
+    border-color: #155EEF;
+}
+::ng-deep .p-radiobutton .p-radiobutton-box{
+    @apply border-slate-400
+}
+::ng-deep .p-radiobutton .p-radiobutton-box:hover{
+    border-color: #155EEF;
+    
+}
+::ng-deep  .p-radiobutton .p-radiobutton-box.p-highlight:not(.p-disabled):hover{
+    background-color: white;
+}
+::ng-deep .p-radiobutton .p-radiobutton-box.p-highlight{
+    border-width: 2px;
+}

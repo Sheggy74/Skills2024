@@ -1,0 +1,15 @@
+{
+    "type": "filter",
+    "isAnd": [
+    ],
+    "filter": {
+        "value": "20",
+        "option": "Больше",
+        "linkType": "test_bond",
+        "attribute": "Номер",
+        "filterType": "parent_links",
+        "objectType": "Подразделение"
+    },
+    "groups": [
+    ]
+}

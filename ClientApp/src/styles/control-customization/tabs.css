@@ -1,0 +1,9 @@
+::ng-deep .mat-mdc-tab:not(.mat-mdc-tab-disabled).mdc-tab--active .mdc-tab__text-label{
+    color: var(--accent-color);
+}
+::ng-deep .mat-mdc-tab-body.mat-mdc-tab-body-active{
+    top: -8px;
+}
+::ng-deep .mat-mdc-tab-body{
+    @apply pt-2
+}

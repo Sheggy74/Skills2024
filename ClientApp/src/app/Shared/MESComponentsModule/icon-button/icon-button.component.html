@@ -1,0 +1,18 @@
+<button 
+    [disabled]="disabled"
+    pTooltip="Расширенный поиск"
+    tooltipPosition="bottom"
+    positionStyle="absolute"
+    [ngClass]="disabled ? disabledClass : activeClass"
+    (click)="clicked($event)" class="flex transition-all rounded-lg my-auto w-7 h-7">
+    <span   
+        *ngIf="isLoading == false"
+        [style.font-size]="iconSize"
+        class="material-symbols-outlined m-auto text-center transition-all">{{icon}}</span>
+    <span   
+        id="loading-icon"
+        *ngIf="isLoading"
+        [style.font-size]="iconSize"
+        class="material-symbols-outlined m-auto text-center transition-all">progress_activity</span>
+
+</button>

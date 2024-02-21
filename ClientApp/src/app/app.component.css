@@ -1,0 +1,54 @@
+@import '../styles/dynamicVariables.css';
+@import '../styles/control-customization/inputs.css';
+@import '../styles/control-customization/dropdowns.css';
+@import '../styles/control-customization/radio-button.css';
+@import '../styles/control-customization/button.css';
+@import '../styles/control-customization/dialog.css';
+@import '../styles/control-customization/tabs.css';
+@import '../styles/control-customization/splitter.css';
+@import '../styles/control-customization/tree.css';
+@import '../styles/control-customization/contextMenu.css';
+@import '../styles/control-customization/overlayPanel.css';
+
+::ng-deep *{
+    font-family:  Roboto;
+}
+::ng-deep .p-scrollpanel .p-scrollpanel-bar{
+    background-color: #555;
+}
+::ng-deep *{
+    box-sizing: border-box;
+}
+:host{
+    --navigation-height: calc(100vh - 64px - 16px);
+}
+
+::ng-deep .navigation-content{
+    max-height:  var(--navigation-height);
+    height:  var(--navigation-height);
+}
+::ng-deep .max-navigation-content{
+    max-height:  var(--navigation-height);
+}
+
+::ng-deep .sidebar-empty .p-sidebar-content{
+    padding: 0px;
+}
+::ng-deep .sidebar-empty .p-sidebar-footer{
+    display: none;
+}
+::ng-deep .sidebar-empty .p-sidebar-header{
+    display: none;
+}
+::ng-deep .sidebar-empty .p-sidebar-content{
+    height: 100%;
+}
+::ng-deep .p-divider.p-divider-horizontal{
+    @apply m-0
+}
+::ng-deep .p-divider.p-divider-vertical{
+    @apply m-0
+}
+
+
+

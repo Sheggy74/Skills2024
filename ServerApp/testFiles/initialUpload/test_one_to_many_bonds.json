@@ -1,0 +1,45 @@
+{
+"objects": [
+	{
+		"Обозначение%mainobj" : "test_value_1",
+		"Обозначение%childobj" : "test_child_value_10"
+	},
+	{
+		"Обозначение%mainobj" : "test_value_2",
+		"Обозначение%childobj" : "test_child_value_9"
+	},
+	{
+		"Обозначение%mainobj" : "test_value_3",
+		"Обозначение%childobj" : "test_child_value_8"
+	},
+	{
+		"Обозначение%mainobj" : "test_value_4",
+		"Обозначение%childobj" : "test_child_value_7",
+		"Номер%keybondattr" : 4,
+		"Test UUID" : 40
+	},
+	{
+		"Обозначение%mainobj" : "test_value_5",
+		"Обозначение%childobj" : "test_child_value_6"
+	},
+	{
+		"Обозначение%mainobj" : "test_value_6",
+		"Обозначение%childobj" : "test_child_value_5"
+	},
+	{
+		"Обозначение%mainobj" : "test_value_7",
+		"Обозначение%childobj" : "test_child_value_4"
+	},
+	{
+		"Обозначение%mainobj" : "test_value_8",
+		"Обозначение%childobj" : "test_child_value_3"
+	},
+	{
+		"Обозначение%mainobj" : "test_value_9",
+		"Обозначение%childobj" : "test_child_value_2"
+	},
+	{
+		"Обозначение%mainobj" : "test_value_10",
+		"Обозначение%childobj" : "test_child_value_1"
+	}
+]}

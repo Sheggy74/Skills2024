@@ -1,0 +1,19 @@
+<section >
+    <p-table  selectionMode="single" [(selection)]="selectedUser" (selectionChange)="userUIService.selectedUser.next(selectedUser)"
+        [value]="(userUIService.users | async)!" [scrollable]="true" scrollHeight="400px" >
+        <ng-template pTemplate="header">
+            <tr>
+                <th>FIO</th>
+                <th>Login</th>
+                <th>Roles</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-user >
+            <tr [pSelectableRow]="user">
+                <td>{{user.firstName + ' ' + user.secondName + ' ' + user.lastName}}</td>
+                <td>{{user.login}}</td>
+                <td>roles</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</section>

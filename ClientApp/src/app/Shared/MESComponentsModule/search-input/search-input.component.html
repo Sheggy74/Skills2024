@@ -1,0 +1,18 @@
+<div id="rootElement" class="flex flex-row h-full relative">
+    <span class="top-0 left-0 p-input-icon-left w-full" #searchSpan >
+        <i class="transition-all duration-1000">
+        </i>
+        <input 
+            id="searchInput"
+            data-test-id="pfp81Search"
+            type="text" class="w-full h-full p-2" pInputText 
+            [(ngModel)]="searchText"
+            (ngModelChange)="textChanged()"
+            [placeholder]="placeholder">
+    </span>
+    <div id="searchIcon" class="absolute h-full flex left-2">
+        <span                           
+            class=" material-symbols-outlined m-auto text-center transition-all ">search</span>
+    </div>
+   
+</div>

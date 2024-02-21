@@ -1,0 +1,6 @@
+::ng-deep .p-datatable.p-datatable-scrollable > .p-datatable-wrapper > .p-datatable-table > .p-datatable-thead{
+    background-color: unset;
+}
+::ng-deep .p-datatable .p-datatable-thead > tr > th{
+    background-color: unset;
+}

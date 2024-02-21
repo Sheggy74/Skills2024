@@ -1,0 +1,1 @@
+export const jwtDTOKey = "[ATOM24][jwtDTO]"

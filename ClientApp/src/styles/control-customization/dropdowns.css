@@ -1,0 +1,6 @@
+::ng-deep .p-dropdown:not(.p-disabled).p-focus{
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: 0 0 0 4px #EFF4FF;
+    border-color: #3B82F6;
+}

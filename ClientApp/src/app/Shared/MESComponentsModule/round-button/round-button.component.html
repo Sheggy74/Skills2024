@@ -1,0 +1,12 @@
+<button
+    [disabled]="disabled"
+    class="{{styleClass}} relative flex flex-row rounded-full transition-all p-2 duration-300 hover:bg-slate-200 active:bg-slate-400"  (click)="buttonClick($event)"
+    [ngClass]="rotateToggled && isChecked ? 'rotate-180' : ''">
+    <i *ngIf="iconClass != ''" class="{{iconClass}} my-auto"></i>
+    <div *ngIf="iconClass == ''" class="w-5 h-5"></div>
+    <i *ngIf="iconClass == ''" class="!text-xl material-symbols-outlined absolute top-1 left-[9px] m-auto">{{materialIconClass}}</i>
+    <div class="cursor-default inline-block">
+        <ng-content></ng-content>
+    </div>   
+    
+</button>

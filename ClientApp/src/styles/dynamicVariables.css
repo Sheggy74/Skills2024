@@ -1,0 +1,79 @@
+@import "tailwindcss/utilities";
+@import "tailwindcss/components";
+body{
+    --bg-main: white;
+    --bg-secondary:#F7F9FC ;
+    --test-color:red;
+    --light-danger: #FD6F8E;
+    --light-success: #E4FBCC;
+    --text-color: black;
+    --accent-text-color: #004EEB;
+    --light-text-color: #98A2B3;
+    --secondary-text-color: #535353;
+    --accent-color: #00359E;
+    --light-border-color: #D0D5DD;
+    --light-accent-color: #EFF8FF;
+    --light-accent-border-color: #84CAFF;
+    --button-hover-color: rgb(241 245 249);
+    --button-pressed-color: rgb(219 234 254);
+    
+    --tree-icon-width: 48px;
+    --tree-item-height: 44px;
+}
+::ng-deep .bg-main{
+    background-color: var(--bg-main);
+}
+::ng-deep .bg-secondary{
+    background-color: var(--bg-secondary);
+}
+::ng-deep .p-dropdown {
+    background-color: var(--bg-main);
+}
+::ng-deep .p-inputtext {
+    background-color: var(--bg-main);
+}
+div, p, span ::ng-deep{
+    color: var(--text-color);
+}
+
+
+/* ::ng-deep .text-light {
+    color: blue;
+} */
+@layer utilities {
+    .text-xxs{
+        font-size: 10px;
+        line-height: 14px;
+    }
+     
+    .text-main{
+        color: var(--text-color);
+    }
+    .text-light{
+        color: var(--light-text-color);
+    }
+    .text-secondary{
+        color: var(--secondary-text-color);
+    }
+    .border-accent{
+        border-color: var(--accent-color);
+    }
+    .border-light{
+        border-color: var(--light-border-color);
+    }
+    .button-hover{
+        background-color: var(--button-hover-color);
+    }
+    .button-pressed{
+        background-color: var(--button-pressed-color);
+    }
+    .text-accent{
+        color: var(--accent-color);
+    }
+    .bg-light-accent{
+        background-color: var(--light-accent-color);
+    }
+    .bg-accent{
+        background-color: var(--accent-color);
+    }
+}

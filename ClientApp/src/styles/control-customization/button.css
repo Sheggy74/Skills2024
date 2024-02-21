@@ -1,0 +1,9 @@
+::ng-deep .p-button.p-button-icon-only{
+    padding: 0.5rem;
+}
+::ng-deep .p-button{
+    padding: 0.5rem 1rem;
+}
+::ng-deep .p-button{
+    @apply h-8
+}

@@ -1,0 +1,13 @@
+<div class="flex flex-col h-full  overflow-hidden">
+    <div class="flex flex-row">
+        <div class="thread my-auto bg-slate-300 w-full mr-2"></div>
+        <app-round-button class="transition-all duration-300" iconClass="pi pi-chevron-down " 
+            styleClass="bg-slate-300 hover:bg-slate-400 active:bg-slate-500"
+            (onClick)="changeIsExpanded()" 
+            [rotateToggled]="true">
+        </app-round-button>
+    </div>
+    <div >
+        <ng-content></ng-content>
+    </div>
+</div>

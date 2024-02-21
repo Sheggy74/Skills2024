@@ -1,0 +1,12 @@
+button{
+    border-color: var(--accent-color);
+}
+button:hover{
+    background-color: var(--light-accent-color);
+}
+button:active{
+    box-shadow: 0 0 0 4px #EFF4FF;
+}
+*{
+    color: var(--accent-color);
+}

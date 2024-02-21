@@ -1,0 +1,43 @@
+{
+"objects": [
+	{
+		"Test string%childobj" : "string 1",
+		"Номер%childobj" : 11
+	},
+	{
+		"Test string%childobj" : "string 2",
+		"Номер%childobj" : 11
+	},
+	{
+		"Test string%childobj" : "string 3",
+		"Номер%childobj" : 25
+	},
+	{
+		"Test string%childobj" : "string 4",
+		"Номер%childobj" : 25
+	},
+	{
+		"Test string%childobj" : "string 5",
+		"Номер%childobj" : 25
+	},
+	{
+		"Test string%childobj" : "string 6",
+		"Номер%childobj" : 40
+	},
+	{
+		"Test string%childobj" : "string 7",
+		"Номер%childobj" : 40
+	},
+	{
+		"Test string%childobj" : "string 8",
+		"Номер%childobj" : 40
+	},
+	{
+		"Test string%childobj" : "string 9",
+		"Номер%childobj" : 40
+	},
+	{
+		"Test string%childobj" : "string 10",
+		"Номер%childobj" : 40
+	}
+]}

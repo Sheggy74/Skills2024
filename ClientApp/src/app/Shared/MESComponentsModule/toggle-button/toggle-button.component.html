@@ -1,0 +1,13 @@
+<button 
+    [ngClass]="{
+        'scale-90 bg-blue-100':isChecked,
+        'hover:bg-slate-100':!isChecked
+    }"
+    pTooltip="Расширенный поиск"
+    tooltipPosition="bottom"
+    positionStyle="absolute"
+    (click)="onClick()" class="transition-all rounded-lg my-auto p-1 w-7 h-7 ">
+    <span   
+        [ngClass]="mirrorVertical ? 'mirror' : ''"             
+        class="material-symbols-outlined material-symbols-outlined-20 m-auto text-center transition-all">{{icon}}</span>
+</button>

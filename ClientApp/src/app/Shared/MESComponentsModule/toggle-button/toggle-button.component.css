@@ -1,0 +1,7 @@
+
+.material-symbols-outlined-20{
+    font-size: 20px;
+}
+.mirror{
+    transform: scale(1,-1);
+}

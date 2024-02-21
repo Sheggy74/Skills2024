@@ -1,0 +1,11 @@
+Test string;Test integer;Test float;Test date;Test boolean
+string 1;1;1,50;2023-01-01T00:00:00+05:00;true
+string 2;2;2,50;2023-01-02T00:00:00+05:00;true
+string 3;3;3,50;2023-01-03T00:00:00+05:00;true
+string 4;4;4,50;2023-01-04T00:00:00+05:00;true
+string 5;5;5,50;2023-01-05T00:00:00+05:00;true
+string 6;6;6,50;2023-01-06T00:00:00+05:00;false
+string 7;7;7,50;2023-01-07T00:00:00+05:00;false
+string 8;8;8,50;2023-01-08T00:00:00+05:00;false
+string 9;9;9,50;2023-01-09T00:00:00+05:00;false
+string 10;10;10,50;2023-01-10T00:00:00+05:00;false

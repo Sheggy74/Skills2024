@@ -1,0 +1,13 @@
+<input type="file" class="file-input" [accept]="getExtensionString()" (change)="onFileSelected($event)" #fileUpload>
+
+<button #button class="{{twClass}} upload-btn" (click)="buttonClick($event)">
+    <ng-content></ng-content>
+</button>
+<p-overlayPanel
+    #overlayError>
+    <section class="p-4 ">
+        <div>
+            {{error}}
+        </div>
+    </section>
+</p-overlayPanel>

@@ -1,0 +1,7 @@
+host: 0.0.0.0
+port: 4561
+
+is-debug: true
+min-log-level: debug
+
+connection-string:  host=pg15dev.local.imf.ru user=atom24  port=5432 password=atom24 dbname=otg02 sslmode=disable

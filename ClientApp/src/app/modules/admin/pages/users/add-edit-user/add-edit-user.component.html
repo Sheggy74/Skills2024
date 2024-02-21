@@ -1,0 +1,66 @@
+<p-dialog 
+    [header]="title"
+    [modal]="true"
+    [(visible)]="isOpen"
+    position="top"
+    [style]="{width: '800px'}">
+   
+    <section gridRows="auto auto auto auto auto auto auto auto" gridColumns="1fr 1fr 1fr" class="w-full mt-6">
+        <span class="flex flex-col p-float-label w-full col-span-2">
+            <input type="text" #validate id="login" pAutoFocus [autofocus]="true"  class="w-full" pInputText [(ngModel)]="user.login"> 
+            <label for="inputtext">Логин <span class="text-red-500">*</span></label>
+            <small *ngIf="shouldShowError('login')" class="p-error text-xs ml-4">{{validationErrors.login}}</small>
+        </span>
+        <span 
+            class="flex flex-col p-float-label w-full row-start-2 mt-6 col-span-2" >
+            <input type="text" #validate id="password" type="password"  
+                (focus)="passwordFocused()"
+                class="w-full" pInputText [(ngModel)]="password"
+                (ngModelChange)="hasPasswordChanged = true"> 
+            <label for="inputtext">Пароль</label>
+            <small *ngIf="shouldShowError('password')" class="p-error text-xs ml-4">{{validationErrors.password}}</small>
+        </span>
+        <section class="mt-6 flex flex-row row-start-4 col-span-3 gap-1">
+            <span class="flex flex-col p-float-label w-full">
+                <input type="text" #validate id="firstName"   class="w-full" pInputText [(ngModel)]="user.firstName"> 
+                <label for="inputtext">Имя <span class="text-red-500">*</span></label>
+                <small *ngIf="shouldShowError('firstName')" class="p-error text-xs ml-4">{{validationErrors.firstName}}</small>
+            </span>
+            <span class="flex flex-col p-float-label w-full">
+                <input type="text" #validate id="secondName"   class="w-full" pInputText [(ngModel)]="user.secondName"> 
+                <label for="inputtext">Фамилия <span class="text-red-500">*</span></label>
+                <small *ngIf="shouldShowError('secondName')" class="p-error text-xs ml-4">{{validationErrors.secondName}}</small>
+            </span>
+            <span class="flex flex-col p-float-label w-full ">
+                <input type="text" #validate id="lastName"   class="w-full" pInputText [(ngModel)]="user.lastName"> 
+                <label for="inputtext">Отчество</label>
+                <small *ngIf="shouldShowError('lastName')" class="p-error text-xs ml-4">{{validationErrors.lastName}}</small>
+            </span>
+        </section>
+
+        <div class="flex flex-row justify-between col-span-4 mt-8 row-start-5">
+            <button pButton [disabled]="shouldDisableButton()" (click)="createOrEdit()">{{isCreate ? 'Создать' : 'Сохранить'}}</button>
+            <button pButton class="p-button-secondary" (click)="this.isOpen = false">Отменить</button>
+        </div>
+        <app-file-selector
+            (fileChanged)="photoChanged($event)"
+            [extensions]="['png','jpg']"
+            class="col-start-3 row-span-3  m-auto relative h-full">
+            <div class="grid group " gridColumns="1fr" gridRows="1fr">
+                <i class="!text-[160px] transition-all opacity-0 group-hover:opacity-100 material-symbols-outlined z-20">add</i>
+                <app-image
+                    [economyMode]="false"
+                    class="overflow-hidden z-10 w-[160px] h-[160px] transition-all group-hover:grayscale-[0.8] group-hover:opacity-20 absolute top-0"
+                    *ngIf="!hasPhotoChanged && user.idPhoto != null"
+                    [id]="user.idPhoto">
+
+                </app-image>
+                <img 
+                    *ngIf="!(!hasPhotoChanged && user.idPhoto != null)"
+                    [src]="photoSrc == '' ? 'assets/lk-person.png' : photoSrc" class="overflow-hidden z-10 w-[160px] h-[160px] transition-all group-hover:grayscale-[0.8] group-hover:opacity-20 absolute top-0"/>
+            </div>
+            
+        </app-file-selector> 
+    </section>
+
+</p-dialog>
