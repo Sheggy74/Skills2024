@@ -1,0 +1,156 @@
+-- atom24.files определение
+
+-- Drop table
+
+-- DROP TABLE atom24.files;
+
+CREATE TABLE atom24.files (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	b_data bytea NULL,
+	s_name varchar NULL,
+	b_low_quality_data bytea NULL,
+	CONSTRAINT files_pk PRIMARY KEY (id)
+);
+
+-- Permissions
+
+ALTER TABLE atom24.files OWNER TO atom24;
+GRANT ALL ON TABLE atom24.files TO atom24;
+
+
+-- atom24.logging определение
+
+-- Drop table
+
+-- DROP TABLE atom24.logging;
+
+CREATE TABLE atom24.logging (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	s_message jsonb NOT NULL,
+	s_level varchar NOT NULL,
+	d_time timestamptz NULL,
+	CONSTRAINT logging_pk PRIMARY KEY (id)
+);
+
+-- Permissions
+
+ALTER TABLE atom24.logging OWNER TO atom24;
+GRANT ALL ON TABLE atom24.logging TO atom24;
+
+
+-- atom24.roles определение
+
+-- Drop table
+
+-- DROP TABLE atom24.roles;
+
+CREATE TABLE atom24.roles (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	s_name varchar NOT NULL,
+	s_starting_url varchar NULL,
+	CONSTRAINT roles_pk PRIMARY KEY (id)
+);
+
+-- Permissions
+
+ALTER TABLE atom24.roles OWNER TO atom24;
+GRANT ALL ON TABLE atom24.roles TO atom24;
+
+
+-- atom24.users определение
+
+-- Drop table
+
+-- DROP TABLE atom24.users;
+
+CREATE TABLE atom24.users (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	s_login varchar NOT NULL,
+	s_password_hash varchar NULL,
+	s_salt varchar NULL,
+	s_first_name varchar NULL,
+	s_second_name varchar NULL,
+	s_last_name varchar NULL,
+	id_photo uuid NULL,
+	CONSTRAINT users_pk PRIMARY KEY (id),
+	CONSTRAINT users_users_fk FOREIGN KEY (id_photo) REFERENCES atom24.users(id)
+);
+
+-- Permissions
+
+ALTER TABLE atom24.users OWNER TO atom24;
+GRANT ALL ON TABLE atom24.users TO atom24;
+
+
+-- atom24.users_roles определение
+
+-- Drop table
+
+-- DROP TABLE atom24.users_roles;
+
+CREATE TABLE atom24.users_roles (
+	id_user uuid NOT NULL,
+	id_role uuid NOT NULL,
+	CONSTRAINT users_roles_pk PRIMARY KEY (id_user, id_role),
+	CONSTRAINT users_roles_roles_fk FOREIGN KEY (id_role) REFERENCES atom24.roles(id),
+	CONSTRAINT users_roles_users_fk FOREIGN KEY (id_user) REFERENCES atom24.users(id)
+);
+
+-- Permissions
+
+ALTER TABLE atom24.users_roles OWNER TO atom24;
+GRANT ALL ON TABLE atom24.users_roles TO atom24;
+
+
+-- atom24.blocking определение
+
+-- Drop table
+
+-- DROP TABLE atom24.blocking;
+
+CREATE TABLE atom24.blocking (
+	id_object uuid NOT NULL,
+	id_user uuid NOT NULL,
+	d_block_time timestamptz NOT NULL,
+	n_block_minutes int8 NULL DEFAULT 30,
+	CONSTRAINT blocking_pk PRIMARY KEY (id_object),
+	CONSTRAINT blocking_users_fk FOREIGN KEY (id_user) REFERENCES atom24.users(id)
+);
+
+-- Table Triggers
+
+create trigger blocking_bins before
+insert
+    on
+    atom24.blocking for each row execute function blocking_bins();
+
+-- Permissions
+
+ALTER TABLE atom24.blocking OWNER TO atom24;
+GRANT ALL ON TABLE atom24.blocking TO atom24;
+
+
+-- atom24.refresh_tokens определение
+
+-- Drop table
+
+-- DROP TABLE atom24.refresh_tokens;
+
+CREATE TABLE atom24.refresh_tokens (
+	id uuid NOT NULL DEFAULT uuid_generate_v4(),
+	s_token_id varchar NOT NULL,
+	id_user uuid NOT NULL,
+	CONSTRAINT refresh_tokens_pk PRIMARY KEY (id),
+	CONSTRAINT refresh_tokens_users_fk FOREIGN KEY (id_user) REFERENCES atom24.users(id)
+);
+
+-- Permissions
+
+ALTER TABLE atom24.refresh_tokens OWNER TO atom24;
+GRANT ALL ON TABLE atom24.refresh_tokens TO atom24;
+
+INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_second_name, s_last_name, id_photo) VALUES('feb282de-9ab6-4f68-9ad4-bac41a56183d'::uuid, 'test', 'U-8umJupgOywfeO5NcfsIx5XGtgfJKjEtsnOIgK1jB4=', '60aed43b1c4c7405a6a83a0ed2b4b25a0dc2b2d911013bf6a548adee723191b4', 'test', 'test', 'test', NULL);
+INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_second_name, s_last_name, id_photo) VALUES('0c546399-6b0d-4af4-8b0e-cbfeaf80f59a'::uuid, 'admin', 'oYGWBzuVsTapjE9l2VnvrIM8Erk_wrDVs9FgleLaNZk=', 'a626250de7cb54951b13245cad23611a7dcd7f7ab1f1764bb1c597fb2bb92872', 'admin', 'admin', '123&', NULL);
+INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_second_name, s_last_name, id_photo) VALUES('8d228752-cf99-459b-8dd3-c93123a295e1'::uuid, 'user', 'K5j7koB8QDnWO-ZCE0JSEUrGCjkkqjtzCa6tsVzfsFQ=', '8f1045c2b5d4ba31f4f1b163f7c5bc3494181c9a68006ebd9d930f0b174cba9f', 'userr', 'user', 'user', NULL);
+INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_second_name, s_last_name, id_photo) VALUES('e3dedf34-b83d-449a-bff5-f39eaf14a273'::uuid, 'confirmer', '4qLNdN_5fQQeVxY4KYtbi4NbphB-8NnHwxvY7SDm8jo=', '4a6c82787f47a594164c83436128aade862648aba2b6edf00bf1e51d3b635750', '—огласующий', 'testtest1!', '—огласующий', NULL);
+INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_second_name, s_last_name, id_photo) VALUES('fa248d91-70a0-4eda-95a0-ddf3ca093063'::uuid, 'usr', 'U-8umJupgOywfeO5NcfsIx5XGtgfJKjEtsnOIgK1jB4=', '60aed43b1c4c7405a6a83a0ed2b4b25a0dc2b2d911013bf6a548adee723191b4', 'ѕользователь', 'testtest1!', 'test', NULL);

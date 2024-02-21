@@ -1,0 +1,2 @@
+cd GoServerApp
+go build
