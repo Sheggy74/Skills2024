@@ -13,7 +13,7 @@ import { StateService } from '../StateService/state.service';
 })
 export class JwtService extends BaseApiService {
 
-    localApiPath = this.apiURL + '/default/'
+    localApiPath = this.apiURL + '/auth'
     router = inject(Router)
     stateService = inject(StateService)
     tokensLock = new SuperTokensLock()
@@ -85,7 +85,7 @@ export class JwtService extends BaseApiService {
             login: login,
             password: password
         }
-        let retValue = await lastValueFrom(this.http.post<JWTDTO>(this.localApiPath + 'getToken', body)
+        let retValue = await lastValueFrom(this.http.post<JWTDTO>(this.localApiPath + '/login', body)
             .pipe(catchError(this.exceptionService.getErrorHandlerSingleObject(event))));
         return retValue
     }
