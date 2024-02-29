@@ -16,10 +16,10 @@ export class AgileUIService extends BaseApiService {
         if (roleName == '') {
             return new Promise(() => [])
         }
-        var retValue = lastValueFrom(this.http.get<NavigationButton[]>(this.apiURL + `/default/navigationButtons/${roleName}`)
+        var retValue = lastValueFrom(this.http.get<NavigationButton[]>(this.apiURL + `/auth/navigationButtons/${roleName}`)
             .pipe(catchError(this.exceptionService.getErrorHandlerList())));
 
         return retValue;
     }
-   
+
 }

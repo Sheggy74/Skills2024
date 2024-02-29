@@ -31,7 +31,7 @@ export class LogService {
             lastValue.count += 1
             return;
         }
-        
+
         this.activityStack.push({
             createTime: new Date(),
             description: message,
@@ -39,7 +39,7 @@ export class LogService {
         })
     }
 
-    
+
     getActivityStack() : string{
         let returnValue = ''
         for(let i = this.activityStack.length - 1; i > 0; i--){
@@ -132,14 +132,14 @@ class ServerLogger implements ILogger {
                 this.toastService.show(MessageType.Error, "Ошибка логгирования на сервер")
                 this.logErrorCount++
             }
-            
+
             return of(false);
         }
         var dto = {
             message : message.toString() + "\n" + activityStack,
             level : LogLevel[level]
         }
-        var retValue = await lastValueFrom(this.http.post<boolean>(environment.apiURL + '/default/log', dto)
+        var retValue = await lastValueFrom(this.http.post<boolean>(environment.apiURL + '/log', dto)
             .pipe(catchError(errorHandler)));
     }
 }

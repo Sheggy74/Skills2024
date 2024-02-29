@@ -5,6 +5,7 @@
             <tr>
                 <th>FIO</th>
                 <th>Login</th>
+                <th>Email</th>
                 <th>Roles</th>
             </tr>
         </ng-template>
@@ -12,6 +13,7 @@
             <tr [pSelectableRow]="user">
                 <td>{{user.firstName + ' ' + user.secondName + ' ' + user.lastName}}</td>
                 <td>{{user.login}}</td>
+                <td>{{user.email}}</td>
                 <td>roles</td>
             </tr>
         </ng-template>

@@ -21,12 +21,12 @@ export class UsersComponent extends BaseComponent {
             return
         }
 
-        let blockResult = await this.blockService.blockObject(this.userUIService.selectedUser.value.id)
-        if(blockResult != ""){
-            return
-        }
+        // let blockResult = await this.blockService.blockObject(this.userUIService.selectedUser.value.id)
+        // if(blockResult != ""){
+        //     return
+        // }
         let isDeleted = await this.adminUserService.deleteUser(this.userUIService.selectedUser.value.id)
-        let unblockResult = await this.blockService.unblockObject(this.userUIService.selectedUser.value.id)
+        //let unblockResult = await this.blockService.unblockObject(this.userUIService.selectedUser.value.id)
         if (isDeleted == false){
             return
         }

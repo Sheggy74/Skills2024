@@ -47,17 +47,17 @@ export class AddEditUserComponent extends ValidationComponent{
                     return
                 }
                 this.photoSrc = result
-            } 
+            }
             reader.readAsDataURL(file)
         }))
     }
     override validate(){
-        super.validate()        
+        super.validate()
 
         let loginIndex = this.userUIService.users.value.findIndex((user)=>{
             let matchingCondition = user.login != null && user.login.trim().toLowerCase() == this.user.login?.trim().toLowerCase() &&
                 user.login.trim().toLowerCase() != this.oldUser.login?.trim().toLowerCase()
-            
+
             return matchingCondition
         })
         if(this.hasPasswordChanged){
@@ -122,34 +122,34 @@ export class AddEditUserComponent extends ValidationComponent{
         }
 
         if(this.isCreate){
-            let user = await this.userService.createUser(this.user, this.hasPhotoChanged ? this.photo.value : undefined, 
+            let user = await this.userService.createUser(this.user, this.hasPhotoChanged ? this.photo.value : undefined,
                 this.hasPasswordChanged ? this.password : undefined)
-    
+
             if(user.id == null){
                 return
             }
-    
+
             this.userUIService.users.value.push(user)
             this.userUIService.users.next(this.userUIService.users.value)
-    
+
             this.isOpen = false
         }
         else{
             if(this.user.id == null){
                 return
             }
-            let blockResult = await this.blockService.blockObject(this.user.id)
-            if(blockResult != ""){
-                return
-            }
-            let user = await this.userService.updateUser(this.user, this.hasPhotoChanged ? this.photo.value : undefined, 
+            //let blockResult = await this.blockService.blockObject(this.user.id)
+            //if(blockResult != ""){
+            //    return
+            //}
+            let user = await this.userService.updateUser(this.user, this.hasPhotoChanged ? this.photo.value : undefined,
                 this.hasPasswordChanged ? this.password : undefined)
-    
-            let unblockResult = await this.blockService.unblockObject(this.user.id)
+
+            //let unblockResult = await this.blockService.unblockObject(this.user.id)
             if(user.id == null){
                 return
             }
-    
+
             let existingIndex = this.userUIService.users.value.findIndex((value)=>{
                 return value.id == user.id
             })
@@ -161,7 +161,7 @@ export class AddEditUserComponent extends ValidationComponent{
             this.userUIService.users.value.splice(existingIndex,1)
             this.userUIService.users.value.push(user)
             this.userUIService.users.next(this.userUIService.users.value)
-    
+
             this.isOpen = false
         }
     }
@@ -170,7 +170,7 @@ export class AddEditUserComponent extends ValidationComponent{
     }
     photoChanged(file : File){
         this.hasPhotoChanged = true
-        this.photo.next(file)         
+        this.photo.next(file)
     }
     passwordFocused(){
         if(this.hasPasswordChanged == false){
@@ -178,5 +178,5 @@ export class AddEditUserComponent extends ValidationComponent{
             this.hasPasswordChanged = true
         }
     }
-    
+
 }

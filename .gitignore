@@ -1,2 +1,4 @@
 *.rar
 *.exe
+ClientApp/package-lock.json
+ClientApp/package.json
