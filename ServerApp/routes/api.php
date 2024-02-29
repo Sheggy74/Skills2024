@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController as AuthControllerAlias;
+use App\Http\Controllers\MessageController as MessageControllerAlias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,6 +26,13 @@ Route::prefix('auth')
     Route::post('login','login');
 });
 
+
+Route::prefix('message')
+     ->middleware('api')
+     ->controller(MessageControllerAlias::class)
+     ->group(function (){
+    Route::post('post','index');
+});
 
 Route::prefix('admin')
     ->middleware('api')
