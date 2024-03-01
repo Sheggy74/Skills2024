@@ -1,9 +1,9 @@
 import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ExperimentsListComponent } from './pages/experiments-list/experiments-list.component';
+import { ExperimentsComponent } from './pages/experiments/experiments.component';
 
 const routes: Routes = [
-  {path:'' , component: ExperimentsListComponent},
+  {path:'' , component: ExperimentsComponent},
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

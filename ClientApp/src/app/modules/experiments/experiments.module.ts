@@ -11,13 +11,13 @@ import { ButtonModule } from 'primeng/button';
 import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives.module';
 import { ExperimentsRoutingModule } from './experiments-routing.module';
 import {MatTabsModule} from '@angular/material/tabs';
-import { ExperimentsListComponent } from './pages/experiments-list/experiments-list.component';
+import { ExperimentsComponent } from './pages/experiments/experiments.component';
 
 
 
 @NgModule({
   declarations: [
-    ExperimentsListComponent
+    ExperimentsComponent
   ],
   imports: [
     CommonModule,
