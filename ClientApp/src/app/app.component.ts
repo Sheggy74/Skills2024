@@ -67,10 +67,10 @@ export class AppComponent extends BaseComponent {
 
         let subscription2 = this.stateService.applicationName.subscribe((value) => {
             if(value.length < 1){
-                document.title = "IDM-система"
-                return 
+                document.title = "LAB-система"
+                return
             }
-            document.title = "IDM-система. " + value.substring(0,1).toUpperCase() + value.substring(1, value.length)
+            document.title = "LAB-система. " + value.substring(0,1).toUpperCase() + value.substring(1, value.length)
         });
         this.subscriptions.push(subscription2);
         // если токен исчез, перейти на страницу авторизации
@@ -81,7 +81,7 @@ export class AppComponent extends BaseComponent {
             }
         }))
     }
-    
+
     override ngOnDestroy(): void {
         super.ngOnDestroy()
 
@@ -89,7 +89,7 @@ export class AppComponent extends BaseComponent {
     }
     @HostListener("document:keydown", ["$event"])
     handleDocumentKeyDown(event : KeyboardEvent){
-        
+
     }
 
 }

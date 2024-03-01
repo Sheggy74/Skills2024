@@ -61,15 +61,14 @@ import { BlockService } from './services/BlockService/block.service';
     NavigationWrapperComponent,
     ToolbarComponent,
     RoleSelectionItemComponent,
-    RoleSelectionListComponent,
-
+    RoleSelectionListComponent
   ],
   imports: [
     AppRoutingModule,
     ButtonModule,
     BrowserModule,
     BrowserAnimationsModule,
-    InputTextModule, 
+    InputTextModule,
     HttpClientModule,
     DividerModule,
     OverlayPanelModule,

@@ -16,7 +16,8 @@ const routes: Routes = [
             { path: "role-selection", component: RoleSelectionListComponent},
             { path: 'admin', loadChildren: () => { return import('./modules/admin/admin.module').then(m => m.AdminModule); }},
             { path: 'user', loadChildren: () => { return import('./modules/user/user.module').then(m => m.UserModule); }},
-            { path: 'confirmer', loadChildren: () => { return import('./modules/confirmer/confirmer.module').then(m => m.ConfirmerModule); }}
+            { path: 'confirmer', loadChildren: () => { return import('./modules/confirmer/confirmer.module').then(m => m.ConfirmerModule); }},
+            { path: 'experiments', loadChildren: () => { return import('./modules/experiments/experiments.module').then(m => m.ExperimentsModule); }}
         ]
 
     },

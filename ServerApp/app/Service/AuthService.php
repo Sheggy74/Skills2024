@@ -10,20 +10,26 @@ class AuthService{
 
     public static function getNavigationButtons($roleName) : Collection
     {
-
+        $buttons = collect();
         if($roleName == 'admin'){
-            $buttons = [
+            $buttons->push(
                 new NavigationButton([
                     'caption' => 'Пользователи',
                     'iconClass' => 'person',
                     'routerLink' => 'admin/users'
                 ])
-            ];
-            return collect($buttons);
+            );
         }
 
-        return collect();
+        $buttons->push(
+            new NavigationButton([
+                'caption' => 'Испытания',
+                'iconClass' => 'fact_check',
+                'routerLink' => 'experiments'
+            ])
+        );
 
+        return $buttons;
     }
 
 }

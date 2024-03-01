@@ -34,6 +34,22 @@ class DatabaseSeeder extends Seeder
             'user_id' => $user->id,
             'role_id' => $role->id
         ]);
+
+        $user = User::factory()->create([
+            'email' => 'user@example.com',
+            'login' => 'user',
+            'password' => bcrypt('user')
+        ]);
+
+        $role = Role::query()->create([
+            'name' => 'user',
+            'starting_url' => '/lab'
+        ]);
+
+        UserRole::query()->create([
+            'user_id' => $user->id,
+            'role_id' => $role->id
+        ]);
 ;
 
     }
