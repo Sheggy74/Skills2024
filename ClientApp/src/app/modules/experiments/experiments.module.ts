@@ -12,12 +12,14 @@ import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives
 import { ExperimentsRoutingModule } from './experiments-routing.module';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ExperimentsComponent } from './pages/experiments/experiments.component';
+import { ExperimentsListComponent } from './pages/experiments/experiments-list/experiments-list.component';
 
 
 
 @NgModule({
   declarations: [
-    ExperimentsComponent
+    ExperimentsComponent,
+    ExperimentsListComponent
   ],
   imports: [
     CommonModule,

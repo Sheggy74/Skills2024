@@ -1,0 +1,28 @@
+<section >
+  <p-table
+    selectionMode="single"
+    [(selection)]="selectedExperiment"
+    (selectionChange)="experimentService.selectedExperiment.next(selectedExperiment)"
+    [value]="(experimentService.experiments | async)!"
+    [scrollable]="true"
+    scrollHeight="400px" >
+      <ng-template pTemplate="header">
+          <tr>
+              <th>Название испытания</th>
+              <th>Номер испытания</th>
+              <th>Дата проведения</th>
+              <th>Инициатор</th>
+              <th>Оборудование</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-experiment >
+          <tr [pSelectableRow]="experiment">
+              <td>{{experiment.name}}</td>
+              <td>{{experiment.number}}</td>
+              <td>{{experiment.date | date: "dd.MM.yyyy"}}</td>
+              <td>{{userHelper.getFio(this.experiment.user)}}</td>
+              <td>{{experiment.tool.name}}</td>
+          </tr>
+      </ng-template>
+  </p-table>
+</section>

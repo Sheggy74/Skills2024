@@ -7,12 +7,12 @@
 
     <section gridRows="auto auto auto auto auto auto auto auto" gridColumns="1fr 1fr 1fr" class="w-full mt-6">
         <span class="flex flex-col p-float-label w-full col-span-2">
-            <input type="text" #validate id="login" pAutoFocus [autofocus]="true"  class="w-full" pInputText [(ngModel)]="user.login">
+            <input type="text" #validate id="login" pAutoFocus [autofocus]="true"  class="w-full" pInputText [(ngModel)]="user!.login">
             <label for="inputtext">Логин <span class="text-red-500">*</span></label>
             <small *ngIf="shouldShowError('login')" class="p-error text-xs ml-4">{{validationErrors.login}}</small>
         </span>
         <span class="flex flex-col p-float-label w-full row-start-2 mt-6 col-span-2">
-          <input type="text" #validate id="email" pAutoFocus [autofocus]="true"  class="w-full" pInputText [(ngModel)]="user.email">
+          <input type="text" #validate id="email" pAutoFocus [autofocus]="true"  class="w-full" pInputText [(ngModel)]="user!.email">
           <label for="inputtext">Email <span class="text-red-500">*</span></label>
           <small *ngIf="shouldShowError('email')" class="p-error text-xs ml-4">{{validationErrors.email}}</small>
       </span>
@@ -27,17 +27,17 @@
         </span>
         <section class="mt-6 flex flex-row row-start-4 col-span-3 gap-1">
             <span class="flex flex-col p-float-label w-full">
-                <input type="text" #validate id="firstName"   class="w-full" pInputText [(ngModel)]="user.firstName">
+                <input type="text" #validate id="firstName"   class="w-full" pInputText [(ngModel)]="user!.firstName">
                 <label for="inputtext">Имя <span class="text-red-500">*</span></label>
                 <small *ngIf="shouldShowError('firstName')" class="p-error text-xs ml-4">{{validationErrors.firstName}}</small>
             </span>
             <span class="flex flex-col p-float-label w-full">
-                <input type="text" #validate id="secondName"   class="w-full" pInputText [(ngModel)]="user.secondName">
+                <input type="text" #validate id="secondName"   class="w-full" pInputText [(ngModel)]="user!.secondName">
                 <label for="inputtext">Фамилия <span class="text-red-500">*</span></label>
                 <small *ngIf="shouldShowError('secondName')" class="p-error text-xs ml-4">{{validationErrors.secondName}}</small>
             </span>
             <span class="flex flex-col p-float-label w-full ">
-                <input type="text" #validate id="lastName"   class="w-full" pInputText [(ngModel)]="user.lastName">
+                <input type="text" #validate id="lastName"   class="w-full" pInputText [(ngModel)]="user!.lastName">
                 <label for="inputtext">Отчество</label>
                 <small *ngIf="shouldShowError('lastName')" class="p-error text-xs ml-4">{{validationErrors.lastName}}</small>
             </span>
@@ -56,12 +56,12 @@
                 <app-image
                     [economyMode]="false"
                     class="overflow-hidden z-10 w-[160px] h-[160px] transition-all group-hover:grayscale-[0.8] group-hover:opacity-20 absolute top-0"
-                    *ngIf="!hasPhotoChanged && user.idPhoto != null"
-                    [id]="user.idPhoto">
+                    *ngIf="!hasPhotoChanged && user!.idPhoto != null"
+                    [id]="user!.idPhoto">
 
                 </app-image>
                 <img
-                    *ngIf="!(!hasPhotoChanged && user.idPhoto != null)"
+                    *ngIf="!(!hasPhotoChanged && user!.idPhoto != null)"
                     [src]="photoSrc == '' ? 'assets/lk-person.png' : photoSrc" class="overflow-hidden z-10 w-[160px] h-[160px] transition-all group-hover:grayscale-[0.8] group-hover:opacity-20 absolute top-0"/>
             </div>
 

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Interface\CrudController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class AdminController extends Controller
+class AdminController extends Controller implements CrudController
 {
     public function index(Request $request){
         return UserResource::collection(User::query()->orderBy('id','asc')->get());

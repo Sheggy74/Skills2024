@@ -26,6 +26,9 @@ Route::prefix('auth')
     Route::post('login','login');
 });
 
+require_once __DIR__."/api/admin.php";
+require_once __DIR__."/api/experiments.php";
+
 
 Route::prefix('message')
      ->middleware('api')
@@ -34,14 +37,4 @@ Route::prefix('message')
     Route::post('post','index');
 });
 
-Route::prefix('admin')
-    ->middleware('api')
-    ->controller(\App\Http\Controllers\AdminController::class)
-    ->group(function (){
-        Route::get('users','index');
-        Route::get('users/{id}','show');
-        Route::post('users','create');
-        Route::put('users/{id}','update');
-        Route::delete('users/{id}','delete');
 
-    });
