@@ -13,13 +13,15 @@ import { ExperimentsRoutingModule } from './experiments-routing.module';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ExperimentsComponent } from './pages/experiments/experiments.component';
 import { ExperimentsListComponent } from './pages/experiments/experiments-list/experiments-list.component';
+import { AddEditExperimentComponent } from './pages/experiments/add-edit-experiment/add-edit-experiment.component';
 
 
 
 @NgModule({
   declarations: [
     ExperimentsComponent,
-    ExperimentsListComponent
+    ExperimentsListComponent,
+    AddEditExperimentComponent
   ],
   imports: [
     CommonModule,

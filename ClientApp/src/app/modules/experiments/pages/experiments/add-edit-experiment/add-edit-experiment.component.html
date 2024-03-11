@@ -1,0 +1,114 @@
+<section gridRows="auto 9fr 1fr">
+  <section gridRows="auto auto auto" gridColumns="1fr 1fr 1fr 1fr" class="w-full mt-6 px-10">
+    <span class="flex flex-col p-float-label w-10/12">
+      <input
+        type="text"
+        #validate
+        id="number"
+        pAutoFocus
+        [autofocus]="true"
+        class="w-full"
+        pInputText
+        [(ngModel)]="experiment.number"
+      >
+      <label for="inputtext">Нсмер испытания<span class="text-red-500">*</span></label>
+      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+    </span>
+    <span class="flex flex-col p-float-label w-10/12">
+      <input
+        type="text"
+        #validate
+        id="name"
+        pAutoFocus
+        [autofocus]="true"
+        class="w-full"
+        pInputText
+        [(ngModel)]="experiment.name"
+      >
+      <label for="inputtext">Название испытания<span class="text-red-500">*</span></label>
+      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+    </span>
+    <span class="flex flex-col p-float-label w-10/12 mt-6 row-start-2">
+      <input
+        type="text"
+        #validate
+        id="user"
+        pAutoFocus
+        [autofocus]="true"
+        class="w-full"
+        pInputText
+        [(ngModel)]="experiment.user"
+      >
+      <label for="inputtext">ФИО лаборанта<span class="text-red-500">*</span></label>
+      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+    </span>
+    <span class="flex flex-col p-float-label w-10/12 mt-6 row-start-2">
+      <input
+        type="text"
+        #validate
+        id="tool"
+        pAutoFocus
+        [autofocus]="true"
+        class="w-full"
+        pInputText
+        [(ngModel)]="experiment.tool"
+      >
+      <label for="inputtext">Используемое оборудование<span class="text-red-500">*</span></label>
+      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+    </span>
+    <span class="flex flex-col p-float-label  w-10/12 mt-6 row-start-3">
+      <input
+        type="text"
+        #validate
+        id="date"
+        pAutoFocus
+        [autofocus]="true"
+        class="w-full"
+        pInputText
+        [(ngModel)]="experiment.date"
+      >
+      <label for="inputtext">Дата проведения испытания<span class="text-red-500">*</span></label>
+      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+    </span>
+
+  </section>
+  <p-table
+    class="mx-6"
+    selectionMode="single"
+    [scrollable]="true"
+    scrollHeight="400px" >
+    <ng-template pTemplate="header">
+        <tr>
+            <th>Название испытания</th>
+            <th>Номер испытания</th>
+            <th>Дата проведения</th>
+            <th>Инициатор</th>
+            <th>Оборудование</th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-experiment >
+        <tr >
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+    </ng-template>
+  </p-table>
+  <section class="flex flex-row justify-end mt-6 mr-5 w-full">
+    <button
+      pButton
+      label="Добавить/Сохранить"
+      class="mr-3"
+      (click)="onCreateEdit()"
+    ></button>
+    <button
+      pButton
+      label="Отмена"
+      class="p-button-secondary"
+      (click)="onCancel()"
+    ></button>
+  </section>
+</section>
+

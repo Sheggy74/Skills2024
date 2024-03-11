@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-experiments',
@@ -6,5 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./experiments.component.css']
 })
 export class ExperimentsComponent {
+
+  private router = inject(Router);
+
+  onAdd(){
+    this.router.navigateByUrl('/experiments/new');
+  }
 
 }
