@@ -6,4 +6,5 @@ export interface User{
     secondName? : string
     lastName? : string
     idPhoto? : string
+    fio?: string
 }

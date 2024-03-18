@@ -13,7 +13,7 @@ class ExperimentController extends Controller implements CrudController
 
     public function index(Request $request)
     {
-        $data =  Experiment::query()->get();
+        $data =  Experiment::query()->orderBy('id','desc')->get();
         return ExperimentResource::collection($data);
     }
 
@@ -27,10 +27,10 @@ class ExperimentController extends Controller implements CrudController
     {
         $data = Experiment::query()->create([
             'name' => $request->name,
-            'number' => $request->nubmer,
+            'number' => $request->number,
             'date' => $request->date,
             'user_id' => $request->user_id,
-            'tool_id' => $request->tool_Id
+            'tool_id' => $request->tool_id
         ]);
         return new ExperimentResource($data);
     }
@@ -50,7 +50,7 @@ class ExperimentController extends Controller implements CrudController
 
     public function delete($id)
     {
-        User::query()->find($id)->delete();
+        Experiment::query()->find($id)->delete();
         return 0;
     }
 }

@@ -50,5 +50,13 @@
     @apply m-0
 }
 
+::ng-deep .p-autocomplete{
+  width: 100%;
+}
+
+::ng-deep .p-autocomplete input{
+  width: 100%;
+}
+
 
 

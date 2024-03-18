@@ -10,9 +10,10 @@
         class="w-full"
         pInputText
         [(ngModel)]="experiment.number"
+
       >
       <label for="inputtext">Нсмер испытания<span class="text-red-500">*</span></label>
-      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+      <small *ngIf="shouldShowError('number')" class="p-error text-xs ml-4">{{this.validationErrors.number}}</small>
     </span>
     <span class="flex flex-col p-float-label w-10/12">
       <input
@@ -26,10 +27,10 @@
         [(ngModel)]="experiment.name"
       >
       <label for="inputtext">Название испытания<span class="text-red-500">*</span></label>
-      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+      <small *ngIf="shouldShowError('name')" class="p-error text-xs ml-4">{{this.validationErrors.name}}</small>
     </span>
     <span class="flex flex-col p-float-label w-10/12 mt-6 row-start-2">
-      <input
+      <!-- <input
         type="text"
         #validate
         id="user"
@@ -38,37 +39,54 @@
         class="w-full"
         pInputText
         [(ngModel)]="experiment.user"
+      > -->
+      <p-autoComplete
+        [(ngModel)]="experiment.user"
+        [suggestions]="filteredUsers"
+        (completeMethod)="searchUser($event)"
+        [dropdown]="true"
+        class="w-full"
+        field="fio"
+        id="user"
+        #validate
       >
-      <label for="inputtext">ФИО лаборанта<span class="text-red-500">*</span></label>
-      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+      </p-autoComplete>
+
+      <!-- <p-dropdown [options]="filteredUsers" [(ngModel)]="selectedUser" placeholder="Выберите лаборанта" [showClear]="true" [editable]="true"
+      value="userFioConversion(selectedUser)">
+        <ng-template let-user pTemplate="item">
+          {{user.lastName + ' ' + user.firstName + ' ' + user.secondName }}
+      </ng-template>
+      <ng-template let-user pTemplate="selectedItem">
+        {{selectedUser.lastName + ' ' + selectedUser.firstName + ' ' + selectedUser.secondName }}
+    </ng-template>
+      </p-dropdown> -->
+      <label for="user">ФИО лаборанта<span class="text-red-500">*</span></label>
+      <small *ngIf="shouldShowError('user')" class="p-error text-xs ml-4">{{this.validationErrors.user}}</small>
     </span>
     <span class="flex flex-col p-float-label w-10/12 mt-6 row-start-2">
-      <input
-        type="text"
-        #validate
-        id="tool"
-        pAutoFocus
-        [autofocus]="true"
-        class="w-full"
-        pInputText
+      <p-autoComplete
         [(ngModel)]="experiment.tool"
+        [suggestions]="filteredTools"
+        (completeMethod)="searchTool($event)"
+        [dropdown]="true"
+        class="w-full"
+        field="name"
+        id="tool"
+        #validate
       >
+      </p-autoComplete>
       <label for="inputtext">Используемое оборудование<span class="text-red-500">*</span></label>
-      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+      <small *ngIf="shouldShowError('tool')" class="p-error text-xs ml-4">{{this.validationErrors.tool}}</small>
     </span>
     <span class="flex flex-col p-float-label  w-10/12 mt-6 row-start-3">
-      <input
-        type="text"
-        #validate
-        id="date"
-        pAutoFocus
-        [autofocus]="true"
-        class="w-full"
-        pInputText
+      <p-calendar
         [(ngModel)]="experiment.date"
-      >
+        [showIcon]="true"
+        class="w-full"
+      ></p-calendar>
       <label for="inputtext">Дата проведения испытания<span class="text-red-500">*</span></label>
-      <small *ngIf="true" class="p-error text-xs ml-4">1231</small>
+      <small *ngIf="shouldShowError('date')" class="p-error text-xs ml-4">{{this.validationErrors.date}}</small>
     </span>
 
   </section>
