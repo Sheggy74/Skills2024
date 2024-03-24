@@ -5,7 +5,9 @@
     (selectionChange)="experimentService.selectedExperiment.next(selectedExperiment)"
     [value]="(experimentService.experiments | async)!"
     [scrollable]="true"
-    scrollHeight="400px" >
+    scrollHeight="400px"
+    [loading]="isLoading"
+  >
       <ng-template pTemplate="header">
           <tr>
               <th>Название испытания</th>

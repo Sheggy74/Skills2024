@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { DividerModule } from 'primeng/divider';
 import { SidebarModule } from 'primeng/sidebar';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 import { NavigationWrapperComponent } from './wrappers/navigation-wrapper/navigation-wrapper.component';
 import { DefaultWrapperComponent } from './wrappers/default-wrapper/default-wrapper.component'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -65,6 +66,7 @@ import { BlockService } from './services/BlockService/block.service';
   ],
   imports: [
     AppRoutingModule,
+    AutoCompleteModule,
     ButtonModule,
     BrowserModule,
     BrowserAnimationsModule,

@@ -13,17 +13,23 @@ import { ExperimentsRoutingModule } from './experiments-routing.module';
 import {MatTabsModule} from '@angular/material/tabs';
 import { ExperimentsComponent } from './pages/experiments/experiments.component';
 import { ExperimentsListComponent } from './pages/experiments/experiments-list/experiments-list.component';
+import { AddEditExperimentComponent } from './pages/experiments/add-edit-experiment/add-edit-experiment.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
+import { CalendarModule } from 'primeng/calendar';
 
 
 
 @NgModule({
   declarations: [
     ExperimentsComponent,
-    ExperimentsListComponent
+    ExperimentsListComponent,
+    AddEditExperimentComponent
   ],
   imports: [
     CommonModule,
+    AutoCompleteModule,
     ExperimentsRoutingModule,
+    CalendarModule,
     TableModule,
     MesComponentsModule,
     DividerModule,

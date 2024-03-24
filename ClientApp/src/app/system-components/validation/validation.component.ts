@@ -2,6 +2,7 @@ import { Component, ElementRef, EventEmitter, Output, QueryList, ViewChildren } 
 import { Dropdown } from 'primeng/dropdown';
 import { BehaviorSubject, debounce, interval } from 'rxjs';
 import { BaseComponent } from '../base-component/base.component';
+import { AutoComplete } from 'primeng/autocomplete';
 
 @Component({
   selector: 'app-validation',
@@ -11,7 +12,7 @@ import { BaseComponent } from '../base-component/base.component';
 export class ValidationComponent extends BaseComponent{
 
     @ViewChildren("validate") inputsToValidate : QueryList<any> | undefined
-    @Output() validationStateChanged : EventEmitter<boolean> = new EventEmitter() 
+    @Output() validationStateChanged : EventEmitter<boolean> = new EventEmitter()
 
     validationErrors : any = {}
 
@@ -38,7 +39,7 @@ export class ValidationComponent extends BaseComponent{
         setTimeout(() => {
             this.setupCallbacks()
         });
-    
+
     }
     setupCallbacks(){
         if(this.inputsToValidate == null){
@@ -46,7 +47,7 @@ export class ValidationComponent extends BaseComponent{
         }
         this.inputsToValidate.forEach((input)=>{
             this.setupOnChangeHandlingForElement(input)
-        })        
+        })
     }
     setupOnChangeHandlingForElement(input: any) {
         if(input instanceof ElementRef){
@@ -57,6 +58,12 @@ export class ValidationComponent extends BaseComponent{
                 this.validationInputValueChanged.next(input.el.nativeElement)
             }))
         }
+        if(input instanceof AutoComplete){
+          this.subscriptions.push(input.onSelect.subscribe((value)=>{
+              this.validationInputValueChanged.next(input.el.nativeElement)
+          }))
+      }
+
     }
     areThereAnyValidationErrors() : boolean{
         for (let value in this.validationErrors){
@@ -85,7 +92,7 @@ export class ValidationComponent extends BaseComponent{
         this.inputsToValidate?.forEach((input)=>{
             let nativeElement = this.getNativeElement(input)
             if(nativeElement != null){
-                this.updateControlState(nativeElement)                
+                this.updateControlState(nativeElement)
             }
         })
     }
@@ -93,7 +100,7 @@ export class ValidationComponent extends BaseComponent{
         let cond1 = input.classList.contains("ng-dirty")
         let cond2 = this.validationErrors[input.id] != null
         if(cond2 && cond1){
-            
+
             input.classList.remove("ng-valid")
             input.classList.add("ng-invalid")
         }
@@ -139,7 +146,7 @@ export class ValidationComponent extends BaseComponent{
                 nativeElement.classList.remove("ng-dirty")
                 nativeElement.classList.remove("ng-invalid")
             }
-           
+
         })
     }
 
@@ -154,6 +161,9 @@ export class ValidationComponent extends BaseComponent{
         if(input instanceof Dropdown){
             return input.el.nativeElement
         }
+        if(input instanceof AutoComplete){
+          return input.el.nativeElement
+      }
         return undefined
     }
 }

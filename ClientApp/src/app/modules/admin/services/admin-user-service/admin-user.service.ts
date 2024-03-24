@@ -15,7 +15,12 @@ export class AdminUserService extends BaseApiService{
         var retValue = lastValueFrom(this.http.get<User[]>(this.localAPIPath)
             .pipe(
               map((user: any) => {
-                return user.data;
+                return user.data.map((user: any) => {
+                  return {
+                    ...user,
+                    fio: user.lastName + ' ' + user.firstName + ' ' + user.secondName
+                  }
+                });
               }),
               catchError(this.exceptionService.getErrorHandlerList())));
 
