@@ -11,8 +11,9 @@ class MessageController extends Controller
 {
     public function index(Request $request){
         $to_name = 'ATOM24';
-        $to_email = 'jeti74@mail.ru';
-        $data = array('name'=>"Andrey", "body" => $request->message);
+        $to_email = $request->mail;
+        $message = $request->message;
+        $data = array('name'=>$to_email, "body" => $message);
         Mail::send('emails', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)->subject('Artisans Web Testing Mail');
             $message->from('AtomSkills2023@yandex.ru','Artisans Web');

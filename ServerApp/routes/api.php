@@ -29,7 +29,7 @@ Route::prefix('auth')
 require_once __DIR__."/api/admin.php";
 require_once __DIR__."/api/experiments.php";
 
-
+//params: mail , message
 Route::prefix('message')
      ->middleware('api')
      ->controller(MessageControllerAlias::class)
