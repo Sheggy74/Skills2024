@@ -18,10 +18,18 @@ export class ExperimentsListComponent extends BaseComponent{
 
   userHelper = new UserHelper;
 
+  isLoading: boolean = true;
+
   override async ngOnInit(){
       super.ngOnInit();
 
-      this.experimentService.experiments.next(await this.experimentService.getExperiments());
+      this.experimentService.isLoading.subscribe(res => {
+        this.isLoading = res;
+        console.log(res);
+
+      })
+      await this.experimentService.updateData()
+      this.experimentService.isLoading.next(false);
   }
 
 }

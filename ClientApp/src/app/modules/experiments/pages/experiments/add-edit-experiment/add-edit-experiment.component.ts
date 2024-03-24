@@ -37,6 +37,11 @@ export class AddEditExperimentComponent extends ValidationComponent{
     this.tools = await this.toolService.getTools();
     this.filteredTools = this.tools.filter(tool => tool);
 
+    this.experimentService.selectedExperiment.subscribe(res => {
+      if(res)
+        this.experiment = res;
+      })
+
     this.subscriptions.push(this.pressedAdd.subscribe((pressed)=>{
       if(pressed){
           this.setAllControlsDirty(true)
@@ -80,11 +85,19 @@ export class AddEditExperimentComponent extends ValidationComponent{
 
   }
 
-  onCreateEdit(){
+  async onCreateEdit(){
+    let result;
     this.validate();
     this.pressedAdd.next(true);
     if(this.areThereAnyValidationErrors()) return;
-    this.experimentService.createExperiment(this.experiment);
+    if(this.experiment.id)
+      result = await this.experimentService.editExperiment(Number.parseInt(this.experiment.id), this.experiment);
+    else
+      result = await this.experimentService.createExperiment(this.experiment);
+
+    if(result.id)
+      this.moveBack();
+
   }
 
   private moveBack(){

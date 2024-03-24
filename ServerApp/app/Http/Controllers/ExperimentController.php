@@ -39,10 +39,10 @@ class ExperimentController extends Controller implements CrudController
     {
         Experiment::query()->find($id)->update([
             'name' => $request->name,
-            'number' => $request->nubmer,
+            'number' => $request->number,
             'date' => $request->date,
             'user_id' => $request->user_id,
-            'tool_id' => $request->tool_Id
+            'tool_id' => $request->tool_id
         ]);
         $data = Experiment::query()->find($id);
         return new ExperimentResource($data);

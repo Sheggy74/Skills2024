@@ -6,6 +6,7 @@ import { AddEditExperimentComponent } from './pages/experiments/add-edit-experim
 const routes: Routes = [
   {path:'' , component: ExperimentsComponent},
   {path:'new' , component: AddEditExperimentComponent},
+  {path:'edit' , component: AddEditExperimentComponent},
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -6,10 +6,18 @@
       >
 
       </app-icon-button>
-      <app-icon-button icon="edit">
+      <app-icon-button
+        icon="edit"
+        [disabled]="this.experiment == undefined"
+        (onClick)="onEdit()"
+      >
 
       </app-icon-button>
-      <app-icon-button icon="delete">
+      <app-icon-button
+        icon="delete"
+        [disabled]="this.experiment == undefined"
+        (onClick)="onDelete()"
+      >
 
       </app-icon-button>
   </div>
