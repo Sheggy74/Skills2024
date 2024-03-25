@@ -1,0 +1,30 @@
+<section >
+  <p-table
+    selectionMode="single"
+    [(selection)]="selectedScript"
+    (selectionChange)="scriptService.selectedScript.next(selectedScript)"
+    [value]="(scriptService.scripts| async)!"
+    [scrollable]="true"
+    scrollHeight="400px"
+    [loading]="isLoading"
+  >
+      <ng-template pTemplate="header">
+          <tr>
+              <th>№</th>
+              <th>Текст кода</th>
+              <th>Результат кода</th>
+              <th>Статус</th>
+          </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-script >
+          <tr [pSelectableRow]="script">
+              <td>{{script.id}}</td>
+              <td>{{script.textscript}}</td>
+              <td>{{script.result}}</td>
+              <td><i [ngClass]="script.scriptstate.id == 1 ? 'greentext':'redtext'">{{script.scriptstate.state}} </i></td>
+
+
+          </tr>
+      </ng-template>
+  </p-table>
+</section>

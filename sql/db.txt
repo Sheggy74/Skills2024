@@ -144,6 +144,38 @@ CREATE TABLE atom24.refresh_tokens (
 	CONSTRAINT refresh_tokens_users_fk FOREIGN KEY (id_user) REFERENCES atom24.users(id)
 );
 
+
+
+-- Drop table
+
+-- DROP TABLE atom24.scripts;
+
+CREATE TABLE atom24.scripts (
+	id int8 NOT NULL,
+	scriptstate_id int8 NULL,
+	textscript varchar NULL,
+	scripttype_id int8 NULL,
+	"result" varchar NULL
+);
+
+-- Drop table
+
+-- DROP TABLE atom24.scriptstate;
+
+CREATE TABLE atom24.scriptstate (
+	id int8 NULL,
+	state varchar NULL
+);
+
+-- Drop table
+
+-- DROP TABLE atom24.scripttype;
+
+CREATE TABLE atom24.scripttype (
+	id int8 NULL,
+	scripttype varchar NULL
+);
+
 -- Permissions
 
 ALTER TABLE atom24.refresh_tokens OWNER TO atom24;
@@ -154,3 +186,21 @@ INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_
 INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_second_name, s_last_name, id_photo) VALUES('8d228752-cf99-459b-8dd3-c93123a295e1'::uuid, 'user', 'K5j7koB8QDnWO-ZCE0JSEUrGCjkkqjtzCa6tsVzfsFQ=', '8f1045c2b5d4ba31f4f1b163f7c5bc3494181c9a68006ebd9d930f0b174cba9f', 'userr', 'user', 'user', NULL);
 INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_second_name, s_last_name, id_photo) VALUES('e3dedf34-b83d-449a-bff5-f39eaf14a273'::uuid, 'confirmer', '4qLNdN_5fQQeVxY4KYtbi4NbphB-8NnHwxvY7SDm8jo=', '4a6c82787f47a594164c83436128aade862648aba2b6edf00bf1e51d3b635750', 'Согласующий', 'testtest1!', 'Согласующий', NULL);
 INSERT INTO atom24.users (id, s_login, s_password_hash, s_salt, s_first_name, s_second_name, s_last_name, id_photo) VALUES('fa248d91-70a0-4eda-95a0-ddf3ca093063'::uuid, 'usr', 'U-8umJupgOywfeO5NcfsIx5XGtgfJKjEtsnOIgK1jB4=', '60aed43b1c4c7405a6a83a0ed2b4b25a0dc2b2d911013bf6a548adee723191b4', 'Пользователь', 'testtest1!', 'test', NULL);
+
+INSERT INTO atom24.scriptstate
+(id, state)
+VALUES(1, 'Обработан');
+INSERT INTO atom24.scriptstate
+(id, state)
+VALUES(2, 'Ошибка');
+
+INSERT INTO atom24.scripttype
+(id, scripttype)
+VALUES(0, 'SQL');
+INSERT INTO atom24.scripttype
+(id, scripttype)
+VALUES(1, 'PHP');
+INSERT INTO atom24.scripttype
+(id, scripttype)
+VALUES(2, 'JavaScript');
+

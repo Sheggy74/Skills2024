@@ -1,0 +1,21 @@
+<p-dialog
+    [header]="title"
+    [modal]="true"
+    [(visible)]="isOpen"
+    position="top"
+    [style]="{width: '800px'}">
+
+    <section gridRows="auto auto auto auto auto auto auto auto" gridColumns="1fr" class="w-full mt-6">
+      <label for="typelanguage">Выберите язык программирования</label>
+      <div class="flex">
+      <p-dropdown [options]="typeScript" [(ngModel)]="script.scripttype" class="mr-2" optionLabel="name" id="typelanguage" \   ></p-dropdown>
+      <i class="pi pi-info-circle place-self-center" *ngIf="script.scripttype?.id==0"  pTooltip="Пример запроса: 'select 1+3 as res'"> </i>
+     </div>
+      <label for="textscript">Текст скрипта</label>
+      <textarea rows="5" cols="40" pInputTextarea [(ngModel)]="script.textscript" id="textscript"></textarea>
+    </section>
+    <div class="flex flex-row justify-between col-span-4 mt-8 row-start-5">
+      <button pButton  (click)="create()">Сохранить</button>
+      <button pButton class="p-button-secondary" (click)="this.isOpen = false">Отменить</button>
+  </div>
+</p-dialog>
