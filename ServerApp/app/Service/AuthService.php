@@ -38,6 +38,14 @@ class AuthService{
             ])
         );
 
+        $buttons->push(
+            new NavigationButton([
+                'caption' => 'Отчет',
+                'iconClass' => 'book',
+                'routerLink' => 'report'
+            ])
+        );
+
         return $buttons;
     }
 

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController as AuthControllerAlias;
 use App\Http\Controllers\MessageController as MessageControllerAlias;
+use App\Http\Controllers\ReportController as ReportControllerAlias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -39,4 +40,11 @@ Route::prefix('message')
     Route::post('post','index');
 });
 
+Route::prefix('auth')
+      ->middleware('api')
+     ->controller(ReportControllerAlias::class)
+     ->group(function (){
+    Route::get('report','report');
+    Route::get('data','reportData');
+});
 
