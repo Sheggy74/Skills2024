@@ -8,6 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 import { Tool } from 'src/app/Models/Tool';
 import { ToolsService } from '../../../services/tools.service';
 import { Script } from 'src/app/Models/Script';
+import { ToastService } from 'src/app/services/ToastService/toast.service';
 
 
 @Component({
@@ -35,11 +36,6 @@ export class AddScriptComponent extends ValidationComponent{
 
     this.script = {};
 
-    // this.scriptService.selectedScript.subscribe(res => {
-    //   if(res)
-    //     this.script = res;
-    //   })
-
     this.subscriptions.push(this.pressedAdd.subscribe((pressed)=>{
       if(pressed){
           this.setAllControlsDirty(true)
@@ -54,10 +50,25 @@ export class AddScriptComponent extends ValidationComponent{
     this.user = {}
 }
 async create(){
+  //check text
+  console.log(this.script.scripttype?.id);
+  if (this.script.scripttype?.id == 2)
+  {
+    //проблема с внедрением
+    if (this.script.textscript!=undefined)
+    {
+     let resjs = eval(this.script.textscript);
+     this.script.result = resjs;
+    }
+    else
+    {
+      //todo error
+    }
 
+  }
   let script = await this.scriptService.createScript(this.script);
   if(script.id == null){
-    return
+    return;
   }
 
 this.scriptService.scripts.value.push(script)

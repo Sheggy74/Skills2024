@@ -32,7 +32,7 @@ class ScriptController extends Controller
                 $maxId = DB::table('scripts')->max('id');
                 $result = DB::INSERT('INSERT INTO scripts
                 (id,scriptstate_id, textscript, scripttype_id, "result")
-                VALUES(? ,?, ?, ?, ?) returning id',[$maxId+1,1, $request->textscript,$request->scripttype, json_encode($res[0  ]) ]);
+                VALUES(? ,?, ?, ?, ?) returning id',[$maxId+1,1, $request->textscript,$request->scripttype, json_encode($res[0]) ]);
                 $data = Script::query()->find($maxId+1);
                     return new ScriptResource($data);
             }
@@ -46,6 +46,18 @@ class ScriptController extends Controller
                     return new ScriptResource($data);
             }
 
+        }
+        if ($request->scripttype == 2)
+        {
+            if ($request->textscript != null)
+            {
+                $maxId = DB::table('scripts')->max('id');
+                $result = DB::INSERT('INSERT INTO scripts
+                (id,scriptstate_id, textscript, scripttype_id, "result")
+                VALUES(? ,?, ?, ?, ?) returning id',[$maxId+1,1, $request->textscript,$request->scripttype, $request->result ]);
+                $data = Script::query()->find($maxId+1);
+                    return new ScriptResource($data);
+            }
         }
    
     
