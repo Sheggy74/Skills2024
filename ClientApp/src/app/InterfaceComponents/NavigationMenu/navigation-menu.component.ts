@@ -8,7 +8,6 @@ import { NavigationButton } from 'src/app/Models/NavigationButton';
 import { AgileUIService } from 'src/app/services/AgileUIService/agileUI.service';
 import { StateService } from 'src/app/services/StateService/state.service';
 import { NavigationStateService } from './NavigationStateService/navigation-state.service';
-import { signalMutateFn } from '@angular/core/primitives/signals';
 
 @Component({
 	selector: 'app-navigation-menu',
