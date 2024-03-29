@@ -10,7 +10,7 @@ class ScriptType extends Model
     use HasFactory;
 
     protected $hidden = [];
-
+    public $timestamps = false;
     protected $fillable = [
         'id',  'scripttype'
     ];

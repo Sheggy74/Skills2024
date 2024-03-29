@@ -1,6 +1,5 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import SuperTokensLock from 'browser-tabs-lock';
 import { catchError, lastValueFrom, of } from 'rxjs';
 import { TimeHelper } from 'src/app/helpers/time/timeHelper';
 import { Role } from 'src/app/Models/Role';
@@ -16,7 +15,6 @@ export class JwtService extends BaseApiService {
     localApiPath = this.apiURL + '/auth'
     router = inject(Router)
     stateService = inject(StateService)
-    tokensLock = new SuperTokensLock()
     LOCK_TOKEN = "[PFF07] token"
     isLocked = false
     jwtRefreshDelay = 5
@@ -24,16 +22,7 @@ export class JwtService extends BaseApiService {
     constructor() {
         super()
     }
-    // called on destruction of app
-    async releaseTokenLockIfLocked(){
-        if(this.isLocked){
-            await this.tokensLock.releaseLock(this.LOCK_TOKEN)
-        }
-    }
-    // called on destruction of app
-    async releaseTokenOnApplicationStart(){
-        await this.tokensLock.releaseLock(this.LOCK_TOKEN)
-    }
+
     async refreshTokenIfCloseToEnd(): Promise<boolean> {
         if(this.isRefreshing){
             while(this.isRefreshing){

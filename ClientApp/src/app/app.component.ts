@@ -14,7 +14,6 @@ import { PrimeNGConfig } from 'primeng/api';
 import { ConfigService } from './services/ConfigService/config.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { JwtService } from './services/JWTService/jwt.service';
-import { EventSourcePolyfill, NativeEventSource } from 'event-source-polyfill';
 import { ErrorService } from './services/ErrorService/error.service';
 
 @Component({
@@ -85,7 +84,6 @@ export class AppComponent extends BaseComponent {
     override ngOnDestroy(): void {
         super.ngOnDestroy()
 
-        this.jwtService.releaseTokenLockIfLocked()
     }
     @HostListener("document:keydown", ["$event"])
     handleDocumentKeyDown(event : KeyboardEvent){

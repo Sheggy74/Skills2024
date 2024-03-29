@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\AuthController as AuthControllerAlias;
 use App\Http\Controllers\MessageController as MessageControllerAlias;
-use App\Http\Controllers\ReportController as ReportControllerAlias;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ReportController as ReportControllerAlias;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,4 +47,5 @@ Route::prefix('auth')
     Route::get('report','report');
     Route::get('data','reportData');
 });
+
 

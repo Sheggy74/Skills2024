@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiURL: "http://172.23.48.61:4561",
+  apiURL: "http://127.0.0.1:8000/api",
   consoleLogLevel: "info",
   serverLogLevel: "error"
 };

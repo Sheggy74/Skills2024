@@ -10,6 +10,7 @@ class ScriptState extends Model
     use HasFactory;
 
     protected $hidden = [];
+    public $timestamps = false;
 
     protected $fillable = [
         'id', 'state'

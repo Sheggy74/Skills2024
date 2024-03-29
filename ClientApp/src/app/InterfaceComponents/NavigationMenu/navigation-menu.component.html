@@ -19,9 +19,10 @@
                         'opacity-0 hide-after-300':!isOpen
                     }">
 
-                <p class="flex flex-row text-lg my-auto p-0 font-semibold ">
-                   <span class="font-extrabold ml-2 my-auto whitespace-nowrap ">ATOMSKILLS 2024</span>
-                </p>
+                    <div class="flex flex-col  my-auto p-0 ">
+                        <p class="font-extrabold ml-2 text-lg my-auto whitespace-nowrap ">ATOMSKILLS 2024</p>
+                        <p class="ml-2 my-auto text-sm -mt-1 whitespace-nowrap ">{{applicationRole()}}</p>
+                                         </div>
             </div>
 
         </a>
@@ -43,7 +44,7 @@
                 <div class="my-auto transition-all max-h-[20px] overflow-hidden text-secondary text-sm" [ngClass]="{
                     'opacity-100':isOpen,
                     'opacity-0':!isOpen
-                }">Все приложения</div>
+                }">Все роли</div>
             </i>
         </a>
         <button class="w-auto p-4 hover:bg-blue-200 active:bg-blue-300 transition-all cursor-pointer"

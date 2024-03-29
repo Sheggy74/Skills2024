@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ScriptController;
+use App\Http\Controllers\ApiLoadToTableController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('scripts')
@@ -13,3 +14,12 @@ Route::prefix('scripts')
         Route::put('{id}','update');
         Route::delete('{id}','delete');
     });
+
+    Route::prefix('scripts_copy')
+    ->middleware('api')
+    ->controller(ApiLoadToTableController::class)
+    ->group(function (){
+        Route::get('','loadData');
+
+    });
+

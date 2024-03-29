@@ -1,0 +1,195 @@
+openapi: 3.0.3
+info:
+  title: UI Technology
+  version: v1.0
+servers:
+  - url: https://uitechnolgy/
+tags:
+  - name: auth
+    description: Аутентификация
+  - name: users
+    description: Пользователи
+  - name: roles
+    description: Роли
+  - name: tasks
+    description: Задачи
+  - name: requests
+    description: Заявки
+  - name: reports
+    description: Отчеты
+paths:
+  /login:
+    post:
+      tags:
+        - auth
+      summary: Аутентификация
+      operationId: login
+      requestBody:
+        description: Аутентфикация пользователя
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthUser'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:        
+               properties:
+                token:
+                  type: string
+                  example: DQDwdws_F#@#F
+        '422':
+          description: Validation exception
+  /register:
+    post:
+      tags:
+        - auth
+      summary: Регистрация
+      operationId: register
+      requestBody:
+        description: Регистрация пользователя
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegisterUser'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:        
+               properties:
+                token:
+                  type: string
+                  example: DQDwdws_F#@#F
+        '422':
+          description: Validation exception       
+  /users:
+    get:
+      tags:
+        - users
+      summary: Получение списка пользователей
+      operationId: users
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:        
+               type: array
+               items:
+                $ref: '#/components/schemas/User'
+        '422':
+          description: Validation exception      
+    post:
+      tags:
+        - users
+      summary: Создание пользователя
+      operationId: create_user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:        
+               properties:
+                token:
+                  type: string
+                  example: DQDwdws_F#@#F
+        '422':
+          description: Validation exception       
+  /users/{id}:
+    get:
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: array
+          items:
+            type: string  
+        style: simple
+      tags:
+        - users
+      summary: Получение пользователя
+      operationId: user
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:        
+               type: array
+               items:
+                $ref: '#/components/schemas/CreateUser'
+        '422':
+          description: Validation exception   
+components:
+  schemas:
+    AuthUser:
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        email:
+          type: string
+          example: user@mail.ru
+        password:
+          type: string
+          example: asdfasdf
+    RegisterUser:
+      required:
+        - name
+        - email
+        - password
+        - passwird-confirmation
+      type: object
+      properties:
+        name:
+          type: string
+          example: Ivan
+        email:
+          type: string
+          example: user@mail.ru
+        password:
+          type: string
+          example: asdfasdf
+        password-confirmation:
+          type: string
+          example: asdfasdf
+    User:
+      required:
+        - id
+        - name
+        - job
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+        name:
+          type: string
+          example: Иван И.И.
+        job:
+          type: string
+          example: Отдел кадров
+    CreateUser:
+      required:
+        - name
+        - job
+      type: object
+      properties:
+        name:
+          type: string
+          example: Иван И.И.
+        job:
+          type: string
+          example: Отдел кадров

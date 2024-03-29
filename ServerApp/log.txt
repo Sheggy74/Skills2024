@@ -1,0 +1,314 @@
+
+  Dropping all tables ................................................................................... 1,168ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table ................................................................................. 17ms DONE
+
+   INFO  Running migrations.  
+
+  2014_10_12_000000_create_users_table ..................................................................... 25ms DONE
+  2014_10_12_100000_create_password_reset_tokens_table ..................................................... 13ms DONE
+  2019_08_19_000000_create_failed_jobs_table ............................................................... 18ms DONE
+  2019_12_14_000001_create_personal_access_tokens_table .................................................... 21ms DONE
+  2024_02_29_142417_create_roles_table ..................................................................... 12ms DONE
+  2024_02_29_142651_user_roles ............................................................................ 182ms DONE
+  2024_03_01_162358_tools ................................................................................... 9ms DONE
+  2024_03_01_171710_experiments ............................................................................ 58ms DONE
+  2024_03_27_035816_scriptstate ............................................................................. 9ms DONE
+  2024_03_27_035831_scripttype ............................................................................. 12ms DONE
+  2024_03_27_035849_scripts ................................................................................ 74ms DONE
+  2024_03_27_035849_scripts_copy ........................................................................... 36ms DONE
+
+
+   INFO  Seeding database.  
+
+  Database\Seeders\UserSeeder ................................................................................ RUNNING  
+  Database\Seeders\UserSeeder ............................................................................ 746 ms DONE  
+
+  Database\Seeders\ToolSeeder ................................................................................ RUNNING  
+  Database\Seeders\ToolSeeder ............................................................................. 16 ms DONE  
+
+  Database\Seeders\ExperimentSeeder .......................................................................... RUNNING  
+  Database\Seeders\ExperimentSeeder ....................................................................... 59 ms DONE  
+
+  Database\Seeders\ScriptSender .............................................................................. RUNNING  
+  Database\Seeders\ScriptSender ........................................................................... 12 ms DONE  
+
+
+  Dropping all tables ..................................................................................... 986ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table ................................................................................. 17ms DONE
+
+   INFO  Running migrations.  
+
+  2014_10_12_000000_create_users_table ..................................................................... 23ms DONE
+  2014_10_12_100000_create_password_reset_tokens_table ..................................................... 11ms DONE
+  2019_08_19_000000_create_failed_jobs_table ............................................................... 17ms DONE
+  2019_12_14_000001_create_personal_access_tokens_table .................................................... 36ms DONE
+  2024_02_29_142417_create_roles_table ..................................................................... 11ms DONE
+  2024_02_29_142651_user_roles ............................................................................. 97ms DONE
+  2024_03_01_162358_tools .................................................................................. 33ms DONE
+  2024_03_01_171710_experiments ............................................................................ 51ms DONE
+  2024_03_27_035816_scriptstate ............................................................................. 8ms DONE
+  2024_03_27_035831_scripttype .............................................................................. 6ms DONE
+  2024_03_27_035849_scripts ................................................................................ 67ms DONE
+  2024_03_27_035849_scripts_copy ........................................................................... 40ms DONE
+
+
+   INFO  Seeding database.  
+
+  Database\Seeders\UserSeeder ................................................................................ RUNNING  
+  Database\Seeders\UserSeeder ............................................................................ 737 ms DONE  
+
+  Database\Seeders\ToolSeeder ................................................................................ RUNNING  
+  Database\Seeders\ToolSeeder .............................................................................. 8 ms DONE  
+
+  Database\Seeders\ExperimentSeeder .......................................................................... RUNNING  
+  Database\Seeders\ExperimentSeeder ....................................................................... 40 ms DONE  
+
+  Database\Seeders\ScriptSender .............................................................................. RUNNING  
+  Database\Seeders\ScriptSender ........................................................................... 10 ms DONE  
+
+
+  Dropping all tables ...................................................................................... 47ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[08006] [7] �����:  ���� ������ "atom24" �� ���������� (Connection: pgsql, SQL: select c.relname as name, n.nspname as schema, pg_total_relation_size(c.oid) as size, obj_description(c.oid, 'pg_class') as comment from pg_class c, pg_namespace n where c.relkind in ('r', 'p') and n.oid = c.relnamespace and n.nspname not in ('pg_catalog', 'information_schema') order by c.relname)
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:65
+      PDOException::("SQLSTATE[08006] [7] �����:  ���� ������ "atom24" �� ����������")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:65
+      PDO::__construct()
+
+
+  Dropping all tables ...................................................................................... 55ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table .................................................................................. 5ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42501]: Insufficient privilege: 7 ОШИБКА:  нет доступа к схеме atom24 at character 14 (Connection: pgsql, SQL: create table "atom24migrations" ("id" serial not null primary key, "migration" varchar(255) not null, "batch" integer not null))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:587
+      PDOException::("SQLSTATE[42501]: Insufficient privilege: 7 ОШИБКА:  нет доступа к схеме atom24 at character 14")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:587
+      PDOStatement::execute()
+
+
+  Dropping all tables ...................................................................................... 61ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table .................................................................................. 5ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42501]: Insufficient privilege: 7 ОШИБКА:  нет доступа к схеме atom24 at character 14 (Connection: pgsql, SQL: create table "atom24migrations" ("id" serial not null primary key, "migration" varchar(255) not null, "batch" integer not null))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:587
+      PDOException::("SQLSTATE[42501]: Insufficient privilege: 7 ОШИБКА:  нет доступа к схеме atom24 at character 14")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:587
+      PDOStatement::execute()
+
+
+  Dropping all tables ...................................................................................... 68ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table .................................................................................. 6ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[42501]: Insufficient privilege: 7 ОШИБКА:  нет доступа к схеме atom24 at character 14 (Connection: pgsql, SQL: create table "atom24migrations" ("id" serial not null primary key, "migration" varchar(255) not null, "batch" integer not null))
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connection.php:587
+      PDOException::("SQLSTATE[42501]: Insufficient privilege: 7 ОШИБКА:  нет доступа к схеме atom24 at character 14")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connection.php:587
+      PDOStatement::execute()
+
+
+  Dropping all tables ...................................................................................... 65ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table ................................................................................. 22ms DONE
+
+   INFO  Running migrations.  
+
+  2014_10_12_000000_create_users_table ..................................................................... 30ms DONE
+  2014_10_12_100000_create_password_reset_tokens_table ..................................................... 20ms DONE
+  2019_08_19_000000_create_failed_jobs_table ............................................................... 10ms DONE
+  2019_12_14_000001_create_personal_access_tokens_table .................................................... 18ms DONE
+  2024_02_29_142417_create_roles_table ...................................................................... 8ms DONE
+  2024_02_29_142651_user_roles ............................................................................. 16ms DONE
+  2024_03_01_162358_tools .................................................................................. 39ms DONE
+  2024_03_01_171710_experiments ............................................................................ 21ms DONE
+  2024_03_27_035816_scriptstate ............................................................................. 5ms DONE
+  2024_03_27_035831_scripttype .............................................................................. 5ms DONE
+  2024_03_27_035849_scripts ................................................................................ 42ms DONE
+  2024_03_27_035849_scripts_copy ........................................................................... 11ms DONE
+
+
+   INFO  Seeding database.  
+
+  Database\Seeders\UserSeeder ................................................................................ RUNNING  
+  Database\Seeders\UserSeeder ............................................................................ 737 ms DONE  
+
+  Database\Seeders\ToolSeeder ................................................................................ RUNNING  
+  Database\Seeders\ToolSeeder .............................................................................. 6 ms DONE  
+
+  Database\Seeders\ExperimentSeeder .......................................................................... RUNNING  
+  Database\Seeders\ExperimentSeeder ....................................................................... 21 ms DONE  
+
+  Database\Seeders\ScriptSender .............................................................................. RUNNING  
+  Database\Seeders\ScriptSender ............................................................................ 6 ms DONE  
+
+
+  Dropping all tables ..................................................................................... 107ms DONE
+
+   INFO  Preparing database.  
+
+  Creating migration table ................................................................................. 11ms DONE
+
+   INFO  Running migrations.  
+
+  2014_10_12_000000_create_users_table ..................................................................... 16ms DONE
+  2014_10_12_100000_create_password_reset_tokens_table ..................................................... 17ms DONE
+  2019_08_19_000000_create_failed_jobs_table ............................................................... 39ms DONE
+  2019_12_14_000001_create_personal_access_tokens_table .................................................... 13ms DONE
+  2024_02_29_142417_create_roles_table ...................................................................... 9ms DONE
+  2024_02_29_142651_user_roles ............................................................................. 10ms DONE
+  2024_03_01_162358_tools ................................................................................... 6ms DONE
+  2024_03_01_171710_experiments ............................................................................ 22ms DONE
+  2024_03_27_035816_scriptstate ............................................................................. 5ms DONE
+  2024_03_27_035831_scripttype .............................................................................. 5ms DONE
+  2024_03_27_035849_scripts ................................................................................. 9ms DONE
+  2024_03_27_035849_scripts_copy ........................................................................... 10ms DONE
+
+
+   INFO  Seeding database.  
+
+  Database\Seeders\UserSeeder ................................................................................ RUNNING  
+  Database\Seeders\UserSeeder ............................................................................ 747 ms DONE  
+
+  Database\Seeders\ToolSeeder ................................................................................ RUNNING  
+  Database\Seeders\ToolSeeder .............................................................................. 6 ms DONE  
+
+  Database\Seeders\ExperimentSeeder .......................................................................... RUNNING  
+  Database\Seeders\ExperimentSeeder ....................................................................... 24 ms DONE  
+
+  Database\Seeders\ScriptSender .............................................................................. RUNNING  
+  Database\Seeders\ScriptSender ............................................................................ 6 ms DONE  
+
+
+  Dropping all tables ................................................................................... 2,229ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[08006] [7] could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432? (Connection: pgsql, SQL: select c.relname as name, n.nspname as schema, pg_total_relation_size(c.oid) as size, obj_description(c.oid, 'pg_class') as comment from pg_class c, pg_namespace n where c.relkind in ('r', 'p') and n.oid = c.relnamespace and n.nspname not in ('pg_catalog', 'information_schema') order by c.relname)
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:65
+      PDOException::("SQLSTATE[08006] [7] could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host "localhost" (::1) and accepting
+	TCP/IP connections on port 5432?
+could not connect to server: Connection refused (0x0000274D/10061)
+	Is the server running on host "localhost" (127.0.0.1) and accepting
+	TCP/IP connections on port 5432?")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:65
+      PDO::__construct()
+
+
+  Dropping all tables ..................................................................................... 661ms FAIL
+
+   Illuminate\Database\QueryException 
+
+  SQLSTATE[08006] [7] FATAL:  password authentication failed for user "atom24" (Connection: pgsql, SQL: select c.relname as name, n.nspname as schema, pg_total_relation_size(c.oid) as size, obj_description(c.oid, 'pg_class') as comment from pg_class c, pg_namespace n where c.relkind in ('r', 'p') and n.oid = c.relnamespace and n.nspname not in ('pg_catalog', 'information_schema') order by c.relname)
+
+  at vendor\laravel\framework\src\Illuminate\Database\Connection.php:829
+    825▕                     $this->getName(), $query, $this->prepareBindings($bindings), $e
+    826▕                 );
+    827▕             }
+    828▕ 
+  ➜ 829▕             throw new QueryException(
+    830▕                 $this->getName(), $query, $this->prepareBindings($bindings), $e
+    831▕             );
+    832▕         }
+    833▕     }
+
+  1   vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:65
+      PDOException::("SQLSTATE[08006] [7] FATAL:  password authentication failed for user "atom24"")
+
+  2   vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:65
+      PDO::__construct()
+

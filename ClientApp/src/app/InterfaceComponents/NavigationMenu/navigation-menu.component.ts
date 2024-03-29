@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, inject, Input, ViewChild } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, computed, inject, Input, signal, ViewChild } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { TreeNode } from 'primeng/api';
 import { Tree } from 'primeng/tree';
 import { BehaviorSubject, debounce, interval, throttle } from 'rxjs';
@@ -8,6 +8,7 @@ import { NavigationButton } from 'src/app/Models/NavigationButton';
 import { AgileUIService } from 'src/app/services/AgileUIService/agileUI.service';
 import { StateService } from 'src/app/services/StateService/state.service';
 import { NavigationStateService } from './NavigationStateService/navigation-state.service';
+import { signalMutateFn } from '@angular/core/primitives/signals';
 
 @Component({
 	selector: 'app-navigation-menu',
@@ -24,12 +25,21 @@ export class NavigationMenuComponent extends BaseComponent {
 	selectedNode : TreeNode | undefined;
 
     changeRef = inject(ChangeDetectorRef)
-
+	activatedRoute = inject(ActivatedRoute)
     IS_TREE_HIDDEN = "[pff07][tree_hidden]"
 
-    lastApplication = ""
-    i = 0
-	
+    lastApplication = signal("");
+	    i = 0
+	    applicationRole = computed(()=>{
+			if(this.lastApplication() == 'admin'){
+				return 'администратор'
+			} else if(this.lastApplication() == 'confirmer'){
+				return 'утверждающий'
+			} else if(this.lastApplication() == 'user'){
+				return 'пользователь'
+			}
+			return ''
+		})
 	constructor(private agileUIService: AgileUIService, public stateService : StateService) {
 		super();
 	}
@@ -42,11 +52,11 @@ export class NavigationMenuComponent extends BaseComponent {
         super.createSubscriptions()
 
 		this.subscriptions.push(this.stateService.applicationURL.subscribe(async (application) => {
-            if(this.lastApplication != application){
-                this.lastApplication = application  
-                this.updateNavigationButtons(application)
-            }
-		}))
+			if(this.lastApplication() != application){
+                this.lastApplication.set(application)  
+				this.updateNavigationButtons(application)
+			}            
+        }))
 	}
 	async updateNavigationButtons(application: string) {
 		this.navigationButtons = await this.agileUIService.getButtonsForRole(application);

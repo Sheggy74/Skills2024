@@ -1,8 +1,11 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { RoleSelectionListComponent } from './InterfaceComponents/role-selection-list/role-selection-list.component';
 import { AuthorisationComponent } from './starting-components/authorisation/authorisation.component';
+import { JwtService } from './services/JWTService/jwt.service';
+import { StateService } from './services/StateService/state.service';
+import { DefaultWrapperComponent } from './wrappers/default-wrapper/default-wrapper.component';
 import { NavigationWrapperComponent } from './wrappers/navigation-wrapper/navigation-wrapper.component';
+import { RoleSelectionListComponent } from './InterfaceComponents/role-selection-list/role-selection-list.component';
 
 
 const routes: Routes = [
@@ -17,6 +20,7 @@ const routes: Routes = [
             { path: 'experiments', loadChildren: () => { return import('./modules/experiments/experiments.module').then(m => m.ExperimentsModule); }},
             { path: 'scripts', loadChildren: () => { return import('./modules/scripts/scripts.module').then(m => m.ScriptsModule); }},
             { path:'report',loadChildren:()=>{return import('./modules/report/report.module').then(m=>m.ReportModule);}},
+            { path: "**", component: RoleSelectionListComponent},
         ]
 
     },
