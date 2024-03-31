@@ -1,12 +1,10 @@
-import { ChangeDetectorRef, Component, computed, inject, Input, signal, ViewChild } from '@angular/core';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, computed, inject, signal } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TreeNode } from 'primeng/api';
-import { Tree } from 'primeng/tree';
-import { BehaviorSubject, debounce, interval, throttle } from 'rxjs';
-import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 import { NavigationButton } from 'src/app/Models/NavigationButton';
 import { AgileUIService } from 'src/app/services/AgileUIService/agileUI.service';
 import { StateService } from 'src/app/services/StateService/state.service';
+import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 import { NavigationStateService } from './NavigationStateService/navigation-state.service';
 
 @Component({

@@ -18,7 +18,9 @@ class DatabaseSeeder extends Seeder
            UserSeeder::class,
            ToolSeeder::class,
            ExperimentSeeder::class,
-           ScriptSender::class
+           ScriptSender::class,
+           ReportSeeder::class,
+           ReportValuesSeeder::class,
        ])
 ;
 

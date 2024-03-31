@@ -9,16 +9,16 @@ import { BaseApiService } from "src/app/services/BaseApiService/base-api.service
 })
 export class ReportService extends BaseApiService{
 
-  localAPIPath = this.apiURL + '/auth/';
+  localAPIPath = this.apiURL + '/report/';
 
   dataReport = new BehaviorSubject<DataReport[]>([]);
-  selectedExperiment = new BehaviorSubject<DataReport|undefined>(undefined)
+  selectedReport = new BehaviorSubject<DataReport|undefined>(undefined);
 
-  getDataReport(): Promise<DataReport[]> {
-    let retValue = lastValueFrom(this.http.get<DataReport[]>(this.localAPIPath+'data')
+  getReport(): Promise<DataReport[]> {
+    let retValue = lastValueFrom(this.http.get<DataReport[]>(this.localAPIPath+'report')
         .pipe(
           map((report: any) => {
-            return report;
+            return report.data;
           }),
           catchError(this.exceptionService.getErrorHandlerList())));
 

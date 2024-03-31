@@ -1,5 +1,7 @@
 import { Component, inject } from '@angular/core';
+import { DataReport } from 'src/app/Models/DataReport';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
+import { environment } from '../../../../environments/environment';
 import { ReportService } from '../services/report.service';
 
 @Component({
@@ -10,11 +12,17 @@ import { ReportService } from '../services/report.service';
 })
 export class ReportComponent extends BaseComponent{
     reportService = inject(ReportService);
-    excelReportLink:string='http://127.0.0.1:8000/api/auth/report';
+    public report?:DataReport=undefined;
+    excelReportLink:string=environment.apiURL+'/report/1';
     override async ngOnInit() {
         super.ngOnInit();
-       
-        this.reportService.dataReport.next(await this.reportService.getDataReport());
-        console.log(this.reportService);
+        this.reportService.dataReport.next(await this.reportService.getReport());
+        this.reportService.selectedReport.subscribe(res=>{
+            this.report=res;
+        });
     }
+    toExcel(){
+        window.open(environment.apiURL+'/report/'+this.reportService.selectedReport.value?.id,'_self');
+    }
+
 }
