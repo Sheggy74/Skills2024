@@ -4,7 +4,7 @@ use App\Http\Controllers\ExperimentController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('experiments')
-    ->middleware('api')
+    ->middleware('auth:api')
     ->controller(ExperimentController::class)
     ->group(function (){
         Route::get('','index');

@@ -4,7 +4,7 @@
 use App\Http\Controllers\ToolController;
 
 Route::prefix('tools')
-    ->middleware('api')
+    ->middleware('auth:api')
     ->controller(ToolController::class)
     ->group(function (){
         Route::get('','index');

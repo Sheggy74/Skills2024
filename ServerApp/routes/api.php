@@ -19,7 +19,7 @@ use App\Http\Controllers\ReportController as ReportControllerAlias;
 
 Route::middleware('api')->post('log',\App\Http\Controllers\LogController::class);
 
-Route::prefix('auth')
+Route::prefix('auth:api')
      ->middleware('api')
      ->controller(AuthControllerAlias::class)
      ->group(function (){

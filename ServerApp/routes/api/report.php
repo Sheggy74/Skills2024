@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('report')
-    ->middleware('api')
+    ->middleware('auth:api')
     ->controller(\App\Http\Controllers\ReportController::class)
     ->group(function (){
         Route::get('data','reportData');

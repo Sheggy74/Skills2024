@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')
-    ->middleware('api')
+    ->middleware('auth:api')
     ->controller(\App\Http\Controllers\AdminController::class)
     ->group(function (){
         Route::get('users','index');
