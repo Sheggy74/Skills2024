@@ -19,6 +19,13 @@ class AuthService{
                     'routerLink' => 'admin/users'
                 ])
             );
+            $buttons->push(
+                new NavigationButton([
+                    'caption' => 'Отчет',
+                    'iconClass' => 'book',
+                    'routerLink' => 'report'
+                ])
+            );
         }
 
         $buttons->push(
@@ -29,7 +36,7 @@ class AuthService{
             ])
         );
 
-        
+
         $buttons->push(
             new NavigationButton([
                 'caption' => 'Скрипты',
@@ -38,13 +45,7 @@ class AuthService{
             ])
         );
 
-        $buttons->push(
-            new NavigationButton([
-                'caption' => 'Отчет',
-                'iconClass' => 'book',
-                'routerLink' => 'report'
-            ])
-        );
+
 
         return $buttons;
     }

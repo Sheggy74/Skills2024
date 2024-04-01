@@ -41,7 +41,7 @@ class UserSeeder extends Seeder
 
         $role = Role::query()->create([
             'name' => 'user',
-            'starting_url' => '/lab'
+            'starting_url' => '/experiments'
         ]);
 
         UserRole::query()->create([

@@ -5,7 +5,7 @@ use App\Http\Controllers\ApiLoadToTableController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('scripts')
-    ->middleware('auth:api')
+    ->middleware('auth:api','auth.user')
     ->controller(ScriptController::class)
     ->group(function (){
         Route::get('','index');

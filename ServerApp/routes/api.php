@@ -20,7 +20,7 @@ use App\Http\Controllers\ReportController as ReportControllerAlias;
 Route::middleware('api')->post('log',\App\Http\Controllers\LogController::class);
 
 Route::prefix('auth')
-     ->middleware('api')
+     //->middleware('api')
      ->controller(AuthControllerAlias::class)
      ->group(function (){
     Route::get('navigationButtons/{roleName}','getNavigationButtons');
