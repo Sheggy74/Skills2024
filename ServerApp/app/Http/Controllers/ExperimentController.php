@@ -11,6 +11,12 @@ use Illuminate\Http\Request;
 class ExperimentController extends Controller implements CrudController
 {
 
+
+    public function __construct()
+    {
+        $this->middleware('auth:api');
+    }
+    
     public function index(Request $request)
     {
         $data =  Experiment::query()->orderBy('id','desc')->get();
