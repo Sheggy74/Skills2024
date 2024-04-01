@@ -1,9 +1,9 @@
-<a 
+<a
     class="relative flex flex-col "
     [ngClass]="{
         'bg-slate-50 px-[-4px]' : navigationButton.expanded
     }">
-    <a 
+    <a
         id="navigationButton"
         [style.padding-left]="paddingLeft + 'px'"
         (click)="navButtonClick()"
@@ -16,23 +16,25 @@
             class="my-auto overflow-hidden text-left text-sm">
             {{navigationButton.caption}}
         </div>
-        <app-round-button 
+        <app-round-button
             *ngIf="navigationButton.children != null"
             iconClass=" pi pi-chevron-down "
-            (onClick)="expandClick()"
+            (onClick)="$event.stopPropagation();
+              $event.preventDefault();
+             expandClick()"
             class="my-auto transition-all duration-300"
             [ngClass]="{
                 'rotate-180' : navigationButton.expanded
         }"/>
-       
+
         <nav *ngIf="level==1" class="flex flex-col absolute z-10 left-0 top-0 bottom-0 w-[var(--tree-icon-width)]">
-            <div  
+            <div
                 [ngClass]="navigationButton.selected ? 'bg-accent' : 'bg-white'"
                 class=" rounded-full w-[10px] h-[10px] border-2 transition-all border-accent m-auto z-20">
-    
+
             </div>
-    
-            <div class="absolute top-0 bottom-0 left-[calc(var(--tree-icon-width)/2-1px)] bg-black w-0.5"></div>       
+
+            <div class="absolute top-0 bottom-0 left-[calc(var(--tree-icon-width)/2-1px)] bg-black w-0.5"></div>
         </nav>
     </a>
     <app-navigation-tree
@@ -45,11 +47,11 @@
 
     </app-navigation-tree>
 
-   
+
 
     <!-- expanded line -->
-    
-   <!--  <div 
+
+   <!--  <div
         id="whatever"
         [ngClass]="{
             'border-l-4 ' : navigationButton.expanded,

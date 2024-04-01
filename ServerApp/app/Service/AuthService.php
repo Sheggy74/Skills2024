@@ -25,7 +25,14 @@ class AuthService{
                 new NavigationButton([
                     'caption' => 'Отчет',
                     'iconClass' => 'book',
-                    'routerLink' => 'report'
+                    'routerLink' => 'report',
+                    'children' => [
+                        new NavigationButton([
+                            'caption' => 'Испытания',
+                            'iconClass' => 'fact_check',
+                            'routerLink' => 'experiments'
+                        ])
+                    ]
                 ])
             );
         }

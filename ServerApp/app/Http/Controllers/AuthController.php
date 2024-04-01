@@ -48,12 +48,22 @@ class AuthController extends Controller
     public function getNavigationButtons($roleName, Request $request): array
     {
         $navigationButtons = AuthService::getNavigationButtons(auth()->user()->roles);
+
         return $navigationButtons->map(function(NavigationButton $item){
-            return[
-                'caption' => $item->getCaption(),
-                'iconClass' => $item->getIconClass(),
-                'routerLink' => $item->getRouterLink()
-            ];
-        })->all();
+           //if($item->getChildren())
+           //    dd($item->getChildren());
+            return $this->mapNavButton($item);
+        })->toArray();
+    }
+
+    private function mapNavButton($navItem){
+        return[
+            'caption' => $navItem->getCaption(),
+            'iconClass' => $navItem->getIconClass(),
+            'routerLink' => $navItem->getRouterLink(),
+            'children' => $navItem->getChildren() != null ? collect($navItem->getChildren())->map(function($item){
+                return $this->mapNavButton($item);
+            })->toArray() : null
+        ];
     }
 }

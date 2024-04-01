@@ -61,8 +61,8 @@ export class TreeItemComponent extends BaseComponent{
         )
     }
     selectByUrl(url : string){
-        // trim /subjects to subjects 
-        let eventURLTrimmed = url.substring(1,url.length) 
+        // trim /subjects to subjects
+        let eventURLTrimmed = url.substring(1,url.length)
         if(url == this.navigationButton.routerLink ||  eventURLTrimmed == this.navigationButton.routerLink){
             this.navigationStateService.selectedButton.next(this.navigationButton)
         }
@@ -72,7 +72,7 @@ export class TreeItemComponent extends BaseComponent{
     }
     navButtonClick(){
         if(this.navigationButton.children != null && this.navigationButton.children.length != 0){
-            this.navigationButton.expanded = !this.navigationButton.expanded 
+            this.navigationButton.expanded = !this.navigationButton.expanded
             return
         }
 
