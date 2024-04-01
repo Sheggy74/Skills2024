@@ -8,10 +8,12 @@ use Illuminate\Support\Collection;
 
 class AuthService{
 
-    public static function getNavigationButtons($roleName) : Collection
+    public static function getNavigationButtons(Collection $roles) : Collection
     {
         $buttons = collect();
-        if($roleName == 'admin'){
+        if($roles->filter(function($role){
+            return $role->id == 1;
+            })->first()){
             $buttons->push(
                 new NavigationButton([
                     'caption' => 'Пользователи',
@@ -36,7 +38,6 @@ class AuthService{
             ])
         );
 
-
         $buttons->push(
             new NavigationButton([
                 'caption' => 'Скрипты',
@@ -44,8 +45,6 @@ class AuthService{
                 'routerLink' => 'scripts'
             ])
         );
-
-
 
         return $buttons;
     }

@@ -47,7 +47,7 @@ class AuthController extends Controller
 
     public function getNavigationButtons($roleName, Request $request): array
     {
-        $navigationButtons = AuthService::getNavigationButtons($roleName);
+        $navigationButtons = AuthService::getNavigationButtons(auth()->user()->roles);
         return $navigationButtons->map(function(NavigationButton $item){
             return[
                 'caption' => $item->getCaption(),
