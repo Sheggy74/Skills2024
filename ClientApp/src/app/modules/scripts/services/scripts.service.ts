@@ -8,7 +8,14 @@ import { BaseApiService } from "src/app/services/BaseApiService/base-api.service
   providedIn: 'root'
 })
 export class ScriptsService extends BaseApiService{
+  // async getUsers(): Promise<Person[]> {
+  //   var observable = this.http.get<Person[]>(this.APIUrl + '/admin/all')
+  //   .pipe(catchError(this.errorService.errorHandlerList));
 
+  //   var retValue = await lastValueFrom(observable);
+    
+  //   return retValue;
+  // }
   localAPIPath = this.apiURL + '/scripts';
 
   scripts = new BehaviorSubject<Script[]>([]);
