@@ -1,2 +1,0 @@
-cd GoServerApp
-go build
