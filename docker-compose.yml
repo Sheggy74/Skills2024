@@ -40,7 +40,7 @@ services:
       - "8000:8000"
     volumes:
       - ./ServerApp:/var/www
-      - ./var/www/vendor
+      - /var/www/vendor
     networks:
       - app-network
     environment:
