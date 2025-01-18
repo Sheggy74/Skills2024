@@ -2,7 +2,7 @@
 
 REM Запуск docker-compose
 echo Starting Docker Compose...
-docker-compose up -d
+docker-compose up -d --build
 if %ERRORLEVEL% neq 0 (
     echo Failed to start Docker Compose.
     exit /b 1
