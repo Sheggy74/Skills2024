@@ -27,7 +27,7 @@ WORKDIR /var/www
 COPY . .
 RUN chmod -R 777 /var/www/
 # Устанавливаем зависимости Laravel
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --optimize-autoloader
 
 # Настройка прав доступа
 RUN chown -R www-data:www-data /var/www/ /var/www/storage /var/www/bootstrap/cache /var/www/vendor/
