@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\StageTask;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -21,6 +23,14 @@ class DatabaseSeeder extends Seeder
            ScriptSender::class,
            ReportSeeder::class,
            ReportValuesSeeder::class,
+           DesertsSeeder::class,
+           ProjectSeeder::class,
+           RuleProjectSeeder::class,
+           StageTaskSeeder::class,
+           TaskSeeder::class,
+           PerformerSeeder::class,
+           ChatSeeder::class
+
        ])
 ;
 
