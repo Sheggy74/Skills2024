@@ -15,6 +15,7 @@ import { ConfigService } from './services/ConfigService/config.service';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { JwtService } from './services/JWTService/jwt.service';
 import { ErrorService } from './services/ErrorService/error.service';
+import { ThemeService } from './services/ThemeService/theme.service';
 
 @Component({
     selector: 'app-root',
@@ -33,6 +34,7 @@ export class AppComponent extends BaseComponent {
     stateService: StateService = inject(StateService)
     jwtService : JwtService = inject(JwtService) // Запуск проверки валидности accessToken
     errorService = inject(ErrorService)
+    themeService = inject(ThemeService)
     isOpen = true;
     isToolbarAndMenuVisible = true;
     currentWrapperClass: string = '';
@@ -44,8 +46,8 @@ export class AppComponent extends BaseComponent {
     }
 
     override async ngOnInit() {
-
-    super.ngOnInit();
+      this.themeService.changeTheme('arya-green')//lara-light-indigo
+      super.ngOnInit();
 
         setTimeout(()=>{
             if(this.errorOverlay == null){

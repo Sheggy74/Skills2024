@@ -13,9 +13,9 @@
 ::ng-deep *{
     font-family:  Roboto;
 }
-::ng-deep .p-scrollpanel .p-scrollpanel-bar{
+/* ::ng-deep .p-scrollpanel .p-scrollpanel-bar{
     background-color: #555;
-}
+} */
 ::ng-deep *{
     box-sizing: border-box;
 }

@@ -44,6 +44,8 @@ import { ErrorService } from './services/ErrorService/error.service';
 import { RoleSelectionItemComponent } from './InterfaceComponents/role-selection-list/role-selection-item/role-selection-item.component';
 import { RoleSelectionListComponent } from './InterfaceComponents/role-selection-list/role-selection-list.component';
 import { BlockService } from './services/BlockService/block.service';
+import { ThemePickerComponent } from './InterfaceComponents/ThemePicker/theme-picker.component';
+import { DropdownModule } from 'primeng/dropdown';
 
 
 
@@ -62,7 +64,8 @@ import { BlockService } from './services/BlockService/block.service';
     NavigationWrapperComponent,
     ToolbarComponent,
     RoleSelectionItemComponent,
-    RoleSelectionListComponent
+    RoleSelectionListComponent,
+    ThemePickerComponent
   ],
   imports: [
     AppRoutingModule,
@@ -88,7 +91,8 @@ import { BlockService } from './services/BlockService/block.service';
     MessagesModule,
     PickListModule,
     InputSwitchModule,
-    DialogModule
+    DialogModule,
+    DropdownModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AgileUIService,ConfigService, MessageService, LogService, ErrorService, BlockService],

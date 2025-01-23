@@ -1,0 +1,6 @@
+<p-dropdown
+        [options]="themes"
+        [(ngModel)]="selectedTheme"
+        placeholder="Выберите тему"
+        (onChange)="onThemeChange($event.value)"
+      ></p-dropdown>

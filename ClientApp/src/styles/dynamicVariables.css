@@ -1,7 +1,7 @@
 @import "tailwindcss/utilities";
 @import "tailwindcss/components";
 body{
-    --bg-main: white;
+    /* --bg-main: white;
     --bg-secondary:#F7F9FC ;
     --test-color:red;
     --light-danger: #FD6F8E;
@@ -15,22 +15,22 @@ body{
     --light-accent-color: #EFF8FF;
     --light-accent-border-color: #84CAFF;
     --button-hover-color: rgb(241 245 249);
-    --button-pressed-color: rgb(219 234 254);
-    
+    --button-pressed-color: rgb(219 234 254); */
+
     --tree-icon-width: 48px;
     --tree-item-height: 44px;
 }
 ::ng-deep .bg-main{
-    background-color: var(--bg-main);
+    background-color: var(--surface-ground);
 }
 ::ng-deep .bg-secondary{
-    background-color: var(--bg-secondary);
+    background-color: var(--highlight-bg);
 }
 ::ng-deep .p-dropdown {
-    background-color: var(--bg-main);
+    background-color: var(--surface-ground);
 }
 ::ng-deep .p-inputtext {
-    background-color: var(--bg-main);
+    background-color: var(--surface-ground);
 }
 div, p, span ::ng-deep{
     color: var(--text-color);
@@ -45,35 +45,35 @@ div, p, span ::ng-deep{
         font-size: 10px;
         line-height: 14px;
     }
-     
+
     .text-main{
-        color: var(--text-color);
+        color: var(--primary-color-text);
     }
     .text-light{
-        color: var(--light-text-color);
+        color: var(--highlight-text-color);
     }
     .text-secondary{
-        color: var(--secondary-text-color);
+        color: var(--text-color-secondary);
     }
     .border-accent{
         border-color: var(--accent-color);
     }
     .border-light{
-        border-color: var(--light-border-color);
+        border-color: var(--surface-border);
     }
     .button-hover{
-        background-color: var(--button-hover-color);
+        background-color: var(--highlight-bg);
     }
     .button-pressed{
-        background-color: var(--button-pressed-color);
+        background-color: var(--surface-hover);
     }
     .text-accent{
-        color: var(--accent-color);
+        color: var(--primary-color);
     }
     .bg-light-accent{
-        background-color: var(--light-accent-color);
+        background-color: var(--primary-color);
     }
     .bg-accent{
-        background-color: var(--accent-color);
+        background-color: var(--surface-0);
     }
 }
