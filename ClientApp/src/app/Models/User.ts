@@ -7,4 +7,7 @@ export interface User{
     lastName? : string
     idPhoto? : string
     fio?: string
+    place?: string
+    job?: string
+    phone?: string
 }

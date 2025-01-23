@@ -1,4 +1,4 @@
-<section class="navigation-content  w-full bg-white">
+<section class="flex flex-col h-full w-full bg-white">
     <div class="flex flex-row justify-end gap-2 p-2">
         <app-icon-button icon="add"  (onClick)="addEdit.createShow()">
 
@@ -6,7 +6,7 @@
         <app-icon-button icon="edit" (onClick)="addEdit.editShow(userUIService.selectedUser.value!)" [disabled]="(userUIService.selectedUser | async) == null">
 
         </app-icon-button>
-        <app-icon-button disabledClass="text-red-200" activeClass="text-red-500 hover:bg-gray-100 active:bg-blue-100" icon="delete" 
+        <app-icon-button disabledClass="text-red-200" activeClass="text-red-500 hover:bg-gray-100 active:bg-blue-100" icon="delete"
             [disabled]="(userUIService.selectedUser | async) == null"
             (onClick)="deleteSelectedUser()">
 
@@ -14,10 +14,12 @@
     </div>
 
     <p-divider></p-divider>
+    <section class="flex-grow overflow-auto">
+      <app-user-list class="w-full h-full"></app-user-list>
+    </section>
 
-    <app-user-list class="w-full">
 
-    </app-user-list>
+
 </section>
 <app-add-edit-user #addEdit>
 

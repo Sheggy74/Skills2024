@@ -42,8 +42,25 @@
                 <small *ngIf="shouldShowError('lastName')" class="p-error text-xs ml-4">{{validationErrors.lastName}}</small>
             </span>
         </section>
+        <section class="mt-6 flex flex-row row-start-5 col-span-3 gap-1">
+          <span class="flex flex-col p-float-label w-full">
+            <input type="text" #validate id="Place"   class="w-full" pInputText [(ngModel)]="user!.place">
+            <label for="inputtext">Место работы </label>
+            <small *ngIf="shouldShowError('place')" class="p-error text-xs ml-4">{{validationErrors.place}}</small>
+          </span>
+          <span class="flex flex-col p-float-label w-full ">
+              <input type="text" #validate id="job"   class="w-full" pInputText [(ngModel)]="user!.job">
+              <label for="inputtext">Должность</label>
+              <small *ngIf="shouldShowError('job')" class="p-error text-xs ml-4">{{validationErrors.job}}</small>
+          </span>
+          <span class="flex flex-col p-float-label w-full ">
+            <input type="text" #validate id="phone"   class="w-full" pInputText [(ngModel)]="user!.phone">
+            <label for="inputtext">Контактный телефон</label>
+            <small *ngIf="shouldShowError('phone')" class="p-error text-xs ml-4">{{validationErrors.phone}}</small>
+        </span>
+        </section>
 
-        <div class="flex flex-row justify-between col-span-4 mt-8 row-start-5">
+        <div class="flex flex-row justify-between col-span-4 mt-8 row-start-6">
             <button pButton [disabled]="shouldDisableButton()" (click)="createOrEdit()">{{isCreate ? 'Создать' : 'Сохранить'}}</button>
             <button pButton class="p-button-secondary" (click)="this.isOpen = false">Отменить</button>
         </div>

@@ -1,12 +1,12 @@
 <section >
     <p-table  selectionMode="single" [(selection)]="selectedUser" (selectionChange)="userUIService.selectedUser.next(selectedUser)"
-        [value]="(userUIService.users | async)!" [scrollable]="true" scrollHeight="400px" >
+        [value]="(userUIService.users | async)!" [scrollable]="true" >
         <ng-template pTemplate="header">
             <tr>
-                <th>FIO</th>
-                <th>Login</th>
+                <th>ФИО</th>
+                <th>Логин</th>
                 <th>Email</th>
-                <th>Roles</th>
+                <th>Роль</th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user >

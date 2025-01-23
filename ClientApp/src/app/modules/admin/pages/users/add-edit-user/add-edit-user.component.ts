@@ -122,8 +122,8 @@ export class AddEditUserComponent extends ValidationComponent{
         }
 
         if(this.isCreate){
-            let user = await this.userService.createUser(this.user, this.hasPhotoChanged ? this.photo.value : undefined,
-                this.hasPasswordChanged ? this.password : undefined)
+            let user = (await this.userService.createUser(this.user, this.hasPhotoChanged ? this.photo.value : undefined,
+                this.hasPasswordChanged ? this.password : undefined) as any).data
 
             if(user.id == null){
                 return
@@ -132,7 +132,9 @@ export class AddEditUserComponent extends ValidationComponent{
             this.userUIService.users.value.push(user)
             this.userUIService.users.next(this.userUIService.users.value)
 
+
             this.isOpen = false
+            console.log(this.isOpen);
         }
         else{
             if(this.user.id == null){
