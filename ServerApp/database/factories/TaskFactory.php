@@ -3,7 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Project;
-use App\Models\StageTask;
+use App\Models\Priority;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -22,11 +22,10 @@ class TaskFactory extends Factory
         return [
             'name'=>fake()->word(),
             'description'=>fake()->sentence(3),
+            'date_create'=>fake()->date(),
             'project_id'=>Project::query()->inRandomOrder()->first()->id,
             'user_id'=>User::query()->inRandomOrder()->first()->id,
-            'stage_task_id'=>StageTask::query()->inRandomOrder()->first()->id,
-            'date_start'=>now(),
-            'date_end'=>now()->addDays(random_int(1,5)),
+            'priority_id'=>Priority::query()->inRandomOrder()->first()->id,
         ];
     }
 }

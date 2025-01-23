@@ -23,13 +23,15 @@ class DatabaseSeeder extends Seeder
            ScriptSender::class,
            ReportSeeder::class,
            ReportValuesSeeder::class,
-           DesertsSeeder::class,
            ProjectSeeder::class,
            RuleProjectSeeder::class,
-           StageTaskSeeder::class,
+           StateTaskSeeder::class,
+           PrioritySeeder::class,
            TaskSeeder::class,
            PerformerSeeder::class,
-           ChatSeeder::class
+           ChatSeeder::class,
+           TimeJobSeeder::class,
+           
 
        ])
 ;

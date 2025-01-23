@@ -2,24 +2,24 @@
 
 namespace Database\Seeders;
 
-use App\Models\StageTask;
+use App\Models\StateTask;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class StageTaskSeeder extends Seeder
+class StateTaskSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        StageTask::factory()->create([
+        StateTask::factory()->create([
             'name'=>'новые'
         ]);
-        StageTask::factory()->create([
+        StateTask::factory()->create([
             'name'=>'в работе'
         ]);
-        StageTask::factory()->create([
+        StateTask::factory()->create([
             'name'=>'готово'
         ]);
     }

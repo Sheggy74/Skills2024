@@ -11,7 +11,7 @@ class Chat extends Model
  
     protected $hidden = [];
 
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $fillable = [
         'id',

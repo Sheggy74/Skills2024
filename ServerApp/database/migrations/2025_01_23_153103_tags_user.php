@@ -11,16 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('chat', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('task_id');
+        Schema::create('tags_user',function (Blueprint $table){
+            $table->bigInteger('tags_id');
             $table->bigInteger('user_id');
-            $table->string('message');
-            $table->dateTime('date_create');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
 
-            $table->foreign('task_id')->references('id')->on('task');
+            $table->foreign('tags_id')->references('id')->on('tags');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
@@ -30,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('chat');
+        Schema::dropIfExists('tags_user');
     }
 };

@@ -19,9 +19,9 @@ class RuleProjectFactory extends Factory
     public function definition(): array
     {
         return [
+            'role_id'=>2,
             'project_id'=>Project::query()->inRandomOrder()->first()->id,
-            'user_id'=>User::query()->inRandomOrder()->first()->id,
-            'role_id'=>2
+            'user_id'=>User::query()->inRandomOrder()->first()->id
         ];
     }
 }

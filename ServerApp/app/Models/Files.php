@@ -1,14 +1,13 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class Files extends Model
 {
-    //проект
     use HasFactory;
+ 
     protected $hidden = [];
 
     public $timestamps=true;
@@ -16,10 +15,11 @@ class Project extends Model
     protected $fillable = [
         'id',
         'name',
-        'description',
-        'icon',
-        'theme'
+        'data',
+        'type',
+        'size',
+        'chat_id'
     ];
 
-    protected $table = 'project';
+    protected $table = 'files';
 }

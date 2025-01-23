@@ -11,17 +11,19 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('rule_project',function (Blueprint $table){
+        Schema::create('time_job',function (Blueprint $table){
             $table->id();
-            $table->bigInteger('project_id');
+            $table->date('date_start');
+            $table->date('date_end');
+            $table->bigInteger('task_id');
             $table->bigInteger('user_id');
-            $table->bigInteger('role_id');
+            $table->bigInteger('state_task_id');
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
-            $table->foreign('project_id')->references('id')->on('project');
+            $table->foreign('task_id')->references('id')->on('task');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('role_id')->references('id')->on('roles');
+            $table->foreign('state_task_id')->references('id')->on('state_task');
         });
     }
 
@@ -30,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('rule_projet');
+        //
     }
 };

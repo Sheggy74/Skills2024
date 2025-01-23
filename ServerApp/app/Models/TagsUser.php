@@ -4,20 +4,16 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class RuleProject extends Model
+class TagsUser extends Model
 {
-    //права к проекту
     use HasFactory;
- 
+
     protected $hidden = [];
-
-    public $timestamps=true;
-
+    public $timestamps = true;
     protected $fillable = [
-        'id',
-        'project_id',
+        'tags_id',
         'user_id',
     ];
 
-    protected $table = 'rule_project';
+    protected $table = 'tags_user';
 }

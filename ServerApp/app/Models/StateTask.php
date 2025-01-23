@@ -1,25 +1,22 @@
 <?php
 
 namespace App\Models;
-
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Project extends Model
+class StateTask extends Model
 {
-    //проект
+    //стадия выполнения задачи
     use HasFactory;
+ 
     protected $hidden = [];
 
-    public $timestamps=true;
+    public $timestamps=false;
 
     protected $fillable = [
         'id',
         'name',
-        'description',
-        'icon',
-        'theme'
     ];
 
-    protected $table = 'project';
+    protected $table = 'state_task';
 }

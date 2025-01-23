@@ -4,19 +4,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class StageTask extends Model
+class Deadlime extends Model
 {
-    //стадия выполнения задачи
+    //дедлайн
     use HasFactory;
  
     protected $hidden = [];
 
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $fillable = [
         'id',
-        'name',
+        'task_id',
+        'date'
     ];
 
-    protected $table = 'stage_task';
+    protected $table = 'deadline';
 }

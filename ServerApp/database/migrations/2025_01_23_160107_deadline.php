@@ -3,7 +3,6 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-use Psy\Shell;
 
 return new class extends Migration
 {
@@ -12,9 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('stage_task',function (Blueprint $table){
+        Schema::create('deadline', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->bigInteger('task_id');
+            $table->timestamp('created_at')->nullable();
+            $table->timestamp('updated_at')->nullable();
+
+            $table->foreign('task_id')->references('id')->on('task');
         });
     }
 
@@ -23,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('stage_task');
+        Schema::dropIfExists('deadline');
     }
 };

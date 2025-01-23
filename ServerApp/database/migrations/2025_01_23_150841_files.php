@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('project',function (Blueprint $table){
+        Schema::create('files',function (Blueprint $table){
             $table->id();
             $table->string('name');
-            $table->string('description');
-            $table->string('icon');
-            $table->string('theme');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->binary('data');
+            $table->string('type');
+            $table->string('size');
+            $table->bigInteger('chat_id');
+
+            $table->foreign('chat_id')->references('id')->on('chat');
         });
     }
 
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('project');
+        Schema::dropIfExists('chat');
     }
 };
