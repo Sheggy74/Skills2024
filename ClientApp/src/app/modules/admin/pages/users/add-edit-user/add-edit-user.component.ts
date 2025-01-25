@@ -5,6 +5,7 @@ import { BlockService } from 'src/app/services/BlockService/block.service';
 import { ValidationComponent } from 'src/app/system-components/validation/validation.component';
 import { AdminUserService } from '../../../services/admin-user-service/admin-user.service';
 import { UserUiService } from '../user-ui-service/user-ui.service';
+import { Role } from 'src/app/Models/Role';
 
 @Component({
   selector: 'app-add-edit-user',
@@ -28,7 +29,11 @@ export class AddEditUserComponent extends ValidationComponent{
     hasPasswordChanged : boolean = false
     blockService = inject(BlockService)
 
-    override ngOnInit(){
+    step: number = 1
+
+    roles: Role[] = []
+
+    override async ngOnInit(){
         super.ngOnInit()
         this.subscriptions.push(this.pressedAdd.subscribe((pressed)=>{
             if(pressed){
@@ -50,6 +55,10 @@ export class AddEditUserComponent extends ValidationComponent{
             }
             reader.readAsDataURL(file)
         }))
+
+        this.roles = await this.userService.getRoles()
+
+        this.step = this.user.role ? 2 : 1
     }
     override validate(){
         super.validate()
@@ -97,6 +106,7 @@ export class AddEditUserComponent extends ValidationComponent{
         this.title = 'Создать пользователя'
         this.user = {}
         this.hasPasswordChanged = true
+        this.step = 1
     }
     resetControl(){
         this.pressedAdd.next(false)
@@ -113,6 +123,7 @@ export class AddEditUserComponent extends ValidationComponent{
         this.user = structuredClone(user)
         this.oldUser = structuredClone(user)
         this.hasPasswordChanged = false
+        this.step = this.user.role ? 2 : 1
     }
     async createOrEdit(){
         this.validate()
@@ -134,7 +145,6 @@ export class AddEditUserComponent extends ValidationComponent{
 
 
             this.isOpen = false
-            console.log(this.isOpen);
         }
         else{
             if(this.user.id == null){
@@ -144,8 +154,13 @@ export class AddEditUserComponent extends ValidationComponent{
             //if(blockResult != ""){
             //    return
             //}
+            console.log(this.user);
+
             let user = await this.userService.updateUser(this.user, this.hasPhotoChanged ? this.photo.value : undefined,
                 this.hasPasswordChanged ? this.password : undefined)
+            user = (user as any).data
+
+
 
             //let unblockResult = await this.blockService.unblockObject(this.user.id)
             if(user.id == null){
@@ -179,6 +194,12 @@ export class AddEditUserComponent extends ValidationComponent{
             this.password = ''
             this.hasPasswordChanged = true
         }
+    }
+
+    selectRole(role: any)
+    {
+      this.step = 2;
+      this.user.role = role;
     }
 
 }

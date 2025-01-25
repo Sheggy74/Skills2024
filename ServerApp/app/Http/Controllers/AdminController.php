@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Interface\CrudController;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\UserRole;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller implements CrudController
@@ -40,10 +41,20 @@ class AdminController extends Controller implements CrudController
             'photo' => $request->idPhoto,
             'email' => $request->email,
             'login' => $request->login,
-            'password' => $request->password ? bcrypt($request->password) : $user->password
+            'password' => $request->password ? bcrypt($request->password) : $user->password,
+            'place' => $request->place,
+            'job' => $request->job,
+            'phone' => $request->phone
         ]);
         if($result)
+        {
+            if($request->role)
+            UserRole::updateOrCreate([
+                'user_id' => $id,
+                'role_id' => $request->role['id']
+            ]);
             return new UserResource( User::query()->find($id));
+        }
         return response()->json(['message' => 'Ошибка при обновлении пользователя'],500);
     }
 

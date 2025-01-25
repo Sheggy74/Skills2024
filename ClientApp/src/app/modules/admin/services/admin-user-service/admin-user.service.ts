@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { NavigationButton } from 'src/app/Models/NavigationButton';
+import { Role } from 'src/app/Models/Role';
 import { User } from 'src/app/Models/User';
 import { BaseApiService } from 'src/app/services/BaseApiService/base-api.service';
 
@@ -43,7 +44,11 @@ export class AdminUserService extends BaseApiService{
           'photo': file??'',
           'email': user.email,
           'login': user.login,
-          'password': password??null
+          'password': password??null,
+          'job': user.job,
+          'place': user.place,
+          'phone': user.phone,
+          'role': user.role
         }
 
         var retValue = lastValueFrom(this.http.put<User>(this.localAPIPath + '/' + user.id,formData)
@@ -82,4 +87,19 @@ export class AdminUserService extends BaseApiService{
             .pipe(catchError(this.exceptionService.getErrorHandlerBoolean())));
         return retValue;
     }
+
+    getRoles(): Promise<Role[]> {
+      var retValue = lastValueFrom(this.http.get<Role[]>(this.apiURL + '/roles')
+          .pipe(
+            map((role: any) => {
+              return role.map((role: any) => {
+                return {
+                  ...role
+                }
+              });
+            }),
+            catchError(this.exceptionService.getErrorHandlerList())));
+
+      return retValue;
+  }
 }

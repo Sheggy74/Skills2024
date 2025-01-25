@@ -25,7 +25,9 @@ class UserSeeder extends Seeder
 
         $role = Role::query()->create([
             'name' => 'admin',
-            'starting_url' => '/admin'
+            'title' => 'Администратор',
+            'starting_url' => '/admin',
+            'image' => 'assets/admin.webp'
         ]);
 
         UserRole::query()->create([
@@ -34,29 +36,41 @@ class UserSeeder extends Seeder
         ]);
 
         $user = User::factory()->create([
-            'email' => 'user@example.com',
-            'login' => 'user',
-            'password' => bcrypt('user')
-        ]);
-
-        $role = Role::query()->create([
-            'name' => 'user',
-            'starting_url' => '/experiments'
-        ]);
-
-        UserRole::query()->create([
-            'user_id' => $user->id,
-            'role_id' => $role->id
+            'email' => 'manager@example.com',
+            'login' => 'manager',
+            'password' => bcrypt('manager')
         ]);
 
         $role = Role::query()->create([
             'name' => 'manager',
-            'starting_url' => '/manager'
+            'title' => 'Руководитель',
+            'starting_url' => '/manager',
+            'image' => 'assets/manager.webp'
         ]);
-        
+
         UserRole::query()->create([
             'user_id' => $user->id,
             'role_id' => $role->id
         ]);
+
+        $user = User::factory()->create([
+            'email' => 'executor@example.com',
+            'login' => 'executor',
+            'password' => bcrypt('executor')
+        ]);
+
+        $role = Role::query()->create([
+            'name' => 'executor',
+            'title' => 'Исполнитель',
+            'starting_url' => '/executor',
+            'image' => 'assets/executor.webp'
+        ]);
+
+        UserRole::query()->create([
+            'user_id' => $user->id,
+            'role_id' => $role->id
+        ]);
+
+
     }
 }

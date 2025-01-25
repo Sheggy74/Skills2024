@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController as AuthControllerAlias;
 use App\Http\Controllers\MessageController as MessageControllerAlias;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\test;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,8 @@ use App\Http\Controllers\ReportController as ReportControllerAlias;
 Route::middleware('api')->post('log',\App\Http\Controllers\LogController::class);
 
 Route::get('/test',[test::class,'index']);
+
+Route::get('/roles',RoleController::class);
 
 Route::prefix('auth')
      //->middleware('api')

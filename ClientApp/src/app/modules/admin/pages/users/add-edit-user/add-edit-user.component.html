@@ -5,7 +5,14 @@
     position="top"
     [style]="{width: '800px'}">
 
-    <section gridRows="auto auto auto auto auto auto auto auto" gridColumns="1fr 1fr 1fr" class="w-full mt-6">
+    <div *ngIf="step==1">
+      <app-role-selector
+        [roles] = 'roles'
+        (procceed) = "selectRole($event)"
+      ></app-role-selector>
+    </div>
+
+    <section *ngIf="step==2" gridRows="auto auto auto auto auto auto auto auto" gridColumns="1fr 1fr 1fr" class="w-full mt-6">
         <span class="flex flex-col p-float-label w-full col-span-2">
             <input type="text" #validate id="login" pAutoFocus [autofocus]="true"  class="w-full" pInputText [(ngModel)]="user!.login">
             <label for="inputtext">Логин <span class="text-red-500">*</span></label>

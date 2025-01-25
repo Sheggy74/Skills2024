@@ -16,7 +16,11 @@ class UserResource extends JsonResource
             'lastName' => $this->last_name,
             'idPhoto' => $this->photo,
             'email' => $this->email,
-            'login' => $this->login
+            'login' => $this->login,
+            'role' => $this->roles && count($this->roles) > 0 ? $this->roles[0] : null,
+            'place' => $this->place,
+            'job' => $this->job,
+            'phone' => $this->phone
         ];
     }
 }

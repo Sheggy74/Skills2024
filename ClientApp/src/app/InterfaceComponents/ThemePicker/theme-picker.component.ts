@@ -18,14 +18,12 @@ export class ThemePickerComponent extends BaseComponent{
       this.themes = this.themeService.getThemes()
       let savedTheme = localStorage.getItem('theme')
       this.selectedTheme = this.themes.find(theme => theme.name == localStorage.getItem('theme')) ?? this.themes[0]
-      console.log(this.selectedTheme);
-
       this.themeService.changeTheme(this.selectedTheme)
     }
 
-    public onThemeChange($event: any){
-
+    public onThemeChange($event: Theme){
         this.themeService.changeTheme($event)
         this.selectedTheme = $event
+        localStorage.setItem('theme',$event.name)
     }
 }

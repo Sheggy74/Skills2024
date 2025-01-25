@@ -1,3 +1,5 @@
+import { Role } from "./Role"
+
 export interface User{
     id? : string
     login?: string
@@ -10,4 +12,5 @@ export interface User{
     place?: string
     job?: string
     phone?: string
+    role?: Role
 }

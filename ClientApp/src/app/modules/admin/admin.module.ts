@@ -13,6 +13,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives.module';
+import { RoleSelectorComponent } from "./pages/users/add-edit-user/role-selector/role-selector.component";
 
 
 
@@ -20,7 +21,8 @@ import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives
   declarations: [
     UsersComponent,
     UserListComponent,
-    AddEditUserComponent
+    AddEditUserComponent,
+    RoleSelectorComponent
   ],
   imports: [
     CommonModule,
@@ -35,6 +37,6 @@ import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives
     InputTextModule,
     ButtonModule,
     MesDirectivesModule
-  ]
+]
 })
 export class AdminModule { }

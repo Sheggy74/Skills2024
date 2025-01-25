@@ -1,0 +1,24 @@
+<div class="flex flex-col items-center">
+  <h2 class="text-lg font-semibold mb-4">Выберите роль</h2>
+  <div class="flex justify-around w-full mb-4">
+    <section
+      *ngFor="let role of roles"
+      (click)="selectRole(role)"
+      class="cursor-pointer flex flex-col items-center p-4"
+    >
+      <div [class]="selectedRole === role ? 'image outline-3 outline-blue-500' : 'image'">
+        <img [src]="role.image"/>
+      </div>
+      <span [class]=" (selectedRole === role ? 'font-bold' : 'font-light')">{{ role.title }}</span>
+  </section>
+  </div>
+  <div class="flex flex-row justify-end w-full">
+    <button
+    pButton
+    label="Далее"
+    class="mt-4"
+    [disabled]="!selectedRole"
+    (click)="proceedToForm()"
+  ></button>
+  </div>
+</div>
