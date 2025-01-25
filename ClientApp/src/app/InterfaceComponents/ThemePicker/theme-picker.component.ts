@@ -1,4 +1,5 @@
 import { Component, inject } from "@angular/core";
+import { Theme } from "src/app/services/ThemeService/theme";
 import { ThemeService } from "src/app/services/ThemeService/theme.service";
 import { BaseComponent } from "src/app/system-components/base-component/base.component";
 
@@ -8,15 +9,17 @@ import { BaseComponent } from "src/app/system-components/base-component/base.com
   styleUrls: ['./theme-picker.component.css']
 })
 export class ThemePickerComponent extends BaseComponent{
-    public themes: string[] = []
-    public selectedTheme: string = ''
+    public themes: Theme[] = []
+    public selectedTheme: Theme;
     private themeService: ThemeService = inject(ThemeService)
 
     constructor(){
       super()
       this.themes = this.themeService.getThemes()
       let savedTheme = localStorage.getItem('theme')
-      this.selectedTheme = savedTheme ?? this.themes[0]
+      this.selectedTheme = this.themes.find(theme => theme.name == localStorage.getItem('theme')) ?? this.themes[0]
+      console.log(this.selectedTheme);
+
       this.themeService.changeTheme(this.selectedTheme)
     }
 

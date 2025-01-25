@@ -1,39 +1,27 @@
 import { Injectable } from "@angular/core";
+import { Theme } from "./theme";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ThemeService {
   private currentThemeLinkId = 'app-theme';
-  private themes: string[] = [];
+  private themes: Theme[] = [];
 
   constructor(){
     this.themes = [
-      'arya-blue',
-      'arya-green',
-      'arya-orange',
-      'arya-purple',
-      'fluent-light',
-      'lara-dark-blue',
-      'lara-dark-indigo',
-      'lara-dark-teal',
-      'lara-light-blue',
-      'lara-light-indigo',
-      'lara-light-teal',
-      'luna-pink',
-      'md-dark-deeppurple',
-      'md-light-indigo',
-      'nova',
-      'nano',
-      'rhea',
-      'saga-blue',
-      'soho-dark',
-      'soho-light',
-      'vela-orange'
+      {
+        title: 'Светлая',
+        name: 'light'
+      },
+      {
+        title: 'Темная',
+        name: 'dark'
+      }
     ]
   }
 
-  public changeTheme(theme: string): void {
+  public changeTheme(theme: Theme): void {
     let themeLink = document.getElementById(this.currentThemeLinkId) as HTMLLinkElement;
 
     if (!themeLink) {
@@ -43,10 +31,10 @@ export class ThemeService {
       document.head.appendChild(themeLink);
     }
 
-    themeLink.href = `/assets/themes/${theme}/theme.css`;
+    themeLink.href = `/assets/themes/${theme.name}/theme.css`;
   }
 
-  public getThemes() : string[]
+  public getThemes() : Theme[]
   {
     return this.themes;
   }

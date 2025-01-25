@@ -46,7 +46,6 @@ export class AppComponent extends BaseComponent {
     }
 
     override async ngOnInit() {
-      this.themeService.changeTheme('arya-green')//lara-light-indigo
       super.ngOnInit();
 
         setTimeout(()=>{
