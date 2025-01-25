@@ -26,15 +26,9 @@ class AuthService{
                     'caption' => 'Отчет',
                     'iconClass' => 'book',
                     'routerLink' => 'report',
-                    'children' => [
-                        new NavigationButton([
-                            'caption' => 'Испытания',
-                            'iconClass' => 'fact_check',
-                            'routerLink' => 'experiments'
-                        ])
-                    ]
                 ])
             );
+
         }
 
         $buttons->push(
@@ -52,6 +46,7 @@ class AuthService{
                 'routerLink' => 'scripts'
             ])
         );
+       
 
         return $buttons;
     }

@@ -48,5 +48,15 @@ class UserSeeder extends Seeder
             'user_id' => $user->id,
             'role_id' => $role->id
         ]);
+
+        $role = Role::query()->create([
+            'name' => 'manager',
+            'starting_url' => '/manager'
+        ]);
+        
+        UserRole::query()->create([
+            'user_id' => $user->id,
+            'role_id' => $role->id
+        ]);
     }
 }
