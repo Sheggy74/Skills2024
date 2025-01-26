@@ -14,7 +14,7 @@ class UserResource extends JsonResource
             'firstName' => $this->first_name,
             'secondName' => $this->second_name,
             'lastName' => $this->last_name,
-            'idPhoto' => $this->photo,
+            'photoURL' => $this->photo_url,
             'email' => $this->email,
             'login' => $this->login,
             'role' => $this->roles && count($this->roles) > 0 ? $this->roles[0] : null,

@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Photo;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,7 +16,7 @@ return new class extends Migration
             $table->string('first_name')->nullable();
             $table->string('second_name')->nullable();
             $table->string('last_name')->nullable();
-            $table->integer('photo_id')->nullable();
+            $table->string('photo_url')->nullable();
             $table->string('login')->unique();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -27,9 +26,6 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->rememberToken();
             $table->timestamps();
-
-            $table->foreign('photo_id')->references('id')->on('photos');
-
         });
     }
 
