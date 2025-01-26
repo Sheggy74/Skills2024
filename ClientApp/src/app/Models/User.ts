@@ -7,7 +7,7 @@ export interface User{
     firstName? : string
     secondName? : string
     lastName? : string
-    idPhoto? : string
+    idPhoto? : number
     fio?: string
     place?: string
     job?: string

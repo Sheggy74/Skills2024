@@ -81,7 +81,7 @@
                     [economyMode]="false"
                     class="overflow-hidden z-10 w-[160px] h-[160px] transition-all group-hover:grayscale-[0.8] group-hover:opacity-20 absolute top-0"
                     *ngIf="!hasPhotoChanged && user!.idPhoto != null"
-                    [id]="user!.idPhoto">
+                    [id]="user!.idPhoto.toString()">
                 </app-image>
                 <img
                     *ngIf="!(!hasPhotoChanged && user!.idPhoto != null)"

@@ -154,7 +154,6 @@ export class AddEditUserComponent extends ValidationComponent{
             //if(blockResult != ""){
             //    return
             //}
-            console.log(this.user);
 
             let user = await this.userService.updateUser(this.user, this.hasPhotoChanged ? this.photo.value : undefined,
                 this.hasPasswordChanged ? this.password : undefined)
@@ -185,9 +184,10 @@ export class AddEditUserComponent extends ValidationComponent{
     shouldDisableButton() : boolean{
         return this.pressedAdd.value && this.areThereAnyValidationErrors()
     }
-    photoChanged(file : File){
+    async photoChanged(file : File){
         this.hasPhotoChanged = true
         this.photo.next(file)
+        this.user.idPhoto = await this.userService.uploadPhoto(file);
     }
     passwordFocused(){
         if(this.hasPasswordChanged == false){

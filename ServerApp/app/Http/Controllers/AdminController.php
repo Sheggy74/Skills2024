@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Interface\CrudController;
 use App\Http\Resources\UserResource;
+use App\Models\Photo;
 use App\Models\User;
 use App\Models\UserRole;
 use Illuminate\Http\Request;
@@ -33,7 +34,9 @@ class AdminController extends Controller implements CrudController
     }
 
     public function update($id,Request $request){
+
         $user = User::query()->find($id);
+
         $result = $user->update([
             'first_name' => $request->firstName,
             'second_name' => $request->secondName,
@@ -49,10 +52,10 @@ class AdminController extends Controller implements CrudController
         if($result)
         {
             if($request->role)
-            UserRole::updateOrCreate([
-                'user_id' => $id,
-                'role_id' => $request->role['id']
-            ]);
+                UserRole::updateOrCreate([
+                    'user_id' => $id,
+                    'role_id' => $request->role['id']
+                ]);
             return new UserResource( User::query()->find($id));
         }
         return response()->json(['message' => 'Ошибка при обновлении пользователя'],500);
@@ -66,6 +69,24 @@ class AdminController extends Controller implements CrudController
             return response()->json(['message' => 'Ошибка при удалении пользователя', 'error' => $e],500);
         }
         return response()->json(['message' => 'Успешно!'],200);
+    }
+
+    public function uploadPhoto(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file|max:10240' // Максимум 10MB
+        ]);
+
+        $uploadedPhoto = $request->file('file');
+
+        $photo = Photo::create([
+            'name' => $uploadedPhoto->getClientOriginalName(),
+            'data' => file_get_contents($uploadedPhoto->getRealPath()),
+            'type' => $uploadedPhoto->getMimeType(),
+            'size' => $uploadedPhoto->getSize()
+        ]);
+
+        return response()->json(['message' => 'Фото успешно загружено!','photo_id' => $photo->id]);
     }
 
 }

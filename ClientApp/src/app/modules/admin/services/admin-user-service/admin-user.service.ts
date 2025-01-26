@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { NavigationButton } from 'src/app/Models/NavigationButton';
@@ -28,20 +29,12 @@ export class AdminUserService extends BaseApiService{
         return retValue;
     }
     updateUser(user : User, file : File | undefined = undefined, password : string | undefined = undefined): Promise<User> {
-        // var formData = new FormData()
-        // if(file != null){
-        //     formData.append("loadFile", 'true')
-        //     formData.append("photo", file)
-        // }
-        // if(password != undefined){
-        //     formData.append("password", password)
-        // }
-        // formData.append("user", JSON.stringify(user))
+
         var formData = {
           'first_name': user.firstName,
           'second_name': user.secondName,
           'last_name': user.lastName,
-          'photo': file??'',
+          'photo': user.idPhoto,
           'email': user.email,
           'login': user.login,
           'password': password??null,
@@ -57,21 +50,12 @@ export class AdminUserService extends BaseApiService{
         return retValue;
     }
     createUser(user : User, file : File | undefined = undefined, password : string | undefined = undefined): Promise<User> {
-        // var formData = new FormData()
-        // if(file != null){
-        //     formData.append("loadFile", 'true')
-        //     formData.append("photo", file)
-        // }
-        // if(password != undefined){
-        //     formData.append("password", password)
-        // }
-        // formData.append("user", JSON.stringify(user))
 
         var formData = {
           'first_name': user.firstName,
           'second_name': user.secondName,
           'last_name': user.lastName,
-          'photo': file??'',
+          'photo': user.idPhoto,
           'email': user.email,
           'login': user.login,
           'password': password
@@ -101,5 +85,21 @@ export class AdminUserService extends BaseApiService{
             catchError(this.exceptionService.getErrorHandlerList())));
 
       return retValue;
+  }
+
+  uploadPhoto(photo: File) : Promise<number> {
+    let formData = new FormData();
+    formData.append('file', photo);
+
+    let retValue = lastValueFrom(this.http.post<any>(this.apiURL + '/admin/photo',formData,{headers: new HttpHeaders({'Content-Type': 'multipart/form-data'})})
+        .pipe(
+          map((response: any) => {
+            return response.photo_id;
+          }),
+          catchError(this.exceptionService.getErrorHandlerList())
+        )
+    );
+
+    return retValue;
   }
 }
