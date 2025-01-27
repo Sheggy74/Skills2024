@@ -17,6 +17,7 @@ const routes: Routes = [
             { path: 'experiments', loadChildren: () => { return import('./modules/experiments/experiments.module').then(m => m.ExperimentsModule); }},
             { path: 'scripts', loadChildren: () => { return import('./modules/scripts/scripts.module').then(m => m.ScriptsModule); }},
             { path: 'report',loadChildren:()=>{return import('./modules/report/report.module').then(m=>m.ReportModule);}},
+            {path:'projects',loadChildren:()=>{return import('./modules/project/project.module').then(m=>m.ProjectModule);}},
             { path: "**", component: RoleSelectionListComponent},
         ]
 
