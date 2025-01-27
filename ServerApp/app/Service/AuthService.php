@@ -6,14 +6,16 @@ use App\Entity\NavigationButton;
 use Illuminate\Support\Collection;
 
 
-class AuthService{
+class AuthService
+{
 
-    public static function getNavigationButtons(Collection $roles) : Collection
+    public static function getNavigationButtons(Collection $roles): Collection
     {
         $buttons = collect();
-        if($roles->filter(function($role){
+        if ($roles->filter(function ($role) {
             return $role->id == 1;
-            })->first()){
+        })->first()) {
+
             $buttons->push(
                 new NavigationButton([
                     'caption' => 'Пользователи',
@@ -21,6 +23,7 @@ class AuthService{
                     'routerLink' => 'admin/users'
                 ])
             );
+
             $buttons->push(
                 new NavigationButton([
                     'caption' => 'Отчет',
@@ -28,8 +31,15 @@ class AuthService{
                     'routerLink' => 'report',
                 ])
             );
-
         }
+
+        $buttons->push(
+            new NavigationButton([
+                'caption' => 'Исполнители',
+                'iconClass' => 'people',
+                'routerLink' => 'executors'
+            ])
+        );
 
         $buttons->push(
             new NavigationButton([
@@ -46,9 +56,7 @@ class AuthService{
                 'routerLink' => 'scripts'
             ])
         );
-       
 
         return $buttons;
     }
-
 }
