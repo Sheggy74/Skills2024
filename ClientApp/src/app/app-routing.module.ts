@@ -6,6 +6,7 @@ import { NavigationWrapperComponent } from './wrappers/navigation-wrapper/naviga
 
 
 const routes: Routes = [
+
   { path: 'auth', component: AuthorisationComponent },
   {
     path: '', component: NavigationWrapperComponent,
@@ -18,9 +19,9 @@ const routes: Routes = [
       { path: 'scripts', loadChildren: () => { return import('./modules/scripts/scripts.module').then(m => m.ScriptsModule); } },
       { path: 'report', loadChildren: () => { return import('./modules/report/report.module').then(m => m.ReportModule); } },
       { path: 'executors', loadChildren: () => { return import('./modules/executors/executors.module').then(m => m.ExecutorsModule); } },
+      {path:'projects',loadChildren:()=>{return import('./modules/project/project.module').then(m=>m.ProjectModule);}},
       { path: "**", component: RoleSelectionListComponent },
     ]
-
   },
 
 ];

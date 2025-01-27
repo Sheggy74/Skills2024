@@ -31,6 +31,14 @@ class AuthService
                     'routerLink' => 'report',
                 ])
             );
+
+            $buttons->push(
+                new NavigationButton([
+                    'caption' => 'Проекты',
+                    'iconClass' => 'book',
+                    'routerLink' => 'projects',
+                ])
+            );
         }
 
         $buttons->push(
