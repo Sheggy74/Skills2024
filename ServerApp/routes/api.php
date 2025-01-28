@@ -19,41 +19,46 @@ use App\Http\Controllers\ReportController as ReportControllerAlias;
 |
 */
 
-Route::middleware('api')->post('log',\App\Http\Controllers\LogController::class);
+Route::middleware('api')->post('log', \App\Http\Controllers\LogController::class);
 
-Route::get('/test',[test::class,'index']);
+Route::get('/test', [test::class, 'index']);
 
-Route::get('/roles',RoleController::class);
+Route::get('/roles', RoleController::class);
 
 Route::prefix('auth')
-     //->middleware('api')
-     ->controller(AuthControllerAlias::class)
-     ->group(function (){
-    Route::get('navigationButtons/{roleName}','getNavigationButtons');
-    Route::post('login','login');
-});
+    //->middleware('api')
+    ->controller(AuthControllerAlias::class)
+    ->group(function () {
+        Route::get('navigationButtons/{roleName}', 'getNavigationButtons');
+        Route::post('login', 'login');
+    });
 
-require_once __DIR__."/api/admin.php";
-require_once __DIR__."/api/experiments.php";
-require_once __DIR__."/api/tools.php";
-require_once __DIR__."/api/scripts.php";
-require_once __DIR__."/api/report.php";
+
+require_once __DIR__ . "/api/admin.php";
+require_once __DIR__ . "/api/experiments.php";
+require_once __DIR__ . "/api/tools.php";
+require_once __DIR__ . "/api/scripts.php";
+require_once __DIR__ . "/api/report.php";
+require_once __DIR__ . "/api/executors.php";
+require_once __DIR__."/api/project.php";
 require_once __DIR__."/api/workspace.php";
 
 //params: mail , message
 Route::prefix('message')
-     ->middleware('api')
-     ->controller(MessageControllerAlias::class)
-     ->group(function (){
-    Route::post('post','index');
-});
+    ->middleware('api')
+    ->controller(MessageControllerAlias::class)
+    ->group(function () {
+        Route::post('post', 'index');
+    });
 
 Route::prefix('auth')
-      ->middleware('api')
-     ->controller(ReportControllerAlias::class)
-     ->group(function (){
-    Route::get('report','report');
-    Route::get('data','reportData');
-});
+    ->middleware('api')
+    ->controller(ReportControllerAlias::class)
+    ->group(function () {
+        Route::get('report', 'report');
+        Route::get('data', 'reportData');
+    });
+   
+
 
 

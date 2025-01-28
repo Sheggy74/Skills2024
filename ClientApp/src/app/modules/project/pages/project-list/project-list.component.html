@@ -1,0 +1,74 @@
+<div class="filters-container">
+    <!-- Поле для поиска с использованием input и директивы pInputText -->
+    <input 
+      type="text"
+      pInputText
+      [(ngModel)]="searchText"
+      (ngModelChange)="onSearchTextChange($event)"
+      placeholder="Поиск по содержимому..."
+      style="width: 300px;" />
+  </div>
+  
+  <!-- <div class="panel-container">
+    <p-panel *ngFor="let project of filteredProjects" 
+             [toggleable]="true"
+             [collapsed]="false">
+        <ng-template pTemplate="header">
+        <div class="icon-circle">
+            <i *ngIf="project.icon" class="pi pi-home"></i> 
+        </div>
+        <span class="font-bold">
+            {{project.name}}
+        </span>
+        </ng-template>
+      <div>
+        <p>{{ project.description }}</p>
+      </div>
+      <p-footer>
+        <button pButton label="Подробнее" icon="pi pi-info-circle"></button>
+      </p-footer>
+    </p-panel>
+  </div> -->
+
+  <div class="card-container">
+    <p-card>
+      <ng-template pTemplate="content">
+          <div style="display: flex;justify-content: center;">
+              <div class="icon-circle">
+                <i class="pi pi-plus" (click)="add.showDialog()" style="cursor: pointer;"></i> 
+              </div>
+            </div>
+      </ng-template>
+    </p-card>
+    <p-card *ngFor="let project of filteredProjects">
+        <ng-template pTemplate="content">
+            <div class="header-content">
+              
+                <!-- Иконка в круге и название проекта -->
+                <div class="icon-circle">
+                  <i *ngIf="project.icon" class="pi pi-star"></i> 
+                </div>
+                <span>{{ project.name ?? 'Без имени' }}</span>
+              </div>
+              
+              <div class="card-options">
+                  <button pButton icon="pi pi-ellipsis-h" 
+                    (click)="op.toggle($event);selectProject(project)" 
+                    class="p-button-text"></button>
+
+                  <p-overlayPanel #op>
+                    <p-menu [model]="items"></p-menu>
+                  </p-overlayPanel>
+              </div>
+        </ng-template>
+       
+      <!-- <div>
+        <p>{{ project.description }}</p>
+      </div> -->
+      <!-- <p-footer>
+        <button pButton label="Подробнее" icon="pi pi-info-circle"></button>
+      </p-footer> -->
+    </p-card>
+  </div>
+
+  <app-add-project #add></app-add-project>

@@ -8,7 +8,7 @@ function error_exit {
 
 # Запуск docker-compose
 echo "Starting Docker Compose..."
-docker-compose up -d || error_exit "Failed to start Docker Compose."
+docker-compose up -d --build|| error_exit "Failed to start Docker Compose."
 
 # Ожидание готовности PostgreSQL
 echo "Waiting for PostgreSQL to be ready..."
