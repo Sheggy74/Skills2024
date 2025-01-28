@@ -8,10 +8,10 @@ import { BaseApiService } from 'src/app/services/BaseApiService/base-api.service
 })
 export class UserRoleService extends BaseApiService{
 
-   localApiPath = this.apiURL + '/projects/users';
+   localApiPath = this.apiURL + '/project/users';
     
       users = new BehaviorSubject<UserRole[]>([]);
-      selectedPrject = new BehaviorSubject<UserRole|undefined>(undefined);
+      selectedUsers = new BehaviorSubject<UserRole[]|undefined>(undefined);
   
       isLoading=new BehaviorSubject<boolean>(true);
   
@@ -24,6 +24,18 @@ export class UserRoleService extends BaseApiService{
             .pipe(
               map((UserRole:any)=>{
                 console.log(UserRole.data);
+                return UserRole.data;
+              }),
+              catchError(this.exceptionService.getErrorHandlerList())));
+          return retValue;
+        }
+
+        getUserRoleID(id:number):Promise<UserRole[]>{
+          let retValue = lastValueFrom(this.http.get<UserRole[]>(this.localApiPath+'/'+id)
+            .pipe(
+              map((UserRole:any)=>{
+                console.log(UserRole.data);
+                this.selectedUsers.next(UserRole.data);
                 return UserRole.data;
               }),
               catchError(this.exceptionService.getErrorHandlerList())));

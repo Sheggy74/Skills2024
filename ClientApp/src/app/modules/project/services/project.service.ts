@@ -35,11 +35,30 @@ export class ProjectService extends BaseApiService{
     createProjects(body:Projects,user:UserRole[]):Promise<Projects>{
         let retValue=lastValueFrom(
           this.http.post<Projects>(this.localApiPath,{
+            // ...body,
+            users:user,
+            name:body.name,
+            description:body.description,
+            icon:body.icon,
+            theme:body.theme
+          }).
+            pipe(
+             map((project:any)=>{
+              return project.data;
+             }),
+             catchError(this.exceptionService.getErrorHandlerList()))
+        )
+        return retValue;
+      }
+      editProject(body:Projects,user:UserRole[],id?:number):Promise<Projects>{
+        let retValue=lastValueFrom(
+          this.http.put<Projects>(this.localApiPath+'/'+id,{
             ...body,
             users:user,
             name:body.name,
             description:body.description,
-            icon:body.icon
+            icon:body.icon,
+            theme:body.theme
           }).
             pipe(
              map((project:any)=>{
@@ -50,4 +69,13 @@ export class ProjectService extends BaseApiService{
         return retValue;
       }
 
+      deleteProject(id:number){
+        let retValue=lastValueFrom(
+          this.http.delete<any>(this.localApiPath+'/'+id)
+            .pipe(
+              catchError(this.exceptionService.getErrorHandlerList())
+            )
+        );
+        return retValue;
+      }
 }

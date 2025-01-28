@@ -5,7 +5,8 @@ import { AddProjectComponent } from './pages/add-project/add-project.component';
 
 const routes: Routes = [
   {path:"",component:ProjectComponent},
-  {path:'add',component:AddProjectComponent}
+  {path:'add',component:AddProjectComponent},
+  {path:'edit',component:AddProjectComponent}
 ];
 
 @NgModule({

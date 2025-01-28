@@ -3,6 +3,7 @@
     flex-wrap: wrap;
     gap: 20px;
     justify-content: left;
+    padding: 20px;
   }
   
   p-card {
@@ -53,3 +54,8 @@
     color: #007ad9;  /* Цвет иконки */
     cursor: pointer;
   }
+
+  .filters-container{
+    padding: 20px;
+  }
+  

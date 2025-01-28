@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 import { ProjectService } from '../../services/project.service';
 import { Projects } from 'src/app/Models/Projects';
@@ -7,6 +7,10 @@ import { filter } from 'cypress/types/bluebird';
 import { BehaviorSubject, map } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
+import { AddProjectComponent } from '../add-project/add-project.component';
+import { UserRoleService } from '../../services/user-role.service';
+import { Tags } from 'src/app/Models/Tags';
+import { TagsService } from '../../services/tags.service';
 
 @Component({
   selector: 'project-list',
@@ -16,29 +20,37 @@ import { Router } from '@angular/router';
 export class ProjectListComponent implements OnInit{
   private router=inject(Router);
   private searchTextSubject = new BehaviorSubject<string>('');
+  private userRoleService=inject(UserRoleService);
+  tagsService=inject(TagsService);
   searchText$ = this.searchTextSubject.asObservable();
   projects:any;
   // Инициализация searchText как пустой строки
   searchText: string = '';
   items: any[];
   filteredProjects: Projects[] = [];
+  @ViewChild(AddProjectComponent) child: AddProjectComponent | undefined;
+  selectedTags:Tags[]=[];
+  tagModify:Tags={};
+ 
 
-  constructor(private projectService: ProjectService) {
+  constructor(public projectService: ProjectService) {
     // super();
     this.items = [
       {
           label: 'Изменить',
           icon:'pi pi-pencil',
           command: () => {
-              
+            this.child?.showDialog();
           }
       },
       {
           label: 'Удалить',
-          icon:'pi pi-trash'
-          // command: () => {
-          //     this.delete();
-          // }
+          icon:'pi pi-trash',
+          command: async () => {
+              this.projectService.deleteProject(this.projectService.selectedPrject.getValue()?.id??0);
+              this.projects = await this.projectService.getProjects();
+              this.filteredProjects = this.projects;
+          }
       },
   ];
   }
@@ -47,10 +59,9 @@ export class ProjectListComponent implements OnInit{
     // Получаем проекты из сервиса с использованием async/await
     this.projects = await this.projectService.getProjects();
     this.filteredProjects = this.projects;
-
     // Применяем фильтры после получения данных
     this.applyFilters();
-
+    this.tagsService.updateData();
     // Подписка на изменения текста поиска
     this.searchText$.subscribe(() => this.applyFilters());
   }
@@ -79,8 +90,20 @@ export class ProjectListComponent implements OnInit{
 
   selectProject(project:Projects){
     this.projectService.selectedPrject.next(project);
+    this.userRoleService.getUserRoleID(project.id??0);
   }
    add(){
     // this.router.navigateByUrl('/projects/add')
+   }
+   editProject(){
+    this.router.navigateByUrl("projects/edit");
+   }
+   editTag(event:Event){
+    event.stopPropagation(); 
+   }
+   deleteTag (event:Event,id:number){
+    event.stopPropagation(); 
+    this.tagsService.deleteTags(id);
+    this.tagsService.updateData();
    }
 }

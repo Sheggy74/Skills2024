@@ -1,7 +1,7 @@
-<p-dialog header="Создать проект" [modal]="true" [(visible)]="visible">
+<p-dialog header="Создать проект" [modal]="true" [(visible)]="visible" (onHide)="activeIndex=0" >
     <div class="container">
         <!-- Компонент Steps -->
-        <p-steps [model]="steps" [(activeIndex)]="activeIndex" (onChange)="onStepChange($event)" styleClass="custom-steps"></p-steps>
+        <p-steps [model]="steps" [(activeIndex)]="activeIndex" styleClass="custom-steps"></p-steps>
       
         <!-- Шаг 1: Название, описание проекта и выбор иконки -->
         <div *ngIf="activeIndex === 0">
@@ -18,7 +18,8 @@
 
           <div class="p-field">
             <label for="title">Название  проекта</label>
-            <input id="title" type="text" pInputText [(ngModel)]="projectTitle" placeholder="Введите название проекта">
+            <input id="title" type="text" pInputText [(ngModel)]="projectTitle" placeholder="Введите название проекта"
+              required #inputField="ngModel">
           </div>
           
           <div class="p-field">
@@ -29,7 +30,7 @@
           
           <button pButton type="button" label="Выберите иконку проекта" icon="pi pi-image" (click)="openIconDialog()"></button>
           <div class="button-container">
-            <p-button label="Далее" icon="pi pi-arrow-right" (click)="activeIndex = 1"></p-button>
+            <p-button label="Далее" icon="pi pi-arrow-right" (click)="activeIndex = 1" *ngIf="!inputField.invalid"></p-button>
           </div>
         </div>
       
@@ -96,7 +97,7 @@
           
           <div class="button-container">
             <p-button label="Назад" icon="pi pi-arrow-left" (click)="activeIndex = 0"></p-button>
-            <p-button label="Создать" icon="pi pi-check" (click)="addProject()"></p-button>
+            <p-button [label]="addEditBtn" icon="pi pi-check" (click)="addProject()" *ngIf="!isDisabled"></p-button>
           </div>
         </div>
       

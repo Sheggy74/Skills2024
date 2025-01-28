@@ -4,6 +4,7 @@ import { UserRole } from 'src/app/Models/UserRole';
 import { ProjectService } from '../../services/project.service';
 import { Projects } from 'src/app/Models/Projects';
 import { User } from 'src/app/Models/User';
+import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 
 @Component({
   selector: 'app-add-project',
@@ -15,20 +16,16 @@ export class AddProjectComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     this.userRoleService.updateData();
     this.users= await this.userRoleService.getUserRole();
-    console.log(this.users);
+    // console.log('ssd');
+    
   }
   visible: boolean = false;
-
-  showDialog() {
-      this.visible = true;
-  }
-
   activeIndex: number = 0;  // Индекс текущего шага
-  projectTitle: string = '';
-  projectDescription: string = '';
-  selectedIcon: string = '';
+  projectTitle: string |undefined='Ваш новый проект';
+  projectDescription: string|undefined = '';
+  selectedIcon: string|undefined = 'pi pi-book';
   selectedIconColor: string = this.getRandomColor(); // Стартовый цвет иконки (черный)
-  selectedUsers: UserRole[] = [];
+  _selectedUsers: UserRole[] = [];
   displayIconDialog: boolean = false;  // Флаг для отображения диалогового окна
   nameFilter: string = '';
   roleFilter: string = '';
@@ -36,20 +33,27 @@ export class AddProjectComponent implements OnInit{
   projectService=inject(ProjectService);
   users!: any[];
   createProject:Projects={};
+  isDisabled:boolean=true;
+  addEditBtn:string='Создать';
 
-  // users = [
-  //   { name: 'John Doe', role: 'Admin' },
-  //   { name: 'Jane Smith', role: 'User' },
-  //   { name: 'Alice Johnson', role: 'Editor' },
-  //   { name: 'Bob Brown', role: 'User' },
-  //   { name: 'Charlie White', role: 'Admin' },
-  //   { name: 'David Green', role: 'Editor' }
-  // ];
+  showDialog() {
+    this.visible = true;
+    this.isAddEditFunction();
+}
+
+  get selectedUsers():UserRole[]{
+    return this._selectedUsers;
+  }
+  set selectedUsers(newValue:UserRole[]){
+    this._selectedUsers=newValue;
+    this.isDisabled=newValue.length===0?true:false;
+    console.log(this.selectedUsers);
+  }
 
   roles = [
-    { label: 'Admin', value: 'admin' },
-    { label: 'User', value: 'user' },
-    { label: 'Manager', value: 'manager' },
+    { label: 'Администратор', value: 'admin' },
+    { label: 'Пользователь', value: 'user' },
+    { label: 'Менеджер', value: 'manager' },
   ];
 
   icons = [
@@ -66,10 +70,6 @@ export class AddProjectComponent implements OnInit{
     { label: 'О проекте' },
     { label: 'Выбор менеджера проекта' }
   ];
-
-  onStepChange(event: any) {
-    console.log('Step changed', event);
-  }
 
   onFinish() {
     // Сюда добавляем логику для сохранения или отправки данных на сервер
@@ -102,12 +102,37 @@ export class AddProjectComponent implements OnInit{
     return color;
   }
   addProject(){
+   
     this.createProject.name=this.projectTitle;
     this.createProject.description=this.projectDescription;
     this.createProject.icon=this.selectedIcon;
     this.createProject.theme=this.selectedIconColor
-  
-
-    this.projectService.createProjects(this.createProject,this.selectedUsers);
+    if(this.addEditBtn=='Создать'){
+      this.projectService.createProjects(this.createProject,this.selectedUsers);
+    }else{
+      this.projectService.editProject(this.createProject,this.selectedUsers,this.projectService.selectedPrject.getValue()?.id);
+    }
+    this.projectService.updateData();
+    
   }
+
+  isAddEditFunction(){
+    if(this.projectService.selectedPrject.value){
+      let project=this.projectService.selectedPrject.getValue();
+      this.selectedUsers=this.userRoleService.selectedUsers.getValue()??[];
+      this.projectTitle= project?.name;
+      this.projectDescription= project?.description;
+      this.selectedIcon= project?.icon;
+      this.addEditBtn='Изменить';
+      console.log(this.selectedUsers)
+    }else{
+      this.projectTitle= 'Ваш новый проект';
+      this.projectDescription= '';
+      this.selectedIcon= 'pi pi-book';
+      this.selectedUsers = [];
+      this.addEditBtn='Создать';
+      this.selectedIconColor= this.getRandomColor();
+    }
+  }
+  
 }

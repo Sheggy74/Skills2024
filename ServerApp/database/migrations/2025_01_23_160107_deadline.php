@@ -17,7 +17,7 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
-            $table->foreign('task_id')->references('id')->on('task');
+            $table->foreign('task_id')->references('id')->on('task')->onDelete('cascade');
         });
     }
 

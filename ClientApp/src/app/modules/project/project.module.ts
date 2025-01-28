@@ -24,11 +24,15 @@ import { ColorPickerModule } from 'primeng/colorpicker';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table'; 
 import { TagModule } from 'primeng/tag';
+import { AddTagsComponent } from './pages/add-tags/add-tags.component';
+
+
 @NgModule({
   declarations: [
     ProjectComponent,
     ProjectListComponent,
-    AddProjectComponent
+    AddProjectComponent,
+    AddTagsComponent
   ],
   imports: [
     CommonModule,
@@ -53,7 +57,8 @@ import { TagModule } from 'primeng/tag';
     ColorPickerModule,
     InputTextareaModule,
     TableModule,
-    TagModule
+    TagModule,
+    
   ],
 })
 export class ProjectModule { }

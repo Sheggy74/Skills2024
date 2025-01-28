@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 
 Route::prefix('projects')
-    ->middleware('auth:api')
+    ->middleware(['auth:api', 'auth.user'])
     ->controller(ProjectController::class)
     ->group(function (){
-        Route::get('users','getUserRole');
         Route::get('','index');
         Route::get('{id}','show');
         Route::post('','create');
@@ -16,3 +15,10 @@ Route::prefix('projects')
         
     });
 
+Route::prefix('project')
+    ->middleware('auth:api', 'auth.user')
+    ->controller(ProjectController::class)
+    ->group(function () {
+    Route::get('users', 'getUserRole');
+    Route::get('users/{id}','getRuleProject');
+});

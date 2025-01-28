@@ -23,9 +23,9 @@ return new class extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
 
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('priority_id')->references('id')->on('priority');
-            $table->foreign('project_id')->references('id')->on('project');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('priority_id')->references('id')->on('priority')->onDelete('cascade');
+            $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
         });
     }
 

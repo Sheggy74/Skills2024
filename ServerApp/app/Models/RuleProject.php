@@ -17,6 +17,7 @@ class RuleProject extends Model
         'id',
         'project_id',
         'user_id',
+        'role_id'
     ];
 
     protected $table = 'rule_project';

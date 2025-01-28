@@ -15,8 +15,8 @@ return new class extends Migration
             $table->bigInteger('tags_id');
             $table->bigInteger('project_id');
 
-            $table->foreign('tags_id')->references('id')->on('tags');
-            $table->foreign('project_id')->references('id')->on('project');
+            $table->foreign('tags_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
         });
     }
 

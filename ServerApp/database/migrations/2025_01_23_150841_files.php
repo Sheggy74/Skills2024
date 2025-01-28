@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('size');
             $table->bigInteger('chat_id');
 
-            $table->foreign('chat_id')->references('id')->on('chat');
+            $table->foreign('chat_id')->references('id')->on('chat')->onDelete('cascade');
         });
     }
 

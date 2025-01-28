@@ -7,6 +7,35 @@
       (ngModelChange)="onSearchTextChange($event)"
       placeholder="Поиск по содержимому..."
       style="width: 300px;" />
+
+      <!-- <p-chips [ngModel]="selectedTags" [field]="'name'"></p-chips> -->
+      <!-- <p-multiSelect 
+        [options]="(tagsService.tags.getValue())!"
+        [(ngModel)]="selectedTags" 
+        optionLabel="name" 
+        placeholder="Поиск по тегам" 
+        display="chip" 
+        [showClear]="true"/> -->
+
+        <p-multiSelect 
+          [options]="(tagsService.tags.getValue())!"
+          [(ngModel)]="selectedTags" 
+          optionLabel="name" 
+          [filter]="true" 
+          display="chip"
+          placeholder="Поиск по тегам" >
+          <ng-template let-item pTemplate="item">
+            <div class="custom-option">
+              <span>{{ item.name }}</span>
+              <button pButton type="button" icon="pi pi-pencil" style="color: rgb(57, 140, 212);background: white;"
+                (click)="editTag($event);tagsService.selectedTag.next(item);tags.showDialog()"></button>
+              <button pButton type="button" icon="pi pi-trash" style="color: rgb(212, 57, 70);background: white;border-color: rgb(212, 57, 70);"
+                (click)="deleteTag($event,item.id)"></button>
+            </div>
+          </ng-template>
+        </p-multiSelect>
+
+        <p-button icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()"/>
   </div>
   
   <!-- <div class="panel-container">
@@ -35,7 +64,7 @@
       <ng-template pTemplate="content">
           <div style="display: flex;justify-content: center;">
               <div class="icon-circle">
-                <i class="pi pi-plus" (click)="add.showDialog()" style="cursor: pointer;"></i> 
+                <i class="pi pi-plus" (click)="this.projectService.selectedPrject.next(undefined);add.showDialog()" style="cursor: pointer;"></i> 
               </div>
             </div>
       </ng-template>
@@ -45,9 +74,9 @@
             <div class="header-content">
               
                 <!-- Иконка в круге и название проекта -->
-                <div class="icon-circle">
-                  <i *ngIf="project.icon" class="pi pi-star"></i> 
-                </div>
+                <div class="icon-circle" [style.background-color]="project.theme">
+                  <i [class]="project.icon" style="color: white;"></i>
+                  </div>
                 <span>{{ project.name ?? 'Без имени' }}</span>
               </div>
               
@@ -72,3 +101,4 @@
   </div>
 
   <app-add-project #add></app-add-project>
+  <app-add-tags #tags></app-add-tags>

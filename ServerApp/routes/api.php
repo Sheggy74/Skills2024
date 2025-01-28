@@ -41,6 +41,7 @@ require_once __DIR__ . "/api/scripts.php";
 require_once __DIR__ . "/api/report.php";
 require_once __DIR__ . "/api/executors.php";
 require_once __DIR__."/api/project.php";
+require_once __DIR__."/api/tags.php";
 
 
 //params: mail , message
