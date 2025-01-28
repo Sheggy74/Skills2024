@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { Task } from 'src/app/Models/Task';
+import { WorkspaceService } from '../../services/workspace.service';
 
 @Component({
   selector: 'app-edit-task',
@@ -7,13 +8,14 @@ import { Task } from 'src/app/Models/Task';
   styleUrl: './edit-task.component.css'
 })
 export class EditTaskComponent {
-  @Input() visible: boolean = false; // Видимость панели
-  @Input() task!: Task; // Задача для редактирования
-  @Output() visibleChange = new EventEmitter<boolean>(); // Событие изменения видимости
-  @Output() saveChanges = new EventEmitter<Task>(); // Событие сохранения изменений
-
-  editedTitle: string = ''; // Редактируемое название задачи
-  editedDescription: string = ''; // Редактируемое описание задачи
+  @Input() visible: boolean = false;
+  @Input() task!: Task;
+  @Output() visibleChange = new EventEmitter<boolean>();
+  @Output() saveChanges = new EventEmitter<Task>();
+  editedTitle: string = '';
+  editedDescription: string = '';
+  private workspaceService = inject(WorkspaceService);
+  
 
   ngOnChanges() {
     if (this.task) {
@@ -28,6 +30,8 @@ export class EditTaskComponent {
       name: this.editedTitle,
       description: this.editedDescription
     };
+
+    this.workspaceService.editTask(this.task.id, updatedTask);
     this.saveChanges.emit(updatedTask); // Передаем обновленную задачу
     this.closeSidebar();
   }

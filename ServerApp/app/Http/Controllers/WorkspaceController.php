@@ -19,6 +19,9 @@ class WorkspaceController extends Controller
     }
 
     public function editTask(Request $request, $id) {
-        
+        $task = Task::query()->find($id)->update([
+            'name'=>$request->name,
+            'description'=>$request->description
+        ]);
     }
 }
