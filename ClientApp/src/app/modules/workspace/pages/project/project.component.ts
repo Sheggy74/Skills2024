@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Task } from 'src/app/Models/Task';
+import { WorkspaceService } from '../../services/workspace.service';
 
 @Component({
   selector: 'app-project',
@@ -10,6 +11,7 @@ export class ProjectComponent {
   tasks: Task[] = [];
   newTaskTitle: string = '';
   newTaskDescription: string = '';
+  private workspaceService = inject(WorkspaceService);
 
   ngOnInit(): void {
     // Загрузка задач из localStorage или API
@@ -17,6 +19,8 @@ export class ProjectComponent {
     if (savedTasks) {
       this.tasks = JSON.parse(savedTasks);
     }
+
+    console.log(this.workspaceService.getTasksForProject(7))
   }
 
   addTask(newTask: Task) {
