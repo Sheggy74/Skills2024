@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
 import { TaskComponent } from './components/task/task.component';
-import { ProjectComponent } from './pages/project/project.component';
 import { CardModule } from 'primeng/card';
 import { AccordionModule } from 'primeng/accordion';
 import { DividerModule } from 'primeng/divider';
@@ -14,11 +13,12 @@ import { CreateTaskComponent } from './components/create-task/create-task.compon
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { WorkspaceComponent } from './pages/workspace/workspace.component';
 
 
 
 @NgModule({
-  declarations: [TaskComponent,ProjectComponent, EditTaskComponent, CreateTaskComponent],
+  declarations: [TaskComponent, WorkspaceComponent, EditTaskComponent, CreateTaskComponent],
   imports: [
     CommonModule,
     FormsModule,

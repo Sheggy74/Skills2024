@@ -8,6 +8,8 @@ Route::prefix('workspace')
     ->group(function () {
         Route::get('{id}', 'showTasksForProject');
         Route::put('{id}', 'editTask');
+        Route::post('', 'createTask');
+        Route::delete('{id}', 'deleteTask');
         // Route::get('', 'showTasksForProject');
         // Route::get('users/{id}', 'show');
         // Route::post('users', 'create');

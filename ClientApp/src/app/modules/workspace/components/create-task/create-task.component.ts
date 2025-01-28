@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { Task } from 'src/app/Models/Task';
+import { WorkspaceService } from '../../services/workspace.service';
 
 @Component({
   selector: 'app-create-task',
@@ -7,35 +8,36 @@ import { Task } from 'src/app/Models/Task';
   styleUrl: './create-task.component.css'
 })
 export class CreateTaskComponent {
-  @Output() createTask = new EventEmitter<Task>(); // Событие создания задачи
-  @Output() visibleChange = new EventEmitter<boolean>(); // Событие изменения видимости
+  @Output() createTask = new EventEmitter<Task>();
+  @Output() visibleChange = new EventEmitter<boolean>();
+    private workspaceService = inject(WorkspaceService);
 
-  visible: boolean = false; // Видимость диалогового окна
-  newTaskTitle: string = ''; // Название новой задачи
-  newTaskDescription: string = ''; // Описание новой задачи
+  visible: boolean = false; 
+  newTaskTitle: string = '';
+  newTaskDescription: string = '';
 
   showDialog() {
-    this.visible = true; // Открываем диалоговое окно
+    this.visible = true;
   }
 
   hideDialog() {
-    this.visible = false; // Закрываем диалоговое окно
-    this.visibleChange.emit(this.visible); // Уведомляем родительский компонент
+    this.visible = false;
+    this.visibleChange.emit(this.visible);
   }
 
   onSubmit() {
     if (this.newTaskTitle.trim() !== '' && this.newTaskDescription.trim() !== '') {
       const newTask: Task = {
-        id: Date.now(),
+        id: 0,
         name: this.newTaskTitle,
         description: this.newTaskDescription,
         dateCreation: new Date(),
         
       };
-      this.createTask.emit(newTask); // Передаем новую задачу
-      this.hideDialog(); // Закрываем диалоговое окно
-      this.newTaskTitle = ''; // Очищаем поле названия
-      this.newTaskDescription = ''; // Очищаем поле описания
+      this.createTask.emit(newTask); 
+      this.hideDialog(); 
+      this.newTaskTitle = ''; 
+      this.newTaskDescription = ''; 
     }
   }
 }

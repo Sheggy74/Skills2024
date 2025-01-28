@@ -28,18 +28,43 @@ export class WorkspaceService extends BaseApiService {
     return retValue;
   }
 
+    createTask(newTask: Task): Promise<Task>{
+      let retValue = lastValueFrom(
+        this.http.post<Task>(this.localAPIPath, {
+          ...newTask,
+
+        })
+          .pipe(
+            map((task: any) => {
+              return task.data;
+            }),
+            catchError(this.exceptionService.getErrorHandlerList()))
+      )
+  
+      return retValue;
+    }
+
   editTask(taskId: number, updatedTask: Task): Promise<any> {
     let retValue = lastValueFrom(
       this.http.put<Task>(this.localAPIPath + '/' + taskId, {
-        ...updatedTask,
-        user_id: updatedTask.name,
-        tool_id: updatedTask.description,
+        ...updatedTask
       })
         .pipe(
           map((task: any) => {
             return task.data;
           }),
           catchError(this.exceptionService.getErrorHandlerList()))
+    )
+
+    return retValue;
+  }
+
+  deleteTask(id: number){
+    let retValue = lastValueFrom(
+      this.http.delete<any>(this.localAPIPath + '/' + id)
+        .pipe(
+          catchError(this.exceptionService.getErrorHandlerList())
+        )
     )
 
     return retValue;

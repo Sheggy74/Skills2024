@@ -1,9 +1,9 @@
 import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ProjectComponent } from './pages/project/project.component';
+import { WorkspaceComponent } from './pages/workspace/workspace.component';
 
 const routes: Routes = [
-  {path:'' , component: ProjectComponent},
+  {path:'' , component: WorkspaceComponent},
   // {path:'new' , component: AddEditExperimentComponent},
   // {path:'edit' , component: AddEditExperimentComponent},
 ];

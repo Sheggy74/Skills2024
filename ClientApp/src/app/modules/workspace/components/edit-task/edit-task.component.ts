@@ -30,14 +30,12 @@ export class EditTaskComponent {
       name: this.editedTitle,
       description: this.editedDescription
     };
-
-    this.workspaceService.editTask(this.task.id, updatedTask);
-    this.saveChanges.emit(updatedTask); // Передаем обновленную задачу
+    this.saveChanges.emit(updatedTask);
     this.closeSidebar();
   }
 
   closeSidebar() {
     this.visible = false;
-    this.visibleChange.emit(this.visible); // Закрываем панель
+    this.visibleChange.emit(this.visible);
   }
 }

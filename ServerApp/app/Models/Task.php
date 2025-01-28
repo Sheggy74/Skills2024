@@ -17,6 +17,7 @@ class Task extends Model
         'id',
         'name',
         'description',
+        'date_create',
         'project_id',
         'user_id',//создатель задачи
         'ptask_id',//родитель задачи(если это подзадача)

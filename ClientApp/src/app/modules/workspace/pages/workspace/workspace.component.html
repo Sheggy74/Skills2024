@@ -4,7 +4,7 @@
     (onClick)="createTaskDialog.showDialog()"
   ></p-button>
 
-  <div *ngFor="let task of tasks; trackBy: trackByTaskId" style="margin-top: 20px;">
+  <div *ngFor="let task of tasks" style="margin-top: 20px;">
     <app-task
       [task]="task"
       (deleteTask)="removeTask($event)"
