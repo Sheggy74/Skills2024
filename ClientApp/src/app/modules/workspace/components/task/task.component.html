@@ -1,0 +1,25 @@
+<p-card [header]="task.title" [style]="{ 'margin-bottom': '10px' }">
+  <p>{{ task.description }}</p>
+  <p-button
+    [label]="task.completed ? 'Отметить как невыполненную' : 'Отметить как выполненную'"
+    (onClick)="toggleCompletion()"
+    styleClass="p-button-sm"
+  ></p-button>
+  <p-button
+    label="Редактировать"
+    (onClick)="openEditSidebar()"
+    styleClass="p-button-secondary p-button-sm"
+  ></p-button>
+  <p-button
+    label="Удалить задачу"
+    (onClick)="onDelete()"
+    styleClass="p-button-danger p-button-sm"
+  ></p-button>
+</p-card>
+
+<!-- Используем компонент боковой панели -->
+<app-edit-task
+  [(visible)]="editSidebarVisible"
+  [task]="task"
+  (saveChanges)="onSaveChanges($event)"
+></app-edit-task>

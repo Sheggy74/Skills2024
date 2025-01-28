@@ -1,0 +1,32 @@
+<p-sidebar
+  [(visible)]="visible"
+  position="right"
+  [style]="{ width: '400px' }"
+  (onHide)="closeSidebar()"
+>
+  <h2>Редактирование задачи</h2>
+  <div class="p-fluid">
+    <div class="p-field">
+      <label for="editedTitle">Название задачи</label>
+      <input
+        id="editedTitle"
+        type="text"
+        pInputText
+        [(ngModel)]="editedTitle"
+      />
+    </div>
+    <div class="p-field">
+      <label for="editedDescription">Описание задачи</label>
+      <textarea
+        id="editedDescription"
+        pInputTextarea
+        [(ngModel)]="editedDescription"
+      ></textarea>
+    </div>
+    <p-button
+      label="Сохранить изменения"
+      (onClick)="onSave()"
+      styleClass="p-button-success"
+    ></p-button>
+  </div>
+</p-sidebar>

@@ -1,0 +1,20 @@
+<p-card header="Проект: Мой проект">
+  <p-button
+    label="Добавить задачу"
+    (onClick)="createTaskDialog.showDialog()"
+  ></p-button>
+
+  <div *ngFor="let task of tasks; trackBy: trackByTaskId" style="margin-top: 20px;">
+    <app-task
+      [task]="task"
+      (deleteTask)="removeTask($event)"
+      (updateTask)="changeTask($event)"
+    ></app-task>
+  </div>
+</p-card>
+
+<!-- Используем компонент диалогового окна -->
+<app-create-task
+  #createTaskDialog
+  (createTask)="addTask($event)"
+></app-create-task>

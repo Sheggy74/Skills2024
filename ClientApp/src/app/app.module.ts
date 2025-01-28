@@ -46,6 +46,8 @@ import { RoleSelectionListComponent } from './InterfaceComponents/role-selection
 import { BlockService } from './services/BlockService/block.service';
 import { ThemePickerComponent } from './InterfaceComponents/ThemePicker/theme-picker.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { AccordionModule } from 'primeng/accordion';
+
 
 
 
@@ -92,7 +94,9 @@ import { DropdownModule } from 'primeng/dropdown';
     PickListModule,
     InputSwitchModule,
     DialogModule,
-    DropdownModule
+    DropdownModule,
+    AccordionModule,
+    DialogModule,
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AgileUIService,ConfigService, MessageService, LogService, ErrorService, BlockService],
