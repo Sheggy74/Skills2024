@@ -31,6 +31,7 @@ class AuthService
                     'routerLink' => 'report',
                 ])
             );
+            // временный проект
             $buttons->push(
                 new NavigationButton([
                     'caption' => 'Проект',
