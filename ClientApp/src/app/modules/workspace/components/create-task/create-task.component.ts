@@ -27,9 +27,10 @@ export class CreateTaskComponent {
     if (this.newTaskTitle.trim() !== '' && this.newTaskDescription.trim() !== '') {
       const newTask: Task = {
         id: Date.now(),
-        title: this.newTaskTitle,
+        name: this.newTaskTitle,
         description: this.newTaskDescription,
-        completed: false
+        dateCreation: new Date(),
+        
       };
       this.createTask.emit(newTask); // Передаем новую задачу
       this.hideDialog(); // Закрываем диалоговое окно

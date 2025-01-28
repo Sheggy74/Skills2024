@@ -1,7 +1,7 @@
-<p-card [header]="task.title" [style]="{ 'margin-bottom': '10px' }">
+<p-card [header]="task.name" [style]="{ 'margin-bottom': '10px' }">
   <p>{{ task.description }}</p>
   <p-button
-    [label]="task.completed ? 'Отметить как невыполненную' : 'Отметить как выполненную'"
+    [label]="'Отметить как невыполненную'"
     (onClick)="toggleCompletion()"
     styleClass="p-button-sm"
   ></p-button>

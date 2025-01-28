@@ -14,7 +14,7 @@ export class TaskComponent {
   editSidebarVisible: boolean = false; // Видимость панели редактирования
 
   toggleCompletion() {
-    this.task.completed = !this.task.completed;
+    // this.task.completed = !this.task.completed;
   }
 
   onDelete() {

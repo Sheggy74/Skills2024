@@ -17,7 +17,7 @@ export class EditTaskComponent {
 
   ngOnChanges() {
     if (this.task) {
-      this.editedTitle = this.task.title;
+      this.editedTitle = this.task.name;
       this.editedDescription = this.task.description;
     }
   }
@@ -25,7 +25,7 @@ export class EditTaskComponent {
   onSave() {
     const updatedTask: Task = {
       ...this.task,
-      title: this.editedTitle,
+      name: this.editedTitle,
       description: this.editedDescription
     };
     this.saveChanges.emit(updatedTask); // Передаем обновленную задачу
