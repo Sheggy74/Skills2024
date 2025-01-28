@@ -13,14 +13,16 @@ export class ProjectComponent {
   newTaskDescription: string = '';
   private workspaceService = inject(WorkspaceService);
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     // Загрузка задач из localStorage или API
-    const savedTasks = localStorage.getItem('tasks');
+    const savedTasks = await this.workspaceService.getTasksForProject(7);
+    console.log(savedTasks);
     if (savedTasks) {
-      this.tasks = JSON.parse(savedTasks);
+      
+      this.tasks = savedTasks;
     }
 
-    console.log(this.workspaceService.getTasksForProject(7))
+    // console.log(this.workspaceService.getTasksForProject(7))
   }
 
   addTask(newTask: Task) {

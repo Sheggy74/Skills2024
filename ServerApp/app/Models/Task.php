@@ -8,7 +8,7 @@ class Task extends Model
 {
     //задачи проекта
     use HasFactory;
- 
+
     protected $hidden = [];
 
     public $timestamps=true;
