@@ -27,8 +27,23 @@
             <textarea id="description" pInputText [(ngModel)]="projectDescription" rows="5" cols="30" placeholder="Введите описание проекта"></textarea>
           </div>
       
+          <div style="display: flex;justify-content: space-between;">
+            <button pButton type="button" label="Выберите иконку проекта" icon="pi pi-image" (click)="openIconDialog()"></button>
+            <p-multiSelect 
+                [options]="(tagsService.tags.getValue())!"
+                [(ngModel)]="selectTags"
+                optionLabel="name" 
+                display="chip"
+                placeholder="Теги проекта" 
+                class="multiselect">
+                <ng-template let-item pTemplate="item">
+                  <div class="custom-option">
+                    <span>{{ item.name }}</span>
+                  </div>
+                </ng-template>
+              </p-multiSelect>
+          </div>
           
-          <button pButton type="button" label="Выберите иконку проекта" icon="pi pi-image" (click)="openIconDialog()"></button>
           <div class="button-container">
             <p-button label="Далее" icon="pi pi-arrow-right" (click)="activeIndex = 1" *ngIf="!inputField.invalid"></p-button>
           </div>
@@ -86,7 +101,7 @@
                 <td> <p-tableCheckbox [value]="user" /></td>
                 <td>
                     <div class="flex items-center gap-2">
-                        <img [alt]="user.fio" src="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" width="32" style="vertical-align: middle" />
+                        <!-- <img [alt]="user.fio" src="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" width="32" style="vertical-align: middle" /> -->
                         <span>{{ user.fio }}</span>
                     </div>
                 </td>

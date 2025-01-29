@@ -73,3 +73,8 @@
     justify-content: center;
     align-items: center;
   }
+
+  .multiselect{
+    position: absolute;
+    right: 40px;
+  }

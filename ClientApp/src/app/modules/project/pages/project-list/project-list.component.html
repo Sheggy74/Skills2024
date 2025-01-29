@@ -6,16 +6,7 @@
       [(ngModel)]="searchText"
       (ngModelChange)="onSearchTextChange($event)"
       placeholder="Поиск по содержимому..."
-      style="width: 300px;" />
-
-      <!-- <p-chips [ngModel]="selectedTags" [field]="'name'"></p-chips> -->
-      <!-- <p-multiSelect 
-        [options]="(tagsService.tags.getValue())!"
-        [(ngModel)]="selectedTags" 
-        optionLabel="name" 
-        placeholder="Поиск по тегам" 
-        display="chip" 
-        [showClear]="true"/> -->
+      style="width: 300px;height: auto;" />
 
         <p-multiSelect 
           [options]="(tagsService.tags.getValue())!"
@@ -23,7 +14,9 @@
           optionLabel="name" 
           [filter]="true" 
           display="chip"
-          placeholder="Поиск по тегам" >
+          placeholder="Поиск по тегам"
+          (onChange)="onSearchTagsChange($event)"
+           >
           <ng-template let-item pTemplate="item">
             <div class="custom-option">
               <span>{{ item.name }}</span>
@@ -35,29 +28,8 @@
           </ng-template>
         </p-multiSelect>
 
-        <p-button icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()"/>
+        <p-button icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()" class="bBtn"  pTooltip="Добавить тег"/>
   </div>
-  
-  <!-- <div class="panel-container">
-    <p-panel *ngFor="let project of filteredProjects" 
-             [toggleable]="true"
-             [collapsed]="false">
-        <ng-template pTemplate="header">
-        <div class="icon-circle">
-            <i *ngIf="project.icon" class="pi pi-home"></i> 
-        </div>
-        <span class="font-bold">
-            {{project.name}}
-        </span>
-        </ng-template>
-      <div>
-        <p>{{ project.description }}</p>
-      </div>
-      <p-footer>
-        <button pButton label="Подробнее" icon="pi pi-info-circle"></button>
-      </p-footer>
-    </p-panel>
-  </div> -->
 
   <div class="card-container">
     <p-card>
@@ -91,12 +63,6 @@
               </div>
         </ng-template>
        
-      <!-- <div>
-        <p>{{ project.description }}</p>
-      </div> -->
-      <!-- <p-footer>
-        <button pButton label="Подробнее" icon="pi pi-info-circle"></button>
-      </p-footer> -->
     </p-card>
   </div>
 

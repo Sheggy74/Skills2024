@@ -1,10 +1,14 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { UserRoleService } from '../../services/user-role.service';
 import { UserRole } from 'src/app/Models/UserRole';
+import {TagsProject} from 'src/app/Models/TagsProject';
 import { ProjectService } from '../../services/project.service';
 import { Projects } from 'src/app/Models/Projects';
 import { User } from 'src/app/Models/User';
 import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
+import { TagsService } from '../../services/tags.service';
+import { Tags } from 'src/app/Models/Tags';
+import { TagsprService } from '../../services/tagspr.service';
 
 @Component({
   selector: 'app-add-project',
@@ -16,7 +20,12 @@ export class AddProjectComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     this.userRoleService.updateData();
     this.users= await this.userRoleService.getUserRole();
-    // console.log('ssd');
+    this.projectService.projectID.subscribe(project=>{
+      this.addEditTags(project?.id);
+    });
+    this.projectTagsService.tagsID.subscribe(tags=>{
+      this.projectService.updateData();
+    })
     
   }
   visible: boolean = false;
@@ -31,10 +40,16 @@ export class AddProjectComponent implements OnInit{
   roleFilter: string = '';
   userRoleService=inject(UserRoleService);
   projectService=inject(ProjectService);
+  tagsService=inject(TagsService);
+  projectTagsService=inject(TagsprService);
   users!: any[];
   createProject:Projects={};
   isDisabled:boolean=true;
   addEditBtn:string='Создать';
+  selectTags:Tags[]=[];
+  retPrID:any;
+  arrayTagsPr:TagsProject[]=[];
+
 
   showDialog() {
     this.visible = true;
@@ -108,12 +123,23 @@ export class AddProjectComponent implements OnInit{
     this.createProject.icon=this.selectedIcon;
     this.createProject.theme=this.selectedIconColor
     if(this.addEditBtn=='Создать'){
-      this.projectService.createProjects(this.createProject,this.selectedUsers);
+      this.retPrID =this.projectService.createProjects(this.createProject,this.selectedUsers);
+      
     }else{
       this.projectService.editProject(this.createProject,this.selectedUsers,this.projectService.selectedPrject.getValue()?.id);
+      this.addEditTags(this.projectService.selectedPrject.getValue()?.id);
     }
     this.projectService.updateData();
     
+  }
+
+  addEditTags(id?:number){
+    this.selectTags.forEach(element => {
+      this.arrayTagsPr.push({'project_id':id,'tags_id':element.id});
+    });
+    console.log(this.arrayTagsPr);
+    this.projectTagsService.createTags(this.arrayTagsPr);
+    this.arrayTagsPr=[];
   }
 
   isAddEditFunction(){
@@ -124,6 +150,7 @@ export class AddProjectComponent implements OnInit{
       this.projectDescription= project?.description;
       this.selectedIcon= project?.icon;
       this.addEditBtn='Изменить';
+      this.selectTags=project?.tags??[];
       console.log(this.selectedUsers)
     }else{
       this.projectTitle= 'Ваш новый проект';

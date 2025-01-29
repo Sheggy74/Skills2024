@@ -11,6 +11,7 @@ import { AddProjectComponent } from '../add-project/add-project.component';
 import { UserRoleService } from '../../services/user-role.service';
 import { Tags } from 'src/app/Models/Tags';
 import { TagsService } from '../../services/tags.service';
+import { TagsprService } from '../../services/tagspr.service';
 
 @Component({
   selector: 'project-list',
@@ -20,9 +21,12 @@ import { TagsService } from '../../services/tags.service';
 export class ProjectListComponent implements OnInit{
   private router=inject(Router);
   private searchTextSubject = new BehaviorSubject<string>('');
+  private searchTags=new BehaviorSubject<Tags|undefined>(undefined);
   private userRoleService=inject(UserRoleService);
   tagsService=inject(TagsService);
+  
   searchText$ = this.searchTextSubject.asObservable();
+  searchTags$=this.searchTags.asObservable();
   projects:any;
   // Инициализация searchText как пустой строки
   searchText: string = '';
@@ -58,12 +62,16 @@ export class ProjectListComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     // Получаем проекты из сервиса с использованием async/await
     this.projects = await this.projectService.getProjects();
-    this.filteredProjects = this.projects;
+    this.projectService.project.subscribe(project=>{
+      this.filteredProjects=project;
+    })
+    // this.filteredProjects = this.projects;
     // Применяем фильтры после получения данных
     this.applyFilters();
     this.tagsService.updateData();
     // Подписка на изменения текста поиска
     this.searchText$.subscribe(() => this.applyFilters());
+    this.searchTags$.subscribe(()=>this.applyFilters());
   }
 
   // Метод для применения фильтров
@@ -79,6 +87,20 @@ export class ProjectListComponent implements OnInit{
       this.filteredProjects = this.filteredProjects.filter(project =>
         project?.name?.toLowerCase().includes(searchText) ||
         project?.description?.toLowerCase().includes(searchText)
+      //   ||
+      //   project.tags?.filter(item1 =>
+      //     this.selectedTags.some(item2 => item2.id === item1.id)
+      // )
+    )
+    }
+    if(this.selectedTags.length!=0){
+      console.log(this.selectedTags);
+      this.filteredProjects=this.filteredProjects.filter(obj =>
+        obj.tags?.some(tag => 
+          this.selectedTags.some(searchItem => 
+            searchItem.id === tag.id && searchItem.name === tag.name
+          )
+        )
       );
     }
   }
@@ -87,8 +109,13 @@ export class ProjectListComponent implements OnInit{
   onSearchTextChange(searchText: string) {
     this.searchTextSubject.next(searchText);
   }
+  onSearchTagsChange(searchTags:Tags){
+    console.log(searchTags);
+    this.searchTags.next(searchTags);
+  }
 
   selectProject(project:Projects){
+    console.log(project);
     this.projectService.selectedPrject.next(project);
     this.userRoleService.getUserRoleID(project.id??0);
   }

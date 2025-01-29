@@ -37,16 +37,11 @@ class ProjectController extends Controller implements CrudController
             'icon'=>$request->icon,
             'theme'=>$request->theme
         ]);
-        if(is_string($request->users)){
-            $fixedJson = preg_replace('/([a-zA-Z0-9_]+)\s*:/', '"$1":', $request->users);
-            $userRole=json_decode($fixedJson);
-        }else{
-            $userRole=$request->users;
-        }
-        $masUserRole=array();
+
+        $jsonString = stripslashes($request->users);
+        $userRole = json_decode($jsonString, true);
         foreach($userRole as $item){
-            array_push($masUserRole);
-            dump( $item);
+            // dump( $item);
             RuleProject::query()->create(
                 ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role_id"]]
             );

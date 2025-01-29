@@ -14,7 +14,7 @@ export class ProjectService extends BaseApiService{
   
     project = new BehaviorSubject<Projects[]>([]);
     selectedPrject = new BehaviorSubject<Projects|undefined>(undefined);
-
+    projectID=new BehaviorSubject<Projects|undefined>(undefined);
     isLoading=new BehaviorSubject<boolean>(true);
 
     async updateData(){
@@ -36,7 +36,7 @@ export class ProjectService extends BaseApiService{
         let retValue=lastValueFrom(
           this.http.post<Projects>(this.localApiPath,{
             // ...body,
-            users:user,
+            users:JSON.stringify(user),
             name:body.name,
             description:body.description,
             icon:body.icon,
@@ -44,6 +44,7 @@ export class ProjectService extends BaseApiService{
           }).
             pipe(
              map((project:any)=>{
+              this.projectID.next(project.data);
               return project.data;
              }),
              catchError(this.exceptionService.getErrorHandlerList()))
