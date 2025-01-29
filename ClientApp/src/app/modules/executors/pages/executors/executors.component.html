@@ -1,9 +1,9 @@
 <section class="flex flex-col">
-  <div class="flex flex-row justify-end my-2">
+  <div class="flex flex-row justify-between my-2">
+    <input pInputText [(ngModel)]="searchString" (input)="filter()" placeholder="Поиск" />
     <button pButton [disabled]="!executorsService.selectedExecutor" (click)="selectExecutor.show()">Выбрать</button>
   </div>
-  <app-list [executors]="executorsService.executors"
-    (selectExecutor)="executorsService.selectExecutor($event)"></app-list>
+  <app-list [executors]="filteredData" (selectExecutor)="executorsService.selectExecutor($event)"></app-list>
 </section>
 
 <app-select-executor #selectExecutor></app-select-executor>

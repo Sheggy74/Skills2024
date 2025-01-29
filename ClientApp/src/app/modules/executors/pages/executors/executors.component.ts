@@ -13,6 +13,9 @@ export class ExecutorsComponent extends BaseComponent {
 
   executorsService: ExecutorsService = inject(ExecutorsService)
 
+  searchString: string = '';
+  filteredData: User[] = [];
+
   constructor() {
     super()
 
@@ -20,10 +23,14 @@ export class ExecutorsComponent extends BaseComponent {
 
   override async ngOnInit(): Promise<void> {
     await this.executorsService.getExecutors()
+    this.filteredData = this.executorsService.executors;
   }
 
-  select() {
-
+  filter() {
+    this.filteredData = this.executorsService.executors.filter(
+      item => ((item.firstName ?? '') + ' ' + (item.secondName ?? '') + ' ' + (item.lastName ?? '')).toLowerCase().includes(this.searchString.toLowerCase()) ||
+        item.job?.toLowerCase().includes(this.searchString.toLowerCase()) ||
+        item.place?.toLowerCase().includes(this.searchString.toLowerCase()))
   }
 
 }

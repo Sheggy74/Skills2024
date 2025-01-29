@@ -10,6 +10,7 @@ import { SelectExecutorComponent } from './pages/executors/select-executor/selec
 import { ButtonModule } from 'primeng/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AutoCompleteModule } from 'primeng/autocomplete';
+import { InputTextModule } from 'primeng/inputtext';
 
 
 
@@ -27,7 +28,8 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     ButtonModule,
     FormsModule,
     ReactiveFormsModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    InputTextModule
   ]
 })
 export class ExecutorsModule { }

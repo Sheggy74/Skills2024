@@ -1,7 +1,22 @@
-
-::ng-deep .p-highlight{
-    font-weight: 500;
+::ng-deep .p-highlight {
+  font-weight: 500;
 }
-.material-symbols-outlined{
-    font-size: 20px;
+
+.material-symbols-outlined {
+  font-size: 20px;
+}
+
+.logo-img {
+  height: 50px;
+  border: none;
+  margin-left: -8px;
+  width: 40px;
+  object-fit: cover;
+}
+
+.logo-txt {
+  font-size: 22px;
+  font-family: "Sour Gummy", serif;
+  text-shadow: 2px 2px 5px var(--gray-500);
+  color: var(--text-color);
 }

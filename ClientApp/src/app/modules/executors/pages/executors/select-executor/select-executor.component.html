@@ -1,17 +1,17 @@
 <p-dialog [header]="title" [modal]="true" [(visible)]="isOpen" position="top" [style]="{width: '800px'}">
   <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
     <div class="p-fluid">
-      <div class="p-field">
+      <div class="p-field mb-2">
         <label for="project">Проект</label>
         <p-autoComplete id="project" formControlName="project" [suggestions]="projects"
-          (completeMethod)="searchProjects($event)" field="name" [dropdown]="true">
+          (completeMethod)="searchProjects($event)" field="name" [dropdown]="false" appendTo="body">
         </p-autoComplete>
       </div>
 
-      <div class="p-field">
+      <div class="p-field mb-4">
         <label for="task">Задача</label>
         <p-autoComplete id="task" formControlName="task" [suggestions]="tasks" (completeMethod)="searchTasks($event)"
-          field="name" [dropdown]="true">
+          field="name" [dropdown]="false">
         </p-autoComplete>
       </div>
 
