@@ -1,0 +1,19 @@
+<p-dialog [(visible)]="visible" (onHide)="hideDialog()" header="Создание новой задачи" [style]="{ width: '400px' }"
+  [modal]="true">
+  <div class="p-fluid">
+    <!-- <div class="p-field"> -->
+      <span class="p-float-label my-4">
+        <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" />
+        <label for="newTaskTitle">Название задачи</label>
+      </span>
+    <!-- </div> -->
+    <span class="p-float-label my-4">
+      <textarea id="newTaskDescription" pInputTextarea [(ngModel)]="newTaskDescription"></textarea>
+      <label for="newTaskDescription">Описание задачи</label>
+    </span>
+  </div>
+  <ng-template pTemplate="footer">
+    <p-button label="Отмена" (onClick)="hideDialog()" styleClass="p-button-text"></p-button>
+    <p-button label="Создать" (onClick)="onSubmit()" styleClass="p-button-success"></p-button>
+  </ng-template>
+</p-dialog>

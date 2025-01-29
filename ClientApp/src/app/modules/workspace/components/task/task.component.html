@@ -1,0 +1,30 @@
+<p>{{ task.description }}</p>
+<div class="flex justify-between align-middle">
+  <p>{{ task.dateCreation }}</p>
+  <div class="">
+    <p-button icon="pi pi-pencil" pTooltip="Редактировать" [showDelay]="1000" class="p-button-icon-only" rounded="true"
+      (onClick)="openEditSidebar()" styleClass="p-button-primary p-button-sm"></p-button>
+    <p-button icon="pi pi-trash" pTooltip="Удалить" class="p-button-icon-only" [showDelay]="1000" (onClick)="onDelete()"
+      styleClass="p-button-danger p-button-sm"></p-button>
+  </div>
+</div>
+  <!-- <p-card [header]="task.name" [style]="{ 'margin-bottom': '10px' }">
+  <p>{{ task.description }}</p>
+  <div class="flex justify-between align-middle">
+    <p>{{ task.dateCreation }}</p>
+    <div class="">
+      <p-button icon="pi pi-pencil" pTooltip="Редактировать" [showDelay]="1000" class="p-button-icon-only"
+        rounded="true" (onClick)="openEditSidebar()" styleClass="p-button-primary p-button-sm"></p-button>
+      <p-button icon="pi pi-trash" pTooltip="Удалить" class="p-button-icon-only" [showDelay]="1000"
+        (onClick)="onDelete()" styleClass="p-button-danger p-button-sm"></p-button>
+    </div>
+    <p-button
+    [label]="E"
+    (onClick)="toggleCompletion()"
+    styleClass="p-button-sm"
+  ></p-button>
+  </div> 
+</p-card>-->
+
+  <!-- Используем компонент боковой панели -->
+  <app-edit-task [(visible)]="editSidebarVisible" [task]="task" (saveChanges)="onSaveChanges($event)"></app-edit-task>

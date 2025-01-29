@@ -1,7 +1,12 @@
 import { Role } from "./Role"
 
-export interface Task{
-    id? : string
-    name?: string
-    roles?: Role[]
+export interface Task {
+  id: number;
+  name: string;
+  description: string;
+  dateCreation: Date, 
+  // projectId: number,
+  // userId: number,
+  // priorityId: number,
+  // ptask_Id: number,
 }
