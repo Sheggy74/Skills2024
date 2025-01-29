@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { User } from 'src/app/Models/User';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 import { ExecutorsService } from '../../services/executors-service.service';
@@ -11,8 +11,6 @@ import { ExecutorsService } from '../../services/executors-service.service';
 })
 export class ExecutorsComponent extends BaseComponent {
 
-  executors: User[] = [];
-
   executorsService: ExecutorsService = inject(ExecutorsService)
 
   constructor() {
@@ -21,8 +19,10 @@ export class ExecutorsComponent extends BaseComponent {
   }
 
   override async ngOnInit(): Promise<void> {
-    this.executors = await this.executorsService.getExecutors()
-    console.log('executors', this.executors);
+    await this.executorsService.getExecutors()
+  }
+
+  select() {
 
   }
 

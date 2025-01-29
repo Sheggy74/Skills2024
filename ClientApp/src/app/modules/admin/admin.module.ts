@@ -37,6 +37,6 @@ import { RoleSelectorComponent } from "./pages/users/add-edit-user/role-selector
     InputTextModule,
     ButtonModule,
     MesDirectivesModule
-]
+  ]
 })
 export class AdminModule { }

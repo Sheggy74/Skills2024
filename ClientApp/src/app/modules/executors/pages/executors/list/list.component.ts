@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { User } from 'src/app/Models/User';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 
@@ -11,4 +11,12 @@ import { BaseComponent } from 'src/app/system-components/base-component/base.com
 export class ListComponent extends BaseComponent {
 
   @Input() executors: User[] = [];
+
+  @Output() selectExecutor: EventEmitter<User> = new EventEmitter<User>()
+
+  public selectedExecutor?: User
+
+  public select() {
+    this.selectExecutor.emit(this.selectedExecutor)
+  }
 }

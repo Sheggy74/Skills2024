@@ -25,9 +25,6 @@ export class AuthInterceptor implements HttpInterceptor {
         'Authorization': `Bearer ${jwt.accessToken}`
       },
     });
-    console.log('req/header', req.headers);
-
-    console.log('req1/header', req1.headers);
 
     return await lastValueFrom(next.handle(req1));
   }

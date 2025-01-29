@@ -10,14 +10,20 @@ import { ErrorService } from 'src/app/services/ErrorService/error.service';
 })
 export class ExecutorsService extends BaseApiService {
 
+  public executors: User[] = [];
+  public selectedExecutor?: User
+
   constructor() {
     super()
   }
 
-  public getExecutors(): Promise<User[]> {
-    let res = lastValueFrom(this.http.get<User[]>(this.apiURL + '/executors')
-      .pipe(map((item: any) => { return item.data })))
+  public async getExecutors(): Promise<void> {
+    await lastValueFrom(this.http.get<User[]>(this.apiURL + '/executors')
+      .pipe(map((item: any) => { this.executors = item.data })))
       .catch(this.exceptionService.getErrorHandlerList())
-    return res;
+  }
+
+  public selectExecutor(executor: User) {
+    this.selectedExecutor = executor;
   }
 }

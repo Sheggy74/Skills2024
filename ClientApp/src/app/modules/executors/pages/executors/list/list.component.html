@@ -1,1 +1,21 @@
-<p *ngFor='let executor of executors'>{{executor.lastName}}</p>
+<section>
+  <p-table selectionMode="single" [(selection)]="selectedExecutor" (selectionChange)="select()" [value]="(executors)!"
+    [scrollable]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ФИО</th>
+        <th>Должность</th>
+        <th>Место работы</th>
+        <th>Контактный телефон</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr [pSelectableRow]="user">
+        <td>{{user.firstName + ' ' + user.secondName + ' ' + user.lastName}}</td>
+        <td>{{user.job}}</td>
+        <td>{{user.place}}</td>
+        <td>{{user.phone}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>
