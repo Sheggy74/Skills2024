@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Interface\CrudController;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\UserRoleResource;
+use App\Models\Notifications;
 use App\Models\Project;
 use App\Models\RuleProject;
 use Illuminate\Support\Facades\DB;
@@ -40,11 +41,16 @@ class ProjectController extends Controller implements CrudController
 
         $jsonString = stripslashes($request->users);
         $userRole = json_decode($jsonString, true);
+        
         foreach($userRole as $item){
-            // dump( $item);
             RuleProject::query()->create(
                 ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role_id"]]
             );
+            Notifications::query()->create([
+                'user_id'=>$item["user_id"],
+                'message'=>"Вы назначены менеджером проекта \"".$request->name."\"",
+                'is_read'=>false
+            ]);
         }
         
         return new ProjectResource($data);
@@ -58,21 +64,45 @@ class ProjectController extends Controller implements CrudController
             'icon' => $request->icon
         ]);
         $data = Project::query()->find($id);
-        if(is_string($request->users)){
-            $fixedJson = preg_replace('/([a-zA-Z0-9_]+)\s*:/', '"$1":', $request->users);
-            dump($fixedJson);
-            $userRole=json_decode($fixedJson);
-        }else{
-            $userRole=$request->users;
-        }
-        
-        $masUserRole=array();
+        $jsonString = stripslashes($request->users);
+        $userRole = json_decode(trim($jsonString,'"'),true);
 
-        foreach($userRole as $item){
-            array_push($masUserRole);
+        // dd($userRole);
+        // $userRole = json_decode($request->users);
+        // if(is_string($request->users)){
+        //     $fixedJson = preg_replace('/([a-zA-Z0-9_]+)\s*:/', '"$1":', $request->users);
+        //     // dump($fixedJson);
+        //     $userRole=json_decode($fixedJson);
+        // }else{
+        //     $userRole=$request->users;
+        // }
+
+        $newUserRule = array_map(function($item) {
+            return $item['id'];
+        }, $userRole);
+        
+        $oldUserRule=RuleProject::query()->where('project_id',$id)->get()->toArray();
+        $newRule=ProjectController::getUniqueUsersById($userRole,$oldUserRule);
+        $oldRule=ProjectController::getUniqueUsersById($oldUserRule,$userRole);
+        // dd($newRule);
+        foreach($newRule as $item){
             RuleProject::query()->create(
                 ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role_id"]]
             );
+            Notifications::query()->create([
+                'user_id'=>$item["id"],
+                'message'=>"Вы назначены менеджером проекта \"".$request->name."\"",
+                'is_read'=>false
+            ]);
+        }
+
+        foreach($oldRule as $item){
+            RuleProject::query()->find($item["id"])->delete();
+            Notifications::query()->create([
+                'user_id'=>$item["user_id"],
+                'message'=>"Вы сняты с проекта \"".$request->name."\"",
+                'is_read'=>false
+            ]);
         }
         return new ProjectResource($data);
     }
@@ -95,5 +125,22 @@ class ProjectController extends Controller implements CrudController
         'users.second_name','roles.name','roles.id as role_id')->leftJoin('rule_project','rule_project.user_id','users.id')
         ->leftJoin('roles','roles.id','rule_project.role_id')->where('rule_project.project_id',$id)->get();
         return UserRoleResource::collection($user);
+    }
+
+    function getUniqueUsersById($array1, $array2) {
+        // Массив с id пользователей из первого массива
+        $ids1 = array_map(function($user) { return $user['id']; }, $array1);
+        // Массив с id пользователей из второго массива
+        $ids2 = array_map(function($user) { return $user['id']; }, $array2);
+        
+        // Находим уникальные id из первого массива
+        $uniqueIds1 = array_diff($ids1, $ids2);
+        
+        // Извлекаем пользователей с уникальными id
+        $uniqueUsers1 = array_filter($array1, function($user) use ($uniqueIds1) {
+            return in_array($user['id'], $uniqueIds1);
+        });
+        
+        return $uniqueUsers1;
     }
 }

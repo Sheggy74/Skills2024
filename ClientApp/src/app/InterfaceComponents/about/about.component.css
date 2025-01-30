@@ -1,0 +1,10 @@
+.listNotification{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+#bell{
+    font-size: x-large;
+    margin-top: 10px;
+    margin-right: 5px;
+}

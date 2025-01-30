@@ -14,11 +14,16 @@ class NotificationsResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $date = new \DateTime($this->created_at);
+
+        // Форматируем дату в нужный формат
+        $formattedDate = $date->format('H:i:s d.m.Y');
         return [
-            $this->id,
-            $this->user_id,
-            $this->message,
-            $this->is_read
+            'id'=>$this->id,
+            'user_id'=>$this->user_id,
+            'message'=>$this->message,
+            'is_read'=>$this->is_read,
+            'created_at'=>$formattedDate
         ];
     }
 }

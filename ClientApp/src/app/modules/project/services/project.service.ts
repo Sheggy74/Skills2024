@@ -55,7 +55,7 @@ export class ProjectService extends BaseApiService{
         let retValue=lastValueFrom(
           this.http.put<Projects>(this.localApiPath+'/'+id,{
             ...body,
-            users:user,
+            users:JSON.stringify(user),
             name:body.name,
             description:body.description,
             icon:body.icon,

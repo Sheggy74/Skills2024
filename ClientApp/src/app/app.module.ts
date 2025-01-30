@@ -47,8 +47,8 @@ import { BlockService } from './services/BlockService/block.service';
 import { ThemePickerComponent } from './InterfaceComponents/ThemePicker/theme-picker.component';
 import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
-
-
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmationService } from 'primeng/api';
 
 
 
@@ -97,9 +97,10 @@ import { AccordionModule } from 'primeng/accordion';
     DropdownModule,
     AccordionModule,
     DialogModule,
+    ConfirmPopupModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
-    AgileUIService,ConfigService, MessageService, LogService, ErrorService, BlockService],
+    AgileUIService,ConfigService, MessageService, LogService, ErrorService, BlockService,ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,20 @@
 <div class="h-full flex flex-row">
 
-    <i class="pi pi-bell" pBadge [value]="countNotification"></i>
+    <i class="pi pi-bell" id="bell" pBadge [value]="countNotification" (click)="op.toggle($event)"></i>
     <div class="h-full mx-2 w-[1px] bg-gray-300"></div>
-
+    <p-overlayPanel #op>
+        <div *ngFor="let item of messNotification;">
+            <div class="listNotification">
+                <div>
+                    <span class="font-medium text-secondary text-sm">{{ item.created_at }}</span>
+                    <div class="text-lg font-medium text-900 mt-2">{{ item.message }}</div>
+                </div>
+                <p-button icon="pi pi-check" (click)="isRead(item)"></p-button>
+            </div>
+            
+            <p-divider></p-divider>
+        </div>
+    </p-overlayPanel>
 
     <!-- <img *ngIf="currentUser.idPhoto == null" src="assets/lk-person.png" class="mr-2"/>
     <app-image *ngIf="currentUser.idPhoto != null" [id]="currentUser.idPhoto" class="mr-2"></app-image>

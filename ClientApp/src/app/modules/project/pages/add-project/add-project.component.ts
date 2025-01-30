@@ -49,6 +49,7 @@ export class AddProjectComponent implements OnInit{
   selectTags:Tags[]=[];
   retPrID:any;
   arrayTagsPr:TagsProject[]=[];
+  searchTag:TagsProject[]=[];
 
 
   showDialog() {
@@ -129,6 +130,7 @@ export class AddProjectComponent implements OnInit{
       
     }else{
       this.projectService.editProject(this.createProject,this.selectedUsers,this.projectService.selectedPrject.getValue()?.id);
+     
       this.addEditTags(this.projectService.selectedPrject.getValue()?.id);
     }
     this.projectService.updateData();
@@ -138,9 +140,19 @@ export class AddProjectComponent implements OnInit{
   addEditTags(id?:number){
     this.selectTags.forEach(element => {
       this.arrayTagsPr.push({'project_id':id,'tags_id':element.id});
+      if(!this.projectService.selectedPrject.getValue()?.tags?.find(el=>el.id===element.id)){
+        let t =this.arrayTagsPr.findIndex(m=>m.tags_id===element.id);
+        this.searchTag.push(this.arrayTagsPr[t]);
+        this.projectTagsService.createTags(this.searchTag);
+        this.searchTag=[];
+      }
     });
+    let notInProjectTags = this.projectService.selectedPrject.getValue()?.tags?.filter(item => !this.selectTags.includes(item));
+    notInProjectTags?.forEach(el=>{
+      this.projectTagsService.deleteTags(this.projectService.selectedPrject.getValue()?.id??0,el.id??0);
+    })
     console.log(this.arrayTagsPr);
-    this.projectTagsService.createTags(this.arrayTagsPr);
+    
     this.arrayTagsPr=[];
   }
 

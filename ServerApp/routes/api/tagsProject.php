@@ -11,5 +11,5 @@ Route::prefix('tagspr')
         Route::get('{id}','show');
         Route::post('','create');
         Route::put('{id}','update');
-        Route::delete('{id}','delete');
+        Route::delete('{id}/{tags_id}','delete');
     });

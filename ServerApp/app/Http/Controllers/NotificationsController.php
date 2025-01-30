@@ -21,8 +21,9 @@ class NotificationsController extends Controller implements CrudController
 
     public function show($id, Request $request)
     {
-        $data = Notifications::query()->where('user_id',$id)->get();
-        return new NotificationsResource($data);
+        $data = Notifications::where('user_id',$id)->where("is_read",false)
+            ->orderBy('created_at')->get();
+        return NotificationsResource::collection($data);
     }
 
     public function create(Request $request)

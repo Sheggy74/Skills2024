@@ -4,6 +4,9 @@ import { StateService } from 'src/app/services/StateService/state.service';
 import { ImageComponent } from 'src/app/Shared/MESComponentsModule/image/image.component';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 import { NotificationsService } from 'src/app/services/NotificationsService/notifications.service';
+import { Notifications } from 'src/app/Models/Notifications';
+import { ConfirmationService } from 'primeng/api';
+
 @Component({
     selector: 'app-about',
     templateUrl: './about.component.html',
@@ -20,6 +23,8 @@ export class AboutComponent extends BaseComponent {
 
     isInfoOverlayOpen: boolean = false;
     countNotification:string='';
+    messNotification:Notifications[]=[];
+    
 
     SELECTED_DEPARTMENT = "[PFF07][SelectedDepartment]"
 
@@ -33,10 +38,11 @@ export class AboutComponent extends BaseComponent {
         
         this.notificationsService.notifications.subscribe(n=>{
             this.countNotification=n.length.toString();
+            this.messNotification=n;
         })
-        // setInterval(()=>{
-        //     this.notificationsService.getNotificationID(user?.user?.id);
-        // },5000);
+        setInterval(()=>{
+            this.notificationsService.getNotificationID(user?.user?.id);
+        },10000);
         super.ngOnInit()
     }
     getLogoID(department: any) {
@@ -64,8 +70,13 @@ export class AboutComponent extends BaseComponent {
         this.router.navigateByUrl('auth')
     }
     
+    isRead(notification:Notifications){
+        notification.is_read=true;
+        this.notificationsService.editNotification(notification);
+    }
    
     override ngOnDestroy(): void {
         super.ngOnDestroy()
     }
+
 }

@@ -46,9 +46,9 @@ export class TagsprService extends BaseApiService{
       return retValue;
     }
 
-    deleteTags(id:string){
+    deleteTags(project_id:number,tag_id:number){
       let retValue=lastValueFrom(
-        this.http.delete<any>(this.localApiPath+'/'+id)
+        this.http.delete<any>(this.localApiPath+'/'+project_id+'/'+tag_id)
           .pipe(
             catchError(this.exceptionService.getErrorHandlerList())
           )

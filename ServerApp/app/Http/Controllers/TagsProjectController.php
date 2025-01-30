@@ -7,7 +7,7 @@ use App\Http\Resources\TagsProjectResource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TagsProjectController extends Controller implements CrudController
+class TagsProjectController extends Controller 
 {
     public function __construct()
     {
@@ -52,10 +52,9 @@ class TagsProjectController extends Controller implements CrudController
         return new TagsProjectResource($data);
     }
 
-    public function delete($project_id)
+    public function delete($project_id,$tags_id)
     {
-        $project_id=explode($project_id);
-        TagsProject::query()->whereIn('project_id',$project_id)->delete();
+        TagsProject::query()->where('project_id',$project_id)->where('tags_id',$tags_id)->delete();
         return 0;
     }
 }
