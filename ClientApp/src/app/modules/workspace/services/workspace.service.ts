@@ -1,7 +1,9 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject, catchError, lastValueFrom, map } from "rxjs";
 import { Task } from "src/app/Models/Task";
+import { Projects } from "src/app/Models/Projects";
 import { BaseApiService } from "src/app/services/BaseApiService/base-api.service";
+import { Priority } from "src/app/Models/Priority"
 @Injectable({
   providedIn: 'root'
 })
@@ -10,12 +12,31 @@ export class WorkspaceService extends BaseApiService {
 
   tasks = new BehaviorSubject<Task[]>([]);
   selectedTask = new BehaviorSubject<Task | undefined>(undefined);
-  isLoading = new BehaviorSubject<boolean>(true);
+  isLoadingTask = new BehaviorSubject<boolean>(true);
+  isLoadingProject = new BehaviorSubject<boolean>(true);
+  project = new BehaviorSubject<Projects | undefined>(undefined)
+  isLoadingPriority = new BehaviorSubject<boolean>(true);
+  priority = new BehaviorSubject<Priority[]>([])
 
   async updateData(projectId: number) {
+    this.isLoadingTask.next(true);
     this.tasks.next(await this.getTasksForProject(projectId));
+    this.isLoadingTask.next(false);  
   }
 
+  async updateProjectData(projectId: number) {
+    this.isLoadingProject.next(true);
+    this.project.next(await this.getProjectData(projectId));
+    this.isLoadingProject.next(false);
+    // console.log(this.project);
+  }
+
+  async updatePriority(projectId: number) {
+    this.isLoadingPriority.next(true);
+    this.priority.next(await this.getPriority());
+    this.isLoadingPriority.next(false);
+  }
+  
   getTasksForProject(projectId: number): Promise<Task[]> {
     let retValue = lastValueFrom(this.http.get<Task[]>(this.localAPIPath + "/" + projectId)
       .pipe(
@@ -28,21 +49,33 @@ export class WorkspaceService extends BaseApiService {
     return retValue;
   }
 
-    createTask(newTask: Task): Promise<Task>{
-      let retValue = lastValueFrom(
-        this.http.post<Task>(this.localAPIPath, {
-          ...newTask,
+  getProjectData(projectId: number): Promise<Projects> {
+    let retValue = lastValueFrom(this.http.get<Projects>(this.localAPIPath + "/project/" + projectId)
+      .pipe(
+        map((project: any) => {
+          // console.log(project);
+          return project;
+        }),
+        catchError(this.exceptionService.getErrorHandlerList())));
 
-        })
-          .pipe(
-            map((task: any) => {
-              return task.data;
-            }),
-            catchError(this.exceptionService.getErrorHandlerList()))
-      )
-  
-      return retValue;
-    }
+    return retValue;
+  }
+
+  createTask(newTask: Task): Promise<Task> {
+    let retValue = lastValueFrom(
+      this.http.post<Task>(this.localAPIPath, {
+        ...newTask,
+
+      })
+        .pipe(
+          map((task: any) => {
+            return task.data;
+          }),
+          catchError(this.exceptionService.getErrorHandlerList()))
+    )
+
+    return retValue;
+  }
 
   editTask(taskId: number, updatedTask: Task): Promise<any> {
     let retValue = lastValueFrom(
@@ -59,7 +92,7 @@ export class WorkspaceService extends BaseApiService {
     return retValue;
   }
 
-  deleteTask(id: number){
+  deleteTask(id: number) {
     let retValue = lastValueFrom(
       this.http.delete<any>(this.localAPIPath + '/' + id)
         .pipe(
@@ -68,5 +101,29 @@ export class WorkspaceService extends BaseApiService {
     )
 
     return retValue;
+  }
+
+  getState() {
+    let retValue = lastValueFrom(this.http.get<Projects>(this.localAPIPath + "/state" )
+    .pipe(
+      map((project: any) => {
+        // console.log(project);
+        return project;
+      }),
+      catchError(this.exceptionService.getErrorHandlerList())));
+
+  return retValue;
+  }
+
+  getPriority() {
+    let retValue = lastValueFrom(this.http.get<Priority>(this.localAPIPath + "/priority" )
+    .pipe(
+      map((priority: any) => {
+        // console.log(project);
+        return priority;
+      }),
+      catchError(this.exceptionService.getErrorHandlerList())));
+
+  return retValue;
   }
 }

@@ -13,8 +13,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('state_task',function (Blueprint $table){
-            $table->id();
-            $table->string('name');
+            $table->comment('Справочник состояния задач');
+            $table->id()->comment('Идентификатор состояния');
+            $table->string('name')->comment('Наименование состояния');
         });
     }
 

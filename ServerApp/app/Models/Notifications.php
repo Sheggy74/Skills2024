@@ -4,19 +4,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Priority extends Model
+class Notifications extends Model
 {
-    //приоритет задачи
     use HasFactory;
  
     protected $hidden = [];
 
-    public $timestamps=false;
+    public $timestamps=true;
 
     protected $fillable = [
         'id',
-        'name'
+        'user_id',
+        'message',
+        'is_read'
     ];
 
-    protected $table = 'priority';
+    protected $table = 'notifications';
 }

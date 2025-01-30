@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('roles', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
-            $table->string('title');
-            $table->string('starting_url');
-            $table->string('image');
+            $table->comment('Роли');
+            $table->id()->comment('Идентификатор роли');
+            $table->string('name')->comment('Наименование роли');
+            $table->string('title')->comment('Полное имя роли');
+            $table->string('starting_url')->comment('Начальный путь');
+            $table->string('image')->comment('Путь к фото');
             $table->timestamps();
         });
     }

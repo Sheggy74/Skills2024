@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import { Task } from 'src/app/Models/Task';
 import { WorkspaceService } from '../../services/workspace.service';
+import { Priority } from 'src/app/Models/Priority';
 
 @Component({
   selector: 'app-create-task',
@@ -8,13 +9,22 @@ import { WorkspaceService } from '../../services/workspace.service';
   styleUrl: './create-task.component.css'
 })
 export class CreateTaskComponent {
+  @Input() projectId = 0;
   @Output() createTask = new EventEmitter<Task>();
   @Output() visibleChange = new EventEmitter<boolean>();
-    private workspaceService = inject(WorkspaceService);
+  private workspaceService = inject(WorkspaceService);
 
   visible: boolean = false; 
   newTaskTitle: string = '';
   newTaskDescription: string = '';
+  prioritys: Priority[] = [];
+  selectedPriority: number = 0; 
+
+  ngOnInit() {
+    this.workspaceService.priority.subscribe(prioritys => {
+      this.prioritys = prioritys;
+    })
+  }
 
   showDialog() {
     this.visible = true;
@@ -32,7 +42,9 @@ export class CreateTaskComponent {
         name: this.newTaskTitle,
         description: this.newTaskDescription,
         dateCreation: new Date(),
-        
+        taskStateId: 1,
+        projectId: this.projectId,
+        priorityId: 1,
       };
       this.createTask.emit(newTask); 
       this.hideDialog(); 

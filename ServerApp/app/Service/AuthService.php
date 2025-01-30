@@ -31,14 +31,6 @@ class AuthService
                     'routerLink' => 'report',
                 ])
             );
-            // временный проект
-            $buttons->push(
-                new NavigationButton([
-                    'caption' => 'Проект',
-                    'iconClass' => 'book',
-                    'routerLink' => 'workspace',
-                ])
-            );
 
             $buttons->push(
                 new NavigationButton([
@@ -48,6 +40,15 @@ class AuthService
                 ])
             );
         }
+
+        // временный проект
+        $buttons->push(
+            new NavigationButton([
+                'caption' => 'Проект',
+                'iconClass' => 'book',
+                'routerLink' => 'workspace/7',
+            ])
+        );
 
         $buttons->push(
             new NavigationButton([

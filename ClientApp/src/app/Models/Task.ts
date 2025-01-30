@@ -4,9 +4,10 @@ export interface Task {
   id: number;
   name: string;
   description: string;
-  dateCreation: Date, 
-  // projectId: number,
+  dateCreation: Date; 
+  taskStateId: number;
+  projectId: number,
   // userId: number,
-  // priorityId: number,
+  priorityId: number,
   // ptask_Id: number,
 }

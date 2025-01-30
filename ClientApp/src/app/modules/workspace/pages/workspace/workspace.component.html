@@ -1,14 +1,29 @@
-<p-card header="Название проекта">
-  <p-button label="Добавить задачу" icon="pi pi-plus" (onClick)="createTaskDialog.showDialog()"></p-button>
-  <p-divider></p-divider>
-  <!-- <div *ngFor="let task of tasks" style="margin-top: 20px;"> -->
-    <p-accordion [activeIndex]="0">
-      <p-accordionTab [header]="task.name" *ngFor="let task of tasks">
-        <app-task [task]="task" (deleteTask)="removeTask($event)" (updateTask)="changeTask($event)"></app-task>
-      </p-accordionTab>
-    </p-accordion>
-  <!-- </div> -->
+<div *ngIf="isLoadingProject && isLoadingTask" class="custom-skeleton p-4">
+  <p-skeleton width="100%" height="150px"></p-skeleton>
+</div>
+<p-card *ngIf="!isLoadingProject" [header]="projectName">
+  <p-button *ngIf="userRoleId == '1' || userRoleId == '2'" label="Добавить задачу" icon="pi pi-plus"
+    (onClick)="createTaskDialog.showDialog()"></p-button>
 </p-card>
+<!-- <div *ngFor="let task of tasks">
+  <app-task [task]="task" [isManagerOrAdmin]="isManagerOrAdmin" (deleteTask)="removeTask($event)"
+  (updateTask)="changeTask($event)"></app-task>
+</div> -->
+<div class="mt-10">
+  <p-accordion [activeIndex]="0">
+    <p-accordionTab headerStyleClass="LowPriority"  *ngFor="let task of tasks">
+      <ng-template  pTemplate="header">
+        <div class="">
+          {{task.name}}
+          <div class="actions">
 
-<!-- Используем компонент диалогового окна -->
-<app-create-task #createTaskDialog (createTask)="addTask($event)"></app-create-task>
+          </div>
+        </div>
+      </ng-template>
+      <app-task [task]="task" [projectId]="projectId" [isManagerOrAdmin]="isManagerOrAdmin" (deleteTask)="removeTask($event)"
+        (updateTask)="changeTask($event)"></app-task>
+    </p-accordionTab>
+  </p-accordion>
+</div>
+
+<app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>

@@ -1,16 +1,21 @@
-<p-dialog [(visible)]="visible" (onHide)="hideDialog()" header="Создание новой задачи" [style]="{ width: '400px' }"
-  [modal]="true">
+<p-dialog [(visible)]="visible" (onHide)="hideDialog()" header="Создание новой задачи"
+  [style]="{ width: '400px', height: '50%' }" [modal]="true">
   <div class="p-fluid">
     <!-- <div class="p-field"> -->
-      <span class="p-float-label my-4">
-        <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" />
-        <label for="newTaskTitle">Название задачи</label>
-      </span>
+    <span class="p-float-label mt-5 mb-10">
+      <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" />
+      <label for="newTaskTitle">Название задачи</label>
+    </span>
+    <span class="p-float-label my-5">
+      <p-dropdown id="newTaskPriority" [options]="prioritys" [(ngModel)]="selectedPriority" optionLabel="name" optionValue="id"></p-dropdown>
+      <label for="newTaskPriority">Выбор приоритета</label>
+    </span>
     <!-- </div> -->
-    <span class="p-float-label my-4">
+    <span class="p-float-label my-10">
       <textarea id="newTaskDescription" pInputTextarea [(ngModel)]="newTaskDescription"></textarea>
       <label for="newTaskDescription">Описание задачи</label>
     </span>
+
   </div>
   <ng-template pTemplate="footer">
     <p-button label="Отмена" (onClick)="hideDialog()" styleClass="p-button-text"></p-button>

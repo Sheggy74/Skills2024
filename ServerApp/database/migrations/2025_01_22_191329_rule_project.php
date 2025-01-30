@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rule_project',function (Blueprint $table){
-            $table->id();
-            $table->bigInteger('project_id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('role_id');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->comment('Доступ к проекту');
+            $table->id()->comment('Идентификатор доступа');
+            $table->bigInteger('project_id')->comment('Идентификатор проекта');
+            $table->bigInteger('user_id')->comment('Идентификатор пользователя');
+            $table->bigInteger('role_id')->comment('Идентификатор роли');
+            $table->timestamp('created_at')->nullable()->comment('Дата создания');
+            $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
 
             $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

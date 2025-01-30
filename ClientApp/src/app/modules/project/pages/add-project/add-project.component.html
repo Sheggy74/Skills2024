@@ -117,13 +117,13 @@
         </div>
       
         <!-- Модальное окно для выбора иконки -->
-        <p-dialog [(visible)]="displayIconDialog" [modal]="true" [closable]="false" [style]="{width: '400px'}" [responsive]="true">
+        <p-dialog [(visible)]="displayIconDialog" [modal]="true" [closable]="false" [style]="{width: '200px'}" [responsive]="true">
           <h3>Выберите иконку проекта</h3>
           
           <!-- Прокручиваемый список иконок -->
           <div class="icon-list">
             <div *ngFor="let icon of icons" class="icon-item" (click)="selectIcon(icon.value)">
-              <i [class]="icon.value" style="font-size: 24px; margin-right: 10px;"></i> {{ icon.label }}
+              <i [class]="icon.value" style="font-size: 24px; margin-right: 10px;"></i> 
             </div>
           </div>
           

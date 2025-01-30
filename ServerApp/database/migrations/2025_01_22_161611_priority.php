@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('priority',function (Blueprint $table){
-            $table->id();
-            $table->string('name');
+            $table->comment('Справочник приоритетов');
+            $table->id()->comment('Идентификатор проекта');
+            $table->string('name')->comment('Наименование приоритета');
         });
     }
 

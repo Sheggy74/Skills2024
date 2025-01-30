@@ -12,18 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name')->nullable();
-            $table->string('second_name')->nullable();
-            $table->string('last_name')->nullable();
-            $table->string('photo_url')->nullable();
-            $table->string('login')->unique();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('place')->nullable();
-            $table->string('job')->nullable();
-            $table->string('phone')->nullable();
+            $table->comment('Пользователи');
+            $table->id()->comment('Идентификатор пользователя');
+            $table->string('first_name')->nullable()->comment('Имя пользователя');
+            $table->string('second_name')->nullable()->comment('Фамилия пользователя');
+            $table->string('last_name')->nullable()->comment('Отчество пользователя');
+            $table->string('photo_url')->nullable()->comment('Путь до фото');
+            $table->string('login')->unique()->comment('Логин');
+            $table->string('email')->unique()->comment('Почта');
+            $table->timestamp('email_verified_at')->nullable()->comment('Дата проверки почты');
+            $table->string('password')->comment('Пароль');
+            $table->string('place')->nullable()->comment('Профессия');
+            $table->string('job')->nullable()->comment('Место работы');
+            $table->string('phone')->nullable()->comment('Телефон');
             $table->rememberToken();
             $table->timestamps();
         });

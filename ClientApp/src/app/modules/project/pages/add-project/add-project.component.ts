@@ -72,13 +72,15 @@ export class AddProjectComponent implements OnInit{
   ];
 
   icons = [
-    { label: 'Home', value: 'pi pi-home' },
-    { label: 'Work', value: 'pi pi-briefcase' },
-    { label: 'Settings', value: 'pi pi-cog' },
+    { label: 'Молния', value: 'pi pi-bolt' },
+    { label: 'Работа', value: 'pi pi-briefcase' },
+    { label: 'Settings', value: 'pi pi-calculator' },
     { label: 'Users', value: 'pi pi-users' },
-    { label: 'Search', value: 'pi pi-search' },
+    { label: 'Search', value: 'pi pi-asterisk' },
     { label: 'Star', value: 'pi pi-star' },
-    { label: 'Cog', value: 'pi pi-cog' }
+    { label: 'Cog', value: 'pi pi-crown' },
+    { label: 'Cog', value: 'pi pi-compass' },
+    { label: 'Cog', value: 'pi pi-face-smile' }
   ];
 
   steps = [

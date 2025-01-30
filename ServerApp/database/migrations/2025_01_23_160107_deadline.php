@@ -12,10 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('deadline', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('task_id');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->comment('Дедлайн');
+            $table->id()->comment('Идентификатор записи');
+            $table->bigInteger('task_id')->comment('Идентификатор задачи');
+            $table->timestamp('created_at')->nullable()->comment('Дата создания');
+            $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
 
             $table->foreign('task_id')->references('id')->on('task')->onDelete('cascade');
         });

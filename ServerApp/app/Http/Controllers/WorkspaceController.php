@@ -5,14 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Models\Task;
+use App\Models\Project;
+use App\Models\Priority;
 use App\Http\Resources\TaskResource;
+use App\Http\Resources\ProjectResource;
 use Carbon\Carbon;
 
 class WorkspaceController extends Controller
 {
 
     public function showTasksForProject(Request $request, $id) {
-        $tasks = Task::where('project_id', '=', $id)->get();
+        $tasks = Task::where('project_id', '=', $id)->OrderBy("id")->get();
         return TaskResource::collection($tasks);
     }
 
@@ -38,9 +41,21 @@ class WorkspaceController extends Controller
         // return new Task::collection($data);
     }
 
-    public function deleteTask($id)
+    public function deleteTask(Request $request, $id)
     {
         Task::query()->find($id)->delete();
         return 0;
     }
+
+    public function showProjectData(Request $request, $id) {
+        $data = Project::query()->find($id);
+        return $data;
+    }
+
+    public function showPriority(Request $request) {
+        $data = Priority::get();
+        return $data;
+    }
+    
+
 }

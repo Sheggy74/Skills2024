@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('task',function (Blueprint $table){
-            $table->id();
-            $table->string('name');
-            $table->string('description');
-            $table->date('date_create');
-            $table->bigInteger('project_id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('priority_id');
-            $table->integer('ptask_id')->nullable();
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->comment('Задача');
+            $table->id()->comment('Идентификатор задачи');
+            $table->string('name')->comment('Наименование задачи');
+            $table->string('description')->nullable()->comment('Описание задачи');
+            $table->date('date_create')->comment('Дата создания');
+            $table->bigInteger('project_id')->comment('Идентификатор проекта');
+            $table->bigInteger('user_id')->nullable()->comment('Идентификатор пользователя');
+            $table->bigInteger('priority_id')->nullable()->comment('Идентификатор приоритета');
+            $table->integer('ptask_id')->nullable()->comment('Идентификатор родителя задачи');
+            $table->timestamp('created_at')->nullable()->comment('Дата создания');
+            $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('priority_id')->references('id')->on('priority')->onDelete('cascade');

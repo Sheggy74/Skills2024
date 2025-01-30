@@ -12,13 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('chat', function (Blueprint $table) {
-            $table->id();
-            $table->bigInteger('task_id');
-            $table->bigInteger('user_id');
-            $table->string('message');
-            $table->dateTime('date_create');
-            $table->timestamp('created_at')->nullable();
-            $table->timestamp('updated_at')->nullable();
+            $table->comment('Чат задачи');
+            $table->id()->comment('Идентификатор чата');
+            $table->bigInteger('task_id')->comment('Идентификатор задачи');
+            $table->bigInteger('user_id')->comment('Идентификатор пользователя');
+            $table->string('message')->comment('Сообщение');
+            $table->dateTime('date_create')->comment('Дата отправки');
+            $table->timestamp('created_at')->nullable()->comment('Дата создания');
+            $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
 
             $table->foreign('task_id')->references('id')->on('task')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

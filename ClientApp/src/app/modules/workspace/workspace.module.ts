@@ -15,6 +15,10 @@ import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { WorkspaceComponent } from './pages/workspace/workspace.component';
 import { TooltipModule } from 'primeng/tooltip';
+import { SkeletonModule } from 'primeng/skeleton';
+import { DropdownModule } from 'primeng/dropdown';
+import {ToolbarModule} from 'primeng/toolbar';
+
 
 
 
@@ -33,6 +37,9 @@ import { TooltipModule } from 'primeng/tooltip';
     InputTextModule,
     InputTextareaModule,
     TooltipModule,
+    SkeletonModule,
+    DropdownModule,
+    ToolbarModule,
   ]
 })
 export class WorkspaceModule { }

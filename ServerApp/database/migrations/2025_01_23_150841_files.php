@@ -12,12 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('files',function (Blueprint $table){
-            $table->id();
-            $table->string('name');
-            $table->binary('data');
-            $table->string('type');
-            $table->string('size');
-            $table->bigInteger('chat_id');
+            $table->comment('Файлы');
+            $table->id()->comment('Идентификатор файла');
+            $table->string('name')->nullable()->comment('Наименование файла');
+            $table->binary('data')->nullable()->comment('Дата файла');
+            $table->string('type')->nullable()->comment('Тип файла');
+            $table->string('size')->nullable()->comment('Размер файла');
+            $table->bigInteger('chat_id')->nullable()->comment('Идентификатор чата');
 
             $table->foreign('chat_id')->references('id')->on('chat')->onDelete('cascade');
         });

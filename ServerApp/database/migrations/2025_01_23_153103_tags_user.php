@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tags_user',function (Blueprint $table){
-            $table->bigInteger('tags_id');
-            $table->bigInteger('user_id');
+            $table->comment('Теги пользователя');
+            $table->bigInteger('tags_id')->comment('Идентификатор тега');
+            $table->bigInteger('user_id')->comment('Идентификатор пользователя');
 
             $table->foreign('tags_id')->references('id')->on('tags')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

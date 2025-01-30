@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_roles',function (Blueprint $table){
-            $table->comment('Роли пользователей');
-            $table->id()->comment('Идентификатор роли пользователя');
+        Schema::create('notifications', function (Blueprint $table) {
+            $table->comment('Уведомления');
+            $table->id()->comment('Идентификатор уведомения');
             $table->bigInteger('user_id')->comment('Идентификатор пользователя');
-            $table->bigInteger('role_id')->comment('Идентификатор роли');
+            $table->string('message')->comment('Сообщение уведомления');
+            $table->boolean('is_read')->comment('Прочитано?');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-       Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('notifications');
     }
 };

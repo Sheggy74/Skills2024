@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tags_project',function (Blueprint $table){
-            $table->bigInteger('tags_id');
-            $table->bigInteger('project_id');
+            $table->comment('Теги проекта');
+            $table->bigInteger('tags_id')->comment('Идентификатор тега');
+            $table->bigInteger('project_id')->comment('Идентификатор проекта');
 
             $table->foreign('tags_id')->references('id')->on('tags')->onDelete('cascade');
             $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
