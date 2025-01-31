@@ -21,6 +21,7 @@ export class CreateTaskComponent {
   selectedPriority: number = 0; 
 
   ngOnInit() {
+    this.workspaceService.updatePriority(this.projectId)
     this.workspaceService.priority.subscribe(prioritys => {
       this.prioritys = prioritys;
     })
@@ -44,7 +45,7 @@ export class CreateTaskComponent {
         dateCreation: new Date(),
         taskStateId: 1,
         projectId: this.projectId,
-        priorityId: 1,
+        priorityId: this.selectedPriority,
       };
       this.createTask.emit(newTask); 
       this.hideDialog(); 

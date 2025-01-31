@@ -4,6 +4,7 @@ import { Task } from "src/app/Models/Task";
 import { Projects } from "src/app/Models/Projects";
 import { BaseApiService } from "src/app/services/BaseApiService/base-api.service";
 import { Priority } from "src/app/Models/Priority"
+import { UserRole } from "src/app/Models/UserRole"
 @Injectable({
   providedIn: 'root'
 })
@@ -115,7 +116,7 @@ export class WorkspaceService extends BaseApiService {
   return retValue;
   }
 
-  getPriority() {
+  getPriority() :Promise<Priority[]> {
     let retValue = lastValueFrom(this.http.get<Priority>(this.localAPIPath + "/priority" )
     .pipe(
       map((priority: any) => {

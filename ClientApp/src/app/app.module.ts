@@ -49,7 +49,8 @@ import { DropdownModule } from 'primeng/dropdown';
 import { AccordionModule } from 'primeng/accordion';
 import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService } from 'primeng/api';
-
+import {ContextMenuModule} from 'primeng/contextmenu';
+import { CntxMenuModule } from './InterfaceComponents/ContextMenu/cntx.module';
 
 
 
@@ -67,7 +68,7 @@ import { ConfirmationService } from 'primeng/api';
     ToolbarComponent,
     RoleSelectionItemComponent,
     RoleSelectionListComponent,
-    ThemePickerComponent
+    ThemePickerComponent,
   ],
   imports: [
     AppRoutingModule,
@@ -97,7 +98,9 @@ import { ConfirmationService } from 'primeng/api';
     DropdownModule,
     AccordionModule,
     DialogModule,
-    ConfirmPopupModule
+    ConfirmPopupModule,
+    ContextMenuModule,
+    CntxMenuModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AgileUIService,ConfigService, MessageService, LogService, ErrorService, BlockService,ConfirmationService],

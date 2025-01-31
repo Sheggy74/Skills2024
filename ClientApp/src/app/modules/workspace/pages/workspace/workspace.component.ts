@@ -6,9 +6,9 @@ import { Task } from 'src/app/Models/Task';
 import { WorkspaceService } from '../../services/workspace.service';
 import { JwtService } from 'src/app/services/JWTService/jwt.service';
 import { StateService } from 'src/app/services/StateService/state.service';
-import { Role } from 'src/app/Models/Role';
-import { Projects } from 'src/app/Models/Projects';
 import { Priority } from 'src/app/Models/Priority';
+import { UserRole } from 'src/app/Models/UserRole';
+import { ProjectUserService } from '../../services/project-user.service';
 
 @Component({
   selector: 'app-project',
@@ -18,6 +18,7 @@ import { Priority } from 'src/app/Models/Priority';
 export class WorkspaceComponent {
   tasks: Task[] = [];
   prioritys: Priority[] = [];
+  projectUsers: UserRole[] = [];
   newTaskTitle: string = '';
   newTaskDescription: string = '';
   projectId: number = 0;
@@ -27,10 +28,13 @@ export class WorkspaceComponent {
   isLoadingProject: boolean = false;
   isLoadingTask: boolean = false;
   isLoadingPriority: boolean = false;
+  isLoadingProjectUser: boolean = false;
+  isOnlyExecutorsTasks: boolean = true;
 
   private workspaceService = inject(WorkspaceService);
   private jwtService = inject(JwtService);
   private stateService = inject(StateService)
+  private projectUserService = inject(ProjectUserService)
   constructor(private route: ActivatedRoute) { }
 
   editSidebarVisible: boolean = false;
@@ -66,6 +70,12 @@ export class WorkspaceComponent {
     this.workspaceService.updatePriority(this.projectId)
     this.workspaceService.priority.subscribe(priority => {
       this.prioritys = priority;
+    })
+
+    this.projectUserService.updateProjectUser(this.projectId)
+    this.projectUserService.projectUser.subscribe(projectUsers => {
+      this.projectUsers = projectUsers;
+      console.log(this.projectUsers);
     })
 
     const jwtToken = this.stateService.getCurrentJWT();

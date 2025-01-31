@@ -7,7 +7,8 @@ export interface Task {
   dateCreation: Date; 
   taskStateId: number;
   projectId: number,
-  // userId: number,
+  executorId?: number,
+  userId?: number,
   priorityId: number,
   // ptask_Id: number,
 }

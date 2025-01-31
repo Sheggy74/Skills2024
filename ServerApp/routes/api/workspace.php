@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('workspace')
-    ->middleware(['auth:api', 'auth.user'])
+    ->middleware(['auth:api'])
     ->controller(\App\Http\Controllers\WorkspaceController::class)
     ->group(function () {
         Route::get('priority', 'showPriority');
@@ -11,6 +11,7 @@ Route::prefix('workspace')
         Route::put('{id}', 'editTask');
         Route::post('', 'createTask');
         Route::delete('{id}', 'deleteTask');
-        Route::get('executors/{id}', 'show');
+        Route::get('projectuser/{id}', 'showProjectUser');
         Route::get('project/{id}', 'showProjectData');
+        Route::get('projectuser/executorTask/{id}', 'showExecutorTask');
     });

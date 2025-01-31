@@ -12,6 +12,7 @@ import { UserRoleService } from '../../services/user-role.service';
 import { Tags } from 'src/app/Models/Tags';
 import { TagsService } from '../../services/tags.service';
 import { TagsprService } from '../../services/tagspr.service';
+import { ContextMenu } from 'primeng/contextmenu';
 
 @Component({
   selector: 'project-list',
@@ -35,6 +36,9 @@ export class ProjectListComponent implements OnInit{
   @ViewChild(AddProjectComponent) child: AddProjectComponent | undefined;
   selectedTags:Tags[]=[];
   tagModify:Tags={};
+  cntMenuItems:MenuItem[]=[];
+  @ViewChild('cm') cm:ContextMenu | any;
+  typeComponent:any;
  
 
   constructor(public projectService: ProjectService) {
@@ -56,6 +60,11 @@ export class ProjectListComponent implements OnInit{
               this.filteredProjects = this.projects;
           }
       },
+  ];
+
+  this.cntMenuItems=[
+    {label:'copy'},
+    {label:'paste'},
   ];
   }
 
@@ -132,5 +141,11 @@ export class ProjectListComponent implements OnInit{
     event.stopPropagation(); 
     this.tagsService.deleteTags(id);
     this.tagsService.updateData();
+   }
+
+   onContextMenu(event:Event){
+    event.preventDefault();
+    this.cm.target=event.currentTarget;
+    this.cm.show(event);
    }
 }

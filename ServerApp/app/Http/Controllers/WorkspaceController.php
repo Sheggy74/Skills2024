@@ -9,6 +9,9 @@ use App\Models\Project;
 use App\Models\Priority;
 use App\Http\Resources\TaskResource;
 use App\Http\Resources\ProjectResource;
+use App\Http\Resources\UserRoleResource;
+use App\Http\Resources\UserResource;
+use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
 
 class WorkspaceController extends Controller
@@ -22,7 +25,8 @@ class WorkspaceController extends Controller
     public function editTask(Request $request, $id) {
         $task = Task::query()->find($id)->update([
             'name'=>$request->name,
-            'description'=>$request->description
+            'description'=>$request->description,
+            'user_id'=>$request->executorId
         ]);
     }
 
@@ -33,8 +37,8 @@ class WorkspaceController extends Controller
             'name' => $request->name,
             'description' => $request->description,
             'project_id' => 7,
-            'user_id' => 1,
-            'priority_id' => 1,
+            'user_id' => null,
+            'priority_id' => $request->priorityId,
             'date_create' => $request->dateCreation,
             // 'ptask_id' => ,
         ]);
@@ -55,6 +59,24 @@ class WorkspaceController extends Controller
     public function showPriority(Request $request) {
         $data = Priority::get();
         return $data;
+    }
+
+    public function showProjectUser(Request $request, $id) {
+        $data = DB::connection('pgsql')->table("rule_project")->where("project_id", $id)
+        ->leftJoin("roles", "roles.id", "rule_project.role_id")
+        ->leftJoin("users", "users.id", "rule_project.user_id")
+        ->select("users.id", "users.first_name", "users.second_name", "users.last_name", "roles.title as name", "roles.id as role_id")
+        ->get();
+        // return $data;
+        return UserRoleResource::collection($data);
+    }
+
+    public function showExecutorTask(Request $request, $id) {
+        $data = DB::connection('pgsql')->table("users")
+        ->where('id', $id)
+        ->get();
+        // return $data;
+        return UserResource::collection($data);
     }
     
 

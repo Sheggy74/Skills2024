@@ -25,6 +25,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TableModule } from 'primeng/table'; 
 import { TagModule } from 'primeng/tag';
 import { AddTagsComponent } from './pages/add-tags/add-tags.component';
+import { CntxMenuModule } from 'src/app/InterfaceComponents/ContextMenu/cntx.module';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { AddTagsComponent } from './pages/add-tags/add-tags.component';
     ProjectComponent,
     ProjectListComponent,
     AddProjectComponent,
-    AddTagsComponent
+    AddTagsComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +59,7 @@ import { AddTagsComponent } from './pages/add-tags/add-tags.component';
     InputTextareaModule,
     TableModule,
     TagModule,
+    CntxMenuModule
     
   ],
 })

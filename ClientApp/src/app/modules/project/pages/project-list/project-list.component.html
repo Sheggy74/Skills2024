@@ -28,11 +28,11 @@
           </ng-template>
         </p-multiSelect>
 
-        <p-button icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()" class="bBtn"  pTooltip="Добавить тег"/>
+        <p-button icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()" class="bBtn"  pTooltip="Добавить тег" />
   </div>
 
   <div class="card-container">
-    <p-card>
+    <p-card >
       <ng-template pTemplate="content">
           <div style="display: flex;justify-content: center;">
               <div class="icon-circle">
@@ -41,9 +41,9 @@
             </div>
       </ng-template>
     </p-card>
-    <p-card *ngFor="let project of filteredProjects">
-        <ng-template pTemplate="content">
-            <div class="header-content">
+    <p-card *ngFor="let project of filteredProjects" (contextmenu)="onContextMenu($event)" #list>
+        <ng-template pTemplate="content" >
+            <div class="header-content" >
               
                 <!-- Иконка в круге и название проекта -->
                 <div class="icon-circle" [style.background-color]="project.theme">
@@ -65,6 +65,7 @@
        
     </p-card>
   </div>
-
+  
   <app-add-project #add></app-add-project>
   <app-add-tags #tags></app-add-tags>
+  <app-cntx-menu #cm [model]="cntMenuItems" ></app-cntx-menu>

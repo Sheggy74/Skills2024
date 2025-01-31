@@ -3,7 +3,8 @@
   <div class="p-fluid">
     <!-- <div class="p-field"> -->
     <span class="p-float-label mt-5 mb-10">
-      <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" />
+      <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
+      <textarea id="newTaskTitle" pInputTextarea [(ngModel)]="newTaskTitle"></textarea>
       <label for="newTaskTitle">Название задачи</label>
     </span>
     <span class="p-float-label my-5">
