@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
 
        $this->call([
            UserSeeder::class,
+           RoleProjectSeeder::class,
            ToolSeeder::class,
            ExperimentSeeder::class,
            ScriptSender::class,
@@ -31,7 +32,7 @@ class DatabaseSeeder extends Seeder
            PerformerSeeder::class,
            ChatSeeder::class,
            TimeJobSeeder::class,
-           RoleProjectSeeder::class
+           
 
        ])
 ;

@@ -20,9 +20,9 @@ class ChatFactory extends Factory
     {
         return [
             'task_id'=>Task::query()->inRandomOrder()->first()->id,
+            'project_id'=>Task::query()->inRandomOrder()->first()->id,
             'user_id'=>User::query()->inRandomOrder()->first()->id,
             'message'=>fake()->sentence(4),
-            'date_create'=>fake()->dateTime()
         ];
     }
 }

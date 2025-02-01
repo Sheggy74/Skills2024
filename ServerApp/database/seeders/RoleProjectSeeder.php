@@ -13,10 +13,10 @@ class RoleProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        RoleProject::factory()->create([
+        RoleProject::create([
             'name'=>'менеджер'
         ]);
-        RoleProject::factory()->create([
+        RoleProject::create([
             'name'=>'исполнитель'
         ]);
     }
