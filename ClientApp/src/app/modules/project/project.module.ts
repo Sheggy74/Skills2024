@@ -26,6 +26,7 @@ import { TableModule } from 'primeng/table';
 import { TagModule } from 'primeng/tag';
 import { AddTagsComponent } from './pages/add-tags/add-tags.component';
 import { CntxMenuModule } from 'src/app/InterfaceComponents/ContextMenu/cntx.module';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { CntxMenuModule } from 'src/app/InterfaceComponents/ContextMenu/cntx.mod
     InputTextareaModule,
     TableModule,
     TagModule,
-    CntxMenuModule
+    CntxMenuModule,
+    ScrollPanelModule
     
   ],
 })

@@ -12,8 +12,8 @@ class UserRoleResource extends JsonResource
         return [
             'id' => $this->id,
             'fio'=>$this->second_name." ". substr($this->first_name,1,1)."".substr($this->last_name,1,1),
-            'role'=>$this->name?$this->name:'user',
-            'role_id'=>$this->role_id?$this->role_id:2
+            // 'role'=>$this->name?$this->name:'user',
+            // 'role_id'=>$this->role_id?$this->role_id:2
         ];
     }
 }

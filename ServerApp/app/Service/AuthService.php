@@ -32,15 +32,17 @@ class AuthService
                 ])
             );
 
-            $buttons->push(
-                new NavigationButton([
-                    'caption' => 'Проекты',
-                    'iconClass' => 'book',
-                    'routerLink' => 'projects',
-                ])
-            );
+           
         }
 
+        $buttons->push(
+            new NavigationButton([
+                'caption' => 'Проекты',
+                'iconClass' => 'book',
+                'routerLink' => 'projects',
+            ])
+        );
+        
         // временный проект
         $buttons->push(
             new NavigationButton([

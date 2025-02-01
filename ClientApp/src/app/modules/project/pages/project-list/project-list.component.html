@@ -28,11 +28,11 @@
           </ng-template>
         </p-multiSelect>
 
-        <p-button icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()" class="bBtn"  pTooltip="Добавить тег" />
+        <p-button  *ngIf="isAdmin" icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()" class="bBtn"  pTooltip="Добавить тег" />
   </div>
-
+  <p-scrollPanel [style]="{ width: '100%', height: '700px' }">
   <div class="card-container">
-    <p-card >
+    <p-card [style]="{height: '150px' }" *ngIf="isAdmin">
       <ng-template pTemplate="content">
           <div style="display: flex;justify-content: center;">
               <div class="icon-circle">
@@ -41,7 +41,7 @@
             </div>
       </ng-template>
     </p-card>
-    <p-card *ngFor="let project of filteredProjects" (contextmenu)="onContextMenu($event)" #list>
+    <p-card *ngFor="let project of filteredProjects" #list>
         <ng-template pTemplate="content" >
             <div class="header-content" >
               
@@ -50,9 +50,17 @@
                   <i [class]="project.icon" style="color: white;"></i>
                   </div>
                 <span>{{ project.name ?? 'Без имени' }}</span>
+                
               </div>
+              <div class="tags">
+                <p-tag 
+                  *ngFor="let tag of project.tags" 
+                  [value]="tag.name">
+                </p-tag>
+              </div>
+
               
-              <div class="card-options">
+              <div class="card-options" *ngIf="isAdmin">
                   <button pButton icon="pi pi-ellipsis-h" 
                     (click)="op.toggle($event);selectProject(project)" 
                     class="p-button-text"></button>
@@ -65,7 +73,7 @@
        
     </p-card>
   </div>
-  
+</p-scrollPanel>
   <app-add-project #add></app-add-project>
   <app-add-tags #tags></app-add-tags>
   <app-cntx-menu #cm [model]="cntMenuItems" ></app-cntx-menu>

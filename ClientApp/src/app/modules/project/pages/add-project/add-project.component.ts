@@ -50,7 +50,7 @@ export class AddProjectComponent implements OnInit{
   retPrID:any;
   arrayTagsPr:TagsProject[]=[];
   searchTag:TagsProject[]=[];
-
+  header:string='';
 
   showDialog() {
     this.visible = true;
@@ -166,14 +166,17 @@ export class AddProjectComponent implements OnInit{
       this.selectedIcon= project?.icon;
       this.addEditBtn='Изменить';
       this.selectTags=project?.tags??[];
+      this.header='Изменить проект';
       console.log(this.selectedUsers)
     }else{
-      this.projectTitle= 'Ваш новый проект';
+      this.projectTitle= '';
       this.projectDescription= '';
       this.selectedIcon= 'pi pi-book';
       this.selectedUsers = [];
       this.addEditBtn='Создать';
       this.selectedIconColor= this.getRandomColor();
+      this.selectTags=[];
+      this.header='Создать проект';
     }
   }
   
