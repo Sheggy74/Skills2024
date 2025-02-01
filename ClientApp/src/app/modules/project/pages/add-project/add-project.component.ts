@@ -134,6 +134,7 @@ export class AddProjectComponent implements OnInit{
       this.addEditTags(this.projectService.selectedPrject.getValue()?.id);
     }
     this.projectService.updateData();
+    this.visible=false;
     
   }
 

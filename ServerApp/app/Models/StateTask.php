@@ -16,6 +16,7 @@ class StateTask extends Model
     protected $fillable = [
         'id',
         'name',
+        'project_id'
     ];
 
     protected $table = 'state_task';

@@ -118,7 +118,7 @@ export class ProjectListComponent implements OnInit{
   onSearchTextChange(searchText: string) {
     this.searchTextSubject.next(searchText);
   }
-  onSearchTagsChange(searchTags:Tags){
+  onSearchTagsChange(searchTags:Tags|any){
     console.log(searchTags);
     this.searchTags.next(searchTags);
   }

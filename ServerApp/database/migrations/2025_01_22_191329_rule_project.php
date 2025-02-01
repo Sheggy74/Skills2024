@@ -22,7 +22,7 @@ return new class extends Migration
 
             $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('role_id')->references('id')->on('roles')->onDelete('cascade');
+            $table->foreign('role_id')->references('id')->on('role_project')->onDelete('cascade');
         });
     }
 

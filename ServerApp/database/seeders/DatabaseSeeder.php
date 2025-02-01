@@ -31,7 +31,7 @@ class DatabaseSeeder extends Seeder
            PerformerSeeder::class,
            ChatSeeder::class,
            TimeJobSeeder::class,
-           
+           RoleProjectSeeder::class
 
        ])
 ;

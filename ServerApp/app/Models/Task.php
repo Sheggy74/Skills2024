@@ -4,6 +4,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+use function PHPSTORM_META\map;
+
 class Task extends Model
 {
     //задачи проекта
@@ -21,7 +23,8 @@ class Task extends Model
         'project_id',
         'user_id',//создатель задачи
         'ptask_id',//родитель задачи(если это подзадача)
-        'priority_id'
+        'priority_id',
+        'state_id'
     ];
 
     protected $table = 'task';

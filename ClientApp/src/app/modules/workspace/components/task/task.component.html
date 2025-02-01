@@ -20,7 +20,7 @@
         </div>
         <button pButton pRipple *ngIf="isManagerOrAdmin && !isHaveExecutor" icon="pi pi-user" (click)="selectExecutorDialog.showDialog()"
           class="p-button-lg p-button-rounded p-button-success p-button-text p-button-outlined"></button>
-        <p-avatar icon="pi pi-user" *ngIf="isHaveExecutor" class="mb-2" size="small" shape="circle" (click)="selectExecutorDialog.showDialog()"></p-avatar>
+         <p-avatar icon="pi pi-user" *ngIf="isHaveExecutor" class="mb-2" shape="circle" (click)="selectExecutorDialog.showDialog()"></p-avatar>
       </div>
     </div>
   </div>

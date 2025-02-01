@@ -19,8 +19,8 @@ class ProjectFactory extends Factory
         return [
             'name'=>fake()->word(),
             'description'=>fake()->sentence(3),
-            'icon'=>'book',
-            'theme'=>'node_modules/primeng/resources/themes/saga-blue/theme.css'
+            'icon'=>'pi pi-book',
+            'theme'=>'red'
         ];
     }
 }

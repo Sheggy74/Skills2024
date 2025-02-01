@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('chat', function (Blueprint $table) {
             $table->comment('Чат задачи');
             $table->id()->comment('Идентификатор чата');
-            $table->bigInteger('task_id')->comment('Идентификатор задачи');
-            $table->bigInteger('user_id')->comment('Идентификатор пользователя');
+            $table->bigInteger('task_id')->nullable()->comment('Идентификатор задачи');
+            $table->bigInteger('user_id')->nullable()->comment('Идентификатор пользователя');
+            $table->bigInteger('project_id')->comment('Идентификатор проекта');
             $table->string('message')->comment('Сообщение');
-            $table->dateTime('date_create')->comment('Дата отправки');
             $table->timestamp('created_at')->nullable()->comment('Дата создания');
             $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
 

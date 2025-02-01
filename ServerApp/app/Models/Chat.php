@@ -16,9 +16,9 @@ class Chat extends Model
     protected $fillable = [
         'id',
         'task_id',
+        'project_id',
         'user_id',//автор
         'message',
-        'date_create'
     ];
 
     protected $table = 'chat';
