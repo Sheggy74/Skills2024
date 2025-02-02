@@ -251,8 +251,8 @@ class ProjectController extends Controller implements CrudController
         $date = $date;
         // Создаем объект DateTime из строки
         $dateTime = new DateTime($date);
-        $formattedDate = $dateTime->format('Y-m-d\TH:H:i');
-        // $formattedDate = $dateTime->format('Y-m-d');
+        // $formattedDate = $dateTime->format('Y-m-d\TH:H:i');
+        $formattedDate = $dateTime->format('Y-m-d');
         return $formattedDate;
     }
 

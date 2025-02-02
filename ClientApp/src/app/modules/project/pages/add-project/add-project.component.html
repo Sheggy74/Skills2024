@@ -97,7 +97,7 @@
             <!-- Данные таблицы -->
             <ng-template pTemplate="body" let-user>
               <tr>
-                <td> <p-tableCheckbox [value]="user" /></td>
+                <td> <p-tableCheckbox [value]="user.selectRows" /></td>
                 <td>
                     <div class="flex items-center gap-2">
                         <!-- <img [alt]="user.fio" src="https://primefaces.org/cdn/primeng/images/demo/avatar/ionibowcher.png" width="32" style="vertical-align: middle" /> -->
@@ -106,12 +106,11 @@
                 </td>
                 <td>
                   <p-dropdown 
-                    [ngModel]="2"
-                    [options]="rolePr"
-                    optionLabel="name"
-                    optionValue="role_id"
-                    modal="true"
-                    placeholder="Выберите роль для сотрудника"></p-dropdown>
+                  [(ngModel)]="user.role_id"
+                  [options]="roles"
+                  optionLabel="name"
+                  optionValue="role_id"
+                  placeholder="Выберите роль"></p-dropdown>
                 </td>
               </tr>
             </ng-template>
