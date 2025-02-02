@@ -24,9 +24,9 @@ class AdminController extends Controller implements CrudController
     public function create(Request $request)
     {
         $user = User::query()->create([
-            'first_name' => $request->firstName,
-            'second_name' => $request->secondName,
-            'last_name' => $request->lastName,
+            'first_name' => $request->first_name,
+            'second_name' => $request->second_name,
+            'last_name' => $request->last_name,
             'photo_url' => $request->photo_url,
             'email' => $request->email,
             'login' => $request->login,
@@ -41,9 +41,9 @@ class AdminController extends Controller implements CrudController
         $user = User::query()->find($id);
 
         $result = $user->update([
-            'first_name' => $request->firstName,
-            'second_name' => $request->secondName,
-            'last_name' => $request->lastName,
+            'first_name' => $request->first_name,
+            'second_name' => $request->second_name,
+            'last_name' => $request->last_name,
             'photo_url' => $request->photo_url,
             'email' => $request->email,
             'login' => $request->login,

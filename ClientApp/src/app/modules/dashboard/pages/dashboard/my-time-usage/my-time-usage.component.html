@@ -1,0 +1,17 @@
+<section>
+  <h2>Времени затрачено</h2>
+  <p-table [value]="tasks">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Задача</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-task>
+      <tr>
+        <td>{{task.name}}</td>
+        <td>{{task.time_usage}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</section>

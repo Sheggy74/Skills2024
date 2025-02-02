@@ -102,4 +102,17 @@ export class AdminUserService extends BaseApiService {
 
     return retValue;
   }
+
+  setUserOnProject(user_id: number, project_id: number): Promise<boolean> {
+    let retValue = lastValueFrom(this.http.post<any>(this.apiURL + '/projects/setUserOnProject', { project_id: project_id, user_id: user_id })
+      .pipe(
+        map((response: any) => {
+
+          return true;
+        }),
+        catchError(this.exceptionService.getErrorHandlerList())
+      )
+    );
+    return (retValue as Promise<boolean>);
+  }
 }

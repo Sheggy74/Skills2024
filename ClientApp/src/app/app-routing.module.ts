@@ -19,8 +19,9 @@ const routes: Routes = [
       { path: 'scripts', loadChildren: () => { return import('./modules/scripts/scripts.module').then(m => m.ScriptsModule); } },
       { path: 'report', loadChildren: () => { return import('./modules/report/report.module').then(m => m.ReportModule); } },
       { path: 'executors', loadChildren: () => { return import('./modules/executors/executors.module').then(m => m.ExecutorsModule); } },
-      {path:'projects',loadChildren:()=>{return import('./modules/project/project.module').then(m=>m.ProjectModule);}},
-      { path: 'workspace',loadChildren:()=>{return import('./modules/workspace/workspace.module').then(m=>m.WorkspaceModule);}},
+      { path: 'projects', loadChildren: () => { return import('./modules/project/project.module').then(m => m.ProjectModule); } },
+      { path: 'workspace', loadChildren: () => { return import('./modules/workspace/workspace.module').then(m => m.WorkspaceModule); } },
+      { path: 'home', loadChildren: () => { return import('./modules/dashboard/dashboard.module').then(m => m.DashboardModule); } },
       { path: "**", component: RoleSelectionListComponent },
     ]
   },
