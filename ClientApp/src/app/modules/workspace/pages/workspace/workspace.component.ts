@@ -11,7 +11,10 @@ import { UserRole } from 'src/app/Models/UserRole';
 import { User } from 'src/app/Models/User';
 import { ProjectUserService } from '../../services/project-user.service';
 import { ProjectService } from 'src/app/modules/project/services/project.service';
+import { MenuItem } from 'primeng/api';
+import { TaskClndService } from '../../services/task-clnd.service';
 import { Projects } from 'src/app/Models/Projects';
+
 
 interface Column {
   field: string;
@@ -49,10 +52,12 @@ export class WorkspaceComponent {
   private stateService = inject(StateService)
   private projectUserService = inject(ProjectUserService)
   projectService = inject(ProjectService)
+  taskClndService=inject(TaskClndService);
   constructor(private route: ActivatedRoute) { }  
   priorityName: string = ""
-  projectUser: User[] = [];
-
+  items!: MenuItem[] ;
+  activeItem!: MenuItem ;
+  visibleClnd:boolean=false;
   editSidebarVisible: boolean = false;
 
   async ngOnInit(): Promise<void> {
@@ -109,6 +114,16 @@ export class WorkspaceComponent {
     const jwtToken = this.stateService.getCurrentJWT();
     this.userRoleId = jwtToken.roles?.pop()?.id;
     this.isManagerOrAdmin = this.userRoleId == '1' || this.userRoleId == '2' ? true : false;
+    this.taskClndService.getTasks(this.projectId);
+
+    this.items = [
+      { label: 'Таблица', icon: 'pi pi-table' ,command:()=>{this.visibleClnd=false;}},
+      { label: 'Календарь', icon: 'pi pi-calendar',command:()=>{this.visibleClnd=true;}
+      // command:()=>{this.taskClndService.getTasks(this.projectId)} 
+    },
+  ];
+
+  this.activeItem = this.items[0];
   }
 
   async addTask(newTask: Task) {
@@ -139,5 +154,14 @@ export class WorkspaceComponent {
       default: return undefined;
     }
   }
+
+  getPerformersTask(taskId:number) : number[] {
+    console.log(this.projectUserService.getExecutorTask(taskId));
+    return [1,2,3,4]
+  }
+
+  onActiveItemChange(event: MenuItem) {
+    this.activeItem = event;
+}
 
 }

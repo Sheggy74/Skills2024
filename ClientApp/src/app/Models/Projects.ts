@@ -6,5 +6,6 @@ export interface Projects{
     description?:string,
     icon?:string,
     theme?:string,
-    tags?:Tags[]
+    tags?:Tags[],
+    selectRows?:any[]
 }

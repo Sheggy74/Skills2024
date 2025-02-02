@@ -30,12 +30,12 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { TagModule } from 'primeng/tag';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ProjectModule } from '../project/project.module';
+import { AddProjectComponent } from '../project/pages/add-project/add-project.component';
+import { TabMenuModule } from 'primeng/tabmenu';
 import { TaskSidebarComponent } from './components/task-sidebar/task-sidebar.component';
 import { TabViewModule } from 'primeng/tabview';
 import { TaskTableComponent } from './components/task-table/task-table.component';
 import { AvatarGroupModule } from 'primeng/avatargroup';
-
-
 
 
 @NgModule({
@@ -65,6 +65,7 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     TagModule,
     FloatLabelModule,
     ProjectModule,
+    TabMenuModule,
     SidebarModule,
     TabViewModule,
     AvatarGroupModule,

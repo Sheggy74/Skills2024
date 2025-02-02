@@ -35,12 +35,19 @@
       <label for="binary">Показывать только мои задачи</label> -->
       </div>
     </div>
-    <app-task-table [tasks]="tasks"></app-task-table>
+
+    <p-tabMenu 
+        [model]="items" 
+        [activeItem]="activeItem" 
+        (activeItemChange)="onActiveItemChange($event);" />
+
+    <app-task-table [tasks]="tasks" *ngIf="activeItem == items[0]"></app-task-table>
   </p-card>
 
   <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>
-  <app-calendar #clnd></app-calendar>
+  <app-calendar #clnd *ngIf="activeItem == items[1]" [visibleClnd]="visibleClnd"></app-calendar>
   <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
   <app-add-project #add></app-add-project>
+  
 
 </div>
