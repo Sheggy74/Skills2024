@@ -4,9 +4,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Performer extends Model
+class State extends Model
 {
-    //исполнитель задачи
+    //стадия выполнения задачи
     use HasFactory;
  
     protected $hidden = [];
@@ -15,10 +15,9 @@ class Performer extends Model
 
     protected $fillable = [
         'id',
-        'user_id',
-        'task_id',
-        'created_at'
+        'name',
+        'project_id'
     ];
 
-    protected $table = 'performer';
+    protected $table = 'state';
 }

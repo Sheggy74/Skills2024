@@ -1,1 +1,9 @@
-<p>my-notifications works!</p>
+<section>
+  <h2>Мои уведомления</h2>
+  <div class="flex flex-col">
+    <div *ngFor="let notification of notifications">
+      <strong>{{(notification.created_at | date: "HH:mm dd.MM.y ") + ': '}}</strong>
+      {{notification.message}}
+    </div>
+  </div>
+</section>

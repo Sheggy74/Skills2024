@@ -6,25 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class StateTask extends Model
 {
-    //стадия выполнения задачи
-    use HasFactory;
+     //'запись изменения стадии задачи'
+     use HasFactory;
  
-    protected $hidden = [];
-
-    public $timestamps=false;
-
-    protected $fillable = [
-        'id',
-        'name',
-        'project_id'
-    ];
-
-    public function task()
-    {
-        return $this->belongsToMany(Task::class, 'state_task', 'state_id', 'task_id')
-            ->withPivot('created_at');
-    }
-
-
-    protected $table = 'state_task';
+     protected $hidden = [];
+ 
+     public $timestamps=true;
+ 
+     protected $fillable = [
+         'id',
+         'state_id',
+         'task_id',
+        //  'user_id'
+     ];
+ 
+     protected $table = 'state_task';
 }

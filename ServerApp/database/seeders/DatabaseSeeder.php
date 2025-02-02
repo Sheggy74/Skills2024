@@ -26,12 +26,12 @@ class DatabaseSeeder extends Seeder
            ReportValuesSeeder::class,
            ProjectSeeder::class,
            RuleProjectSeeder::class,
-           StateTaskSeeder::class,
+           StateSeeder::class,
            PrioritySeeder::class,
            TaskSeeder::class,
            PerformerSeeder::class,
            ChatSeeder::class,
-           TimeJobSeeder::class,
+           StateTaskSeeder::class,
            
 
        ])

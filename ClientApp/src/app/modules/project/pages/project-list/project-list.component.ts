@@ -13,6 +13,7 @@ import { Tags } from 'src/app/Models/Tags';
 import { TagsService } from '../../services/tags.service';
 import { TagsprService } from '../../services/tagspr.service';
 import { ContextMenu } from 'primeng/contextmenu';
+import { TaskClndService } from '../../services/task-clnd.service';
 
 @Component({
   selector: 'project-list',
@@ -25,6 +26,8 @@ export class ProjectListComponent implements OnInit{
   private searchTags=new BehaviorSubject<Tags|undefined>(undefined);
   private userRoleService=inject(UserRoleService);
   tagsService=inject(TagsService);
+  taskClndService=inject(TaskClndService);
+  userRolePrService=inject(UserRoleService);
   
   searchText$ = this.searchTextSubject.asObservable();
   searchTags$=this.searchTags.asObservable();

@@ -19,7 +19,7 @@ return new class extends Migration
             $table->bigInteger('user_id')->comment('Идентификактор пользователя');
             $table->bigInteger('task_id')->comment('Идентификатор задачи');
             $table->timestamp('created_at')->nullable()->comment('Дата создания');
-            $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
+            // $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('task_id')->references('id')->on('task')->onDelete('cascade');

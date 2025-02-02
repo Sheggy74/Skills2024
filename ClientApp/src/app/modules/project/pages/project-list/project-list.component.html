@@ -1,52 +1,44 @@
 <div class="filters-container">
-    <!-- Поле для поиска с использованием input и директивы pInputText -->
-    <input 
-      type="text"
-      pInputText
-      [(ngModel)]="searchText"
-      (ngModelChange)="onSearchTextChange($event)"
-      placeholder="Поиск по содержимому..."
-      style="width: 300px;height: auto;" />
+  <!-- Поле для поиска с использованием input и директивы pInputText -->
+  <input type="text" pInputText [(ngModel)]="searchText" (ngModelChange)="onSearchTextChange($event)"
+    placeholder="Поиск по содержимому..." style="width: 300px;height: auto;" />
 
-        <p-multiSelect 
-          [options]="(tagsService.tags.getValue())!"
-          [(ngModel)]="selectedTags" 
-          optionLabel="name" 
-          [filter]="true" 
-          display="chip"
-          placeholder="Поиск по тегам"
-          (onChange)="onSearchTagsChange($event)"
-           >
-          <ng-template let-item pTemplate="item">
-            <div class="custom-option">
-              <span>{{ item.name }}</span>
-              <button pButton type="button" icon="pi pi-pencil" style="color: rgb(57, 140, 212);background: white;"
-                (click)="editTag($event);tagsService.selectedTag.next(item);tags.showDialog()"></button>
-              <button pButton type="button" icon="pi pi-trash" style="color: rgb(212, 57, 70);background: white;border-color: rgb(212, 57, 70);"
-                (click)="deleteTag($event,item.id)"></button>
-            </div>
-          </ng-template>
-        </p-multiSelect>
+  <p-multiSelect [options]="(tagsService.tags.getValue())!" [(ngModel)]="selectedTags" optionLabel="name"
+    [filter]="true" display="chip" placeholder="Поиск по тегам" (onChange)="onSearchTagsChange($event)">
+    <ng-template let-item pTemplate="item">
+      <div class="custom-option">
+        <span>{{ item.name }}</span>
+        <button pButton type="button" icon="pi pi-pencil" style="color: rgb(57, 140, 212);background: white;"
+          (click)="editTag($event);tagsService.selectedTag.next(item);tags.showDialog()"></button>
+        <button pButton type="button" icon="pi pi-trash"
+          style="color: rgb(212, 57, 70);background: white;border-color: rgb(212, 57, 70);"
+          (click)="deleteTag($event,item.id)"></button>
+      </div>
+    </ng-template>
+  </p-multiSelect>
 
-        <p-button  *ngIf="isAdmin" icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()" class="bBtn"  pTooltip="Добавить тег" />
-  </div>
-  <p-scrollPanel [style]="{ width: '100%', height: '700px' }">
+  <p-button *ngIf="isAdmin" icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()"
+    class="bBtn" pTooltip="Добавить тег" />
+</div>
+<p-scrollPanel [style]="{ width: '100%', height: '700px' }">
   <div class="card-container">
     <p-card [style]="{height: '150px' }" *ngIf="isAdmin">
       <ng-template pTemplate="content">
-          <div style="display: flex;justify-content: center;">
-              <div class="icon-circle">
-                <i class="pi pi-plus" (click)="this.projectService.selectedPrject.next(undefined);add.showDialog()" style="cursor: pointer;"></i> 
-              </div>
-            </div>
+        <div style="display: flex;justify-content: center;">
+          <div class="icon-circle">
+            <i class="pi pi-plus" (click)="this.projectService.selectedPrject.next(undefined);add.showDialog()"
+              style="cursor: pointer;"></i>
+          </div>
+        </div>
       </ng-template>
     </p-card>
-    <p-card *ngFor="let project of filteredProjects" #list>
+
+    <p-card *ngFor="let project of filteredProjects" #list >
         <ng-template pTemplate="content" >
-            <div class="header-content" >
+            <div class="header-content" (click)="this.taskClndService.getTasks(project?.id??0);userRolePrService.getUserRoleID(project?.id??0);clnd.openDialog()">
               
                 <!-- Иконка в круге и название проекта -->
-                <div class="icon-circle" [style.background-color]="project.theme">
+                <div class="icon-circle" [style.background-color]="project.theme" >
                   <i [class]="project.icon" style="color: white;"></i>
                   </div>
                 <span>{{ project.name ?? 'Без имени' }}</span>
@@ -59,21 +51,22 @@
                 </p-tag>
               </div>
 
-              
-              <div class="card-options" *ngIf="isAdmin">
-                  <button pButton icon="pi pi-ellipsis-h" 
-                    (click)="op.toggle($event);selectProject(project)" 
-                    class="p-button-text"></button>
 
-                  <p-overlayPanel #op>
-                    <p-menu [model]="items"></p-menu>
-                  </p-overlayPanel>
-              </div>
-        </ng-template>
-       
+
+        <div class="card-options" *ngIf="isAdmin">
+          <button pButton icon="pi pi-ellipsis-h" (click)="op.toggle($event);selectProject(project)"
+            class="p-button-text"></button>
+
+          <p-overlayPanel #op>
+            <p-menu [model]="items"></p-menu>
+          </p-overlayPanel>
+        </div>
+      </ng-template>
+
     </p-card>
   </div>
 </p-scrollPanel>
   <app-add-project #add></app-add-project>
   <app-add-tags #tags></app-add-tags>
   <app-cntx-menu #cm [model]="cntMenuItems" ></app-cntx-menu>
+  <app-calendar #clnd></app-calendar>

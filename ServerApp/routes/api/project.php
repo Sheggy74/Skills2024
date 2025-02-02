@@ -19,7 +19,12 @@ Route::prefix('project')
     ->middleware('auth:api', 'auth.user')
     ->controller(ProjectController::class)
     ->group(function () {
-        Route::get('users', 'getUserRole');
-        Route::get('users/{id}', 'getRuleProject');
-    });
+
+    Route::get('users', 'getUserRole');
+    Route::get('users/{id}','getRuleProject');
+    Route::get('user/{id}','getUserRolePrId');
+    Route::get('task/{id}','getTasksProject');
+});
+
+
 

@@ -6,11 +6,14 @@ use Carbon\Exceptions\EndLessPeriodException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Interface\CrudController;
+use App\Http\Resources\FullCalendarRecource;
 use App\Http\Resources\ProjectResource;
 use App\Http\Resources\UserRoleResource;
 use App\Models\Notifications;
 use App\Models\Project;
+use App\Models\RoleProject;
 use App\Models\RuleProject;
+use App\Models\Task;
 use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller implements CrudController
@@ -21,12 +24,12 @@ class ProjectController extends Controller implements CrudController
     }
     public function index(Request $request)
     {
-        if(Auth::user()->login=='admin'){
+        if (Auth::user()->login == 'admin') {
             $data =  Project::query()->get();
-        }else{
-            $idUser=Auth::user()->id;
-            $data=Project::query()->leftJoin('rule_project','rule_project.project_id','project.id')
-                ->where('rule_project.user_id',$idUser)->get();
+        } else {
+            $idUser = Auth::user()->id;
+            $data = Project::query()->leftJoin('rule_project', 'rule_project.project_id', 'project.id')
+                ->where('rule_project.user_id', $idUser)->get();
         }
         return ProjectResource::collection($data);
     }
@@ -51,12 +54,14 @@ class ProjectController extends Controller implements CrudController
 
         foreach ($userRole as $item) {
             RuleProject::query()->create(
-                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>1]
+                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role"]]
+
             );
+            $name=$item["role"]==1?'менеджером':'исполнителем';
             Notifications::query()->create([
-                'user_id' => $item["user_id"],
-                'message' => "Вы назначены менеджером проекта \"" . $request->name . "\"",
-                'is_read' => false
+                'user_id'=>$item["user_id"],
+                'message'=>"Вы назначены ".$name." проекта \"".$request->name."\"",
+                'is_read'=>false
             ]);
         }
 
@@ -94,12 +99,13 @@ class ProjectController extends Controller implements CrudController
         // dd($newRule);
         foreach ($newRule as $item) {
             RuleProject::query()->create(
-                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>1]
+                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role"]]
             );
+            $name=$item["role"]==1?'менеджером':'исполнителем';
             Notifications::query()->create([
-                'user_id' => $item["id"],
-                'message' => "Вы назначены менеджером проекта \"" . $request->name . "\"",
-                'is_read' => false
+                'user_id'=>$item["id"],
+                'message'=>"Вы назначены ".$name." проекта \"".$request->name."\"",
+                'is_read'=>false
             ]);
         }
 
@@ -120,27 +126,51 @@ class ProjectController extends Controller implements CrudController
         return 0;
     }
 
-    public function getUserRole() {
+    public function getUserRole()
+    {
         // $user=DB::connection('pgsql')->table('users')->select('users.id','users.first_name','users.last_name',
         // 'users.second_name','roles.name','roles.id as role_id')->leftJoin('user_roles','user_roles.user_id','users.id')
         // ->leftJoin('roles','roles.id','user_roles.role_id')->get();
 
-        $user=DB::connection('pgsql')->table('users')->select('users.id','users.first_name','users.last_name',
-        'users.second_name')->get();
-        return UserRoleResource::collection($user);
-    }
-
-    public function getRuleProject($id)
-    {
         $user = DB::connection('pgsql')->table('users')->select(
             'users.id',
             'users.first_name',
             'users.last_name',
-            'users.second_name',
-            'roles.name',
-            'roles.id as role_id'
-        )->leftJoin('rule_project', 'rule_project.user_id', 'users.id')
-            ->leftJoin('roles', 'roles.id', 'rule_project.role_id')->where('rule_project.project_id', $id)->get();
+            'users.second_name'
+        )->get();
+        return UserRoleResource::collection($user);
+    }
+
+    public function getUserRolePrId($id) {
+        // $user=DB::connection('pgsql')->table('users')->select('users.id','users.first_name','users.last_name',
+        // 'users.second_name','roles.name','roles.id as role_id')->leftJoin('user_roles','user_roles.user_id','users.id')
+        // ->leftJoin('roles','roles.id','user_roles.role_id')->get();
+
+        // $user=DB::connection('pgsql')->table('users')->select('users.id','users.first_name','users.last_name',
+        // 'users.second_name','rule_project.role_id')
+        // ->leftJoin('rule_project','rule_project.user_id','users.id')->where('rule_project.project_id',$id)
+        // ->get();
+
+        $user = DB::connection('pgsql')
+        ->table('users')
+        ->select('users.id', 
+        'users.first_name','users.last_name',
+        'users.second_name', 
+                 'rule_project.role_id')
+        ->leftJoin('rule_project', 'rule_project.user_id', '=', 'users.id')
+        ->where('rule_project.project_id', $id)  // Фильтруем по project_id
+        ->orWhereNull('rule_project.role_id')   // Включаем пользователей без роли
+        ->get();
+
+        // return $user;
+        return UserRoleResource::collection($user);
+    }
+
+    public function getRuleProject($id){
+        $user=DB::connection('pgsql')->table('users')->select('users.id','users.first_name','users.last_name',
+        'users.second_name','roles.name','roles.id')->leftJoin('rule_project','rule_project.user_id','users.id')
+        ->leftJoin('roles','roles.id','rule_project.role_id')->where('rule_project.project_id',$id)->get();
+
         return UserRoleResource::collection($user);
     }
 
@@ -166,6 +196,13 @@ class ProjectController extends Controller implements CrudController
         return $uniqueUsers1;
     }
 
+
+    function getTasksProject($id) {
+        // $retVal=Task::query()->leftJoin('state_task','state_task.task_id','task.id')
+        $retVal=Task::query()->leftJoin('state_task','state_task.task_id','task.id')
+            ->leftJoin('deadline','deadline.task_id','task.id')->where('task.project_id',$id)->get();
+        return FullCalendarRecource::collection($retVal);
+    }   
     /**
      * Назначение пользователя на проект
      * */
@@ -183,4 +220,5 @@ class ProjectController extends Controller implements CrudController
         ]);
         return response(['message' => 'Пользователь успешно назначен на проект!'], 200);
     }
+
 }

@@ -27,7 +27,9 @@ import { TagModule } from 'primeng/tag';
 import { AddTagsComponent } from './pages/add-tags/add-tags.component';
 import { CntxMenuModule } from 'src/app/InterfaceComponents/ContextMenu/cntx.module';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
-
+import { CalendarComponent } from './pages/calendar/calendar.component';
+import { CalendarModule } from 'primeng/calendar';  
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     ProjectListComponent,
     AddProjectComponent,
     AddTagsComponent,
+    CalendarComponent
+    
   ],
   imports: [
     CommonModule,
@@ -61,8 +65,10 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     TableModule,
     TagModule,
     CntxMenuModule,
-    ScrollPanelModule
-    
+    ScrollPanelModule,
+    CalendarModule,
+    FullCalendarModule
+    // CalendarComponent
   ],
   exports:[AddProjectComponent]
 })
