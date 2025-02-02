@@ -198,7 +198,8 @@ class ProjectController extends Controller implements CrudController
 
 
     function getTasksProject($id) {
-        $retVal=Task::query()->leftJoin('time_job','time_job.task_id','task.id')
+        // $retVal=Task::query()->leftJoin('state_task','state_task.task_id','task.id')
+        $retVal=Task::query()->leftJoin('state_task','state_task.task_id','task.id')
             ->leftJoin('deadline','deadline.task_id','task.id')->where('task.project_id',$id)->get();
         return FullCalendarRecource::collection($retVal);
     }   
