@@ -45,11 +45,12 @@ export class CreateTaskComponent {
         dateCreation: new Date(),
         taskStateId: 1,
         projectId: this.projectId,
-        priorityId: this.selectedPriority,
         performers: [],
         performersId: [],
       };
       this.createTask.emit(newTask); 
+
+      this.workspaceService.createTask(newTask)
       this.hideDialog(); 
       this.newTaskTitle = ''; 
       this.newTaskDescription = ''; 

@@ -39,6 +39,7 @@ export class WorkspaceComponent {
   isLoadingPriority: boolean = false;
   isLoadingProjectUser: boolean = false;
   isOnlyExecutorsTasks: boolean = true;
+  isSidebarVisible: boolean = false;  
 
   private workspaceService = inject(WorkspaceService);
   private jwtService = inject(JwtService);
@@ -113,10 +114,6 @@ export class WorkspaceComponent {
     this.tasks = this.workspaceService.tasks.value;
   }
 
-  trackByTaskId(index: number, task: Task): number {
-    return task.id;
-  }
-
   async removeTask(taskId: number) {
     this.workspaceService.deleteTask(taskId);
     await this.workspaceService.updateData(7);
@@ -130,20 +127,6 @@ export class WorkspaceComponent {
     this.editSidebarVisible = false;
   }
 
-  openEditSidebar() {
-    this.editSidebarVisible = true;
-  }
-
-
-  get selectedColumns(): Column[] {
-    return this._selectedColumns;
-  }
-
-  set selectedColumns(val: Column[]) {
-    //restore original order
-    this._selectedColumns = this.cols.filter((col) => val.includes(col));
-  }
-
   getSeverityForTag(priorityId: number) : "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
     switch(priorityId) {
       case 1: {return 'success';}
@@ -154,8 +137,4 @@ export class WorkspaceComponent {
     }
   }
 
-  getPerformersTask(taskId:number) : number[] {
-    console.log(this.projectUserService.getExecutorTask(taskId));
-    return [1,2,3,4]
-  }
 }

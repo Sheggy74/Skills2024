@@ -12,6 +12,8 @@
           (click)="this.projectService.selectedPrject.next(undefined);add.showDialog()" icon="pi pi-pencil"
           class="p-button-lg p-button-rounded p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
+        <p-button label="Toggle Sidebar" icon="pi pi-bars" (onClick)="isSidebarVisible = !isSidebarVisible"></p-button>
+        <button pButton pRipple icon="pi pi-calendar" (click)="clnd.openDialog()"></button>
       </div>
     </ng-template>
     <div class="flex gap-10 items-center">
@@ -26,73 +28,12 @@
       <label for="binary">Показывать только мои задачи</label> -->
       </div>
     </div>
-    <p-table [columns]="selectedColumns" [value]="tasks" [tableStyle]="{'min-width': '50rem'}">
-      <ng-template pTemplate="caption">
-        <p-multiSelect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
-          selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}" placeholder="Choose Columns" />
-      </ng-template>
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th *ngFor="let col of columns">
-            {{col.header}}
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-task>
-        <tr>
-          <td> {{task.name}} </td> <!-- название задачи -->
-          <td> {{task.stateName}} </td> <!-- статус задачи -->
-          <td>
-            <div *ngFor="let performer of task.performers">
-              <div class="flex items-center gap-2">
-                <p-avatar *ngIf="performer.photo_url == null" size="large"
-                  [label]="performer.first_name[0].toUpperCase()" class="mr-2" shape="circle" />
-                <p-avatar *ngIf="performer.photo_url != null"
-                  [image]="'http://localhost:8000/storage/' + performer.photo_url" size="large" class="mr-2"
-                  shape="circle" />
-                {{performer.first_name + ' ' + performer.second_name[0].toUpperCase() +'.'+ (performer.last_name ?
-                performer.last_name[0].toUpperCase() + '.' :"")}}
-              </div>
-            </div>
-          </td> <!-- исполнители -->
-          <td class="content-center"> <p-tag [severity]="getSeverityForTag(task.priorityId)"
-              [value]="task.priorityName"></p-tag> </td> <!-- приоритет -->
-          <td> </td> <!-- дедлайн -->
-          <td> <button pButton pRipple *ngIf="isManagerOrAdmin" icon="pi pi-user-plus"
-              class="p-button-lg p-button-rounded p-button-success p-button-text" label=""
-              pTooltip="Добавить исполнителя" [showDelay]="1000" (click)="selectExecutorDialog.showDialog()"></button>
-          </td> <!-- временная кнопка -->
-        </tr>
-        <app-select-executor [task]="task" #selectExecutorDialog
-          [isManagerOrAdmin]="isManagerOrAdmin"></app-select-executor>
-      </ng-template>
-    </p-table>
+    <app-task-table [tasks]="tasks"></app-task-table>
   </p-card>
-  <!-- <div class="">
-    <div class="overflow-scroll h-[70vh] m-2 gap-2">
-      <div *ngFor="let task of tasks">
-        <app-task [task]="task" [isManagerOrAdmin]="isManagerOrAdmin" (deleteTask)="removeTask($event)"
-          (updateTask)="changeTask($event)"></app-task>
-      </div>
-    </div>
-  </div> -->
-  <!-- <div class="mt-10">
-  <p-accordion [activeIndex]="0">
-    <p-accordionTab headerStyleClass="LowPriority" *ngFor="let task of tasks">
-      <ng-template pTemplate="header">
-        <div class="">
-          {{task.name}}
-          <div class="actions">
-
-          </div>
-        </div>
-      </ng-template>
-      <app-task [task]="task" [projectId]="projectId" [isManagerOrAdmin]="isManagerOrAdmin"
-        (deleteTask)="removeTask($event)" (updateTask)="changeTask($event)"></app-task>
-    </p-accordionTab>
-  </p-accordion>
-</div> -->
 
   <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>
+  <app-calendar #clnd></app-calendar>
+  <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
   <app-add-project #add></app-add-project>
+
 </div>

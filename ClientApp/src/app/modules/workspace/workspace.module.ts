@@ -18,20 +18,27 @@ import { WorkspaceComponent } from './pages/workspace/workspace.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { SkeletonModule } from 'primeng/skeleton';
 import { DropdownModule } from 'primeng/dropdown';
-import {ToolbarModule} from 'primeng/toolbar';
-import {CheckboxModule} from 'primeng/checkbox';
-import {ScrollerModule} from 'primeng/scroller';
+import { ToolbarModule } from 'primeng/toolbar';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ScrollerModule } from 'primeng/scroller';
 import { TableModule } from 'primeng/table';
 import {AvatarModule} from 'primeng/avatar';
+import { ProjectComponent } from '../project/pages/project.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 import { MultiSelectModule } from 'primeng/multiselect';
 import { TagModule } from 'primeng/tag';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ProjectModule } from '../project/project.module';
-import { AddProjectComponent } from '../project/pages/add-project/add-project.component';
+import { TaskSidebarComponent } from './components/task-sidebar/task-sidebar.component';
+import { TabViewModule } from 'primeng/tabview';
+import { TaskTableComponent } from './components/task-table/task-table.component';
+
+
 
 
 @NgModule({
-  declarations: [TaskComponent, WorkspaceComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent],
+  declarations: [TaskComponent, WorkspaceComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -52,10 +59,14 @@ import { AddProjectComponent } from '../project/pages/add-project/add-project.co
     ScrollerModule,
     TableModule,
     AvatarModule,
+    FullCalendarModule,
     MultiSelectModule,
     TagModule,
     FloatLabelModule,
     ProjectModule,
+    SidebarModule,
+    TabViewModule,
   ]
+
 })
 export class WorkspaceModule { }

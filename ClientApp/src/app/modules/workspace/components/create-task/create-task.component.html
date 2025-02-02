@@ -1,21 +1,11 @@
-<p-dialog [(visible)]="visible" (onHide)="hideDialog()" header="Создание новой задачи" [style]="{ width: '40rem', height: 'auto'}"
-  [modal]="true">
+<p-dialog [(visible)]="visible" (onHide)="hideDialog()" header="Создание новой задачи"
+  [style]="{ width: '40rem', height: 'auto'}" [modal]="true">
   <!-- <div class="flex gap-4 flex-col"> -->
   <div class="p-fluid">
     <div class="p-field">
       <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
       <label for="newTaskTitle">Название задачи</label>
       <textarea class="w-full" id="newTaskTitle" pInputTextarea [(ngModel)]="newTaskTitle"></textarea>
-    </div>
-    <div class="p-field">
-      <label for="newTaskPriority">Выбор приоритета</label>
-      <p-dropdown [style]="{ width: '100%' }" id="newTaskPriority" [options]="prioritys" [(ngModel)]="selectedPriority" optionLabel="name"
-        optionValue="id"></p-dropdown>
-    </div>
-    <!-- </div> -->
-    <div class="p-field">
-      <label for="newTaskDescription">Описание задачи</label>
-      <textarea class="w-full" id="newTaskDescription" pInputTextarea [(ngModel)]="newTaskDescription"></textarea>
     </div>
   </div>
   <ng-template class="" pTemplate="footer">

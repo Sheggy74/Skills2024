@@ -37,7 +37,6 @@ class WorkspaceController extends Controller
     //         $task->users()->sync($request->input('performersId'));
     //     }
     //     }
-        
     // }
 
     public function createTask(Request $request)

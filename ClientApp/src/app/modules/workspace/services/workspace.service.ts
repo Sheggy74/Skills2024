@@ -4,7 +4,7 @@ import { Task } from "src/app/Models/Task";
 import { Projects } from "src/app/Models/Projects";
 import { BaseApiService } from "src/app/services/BaseApiService/base-api.service";
 import { Priority } from "src/app/Models/Priority"
-import { UserRole } from "src/app/Models/UserRole"
+import { State } from "src/app/Models/State";
 @Injectable({
   providedIn: 'root'
 })
@@ -18,6 +18,8 @@ export class WorkspaceService extends BaseApiService {
   project = new BehaviorSubject<Projects | undefined>(undefined)
   isLoadingPriority = new BehaviorSubject<boolean>(true);
   priority = new BehaviorSubject<Priority[]>([])
+  isLoadingState = new BehaviorSubject<boolean>(true);
+  state = new BehaviorSubject<State[]>([])
 
   async updateData(projectId: number) {
     this.isLoadingTask.next(true);
@@ -38,6 +40,12 @@ export class WorkspaceService extends BaseApiService {
     this.isLoadingPriority.next(false);
   }
   
+  async updateState(projectId: number) {
+    this.isLoadingPriority.next(true);
+    this.priority.next(await this.getPriority());
+    this.isLoadingPriority.next(false);
+  }
+
   getTasksForProject(projectId: number): Promise<Task[]> {
     let retValue = lastValueFrom(this.http.get<Task[]>(this.localAPIPath + "/" + projectId)
       .pipe(
@@ -104,20 +112,20 @@ export class WorkspaceService extends BaseApiService {
     return retValue;
   }
 
-  getState() {
-    let retValue = lastValueFrom(this.http.get<Projects>(this.localAPIPath + "/state" )
+  getPriority() :Promise<Priority[]> {
+    let retValue = lastValueFrom(this.http.get<Priority>(this.localAPIPath + "/priority" )
     .pipe(
-      map((project: any) => {
+      map((priority: any) => {
         // console.log(project);
-        return project;
+        return priority;
       }),
       catchError(this.exceptionService.getErrorHandlerList())));
 
   return retValue;
   }
 
-  getPriority() :Promise<Priority[]> {
-    let retValue = lastValueFrom(this.http.get<Priority>(this.localAPIPath + "/priority" )
+  getState() :Promise<State[]> {
+    let retValue = lastValueFrom(this.http.get<State>(this.localAPIPath + "/state" )
     .pipe(
       map((priority: any) => {
         // console.log(project);

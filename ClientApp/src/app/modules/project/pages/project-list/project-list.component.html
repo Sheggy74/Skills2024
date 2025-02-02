@@ -35,7 +35,7 @@
 
     <p-card *ngFor="let project of filteredProjects" #list >
         <ng-template pTemplate="content" >
-            <div class="header-content" (click)="this.taskClndService.getTasks(project?.id??0);userRolePrService.getUserRoleID(project?.id??0);clnd.openDialog()">
+            <div class="header-content" (click)="showSidebar(project.id??0)">
               
                 <!-- Иконка в круге и название проекта -->
                 <div class="icon-circle" [style.background-color]="project.theme" >
@@ -69,4 +69,11 @@
   <app-add-project #add></app-add-project>
   <app-add-tags #tags></app-add-tags>
   <app-cntx-menu #cm [model]="cntMenuItems" ></app-cntx-menu>
-  <app-calendar #clnd></app-calendar>
+  
+
+  <!-- <p-sidebar [(visible)]="sidebarVisible" position="right" [style]="{'width':'850px'}"> -->
+    <!-- <app-calendar #clnd></app-calendar> -->
+    <!-- <router-outlet></router-outlet> -->
+    <!-- <app-project></app-project> -->
+    <!-- <workspace-project [id]="id"></workspace-project> -->
+<!-- </p-sidebar> -->
