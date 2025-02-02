@@ -36,8 +36,9 @@ import { TaskTableComponent } from './components/task-table/task-table.component
 
 
 
+
 @NgModule({
-  declarations: [TaskComponent, WorkspaceComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, TaskSidebarComponent, TaskTableComponent],
+  declarations: [TaskComponent, WorkspaceComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent],
   imports: [
     CommonModule,
     FormsModule,

@@ -13,6 +13,7 @@
           class="p-button-lg p-button-rounded p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
         <p-button label="Toggle Sidebar" icon="pi pi-bars" (onClick)="isSidebarVisible = !isSidebarVisible"></p-button>
+        <button pButton pRipple icon="pi pi-calendar" (click)="clnd.openDialog()"></button>
       </div>
     </ng-template>
     <div class="flex gap-10 items-center">
@@ -31,5 +32,8 @@
   </p-card>
 
   <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>
+  <app-calendar #clnd></app-calendar>
+  <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
   <app-add-project #add></app-add-project>
+
 </div>
