@@ -9,7 +9,7 @@
           <a class="text-blue-600 hover:underline" routerLink="/projects">проекты/</a>{{projectName}}
         </span>
         <button pButton pRipple *ngIf="isManagerOrAdmin"
-          (click)="this.projectService.selectedPrject.next(undefined);add.showDialog()" icon="pi pi-pencil"
+          (click)="this.projectService.selectedPrject.next(project);add.showDialog()" icon="pi pi-pencil"
           class="p-button-lg p-button-rounded p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
         <p-button label="Toggle Sidebar" icon="pi pi-bars" (onClick)="isSidebarVisible = !isSidebarVisible"></p-button>

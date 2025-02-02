@@ -10,6 +10,7 @@ import { Priority } from 'src/app/Models/Priority';
 import { UserRole } from 'src/app/Models/UserRole';
 import { ProjectUserService } from '../../services/project-user.service';
 import { ProjectService } from 'src/app/modules/project/services/project.service';
+import { Projects } from 'src/app/Models/Projects';
 
 interface Column {
   field: string;
@@ -32,6 +33,7 @@ export class WorkspaceComponent {
   newTaskDescription: string = '';
   projectId: number = 0;
   projectName: string = "";
+  project!: Projects
   userRoleId: string | undefined;
   isManagerOrAdmin: boolean = false;
   isLoadingProject: boolean = false;
@@ -79,6 +81,7 @@ export class WorkspaceComponent {
 
     this.workspaceService.updateProjectData(this.projectId);
     this.workspaceService.project.subscribe(project => {
+      this.project = project!;
       this.projectName = project?.name || '';
     })
 
