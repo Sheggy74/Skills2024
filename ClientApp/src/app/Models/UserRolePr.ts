@@ -1,5 +1,5 @@
 export interface UserRolePr{
     id?:number,
-    fio?:number,
-    role?:any[]
+    // fio?:number,
+    role_id?:number
 }

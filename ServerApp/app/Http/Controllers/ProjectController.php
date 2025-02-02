@@ -14,6 +14,7 @@ use App\Models\Project;
 use App\Models\RoleProject;
 use App\Models\RuleProject;
 use App\Models\Task;
+use DateTime;
 use Illuminate\Support\Facades\DB;
 
 class ProjectController extends Controller implements CrudController
@@ -54,10 +55,10 @@ class ProjectController extends Controller implements CrudController
 
         foreach ($userRole as $item) {
             RuleProject::query()->create(
-                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role"]]
+                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role_id"]]
 
             );
-            $name=$item["role"]==1?'менеджером':'исполнителем';
+            $name=$item["role_id"]==1?'менеджером':'исполнителем';
             Notifications::query()->create([
                 'user_id'=>$item["user_id"],
                 'message'=>"Вы назначены ".$name." проекта \"".$request->name."\"",
@@ -99,9 +100,9 @@ class ProjectController extends Controller implements CrudController
         // dd($newRule);
         foreach ($newRule as $item) {
             RuleProject::query()->create(
-                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role"]]
+                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>$item["role_id"]]
             );
-            $name=$item["role"]==1?'менеджером':'исполнителем';
+            $name=$item["role_id"]==1?'менеджером':'исполнителем';
             Notifications::query()->create([
                 'user_id'=>$item["id"],
                 'message'=>"Вы назначены ".$name." проекта \"".$request->name."\"",
@@ -199,9 +200,34 @@ class ProjectController extends Controller implements CrudController
 
     function getTasksProject($id) {
         // $retVal=Task::query()->leftJoin('state_task','state_task.task_id','task.id')
-        $retVal=Task::query()->leftJoin('state_task','state_task.task_id','task.id')
-            ->leftJoin('deadline','deadline.task_id','task.id')->where('task.project_id',$id)->get();
-        return FullCalendarRecource::collection($retVal);
+        // $retVal=Task::query()->leftJoin('state_task','state_task.task_id','task.id')
+        //     ->leftJoin('deadline','deadline.task_id','task.id')->where('task.project_id',$id)->get();
+        $project=Project::query()->find($id);
+        
+        $projectClnd=array(
+            'title'=>'Создан проект ' . $project->name,
+            'description'=>'',
+            'start'=>ProjectController::parseDate($project->created_at),
+            'end'=>ProjectController::parseDate($project->created_at),
+        );
+        
+        $tasks=Task::query()->select('task.name as task_name','state.name as state_name',
+            'task.description','task.created_at')
+        ->where('task.project_id',$id)->leftJoin('state_task','state_task.task_id','task.id')
+            ->leftJoin('state','state.id','state_task.state_id')->orderBy('task.created_at')->get();
+        $taskClnd=array();
+        array_push($taskClnd,$projectClnd);
+        foreach($tasks as $item){
+            array_push($taskClnd,[
+                'title'=>'Задача '. $item->task_name .' в состоянии: '. $item->state_name,
+                'description'=>$item->description,
+                'start'=>ProjectController::parseDate($item->created_at),
+                'end'=>ProjectController::parseDate($item->created_at),
+            ]);
+        }   
+        return $taskClnd;
+
+        // return FullCalendarRecource::collection($retVal);
     }   
     /**
      * Назначение пользователя на проект
@@ -219,6 +245,15 @@ class ProjectController extends Controller implements CrudController
             'is_read' => false
         ]);
         return response(['message' => 'Пользователь успешно назначен на проект!'], 200);
+    }
+
+    function parseDate($date) {
+        $date = $date;
+        // Создаем объект DateTime из строки
+        $dateTime = new DateTime($date);
+        $formattedDate = $dateTime->format('Y-m-d\TH:H:i');
+        // $formattedDate = $dateTime->format('Y-m-d');
+        return $formattedDate;
     }
 
 }

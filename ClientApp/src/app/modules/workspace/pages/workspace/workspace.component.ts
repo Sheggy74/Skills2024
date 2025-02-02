@@ -10,6 +10,10 @@ import { Priority } from 'src/app/Models/Priority';
 import { UserRole } from 'src/app/Models/UserRole';
 import { ProjectUserService } from '../../services/project-user.service';
 import { ProjectService } from 'src/app/modules/project/services/project.service';
+import { MenuItem } from 'primeng/api';
+import { TaskClndService } from '../../services/task-clnd.service';
+import { Projects } from 'src/app/Models/Projects';
+
 
 interface Column {
   field: string;
@@ -32,6 +36,7 @@ export class WorkspaceComponent {
   newTaskDescription: string = '';
   projectId: number = 0;
   projectName: string = "";
+  project!: Projects
   userRoleId: string | undefined;
   isManagerOrAdmin: boolean = false;
   isLoadingProject: boolean = false;
@@ -46,9 +51,12 @@ export class WorkspaceComponent {
   private stateService = inject(StateService)
   private projectUserService = inject(ProjectUserService)
   projectService = inject(ProjectService)
+  taskClndService=inject(TaskClndService);
   constructor(private route: ActivatedRoute) { }  
   priorityName: string = ""
-
+  items!: MenuItem[] ;
+  activeItem!: MenuItem ;
+  visibleClnd:boolean=false;
   editSidebarVisible: boolean = false;
 
   async ngOnInit(): Promise<void> {
@@ -79,6 +87,7 @@ export class WorkspaceComponent {
 
     this.workspaceService.updateProjectData(this.projectId);
     this.workspaceService.project.subscribe(project => {
+      this.project = project!;
       this.projectName = project?.name || '';
     })
 
@@ -105,13 +114,22 @@ export class WorkspaceComponent {
     const jwtToken = this.stateService.getCurrentJWT();
     this.userRoleId = jwtToken.roles?.pop()?.id;
     this.isManagerOrAdmin = this.userRoleId == '1' || this.userRoleId == '2' ? true : false;
+    this.taskClndService.getTasks(this.projectId);
+
+    this.items = [
+      { label: 'Таблица', icon: 'pi pi-table' ,command:()=>{this.visibleClnd=false;}},
+      { label: 'Календарь', icon: 'pi pi-calendar',command:()=>{this.visibleClnd=true;}
+      // command:()=>{this.taskClndService.getTasks(this.projectId)} 
+    },
+  ];
+
+  this.activeItem = this.items[0];
   }
 
   async addTask(newTask: Task) {
-    this.workspaceService.createTask(newTask)
-    // this.tasks.push(newTask);
-    await this.workspaceService.updateData(7);
-    this.tasks = this.workspaceService.tasks.value;
+    this.tasks.push(newTask);
+    console.log(newTask);
+    
   }
 
   async removeTask(taskId: number) {
@@ -136,5 +154,14 @@ export class WorkspaceComponent {
       default: return undefined;
     }
   }
+
+  getPerformersTask(taskId:number) : number[] {
+    console.log(this.projectUserService.getExecutorTask(taskId));
+    return [1,2,3,4]
+  }
+
+  onActiveItemChange(event: MenuItem) {
+    this.activeItem = event;
+}
 
 }

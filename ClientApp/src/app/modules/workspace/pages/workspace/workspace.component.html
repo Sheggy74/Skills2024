@@ -5,15 +5,14 @@
   <p-card *ngIf="!isLoadingProject">
     <ng-template pTemplate="header">
       <div class="flex items-center p-4 pl-5 gap-10">
-        <span class="font-bold text-3xl">
-          {{projectName}}
+        <span class="font-bold text-3xl capitalize">
+          <a class="text-blue-600 hover:underline" routerLink="/projects">проекты/</a>{{projectName}}
         </span>
         <button pButton pRipple *ngIf="isManagerOrAdmin"
-          (click)="this.projectService.selectedPrject.next(undefined);add.showDialog()" icon="pi pi-pencil"
+          (click)="this.projectService.selectedPrject.next(project);add.showDialog()" icon="pi pi-pencil"
           class="p-button-lg p-button-rounded p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
         <p-button label="Toggle Sidebar" icon="pi pi-bars" (onClick)="isSidebarVisible = !isSidebarVisible"></p-button>
-        <button pButton pRipple icon="pi pi-calendar" (click)="clnd.openDialog()"></button>
       </div>
     </ng-template>
     <div class="flex gap-10 items-center">
@@ -28,12 +27,19 @@
       <label for="binary">Показывать только мои задачи</label> -->
       </div>
     </div>
-    <app-task-table [tasks]="tasks"></app-task-table>
+
+    <p-tabMenu 
+        [model]="items" 
+        [activeItem]="activeItem" 
+        (activeItemChange)="onActiveItemChange($event);" />
+
+    <app-task-table [tasks]="tasks" *ngIf="activeItem == items[0]"></app-task-table>
   </p-card>
 
   <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>
-  <app-calendar #clnd></app-calendar>
+  <app-calendar #clnd *ngIf="activeItem == items[1]" [visibleClnd]="visibleClnd"></app-calendar>
   <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
   <app-add-project #add></app-add-project>
+  
 
 </div>

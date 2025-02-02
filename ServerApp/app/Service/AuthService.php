@@ -24,14 +24,6 @@ class AuthService
                 ])
             );
 
-            // $buttons->push(
-            //     new NavigationButton([
-            //         'caption' => 'Отчет',
-            //         'iconClass' => 'book',
-            //         'routerLink' => 'report',
-            //     ])
-            // );
-            //
             $buttons->push(
                 new NavigationButton([
                     'caption' => 'Проекты',
@@ -46,16 +38,6 @@ class AuthService
                 'caption' => 'Домашняя страница',
                 'iconClass' => 'home',
                 'routerLink' => 'home'
-            ])
-        );
-
-
-        // временный проект
-        $buttons->push(
-            new NavigationButton([
-                'caption' => 'Проект',
-                'iconClass' => 'book',
-                'routerLink' => 'workspace/7',
             ])
         );
 

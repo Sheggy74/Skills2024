@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, inject ,AfterViewInit, ViewChild ,OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, inject ,AfterViewInit, ViewChild ,OnInit,Input} from '@angular/core';
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -8,6 +8,7 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 // import { DialogModule } from 'primeng/dialog';
 // import { formatDate } from '@fullcalendar/core'; // Импортируем форматирование дат
 import { TaskClndService } from '../../services/task-clnd.service';
+
 // import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 
 @Component({
@@ -18,13 +19,14 @@ import { TaskClndService } from '../../services/task-clnd.service';
   // standalone:true
 })
 export class CalendarComponent implements OnInit,AfterViewInit {
-  visible:boolean=false;
+  visible:boolean=true;
   title = 'bootstraptoangular19';
   taskClndService=inject(TaskClndService);
-  // events: any[] = [];
+  events: any[] = [];
   // calendarOptions:CalendarOptions={};
   isLoading: boolean = true;
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent;
+  @Input()visibleClnd:boolean=false;
   // calendarOptions: CalendarOptions = {
   //   initialView: 'dayGridMonth',
   //   plugins: [dayGridPlugin, interactionPlugin],
@@ -50,32 +52,32 @@ export class CalendarComponent implements OnInit,AfterViewInit {
     // ];
     
   // };
-  events:any[]= [
-    {
-      title: 'Conference',
-      start: '2025-02-10T10:00:00',
-      end: '2025-02-12T15:00:00',
-      description: 'Attend a tech conference.'
-    },
-    {
-      title: 'Team Building',
-      start: '2025-02-15T09:00:00',
-      end: '2025-02-17T17:00:00',
-      description: 'Team building event in the mountains.'
-    },
-    {
-      title: 'Client Meeting',
-      start: '2025-02-20T11:00:00',
-      end: '2025-02-20T12:00:00',
-      description: 'Important client meeting.'
-    },
-    {
-      title: 'Client Meeting',
-      start: '2025-02-20T12:00:00',
-      end: '2025-02-22T12:00:00',
-      description: 'Important client meeting.'
-    }
-  ];
+  // events:any[]= [
+  //   {
+  //     title: 'Conference',
+  //     start: '2025-02-10T10:00:00',
+  //     end: '2025-02-12T15:00:00',
+  //     description: 'Attend a tech conference.'
+  //   },
+  //   {
+  //     title: 'Team Building',
+  //     start: '2025-02-15T09:00:00',
+  //     end: '2025-02-17T17:00:00',
+  //     description: 'Team building event in the mountains.'
+  //   },
+  //   {
+  //     title: 'Client Meeting',
+  //     start: '2025-02-20T11:00:00',
+  //     end: '2025-02-20T12:00:00',
+  //     description: 'Important client meeting.'
+  //   },
+  //   {
+  //     title: 'Client Meeting',
+  //     start: '2025-02-20T12:00:00',
+  //     end: '2025-02-22T12:00:00',
+  //     description: 'Important client meeting.'
+  //   }
+  // ];
 
   //  // Настройки для FullCalendar
   // //  calendarOptions = {
@@ -256,21 +258,28 @@ export class CalendarComponent implements OnInit,AfterViewInit {
   // ) {}
 
    ngOnInit():void {
-    // this.taskClndService.tasks.subscribe(task=>{
-    //   this.events=task;
-    //   setTimeout(() => {
-    //     this.calendarOptions.events = this.events;  // Принудительное обновление событий в календаре
-    //   }, 0);
-    // })
-    // this.taskClndService.tasks.subscribe(task=>{
-    //   this.events=task;
-    //   setTimeout(() => {
-    //     this.calendarOptions.events = this.events;  // Принудительное обновление событий в календаре
-    //   }, 0);
-    // })
+    console.log('init');
+    this.taskClndService.tasks.subscribe(task=>{
+      this.events=task;
+      setTimeout(() => {
+        this.calendarOptions.events = this.events;
+        console.log(this.calendarOptions);  // Принудительное обновление событий в календаре
+      }, 0);
+    })
+    this.taskClndService.tasks.subscribe(task=>{
+      this.events=task;
+      setTimeout(() => {
+        this.calendarOptions.events = this.events;  // Принудительное обновление событий в календаре
+      }, 0);
+    })
     setTimeout(() => {
-      this.calendarOptions.events = this.events;  // Принудительное обновление событий в календаре
+      if (this.fullCalendar) {
+        this.fullCalendar.getApi().render(); // Принудительно обновляем календарь
+      }
     }, 0);
+    // setTimeout(() => {
+    //   this.calendarOptions.events = this.events;  // Принудительное обновление событий в календаре
+    // }, 0);
   }
   handleDateClick(arg: { dateStr: string; }) {
     alert('date click! ' + arg.dateStr)
@@ -325,13 +334,9 @@ export class CalendarComponent implements OnInit,AfterViewInit {
       center: 'title',
       right: 'timeGridWeek,timeGridDay'  // Кнопки для выбора вида (день, неделя)
     },
-    events: [
-      { title: 'Event 1', date: '2025-02-01T10:00:00' },
-      { title: 'Event 2', date: '2025-02-01T14:00:00' },
-      { title: 'Event 3', date: '2025-02-02T12:00:00' }
-    ],
-    editable: true,  // Включаем редактирование событий
-    droppable: true,  // Разрешаем перетаскивание событий
+    events: this.events,
+    editable: false,  // Включаем редактирование событий
+    droppable: false,  // Разрешаем перетаскивание событий
     nowIndicator: true  // Показываем индикатор текущего времени
   };
   
