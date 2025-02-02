@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
+import { DashboardService } from '../../../service/dashboard.service';
 
 export interface MyTaskTimeUsage {
   name: string,
@@ -15,23 +16,27 @@ export interface MyTaskTimeUsage {
 })
 export class MyTimeUsageComponent extends BaseComponent {
 
+  private dashboardService: DashboardService = inject(DashboardService)
   public tasks: MyTaskTimeUsage[] = [];
 
   constructor() {
     super()
   }
 
-  override ngOnInit(): void {
-    this.tasks = [
-      {
-        name: 'First Task',
-        time_usage: 765.43
-      },
-      {
-        name: 'Second Task',
-        time_usage: 265.15
-      }
-    ]
+  override async ngOnInit(): Promise<void> {
+    this.tasks = await this.dashboardService.getSpentTime()
+
+    //   this.tasks = [
+    //     {
+    //       name: 'First Task',
+    //       time_usage: 765.43
+    //     },
+    //     {
+    //       name: 'Second Task',
+    //       time_usage: 265.15
+    //     }
+    //   ]
+
   }
 
 }

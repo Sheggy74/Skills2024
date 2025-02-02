@@ -37,7 +37,6 @@ class WorkspaceController extends Controller
     //         $task->users()->sync($request->input('performersId'));
     //     }
     //     }
-        
     // }
 
     public function createTask(Request $request)
@@ -45,10 +44,7 @@ class WorkspaceController extends Controller
         $date = Carbon::now()->format('Y-m-d');
         $data = Task::query()->create([
             'name' => $request->name,
-            'description' => $request->description,
-            'project_id' => 7,
-            'user_id' => null,
-            'priority_id' => $request->priorityId,
+            'project_id' => $request->projectId,
             'date_create' => $request->dateCreation,
             // 'ptask_id' => ,
         ]);

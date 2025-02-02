@@ -1,0 +1,37 @@
+<p-table [columns]="selectedColumns" [value]="tasks" [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="caption">
+      <p-multiSelect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
+        selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}" placeholder="Choose Columns" />
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-task>
+      <tr>
+        <td> {{task.name}} </td> <!-- название задачи -->
+        <td> {{task.stateName}} </td> <!-- статус задачи -->
+        <td>
+          <div *ngFor="let performer of task.performers">
+            <div class="flex items-center gap-2">
+              <p-avatar *ngIf="performer.photo_url == null" size="large"
+                [label]="performer.first_name[0].toUpperCase()" class="mr-2" shape="circle" />
+              <p-avatar *ngIf="performer.photo_url != null"
+                [image]="'http://localhost:8000/storage/' + performer.photo_url" size="large" class="mr-2"
+                shape="circle" />
+              {{performer.first_name + ' ' + performer.second_name[0].toUpperCase() +'.'+ (performer.last_name ?
+              performer.last_name[0].toUpperCase() + '.' :"")}}
+            </div>
+          </div>
+        </td> <!-- исполнители -->
+        <td class="content-center"> <p-tag *ngIf="task.priorityId != 0 " [severity]="getSeverityForTag(task.priorityId)"
+            [value]="task.priorityName"></p-tag> </td> <!-- приоритет -->
+        <td> {{task.deadline | date:'HH:mm dd.MM.yyyy'}} </td> <!-- дедлайн -->
+      </tr>
+      <app-select-executor [task]="task" #selectExecutorDialog
+        [isManagerOrAdmin]="isManagerOrAdmin"></app-select-executor>
+    </ng-template>
+  </p-table>

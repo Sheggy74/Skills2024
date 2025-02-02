@@ -11,4 +11,14 @@ class DashboardController extends Controller
     {
         return $service->getMyProjects($request);
     }
+
+    public function getMyTasks(Request $request, DashboardService $service)
+    {
+        return $service->getMyTasks($request);
+    }
+
+    public function getSpentTime(Request $request, DashboardService $service)
+    {
+        return $service->getSpentTime($request);
+    }
 }

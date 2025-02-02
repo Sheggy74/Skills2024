@@ -21,10 +21,6 @@ export class CreateTaskComponent {
   selectedPriority: number = 0; 
 
   ngOnInit() {
-    this.workspaceService.updatePriority(this.projectId)
-    this.workspaceService.priority.subscribe(prioritys => {
-      this.prioritys = prioritys;
-    })
   }
 
   showDialog() {
@@ -37,22 +33,24 @@ export class CreateTaskComponent {
   }
 
   onSubmit() {
-    if (this.newTaskTitle.trim() !== '' && this.newTaskDescription.trim() !== '') {
+    if (this.newTaskTitle.trim() !== '') {
       const newTask: Task = {
         id: 0,
         name: this.newTaskTitle,
         description: this.newTaskDescription,
         dateCreation: new Date(),
         taskStateId: 1,
+        priorityId: 0,
         projectId: this.projectId,
-        priorityId: this.selectedPriority,
         performers: [],
         performersId: [],
       };
       this.createTask.emit(newTask); 
+      this.workspaceService.createTask(newTask)
+      this.workspaceService.updateData(this.projectId);
       this.hideDialog(); 
       this.newTaskTitle = ''; 
-      this.newTaskDescription = ''; 
+      this.newTaskDescription = '';
     }
   }
 }

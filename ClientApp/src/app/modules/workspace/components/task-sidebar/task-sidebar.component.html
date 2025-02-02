@@ -1,1 +1,24 @@
-<p>task-sidebar works!</p>
+<p-sidebar 
+  [(visible)]="visible" 
+  [style]="{ 'width.px': sidebarWidth }" 
+  position="right" 
+  [showCloseIcon]="true" 
+  [dismissible]="false" 
+  [modal]="false">
+  
+  <div class="sidebar-content">
+    <p-tabView>
+      <p-tabPanel *ngFor="let tab of tabs" [header]="tab.label">
+        <p>{{ tab.content }}</p>
+      </p-tabPanel>
+    </p-tabView>
+  </div>
+
+  <!-- <div 
+    class="resize-handle"
+    (mousedown)="onResizeStart($event)"
+    (document:mousemove)="onMouseMove($event)"
+    (document:mouseup)="onResizeEnd()">
+  </div> -->
+
+</p-sidebar>

@@ -1,0 +1,24 @@
+<p-dialog [(visible)]="visible" (onHide)="hideDialog()" header="Выберите исполнителя для задачи"
+  [style]="{ width: '400px', height: '50%' }" [modal]="true">
+  
+  <p-table selectionMode="multiple" [(selection)]="selectedPerformers" [value]="(projectUsers)!"
+    [scrollable]="true">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>ФИО</th>
+        <th>Роль</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-user>
+      <tr [pSelectableRow]="user">
+        <td>{{user.fio}}</td>
+        <td>{{user.role}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+  <ng-template pTemplate="footer">
+    <p-button label="Отмена" (onClick)="hideDialog()" styleClass="p-button-text"></p-button>
+    <p-button label="Назначить" (onClick)="onSubmit()" styleClass="p-button-success"></p-button>
+  </ng-template>
+</p-dialog>

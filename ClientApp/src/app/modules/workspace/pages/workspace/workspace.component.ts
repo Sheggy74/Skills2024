@@ -12,6 +12,8 @@ import { ProjectUserService } from '../../services/project-user.service';
 import { ProjectService } from 'src/app/modules/project/services/project.service';
 import { MenuItem } from 'primeng/api';
 import { TaskClndService } from '../../services/task-clnd.service';
+import { Projects } from 'src/app/Models/Projects';
+
 
 interface Column {
   field: string;
@@ -34,6 +36,7 @@ export class WorkspaceComponent {
   newTaskDescription: string = '';
   projectId: number = 0;
   projectName: string = "";
+  project!: Projects
   userRoleId: string | undefined;
   isManagerOrAdmin: boolean = false;
   isLoadingProject: boolean = false;
@@ -41,6 +44,7 @@ export class WorkspaceComponent {
   isLoadingPriority: boolean = false;
   isLoadingProjectUser: boolean = false;
   isOnlyExecutorsTasks: boolean = true;
+  isSidebarVisible: boolean = false;  
 
   private workspaceService = inject(WorkspaceService);
   private jwtService = inject(JwtService);
@@ -83,6 +87,7 @@ export class WorkspaceComponent {
 
     this.workspaceService.updateProjectData(this.projectId);
     this.workspaceService.project.subscribe(project => {
+      this.project = project!;
       this.projectName = project?.name || '';
     })
 
@@ -122,14 +127,9 @@ export class WorkspaceComponent {
   }
 
   async addTask(newTask: Task) {
-    this.workspaceService.createTask(newTask)
-    // this.tasks.push(newTask);
-    await this.workspaceService.updateData(7);
-    this.tasks = this.workspaceService.tasks.value;
-  }
-
-  trackByTaskId(index: number, task: Task): number {
-    return task.id;
+    this.tasks.push(newTask);
+    console.log(newTask);
+    
   }
 
   async removeTask(taskId: number) {
@@ -143,19 +143,6 @@ export class WorkspaceComponent {
     await this.workspaceService.updateData(7);
     this.tasks = this.workspaceService.tasks.value;
     this.editSidebarVisible = false;
-  }
-
-  openEditSidebar() {
-    this.editSidebarVisible = true;
-  }
-
-  get selectedColumns(): Column[] {
-    return this._selectedColumns;
-  }
-
-  set selectedColumns(val: Column[]) {
-    //restore original order
-    this._selectedColumns = this.cols.filter((col) => val.includes(col));
   }
 
   getSeverityForTag(priorityId: number) : "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
