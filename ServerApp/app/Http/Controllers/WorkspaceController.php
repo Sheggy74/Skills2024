@@ -18,17 +18,27 @@ class WorkspaceController extends Controller
 {
 
     public function showTasksForProject(Request $request, $id) {
-        $tasks = Task::where('project_id', '=', $id)->OrderBy("id")->get();
+        $tasks = Task::with(['users', 'priority', 'lastState.state', 'deadline'])->where('project_id', '=', $id)->get();
+        // return $tasks;
         return TaskResource::collection($tasks);
     }
 
-    public function editTask(Request $request, $id) {
-        $task = Task::query()->find($id)->update([
-            'name'=>$request->name,
-            'description'=>$request->description,
-            'user_id'=>$request->executorId
-        ]);
-    }
+    // public function editTask(Request $request, $id) {
+
+    //     DB::beginTransaction();
+    //     try {
+    //     $task = Task::query()->find($id)->update([
+    //         'name'=>$request->name,
+    //         'description'=>$request->description,
+    //         'priority_id' => $request->priorityId,
+    //     // 'user_id'=>$request->executorId
+    //     ]);
+    //     if ($request->has('performersId')) {
+    //         $task->users()->sync($request->input('performersId'));
+    //     }
+    //     }
+        
+    // }
 
     public function createTask(Request $request)
     {
@@ -72,8 +82,10 @@ class WorkspaceController extends Controller
     }
 
     public function showExecutorTask(Request $request, $id) {
-        $data = DB::connection('pgsql')->table("users")
-        ->where('id', $id)
+        $data = DB::connection('pgsql')->table("performer")
+        ->where('task_id', $id)
+        ->leftJoin('user', 'user.id', 'performer.user.id')
+        ->select('user.*')
         ->get();
         // return $data;
         return UserResource::collection($data);

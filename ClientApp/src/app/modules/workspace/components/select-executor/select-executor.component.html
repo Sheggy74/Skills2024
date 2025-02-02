@@ -1,7 +1,7 @@
 <p-dialog [(visible)]="visible" (onHide)="hideDialog()" header="Выберите исполнителя для задачи"
   [style]="{ width: '400px', height: '50%' }" [modal]="true">
   
-  <p-table selectionMode="single" [(selection)]="selectedExecutor" [value]="(projectUsers)!"
+  <p-table selectionMode="multiple" [(selection)]="selectedPerformers" [value]="(projectUsers)!"
     [scrollable]="true">
     <ng-template pTemplate="header">
       <tr>

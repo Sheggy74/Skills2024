@@ -10,7 +10,7 @@ import { Role } from 'src/app/Models/Role';
 @Component({
   selector: 'app-add-edit-user',
   templateUrl: './add-edit-user.component.html',
-  styleUrls: ['./add-edit-user.component.css']
+  styleUrls: ['./add-edit-user.component.css'],
 })
 export class AddEditUserComponent extends ValidationComponent {
   userService = inject(AdminUserService)

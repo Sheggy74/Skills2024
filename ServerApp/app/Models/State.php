@@ -19,5 +19,10 @@ class State extends Model
         'project_id'
     ];
 
+    public function tasks()
+    {
+        return $this->belongsToMany(Task::class, 'state_task')->withTimestamps();
+    }
+
     protected $table = 'state';
 }

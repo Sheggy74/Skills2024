@@ -19,6 +19,16 @@ class StateTask extends Model
          'task_id',
         //  'user_id'
      ];
+
+     public function task()
+     {
+         return $this->belongsTo(Task::class);
+     }
+ 
+     public function state()
+     {
+         return $this->belongsTo(State::class);
+     }
  
      protected $table = 'state_task';
 }

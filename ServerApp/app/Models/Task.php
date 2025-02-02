@@ -24,8 +24,35 @@ class Task extends Model
         'user_id',//создатель задачи
         'ptask_id',//родитель задачи(если это подзадача)
         'priority_id',
-        'state_id'
+        'state_id',
     ];
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'rule_task', 'task_id', 'user_id');
+    }
+
+    public function priority()
+    {
+        return $this->belongsTo(Priority::class, 'priority_id');
+    }
+
+    public function states()
+    {
+        return $this->belongsToMany(State::class, 'state_task')->withTimestamps();
+    }
+
+    // Для получения последнего состояния задачи
+    public function lastState()
+    {
+        return $this->hasOne(StateTask::class)->latest();
+    }
+
+    public function deadline()
+    {
+        return $this->hasOne(Deadline::class);
+    }
+
 
     protected $table = 'task';
 }

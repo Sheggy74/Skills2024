@@ -70,9 +70,10 @@ import { WorkspaceComponent } from '../workspace/pages/workspace/workspace.compo
     ScrollPanelModule,
     CalendarModule,
     FullCalendarModule,
-    WorkspaceModule
+    // WorkspaceModule
     // CalendarComponent
   ],
-  exports:[CalendarComponent]
+  exports:[AddProjectComponent]
+
 })
 export class ProjectModule { }
