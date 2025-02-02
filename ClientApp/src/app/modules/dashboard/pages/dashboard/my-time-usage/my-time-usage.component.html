@@ -10,7 +10,7 @@
     <ng-template pTemplate="body" let-task>
       <tr>
         <td>{{task.name}}</td>
-        <td>{{task.time_usage}}</td>
+        <td>{{task.time_spent | timeFormat}}</td>
       </tr>
     </ng-template>
   </p-table>

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Models;
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -13,7 +14,7 @@ class Task extends Model
 
     protected $hidden = [];
 
-    public $timestamps=true;
+    public $timestamps = true;
 
     protected $fillable = [
         'id',
@@ -21,8 +22,8 @@ class Task extends Model
         'description',
         'date_create',
         'project_id',
-        'user_id',//создатель задачи
-        'ptask_id',//родитель задачи(если это подзадача)
+        'user_id', //создатель задачи
+        'ptask_id', //родитель задачи(если это подзадача)
         'priority_id',
         'state_id',
     ];
