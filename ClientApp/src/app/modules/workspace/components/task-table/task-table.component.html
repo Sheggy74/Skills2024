@@ -27,13 +27,9 @@
             </div>
           </div>
         </td> <!-- исполнители -->
-        <td class="content-center"> <p-tag [severity]="getSeverityForTag(task.priorityId)"
+        <td class="content-center"> <p-tag *ngIf="task.priorityId != 0 " [severity]="getSeverityForTag(task.priorityId)"
             [value]="task.priorityName"></p-tag> </td> <!-- приоритет -->
-        <td> </td> <!-- дедлайн -->
-        <td> <button pButton pRipple *ngIf="isManagerOrAdmin" icon="pi pi-user-plus"
-            class="p-button-lg p-button-rounded p-button-success p-button-text" label=""
-            pTooltip="Добавить исполнителя" [showDelay]="1000" (click)="selectExecutorDialog.showDialog()"></button>
-        </td> <!-- временная кнопка -->
+        <td> {{task.deadline | date:'HH:mm dd.MM.yyyy'}} </td> <!-- дедлайн -->
       </tr>
       <app-select-executor [task]="task" #selectExecutorDialog
         [isManagerOrAdmin]="isManagerOrAdmin"></app-select-executor>

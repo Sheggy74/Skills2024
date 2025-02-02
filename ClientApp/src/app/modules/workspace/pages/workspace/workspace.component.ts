@@ -108,10 +108,9 @@ export class WorkspaceComponent {
   }
 
   async addTask(newTask: Task) {
-    this.workspaceService.createTask(newTask)
-    // this.tasks.push(newTask);
-    await this.workspaceService.updateData(7);
-    this.tasks = this.workspaceService.tasks.value;
+    this.tasks.push(newTask);
+    console.log(newTask);
+    
   }
 
   async removeTask(taskId: number) {
