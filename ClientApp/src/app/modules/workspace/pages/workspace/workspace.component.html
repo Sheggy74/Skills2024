@@ -12,8 +12,15 @@
           (click)="this.projectService.selectedPrject.next(project);add.showDialog()" icon="pi pi-pencil"
           class="p-button-lg p-button-rounded p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
-        <p-button label="Toggle Sidebar" icon="pi pi-bars" (onClick)="isSidebarVisible = !isSidebarVisible"></p-button>
+        <!-- <p-button label="Toggle Sidebar" icon="pi pi-bars" (onClick)="isSidebarVisible = !isSidebarVisible"></p-button> -->
         <button pButton pRipple icon="pi pi-calendar" (click)="clnd.openDialog()"></button>
+        <p-avatarGroup styleClass="mb-3" *ngFor="let user of projectUser">
+          <p-avatar *ngIf="user.photoURL == null" size="large"
+                [label]="user.firstName ? user.firstName[0].toUpperCase() : 'A'" class="mr-2" shape="circle" />
+              <p-avatar *ngIf="user.photoURL != null"
+                [image]="'http://localhost:8000/storage/' + user.photoURL" size="large" class="mr-2"
+                shape="circle" />
+      </p-avatarGroup>
       </div>
     </ng-template>
     <div class="flex gap-10 items-center">
