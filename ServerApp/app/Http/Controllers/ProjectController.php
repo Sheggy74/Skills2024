@@ -21,12 +21,12 @@ class ProjectController extends Controller implements CrudController
     }
     public function index(Request $request)
     {
-        if(Auth::user()->login=='admin'){
+        if (Auth::user()->login == 'admin') {
             $data =  Project::query()->get();
-        }else{
-            $idUser=Auth::user()->id;
-            $data=Project::query()->leftJoin('rule_project','rule_project.project_id','project.id')
-                ->where('rule_project.user_id',$idUser)->get();
+        } else {
+            $idUser = Auth::user()->id;
+            $data = Project::query()->leftJoin('rule_project', 'rule_project.project_id', 'project.id')
+                ->where('rule_project.user_id', $idUser)->get();
         }
         return ProjectResource::collection($data);
     }
@@ -51,11 +51,7 @@ class ProjectController extends Controller implements CrudController
 
         foreach ($userRole as $item) {
             RuleProject::query()->create(
-<<<<<<< HEAD
-                ['project_id' => $data->id, 'user_id' => $item["id"], 'role_id' => $item["role_id"]]
-=======
-                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>1]
->>>>>>> adb2c7a07a6050dd582c57c3da94c39eda7f5447
+                ['project_id' => $data->id, 'user_id' => $item["id"], 'role_id' => 1]
             );
             Notifications::query()->create([
                 'user_id' => $item["user_id"],
@@ -98,11 +94,7 @@ class ProjectController extends Controller implements CrudController
         // dd($newRule);
         foreach ($newRule as $item) {
             RuleProject::query()->create(
-<<<<<<< HEAD
                 ['project_id' => $data->id, 'user_id' => $item["id"], 'role_id' => $item["role_id"]]
-=======
-                ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>1]
->>>>>>> adb2c7a07a6050dd582c57c3da94c39eda7f5447
             );
             Notifications::query()->create([
                 'user_id' => $item["id"],
@@ -128,13 +120,18 @@ class ProjectController extends Controller implements CrudController
         return 0;
     }
 
-    public function getUserRole() {
+    public function getUserRole()
+    {
         // $user=DB::connection('pgsql')->table('users')->select('users.id','users.first_name','users.last_name',
         // 'users.second_name','roles.name','roles.id as role_id')->leftJoin('user_roles','user_roles.user_id','users.id')
         // ->leftJoin('roles','roles.id','user_roles.role_id')->get();
 
-        $user=DB::connection('pgsql')->table('users')->select('users.id','users.first_name','users.last_name',
-        'users.second_name')->get();
+        $user = DB::connection('pgsql')->table('users')->select(
+            'users.id',
+            'users.first_name',
+            'users.last_name',
+            'users.second_name'
+        )->get();
         return UserRoleResource::collection($user);
     }
 

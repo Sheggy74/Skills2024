@@ -22,7 +22,7 @@ class DashboardService
                             from base
                             left join (select name, count(*) as cnt from base where task_id is not null group by name) total on total.name = base.name
                             left join (select name, count(*) as cnt from base where state_task_id = 3 group by name) finished on finished.name = base.name
-                            where total.cnt is not nul";
-        DB::select($query);
+                            where total.cnt is not null";
+        return DB::select($query);
     }
 }
