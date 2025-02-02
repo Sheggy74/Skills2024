@@ -114,10 +114,6 @@ export class WorkspaceComponent {
     this.tasks = this.workspaceService.tasks.value;
   }
 
-  trackByTaskId(index: number, task: Task): number {
-    return task.id;
-  }
-
   async removeTask(taskId: number) {
     this.workspaceService.deleteTask(taskId);
     await this.workspaceService.updateData(7);
@@ -129,19 +125,6 @@ export class WorkspaceComponent {
     await this.workspaceService.updateData(7);
     this.tasks = this.workspaceService.tasks.value;
     this.editSidebarVisible = false;
-  }
-
-  openEditSidebar() {
-    this.editSidebarVisible = true;
-  }
-
-  get selectedColumns(): Column[] {
-    return this._selectedColumns;
-  }
-
-  set selectedColumns(val: Column[]) {
-    //restore original order
-    this._selectedColumns = this.cols.filter((col) => val.includes(col));
   }
 
   getSeverityForTag(priorityId: number) : "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
