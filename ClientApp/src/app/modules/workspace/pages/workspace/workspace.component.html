@@ -11,6 +11,7 @@
         <button pButton pRipple *ngIf="isManagerOrAdmin" icon="pi pi-user-plus"
           class="p-button-lg p-button-rounded p-button-success p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
+          <button pButton pRipple icon="pi pi-calendar" (click)="clnd.openDialog()"></button>
       </div>
     </ng-template>
     <div class="flex gap-10 items-center">
@@ -52,5 +53,6 @@
 </div> -->
 
   <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>
+  <app-calendar #clnd></app-calendar>
   <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
 </div>

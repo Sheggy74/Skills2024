@@ -15,7 +15,7 @@ class RoleProjectResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id'=>$this->id,
+            'role_id'=>$this->id,
             'name'=>$this->name
         ];
     }

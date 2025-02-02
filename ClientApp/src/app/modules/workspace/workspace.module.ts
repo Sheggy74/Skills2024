@@ -23,12 +23,15 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {ScrollerModule} from 'primeng/scroller';
 import { TableModule } from 'primeng/table';
 import {AvatarModule} from 'primeng/avatar';
+import { ProjectComponent } from '../project/pages/project.component';
+import { CalendarComponent } from './components/calendar/calendar.component';
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 
 
 
 @NgModule({
-  declarations: [TaskComponent, WorkspaceComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent],
+  declarations: [TaskComponent, WorkspaceComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent,CalendarComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -48,7 +51,8 @@ import {AvatarModule} from 'primeng/avatar';
     CheckboxModule,
     ScrollerModule,
     TableModule,
-    AvatarModule
-  ]
+    AvatarModule,
+    FullCalendarModule
+  ],
 })
 export class WorkspaceModule { }

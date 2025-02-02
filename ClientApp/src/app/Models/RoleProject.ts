@@ -1,4 +1,4 @@
 export interface RoleProject{
-    id?:number,
+    role_id?:number,
     name?:string
 }

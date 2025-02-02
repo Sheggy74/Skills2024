@@ -202,13 +202,13 @@ export class AddProjectComponent implements OnInit{
   }
   onRowSelect(event:TableRowSelectEvent){
     const rowData = event.data; // Данные выбранной строки
-
+console.log(event.data);
     // Проверяем, выбран ли в dropdown какой-либо элемент
     if (!rowData.role) {
       // Если не выбран, показываем предупреждение и сбрасываем выбор строки
       this.selectedUsers=this.selectedUsers.filter(el=>el.role!=null);
       this.showWarning = true;
-      this.isDisabled=true;
+      // this.isDisabled=true;
       return;
     }
     this.showWarning = false;

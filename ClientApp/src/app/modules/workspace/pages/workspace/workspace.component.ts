@@ -110,4 +110,5 @@ export class WorkspaceComponent {
   openEditSidebar() {
     this.editSidebarVisible = true;
   }
+
 }

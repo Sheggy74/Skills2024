@@ -1,0 +1,31 @@
+ .calendar-container {
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  full-calendar {
+    width: 800px;
+    height: 500px; 
+  }
+  
+  .event-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .event-time {
+    margin-top: 5px;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .end-date {
+    margin-top: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    background-color: #ff6347;
+    color: white;
+    text-align: center;
+  }
+  
+  

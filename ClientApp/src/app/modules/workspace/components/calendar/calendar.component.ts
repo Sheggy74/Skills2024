@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, inject ,AfterViewInit, ViewChild ,OnInit}
 import { FullCalendarComponent, FullCalendarModule } from '@fullcalendar/angular';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
+import timeGridPlugin from '@fullcalendar/timegrid';
 // import { CalendarOptions, EventInput } from '@fullcalendar/core';
 // import { CommonModule } from '@angular/common';
 // import { DialogModule } from 'primeng/dialog';
@@ -286,37 +287,53 @@ export class CalendarComponent implements OnInit,AfterViewInit {
     this.visible = false;
   }
 
+  // calendarOptions = {
+  //   initialView: 'dayGridMonth', // Устанавливаем вид календаря по умолчанию
+  //   plugins: [dayGridPlugin, interactionPlugin], // Указываем используемые плагины
+  //   events: this.events
+  //   ,
+  //   eventClick: (info:any) => {
+  //     alert(`Event: ${info.event.title}\nDescription: ${info.event.extendedProps.description}`);
+  //   },
+  //   eventContent: (arg:any) => {
+  //     console.log(arg.event);
+  //     let endDate = arg.event.end; // Получаем конечную дату события\
+  //     // console.log(this.events);
+  //     if (endDate) {
+  //       const endDateStr = endDate.toISOString().split('T')[0]; // Преобразуем в строку (формат: yyyy-mm-dd)
+  //       const deadline = arg.event.extendedProps.deadline;
+  //       console.log(deadline);
+  //       return {
+  //         html: `<div class="event-content">
+  //                  <div>${arg.event.title}</div>
+  //                  <div class="deadline" style="background-color: #ae4c4c; color: white; padding: 2px 5px;">Deadline: ${deadline}</div>
+  //                </div>`
+  //       };
+  //     }
+  //     return {
+  //       html: `<div class="event-content">
+  //                <div>${arg.event.title}</div>
+  //              </div>`
+  //     };
+  //   }
+  // };
   calendarOptions = {
-    initialView: 'dayGridMonth', // Устанавливаем вид календаря по умолчанию
-    plugins: [dayGridPlugin, interactionPlugin], // Указываем используемые плагины
-    events: this.events
-    ,
-    eventClick: (info:any) => {
-      alert(`Event: ${info.event.title}\nDescription: ${info.event.extendedProps.description}`);
+    initialView: 'timeGridWeek',  // Устанавливаем вид по умолчанию (например, недельный)
+    plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
+    headerToolbar: {
+      left: 'prev,next today',
+      center: 'title',
+      right: 'timeGridWeek,timeGridDay'  // Кнопки для выбора вида (день, неделя)
     },
-    eventContent: (arg:any) => {
-      console.log(arg.event);
-      let endDate = arg.event.end; // Получаем конечную дату события\
-      // console.log(this.events);
-      if (endDate) {
-        const endDateStr = endDate.toISOString().split('T')[0]; // Преобразуем в строку (формат: yyyy-mm-dd)
-        const deadline = arg.event.extendedProps.deadline;
-        console.log(deadline);
-        return {
-          html: `<div class="event-content">
-                   <div>${arg.event.title}</div>
-                   <div class="deadline" style="background-color: #ae4c4c; color: white; padding: 2px 5px;">Deadline: ${deadline}</div>
-                 </div>`
-        };
-      }
-      return {
-        html: `<div class="event-content">
-                 <div>${arg.event.title}</div>
-               </div>`
-      };
-    }
+    events: [
+      { title: 'Event 1', date: '2025-02-01T10:00:00' },
+      { title: 'Event 2', date: '2025-02-01T14:00:00' },
+      { title: 'Event 3', date: '2025-02-02T12:00:00' }
+    ],
+    editable: true,  // Включаем редактирование событий
+    droppable: true,  // Разрешаем перетаскивание событий
+    nowIndicator: true  // Показываем индикатор текущего времени
   };
-  
   
   ngAfterViewInit() {
     // После того, как диалог станет видимым, перерендериваем календарь
