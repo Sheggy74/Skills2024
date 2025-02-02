@@ -12,7 +12,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('state_task',function (Blueprint $table){
+        Schema::create('state',function (Blueprint $table){
             $table->comment('Справочник состояния задач');
             $table->id()->comment('Идентификатор состояния');
             $table->string('name')->comment('Наименование состояния');
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('state_task');
+        Schema::dropIfExists('state');
     }
 };

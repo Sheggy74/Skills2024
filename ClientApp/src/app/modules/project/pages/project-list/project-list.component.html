@@ -41,12 +41,12 @@
             </div>
       </ng-template>
     </p-card>
-    <p-card *ngFor="let project of filteredProjects" #list>
+    <p-card *ngFor="let project of filteredProjects" #list >
         <ng-template pTemplate="content" >
-            <div class="header-content" >
+            <div class="header-content" (click)="this.taskClndService.getTasks(project?.id??0);userRolePrService.getUserRoleID(project?.id??0);clnd.openDialog()">
               
                 <!-- Иконка в круге и название проекта -->
-                <div class="icon-circle" [style.background-color]="project.theme">
+                <div class="icon-circle" [style.background-color]="project.theme" >
                   <i [class]="project.icon" style="color: white;"></i>
                   </div>
                 <span>{{ project.name ?? 'Без имени' }}</span>
@@ -77,3 +77,4 @@
   <app-add-project #add></app-add-project>
   <app-add-tags #tags></app-add-tags>
   <app-cntx-menu #cm [model]="cntMenuItems" ></app-cntx-menu>
+  <app-calendar #clnd></app-calendar>

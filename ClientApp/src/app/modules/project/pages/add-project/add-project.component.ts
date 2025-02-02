@@ -9,6 +9,10 @@ import { EventListenerFocusTrapInertStrategy } from '@angular/cdk/a11y';
 import { TagsService } from '../../services/tags.service';
 import { Tags } from 'src/app/Models/Tags';
 import { TagsprService } from '../../services/tagspr.service';
+import { RoleprojectService } from '../../services/roleproject.service';
+import { RoleProject } from 'src/app/Models/RoleProject';
+import { TableRowSelectEvent } from 'primeng/table';
+import { UserRolePr } from 'src/app/Models/UserRolePr';
 
 @Component({
   selector: 'app-add-project',
@@ -26,7 +30,16 @@ export class AddProjectComponent implements OnInit{
     this.projectTagsService.tagsID.subscribe(tags=>{
       this.projectService.updateData();
     })
-    
+    let user = JSON.parse(localStorage.getItem('[ATOM24][jwtDTO]')??'');
+    this.roleUser=user?.user?.login;
+    this.rolePrService.updateData();
+    this.rolePrService.roleProjects.subscribe(roles=>{
+      this.rolePr=roles;
+    });
+    this.userRoleService.selectedRoleUsers.subscribe(el=>{
+      this.selectedUsers=el??[];
+    })
+
   }
   visible: boolean = false;
   activeIndex: number = 0;  // Индекс текущего шага
@@ -34,7 +47,7 @@ export class AddProjectComponent implements OnInit{
   projectDescription: string|undefined = '';
   selectedIcon: string|undefined = 'pi pi-book';
   selectedIconColor: string = this.getRandomColor(); // Стартовый цвет иконки (черный)
-  _selectedUsers: UserRole[] = [];
+  _selectedUsers: UserRolePr[] = [];
   displayIconDialog: boolean = false;  // Флаг для отображения диалогового окна
   nameFilter: string = '';
   roleFilter: string = '';
@@ -42,7 +55,7 @@ export class AddProjectComponent implements OnInit{
   projectService=inject(ProjectService);
   tagsService=inject(TagsService);
   projectTagsService=inject(TagsprService);
-  users!: any[];
+  users!: UserRolePr[];
   createProject:Projects={};
   isDisabled:boolean=true;
   addEditBtn:string='Создать';
@@ -51,16 +64,20 @@ export class AddProjectComponent implements OnInit{
   arrayTagsPr:TagsProject[]=[];
   searchTag:TagsProject[]=[];
   header:string='';
-
+  roleUser:string='';
+  rolePrService=inject(RoleprojectService);
+  rolePr:RoleProject[]=[];
+  selectRolePr:RoleProject={};
+  showWarning: boolean = false;
   showDialog() {
     this.visible = true;
     this.isAddEditFunction();
 }
 
-  get selectedUsers():UserRole[]{
+  get selectedUsers():UserRolePr[]{
     return this._selectedUsers;
   }
-  set selectedUsers(newValue:UserRole[]){
+  set selectedUsers(newValue:UserRolePr[]){
     this._selectedUsers=newValue;
     this.isDisabled=newValue.length===0?true:false;
     console.log(this.selectedUsers);
@@ -86,7 +103,7 @@ export class AddProjectComponent implements OnInit{
 
   steps = [
     { label: 'О проекте' },
-    { label: 'Выбор менеджера проекта' }
+    { label: 'Выбор доступа к проекту' }
   ];
 
   onFinish() {
@@ -133,6 +150,10 @@ export class AddProjectComponent implements OnInit{
      
       this.addEditTags(this.projectService.selectedPrject.getValue()?.id);
     }
+    this.users.forEach(el=>{
+      el.role=undefined;
+    })
+    this.selectedUsers=[];
     this.projectService.updateData();
     this.visible=false;
     
@@ -178,6 +199,23 @@ export class AddProjectComponent implements OnInit{
       this.selectTags=[];
       this.header='Создать проект';
     }
+  }
+  onRowSelect(event:TableRowSelectEvent){
+    const rowData = event.data; // Данные выбранной строки
+
+    // Проверяем, выбран ли в dropdown какой-либо элемент
+    if (!rowData.role) {
+      // Если не выбран, показываем предупреждение и сбрасываем выбор строки
+      this.selectedUsers=this.selectedUsers.filter(el=>el.role!=null);
+      this.showWarning = true;
+      this.isDisabled=true;
+      return;
+    }
+    this.showWarning = false;
+    console.log('Выбранная строка:', rowData);
+  }
+  closeWarning() {
+    this.showWarning = false;
   }
   
 }

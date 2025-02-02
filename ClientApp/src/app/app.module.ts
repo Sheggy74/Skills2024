@@ -51,8 +51,7 @@ import { ConfirmPopupModule } from 'primeng/confirmpopup';
 import { ConfirmationService } from 'primeng/api';
 import {ContextMenuModule} from 'primeng/contextmenu';
 import { CntxMenuModule } from './InterfaceComponents/ContextMenu/cntx.module';
-
-
+import { FullCalendarModule } from '@fullcalendar/angular';
 
 @NgModule({
   declarations: [
@@ -100,10 +99,12 @@ import { CntxMenuModule } from './InterfaceComponents/ContextMenu/cntx.module';
     DialogModule,
     ConfirmPopupModule,
     ContextMenuModule,
-    CntxMenuModule
+    CntxMenuModule,
+    FullCalendarModule
   ],
   providers: [{ provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     AgileUIService,ConfigService, MessageService, LogService, ErrorService, BlockService,ConfirmationService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+ }

@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\StateTask;
+use App\Models\TimeJob;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,14 +14,6 @@ class StateTaskSeeder extends Seeder
      */
     public function run(): void
     {
-        StateTask::factory()->create([
-            'name'=>'новые'
-        ]);
-        StateTask::factory()->create([
-            'name'=>'в работе'
-        ]);
-        StateTask::factory()->create([
-            'name'=>'готово'
-        ]);
+        StateTask::factory(5)->create();
     }
 }

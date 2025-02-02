@@ -3,6 +3,7 @@ import { BehaviorSubject, catchError, lastValueFrom, map } from 'rxjs';
 import { Projects } from 'src/app/Models/Projects';
 import { User } from 'src/app/Models/User';
 import { UserRole } from 'src/app/Models/UserRole';
+import { UserRolePr } from 'src/app/Models/UserRolePr';
 import { BaseApiService } from 'src/app/services/BaseApiService/base-api.service';
 
 @Injectable({
@@ -32,7 +33,7 @@ export class ProjectService extends BaseApiService{
         return retValue;
       }
 
-    createProjects(body:Projects,user:UserRole[]):Promise<Projects>{
+    createProjects(body:Projects,user:UserRolePr[]):Promise<Projects>{
         let retValue=lastValueFrom(
           this.http.post<Projects>(this.localApiPath,{
             // ...body,
@@ -51,7 +52,7 @@ export class ProjectService extends BaseApiService{
         )
         return retValue;
       }
-      editProject(body:Projects,user:UserRole[],id?:number):Promise<Projects>{
+      editProject(body:Projects,user:UserRolePr[],id?:number):Promise<Projects>{
         let retValue=lastValueFrom(
           this.http.put<Projects>(this.localApiPath+'/'+id,{
             ...body,
@@ -77,6 +78,17 @@ export class ProjectService extends BaseApiService{
               catchError(this.exceptionService.getErrorHandlerList())
             )
         );
+        return retValue;
+      }
+
+      getUserRolePrId(id:number):Promise<Projects[]>{
+        let retValue = lastValueFrom(this.http.get<Projects[]>(this.apiURL+'/project/user/'+id)
+          .pipe(
+            map((project:any)=>{
+              console.log(project.data);
+              return project.data;
+            }),
+            catchError(this.exceptionService.getErrorHandlerList())));
         return retValue;
       }
 }

@@ -21,4 +21,6 @@ Route::prefix('project')
     ->group(function () {
     Route::get('users', 'getUserRole');
     Route::get('users/{id}','getRuleProject');
+    Route::get('user/{id}','getUserRolePrId');
+    Route::get('task/{id}','getTasksProject');
 });

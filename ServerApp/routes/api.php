@@ -45,6 +45,7 @@ require_once __DIR__ .  "/api/tags.php";
 require_once __DIR__ .  "/api/tagsProject.php";
 require_once __DIR__ .  "/api/workspace.php";
 require_once __DIR__ .  "/api/notifications.php";
+require_once __DIR__ .  "/api/roleProject.php";
 
 //params: mail , message
 Route::prefix('message')

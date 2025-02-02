@@ -58,6 +58,7 @@
             [rows]="5" 
             [filterDelay]="300"
             [(selection)]="selectedUsers"
+            (onRowSelect)="onRowSelect($event)"
             >
             <!-- Фильтр по имени -->
             <ng-template pTemplate="header">
@@ -87,11 +88,12 @@
                         </ng-template>
                       </p-columnFilter>
                 </th> -->
+                <th>Назначить роль</th>
               </tr>
               <tr>
                 <th style="width: 2px"><p-tableHeaderCheckbox /></th>
                 <th pSortableColumn="name">ФИО</th>
-                <!-- <th pSortableColumn="role">Роль</th> -->
+                <th pSortableColumn="role">Роль</th>
               </tr>
             </ng-template>
         
@@ -105,7 +107,15 @@
                         <span>{{ user.fio }}</span>
                     </div>
                 </td>
-                <!-- <td>{{ user.role }}</td> -->
+                <td>
+                  <p-dropdown 
+                    [(ngModel)]="user.role"
+                    [options]="rolePr"
+                    optionLabel="name"
+                    optionValue="id"
+                    modal="true"
+                    placeholder="Выберите роль для сотрудника"></p-dropdown>
+                </td>
               </tr>
             </ng-template>
           </p-table>
@@ -140,3 +150,11 @@
       </div>
 
     </p-dialog>
+
+    <p-dialog [(visible)]="showWarning" header="Warning" [modal]="true" [closable]="false">
+      <p>Пожалуйста, выберите значение в выпадающем списке.</p>
+      <p-footer>
+        <button pButton type="button" label="OK" icon="pi pi-check" (click)="closeWarning()"></button>
+      </p-footer>
+    </p-dialog>
+    

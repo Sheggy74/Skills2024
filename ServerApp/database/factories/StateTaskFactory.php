@@ -2,10 +2,14 @@
 
 namespace Database\Factories;
 
+use App\Models\State;
+use App\Models\StateTask;
+use App\Models\Task;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\StageTask>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\TimeJob>
  */
 class StateTaskFactory extends Factory
 {
@@ -17,7 +21,11 @@ class StateTaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'name'=>fake()->randomElement(['новые','в работе','готово'])
+            // 'date_start'=>now(),
+            // 'date_end'=>date_add(now(),date_interval_create_from_date_string(random_int(1,3)."days")),
+            'task_id'=>Task::query()->inRandomOrder()->first()->id,
+            // 'user_id'=>User::query()->inRandomOrder()->first()->id,
+            'state_id'=>State::query()->inRandomOrder()->first()->id,
         ];
     }
 }
