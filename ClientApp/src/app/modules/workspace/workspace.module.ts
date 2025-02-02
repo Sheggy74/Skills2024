@@ -31,7 +31,7 @@ import { TagModule } from 'primeng/tag';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ProjectModule } from '../project/project.module';
 import { AddProjectComponent } from '../project/pages/add-project/add-project.component';
-
+import { TabMenuModule } from 'primeng/tabmenu';
 
 
 @NgModule({
@@ -61,6 +61,7 @@ import { AddProjectComponent } from '../project/pages/add-project/add-project.co
     TagModule,
     FloatLabelModule,
     ProjectModule,
+    TabMenuModule,
   ]
 
 })

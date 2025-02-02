@@ -3,5 +3,5 @@ export interface EventCalendar{
     description?:string,
     start:string,
     end:string,
-    deadline?:string
+    // deadline?:string
 }

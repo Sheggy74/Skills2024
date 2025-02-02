@@ -23,9 +23,9 @@ export class TaskClndService extends BaseApiService{
           let retValue = lastValueFrom(this.http.get<EventCalendar[]>(this.localApiPath+'/'+id)
             .pipe(
               map((EventCalendar:any)=>{
-                console.log('event',EventCalendar.data);
-                this.tasks.next(EventCalendar.data);
-                return EventCalendar.data;
+                console.log('event',EventCalendar);
+                this.tasks.next(EventCalendar);
+                return EventCalendar;
               }),
               catchError(this.exceptionService.getErrorHandlerList())));
           return retValue;

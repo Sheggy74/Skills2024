@@ -18,13 +18,15 @@ class ProjectResource extends JsonResource
     {
         $id=DB::table('tags_project')->select('tags.id','tags.name')->leftJoin('tags','tags.id','tags_project.tags_id')
         ->where('tags_project.project_id',$this->id)->get();
+        $selectRow=DB::table('rule_project')->select('user_id as id','role_id')->where('rule_project.project_id',$this['id'])->get();
         return [
             'id'=>$this['id'],
             'name'=>$this->name,
             'description'=>$this->description,
             'icon'=>$this->icon,
             'theme'=>$this->theme,
-            'tags'=>$id
+            'tags'=>$id,
+            'selectRows'=>$selectRow,
         ];
     }
 }

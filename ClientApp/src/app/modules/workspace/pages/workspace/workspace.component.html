@@ -12,7 +12,6 @@
           (click)="this.projectService.selectedPrject.next(undefined);add.showDialog()" icon="pi pi-pencil"
           class="p-button-lg p-button-rounded p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
-          <button pButton pRipple icon="pi pi-calendar" (click)="clnd.openDialog()"></button>
       </div>
     </ng-template>
     <div class="flex gap-10 items-center">
@@ -27,7 +26,11 @@
       <label for="binary">Показывать только мои задачи</label> -->
       </div>
     </div>
-    <p-table [columns]="selectedColumns" [value]="tasks" [tableStyle]="{'min-width': '50rem'}">
+    <p-tabMenu 
+        [model]="items" 
+        [activeItem]="activeItem" 
+        (activeItemChange)="onActiveItemChange($event);" />
+    <p-table [columns]="selectedColumns" [value]="tasks" [tableStyle]="{'min-width': '50rem'}" *ngIf="activeItem == items[0]">
       <ng-template pTemplate="caption">
         <p-multiSelect display="chip" [options]="cols" [(ngModel)]="selectedColumns" optionLabel="header"
           selectedItemsLabel="{0} columns selected" [style]="{'min-width': '200px'}" placeholder="Choose Columns" />
@@ -95,8 +98,9 @@
 </div> -->
 
   <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>
-  <app-calendar #clnd></app-calendar>
+  <app-calendar #clnd *ngIf="activeItem == items[1]" [visibleClnd]="visibleClnd"></app-calendar>
   <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
   <app-add-project #add></app-add-project>
+  
 
 </div>

@@ -151,7 +151,7 @@ export class AddProjectComponent implements OnInit{
       this.addEditTags(this.projectService.selectedPrject.getValue()?.id);
     }
     this.users.forEach(el=>{
-      el.role=undefined;
+      el.role_id=undefined;
     })
     this.selectedUsers=[];
     this.projectService.updateData();
@@ -181,7 +181,8 @@ export class AddProjectComponent implements OnInit{
   isAddEditFunction(){
     if(this.projectService.selectedPrject.value){
       let project=this.projectService.selectedPrject.getValue();
-      this.selectedUsers=this.userRoleService.selectedUsers.getValue()??[];
+      // this.selectedUsers=this.userRoleService.selectedUsers.getValue()??[];
+      this.selectedUsers=project?.selectRows??[];
       this.projectTitle= project?.name;
       this.projectDescription= project?.description;
       this.selectedIcon= project?.icon;
@@ -204,15 +205,15 @@ export class AddProjectComponent implements OnInit{
     const rowData = event.data; // Данные выбранной строки
 console.log(event.data);
     // Проверяем, выбран ли в dropdown какой-либо элемент
-    if (!rowData.role) {
-      // Если не выбран, показываем предупреждение и сбрасываем выбор строки
-      this.selectedUsers=this.selectedUsers.filter(el=>el.role!=null);
-      this.showWarning = true;
-      // this.isDisabled=true;
-      return;
-    }
-    this.showWarning = false;
-    console.log('Выбранная строка:', rowData);
+    // if (!rowData.role) {
+    //   // Если не выбран, показываем предупреждение и сбрасываем выбор строки
+    //   this.selectedUsers=this.selectedUsers.filter(el=>el.role!=null);
+    //   this.showWarning = true;
+    //   // this.isDisabled=true;
+    //   return;
+    // }
+    // this.showWarning = false;
+    // console.log('Выбранная строка:', rowData);
   }
   closeWarning() {
     this.showWarning = false;
