@@ -49,6 +49,7 @@ class AuthService
             ])
         );
 
+
         // временный проект
         $buttons->push(
             new NavigationButton([

@@ -39,6 +39,7 @@ export class ProjectListComponent implements OnInit{
   cntMenuItems:MenuItem[]=[];
   @ViewChild('cm') cm:ContextMenu | any;
   typeComponent:any;
+  isAdmin:boolean=false;
  
 
   constructor(public projectService: ProjectService) {
@@ -81,6 +82,11 @@ export class ProjectListComponent implements OnInit{
     // Подписка на изменения текста поиска
     this.searchText$.subscribe(() => this.applyFilters());
     this.searchTags$.subscribe(()=>this.applyFilters());
+
+
+    let localUser = JSON.parse(localStorage.getItem('[ATOM24][jwtDTO]')??'');
+    this.isAdmin=localUser?.user?.login==='admin'?true:false;
+    console.log(localUser?.user?.login);
   }
 
   // Метод для применения фильтров

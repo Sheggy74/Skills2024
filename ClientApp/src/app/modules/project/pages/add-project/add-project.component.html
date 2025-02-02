@@ -1,4 +1,4 @@
-<p-dialog header="Создать проект" [modal]="true" [(visible)]="visible" (onHide)="activeIndex=0" >
+<p-dialog [header]="header" [modal]="true" [(visible)]="visible" (onHide)="activeIndex=0" >
     <div class="container">
         <!-- Компонент Steps -->
         <p-steps [model]="steps" [(activeIndex)]="activeIndex" styleClass="custom-steps"></p-steps>
@@ -71,7 +71,7 @@
                         ariaLabel="Фильтр ФИО"
                     ></p-columnFilter>
                 </th>
-                <th> Роль
+                <!-- <th> Роль
                     <p-columnFilter field="role" [matchMode]="'equals'">
                         <ng-template pTemplate="filter" let-value let-filter="filterCallback">
                           <p-dropdown 
@@ -86,13 +86,13 @@
                           </p-dropdown>
                         </ng-template>
                       </p-columnFilter>
-                </th>
+                </th> -->
               </tr>
-              <!-- <tr>
+              <tr>
                 <th style="width: 2px"><p-tableHeaderCheckbox /></th>
                 <th pSortableColumn="name">ФИО</th>
-                <th pSortableColumn="role">Роль</th>
-              </tr> -->
+                <!-- <th pSortableColumn="role">Роль</th> -->
+              </tr>
             </ng-template>
         
             <!-- Данные таблицы -->
@@ -105,7 +105,7 @@
                         <span>{{ user.fio }}</span>
                     </div>
                 </td>
-                <td>{{ user.role }}</td>
+                <!-- <td>{{ user.role }}</td> -->
               </tr>
             </ng-template>
           </p-table>

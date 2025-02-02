@@ -9,7 +9,7 @@
   p-card {
     width: 300px;
     position: relative; 
-    /* height: 200px; */
+    /* height: 150px; */
   }
 
   .search-container {
@@ -63,5 +63,13 @@
   .bBtn{
     display: flex;
     align-items: center;
+  }
+
+  .tags{
+    padding-top: 10px;
+    padding-left: 10px;
+    display: flex;
+    gap: 5px;
+    height: 20px;
   }
   
