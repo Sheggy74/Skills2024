@@ -1,0 +1,13 @@
+.sidebar-content {
+    padding: 10px;
+}
+
+.resize-handle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 10px;
+    height: 100%;
+    cursor: ew-resize;
+    background-color: black;
+}

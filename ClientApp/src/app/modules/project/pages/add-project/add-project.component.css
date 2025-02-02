@@ -78,3 +78,6 @@
     position: absolute;
     right: 40px;
   }
+  .p-dialog{
+    height: 500px;
+  }

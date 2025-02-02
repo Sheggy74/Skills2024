@@ -59,6 +59,8 @@
             [filterDelay]="300"
             [(selection)]="selectedUsers"
             (onRowSelect)="onRowSelect($event)"
+            [scrollable]="true" 
+            scrollHeight="400px" 
             >
             <!-- Фильтр по имени -->
             <ng-template pTemplate="header">
@@ -90,11 +92,6 @@
                 </th> -->
                 <th>Назначить роль</th>
               </tr>
-              <tr>
-                <th style="width: 2px"><p-tableHeaderCheckbox /></th>
-                <th pSortableColumn="name">ФИО</th>
-                <th pSortableColumn="role">Роль</th>
-              </tr>
             </ng-template>
         
             <!-- Данные таблицы -->
@@ -109,7 +106,7 @@
                 </td>
                 <td>
                   <p-dropdown 
-                    [(ngModel)]="user.role"
+                    (ngModel)="user.role_id"
                     [options]="rolePr"
                     optionLabel="name"
                     optionValue="id"

@@ -39,6 +39,7 @@ export class WorkspaceComponent {
   isLoadingPriority: boolean = false;
   isLoadingProjectUser: boolean = false;
   isOnlyExecutorsTasks: boolean = true;
+  isSidebarVisible: boolean = false;  
 
   private workspaceService = inject(WorkspaceService);
   private jwtService = inject(JwtService);
@@ -134,7 +135,6 @@ export class WorkspaceComponent {
     this.editSidebarVisible = true;
   }
 
-
   get selectedColumns(): Column[] {
     return this._selectedColumns;
   }
@@ -154,8 +154,4 @@ export class WorkspaceComponent {
     }
   }
 
-  getPerformersTask(taskId:number) : number[] {
-    console.log(this.projectUserService.getExecutorTask(taskId));
-    return [1,2,3,4]
-  }
 }

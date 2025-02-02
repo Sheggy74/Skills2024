@@ -43,8 +43,8 @@ export class ProjectListComponent implements OnInit{
   @ViewChild('cm') cm:ContextMenu | any;
   typeComponent:any;
   isAdmin:boolean=false;
- 
-
+  sidebarVisible:boolean=false;
+  id:number=0;
   constructor(public projectService: ProjectService) {
     // super();
     this.items = [
@@ -156,5 +156,12 @@ export class ProjectListComponent implements OnInit{
     event.preventDefault();
     this.cm.target=event.currentTarget;
     this.cm.show(event);
+   }
+   showSidebar(id:number){
+    // this.id=id;
+    this.router.navigateByUrl('workspace/'+id);
+    this.sidebarVisible=true;
+    this.taskClndService.getTasks(id??0);
+    this.userRolePrService.getUserRoleID(id??0);
    }
 }
