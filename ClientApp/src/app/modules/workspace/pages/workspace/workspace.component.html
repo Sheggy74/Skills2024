@@ -41,7 +41,7 @@
       <ng-template pTemplate="body" let-task>
         <tr>
           <td> {{task.name}} </td> <!-- название задачи -->
-          <td> </td> <!-- статус задачи -->
+          <td> {{task.stateName}} </td> <!-- статус задачи -->
           <td>
             <div *ngFor="let performer of task.performers">
               <div class="flex items-center gap-2">

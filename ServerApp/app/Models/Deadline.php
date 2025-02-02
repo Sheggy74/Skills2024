@@ -4,7 +4,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Deadlime extends Model
+class Deadline extends Model
 {
     //дедлайн
     use HasFactory;
@@ -18,6 +18,11 @@ class Deadlime extends Model
         'task_id',
         'date'
     ];
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
 
     protected $table = 'deadline';
 }

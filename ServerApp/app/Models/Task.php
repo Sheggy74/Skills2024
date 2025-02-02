@@ -37,13 +37,21 @@ class Task extends Model
         return $this->belongsTo(Priority::class, 'priority_id');
     }
 
-    public function state()
+    public function states()
     {
-        return $this->belongsToMany(StateTask::class, 'state_task', 'task_id', 'state_id')
-            ->withPivot('created_at')
-            ->orderBy('state_task.created_at', 'desc');
+        return $this->belongsToMany(State::class, 'state_task')->withTimestamps();
     }
 
+    // Для получения последнего состояния задачи
+    public function lastState()
+    {
+        return $this->hasOne(StateTask::class)->latest();
+    }
+
+    public function deadline()
+    {
+        return $this->hasOne(Deadline::class);
+    }
 
 
     protected $table = 'task';

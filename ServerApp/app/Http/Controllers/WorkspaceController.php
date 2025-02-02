@@ -18,9 +18,8 @@ class WorkspaceController extends Controller
 {
 
     public function showTasksForProject(Request $request, $id) {
-        $tasks = Task::with(['users', 'priority', 'state'=> function ($query) {
-            $query->orderBy('state_task.created_at', 'desc')->limit(1);
-        }])->where('project_id', '=', $id)->get();
+        $tasks = Task::with(['users', 'priority', 'lastState.state', 'deadline'])->where('project_id', '=', $id)->get();
+        // return $tasks;
         return TaskResource::collection($tasks);
     }
 
