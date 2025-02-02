@@ -16,7 +16,7 @@ export class SelectExecutorComponent {
   private projectUserSevice = inject(ProjectUserService);
   private workspaceSevice = inject(WorkspaceService);
   projectUsers: UserRole[] = [];
-  selectedExecutor!: UserRole;
+  selectedPerformers: UserRole[] = [];
   visible: boolean = false;
 
   ngOnInit() {
@@ -36,7 +36,9 @@ hideDialog() {
 }
 
 onSubmit() {
-  this.task.executorId = this.selectedExecutor.id;
+  this.task.performersId = this.selectedPerformers.map(performer => performer.id ?? 0);
+  console.log(this.selectedPerformers);
+  
   this.workspaceSevice.editTask(this.task.id, this.task);
   this.hideDialog();
 }

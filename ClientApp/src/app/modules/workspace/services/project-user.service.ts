@@ -31,12 +31,12 @@ export class ProjectUserService extends BaseApiService {
         catchError(this.exceptionService.getErrorHandlerList())));
     return retValue;
   }
-  getExecutorTask(userId: number): Promise<User> {
-    let retValue = lastValueFrom(this.http.get<User>(this.localAPIPath + "/executorTask/" + userId)
+  getExecutorTask(taskId: number): Promise<User[]> {
+    let retValue = lastValueFrom(this.http.get<User[]>(this.localAPIPath + "/executorTask/" + taskId)
       .pipe(
         map((priority: any) => {
           // console.log(project);
-          return priority.data[0];
+          return priority.data;
         }),
         catchError(this.exceptionService.getErrorHandlerList())));
     return retValue;

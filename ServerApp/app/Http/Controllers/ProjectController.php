@@ -51,11 +51,7 @@ class ProjectController extends Controller implements CrudController
 
         foreach ($userRole as $item) {
             RuleProject::query()->create(
-<<<<<<< HEAD
-                ['project_id' => $data->id, 'user_id' => $item["id"], 'role_id' => $item["role_id"]]
-=======
                 ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>1]
->>>>>>> adb2c7a07a6050dd582c57c3da94c39eda7f5447
             );
             Notifications::query()->create([
                 'user_id' => $item["user_id"],
@@ -98,11 +94,7 @@ class ProjectController extends Controller implements CrudController
         // dd($newRule);
         foreach ($newRule as $item) {
             RuleProject::query()->create(
-<<<<<<< HEAD
-                ['project_id' => $data->id, 'user_id' => $item["id"], 'role_id' => $item["role_id"]]
-=======
                 ['project_id'=>$data->id,'user_id'=>$item["id"],'role_id'=>1]
->>>>>>> adb2c7a07a6050dd582c57c3da94c39eda7f5447
             );
             Notifications::query()->create([
                 'user_id' => $item["id"],

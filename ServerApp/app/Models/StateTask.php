@@ -19,5 +19,12 @@ class StateTask extends Model
         'project_id'
     ];
 
+    public function task()
+    {
+        return $this->belongsToMany(Task::class, 'state_task', 'state_id', 'task_id')
+            ->withPivot('created_at');
+    }
+
+
     protected $table = 'state_task';
 }

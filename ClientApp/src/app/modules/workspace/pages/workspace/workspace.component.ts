@@ -9,6 +9,12 @@ import { StateService } from 'src/app/services/StateService/state.service';
 import { Priority } from 'src/app/Models/Priority';
 import { UserRole } from 'src/app/Models/UserRole';
 import { ProjectUserService } from '../../services/project-user.service';
+import { ProjectService } from 'src/app/modules/project/services/project.service';
+
+interface Column {
+  field: string;
+  header: string;
+}
 
 @Component({
   selector: 'app-project',
@@ -16,6 +22,9 @@ import { ProjectUserService } from '../../services/project-user.service';
   styleUrl: './workspace.component.css'
 })
 export class WorkspaceComponent {
+  cols: Column[] = [];
+  _selectedColumns: Column[] = [];
+
   tasks: Task[] = [];
   prioritys: Priority[] = [];
   projectUsers: UserRole[] = [];
@@ -35,11 +44,22 @@ export class WorkspaceComponent {
   private jwtService = inject(JwtService);
   private stateService = inject(StateService)
   private projectUserService = inject(ProjectUserService)
-  constructor(private route: ActivatedRoute) { }
+  projectService = inject(ProjectService)
+  constructor(private route: ActivatedRoute) { }  
+  priorityName: string = ""
 
   editSidebarVisible: boolean = false;
 
   async ngOnInit(): Promise<void> {
+    this.cols = [
+      { field: 'name', header: 'Название' },
+      { field: 'state', header: 'Состояние' },
+      { field: 'executors', header: 'Исполнители' },
+      { field: 'priority', header: 'Приоритет' },
+      { field: 'deadlines', header: 'Дедлайн' },
+    ]
+
+    this._selectedColumns = this.cols;
     this.workspaceService.isLoadingProject.subscribe(value => {
       this.isLoadingProject = value;
     })
@@ -50,14 +70,14 @@ export class WorkspaceComponent {
     this.workspaceService.isLoadingPriority.subscribe(value => {
       this.isLoadingPriority = value;
     })
-    
+
     this.route.paramMap.pipe(
       switchMap(params => params.getAll('id'))
     ).subscribe(data => this.projectId = +data);
-    
+
 
     this.workspaceService.updateProjectData(this.projectId);
-    this.workspaceService.project.subscribe(project=> {
+    this.workspaceService.project.subscribe(project => {
       this.projectName = project?.name || '';
     })
 
@@ -70,6 +90,8 @@ export class WorkspaceComponent {
     this.workspaceService.updatePriority(this.projectId)
     this.workspaceService.priority.subscribe(priority => {
       this.prioritys = priority;
+      console.log(this.prioritys);
+      
     })
 
     this.projectUserService.updateProjectUser(this.projectId)
@@ -77,6 +99,7 @@ export class WorkspaceComponent {
       this.projectUsers = projectUsers;
       console.log(this.projectUsers);
     })
+
 
     const jwtToken = this.stateService.getCurrentJWT();
     this.userRoleId = jwtToken.roles?.pop()?.id;
@@ -109,5 +132,30 @@ export class WorkspaceComponent {
 
   openEditSidebar() {
     this.editSidebarVisible = true;
+  }
+
+
+  get selectedColumns(): Column[] {
+    return this._selectedColumns;
+  }
+
+  set selectedColumns(val: Column[]) {
+    //restore original order
+    this._selectedColumns = this.cols.filter((col) => val.includes(col));
+  }
+
+  getSeverityForTag(priorityId: number) : "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
+    switch(priorityId) {
+      case 1: {return 'success';}
+      case 2: {return 'info';}
+      case 3: {return 'warning';}
+      case 4: {return 'danger';}
+      default: return undefined;
+    }
+  }
+
+  getPerformersTask(taskId:number) : number[] {
+    console.log(this.projectUserService.getExecutorTask(taskId));
+    return [1,2,3,4]
   }
 }

@@ -18,5 +18,10 @@ class Priority extends Model
         'name'
     ];
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'priority_id');
+    }
+
     protected $table = 'priority';
 }

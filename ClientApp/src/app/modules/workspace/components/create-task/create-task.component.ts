@@ -46,6 +46,8 @@ export class CreateTaskComponent {
         taskStateId: 1,
         projectId: this.projectId,
         priorityId: this.selectedPriority,
+        performers: [],
+        performersId: [],
       };
       this.createTask.emit(newTask); 
       this.hideDialog(); 

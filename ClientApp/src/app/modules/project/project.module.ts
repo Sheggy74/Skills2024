@@ -64,5 +64,6 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
     ScrollPanelModule
     
   ],
+  exports:[AddProjectComponent]
 })
 export class ProjectModule { }

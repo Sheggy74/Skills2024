@@ -23,8 +23,11 @@ import {CheckboxModule} from 'primeng/checkbox';
 import {ScrollerModule} from 'primeng/scroller';
 import { TableModule } from 'primeng/table';
 import {AvatarModule} from 'primeng/avatar';
-
-
+import { MultiSelectModule } from 'primeng/multiselect';
+import { TagModule } from 'primeng/tag';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { ProjectModule } from '../project/project.module';
+import { AddProjectComponent } from '../project/pages/add-project/add-project.component';
 
 
 @NgModule({
@@ -48,7 +51,11 @@ import {AvatarModule} from 'primeng/avatar';
     CheckboxModule,
     ScrollerModule,
     TableModule,
-    AvatarModule
+    AvatarModule,
+    MultiSelectModule,
+    TagModule,
+    FloatLabelModule,
+    ProjectModule,
   ]
 })
 export class WorkspaceModule { }
