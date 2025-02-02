@@ -16,6 +16,6 @@ class apiAuth
      */
     public function handle(Request $request, Closure $next): Response
     {
-        return  auth()->check() ? $next($request) : \response('Unauthorised',401);
+        return  auth()->check() ? $next($request) : \response('Unauthorised', 401);
     }
 }

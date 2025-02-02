@@ -14,6 +14,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives.module';
 import { RoleSelectorComponent } from "./pages/users/add-edit-user/role-selector/role-selector.component";
+import { SetOnProjComponent } from './pages/users/set-on-proj/set-on-proj.component';
+import { AutoCompleteModule } from 'primeng/autocomplete';
 
 
 
@@ -22,11 +24,13 @@ import { RoleSelectorComponent } from "./pages/users/add-edit-user/role-selector
     UsersComponent,
     UserListComponent,
     AddEditUserComponent,
-    RoleSelectorComponent
+    RoleSelectorComponent,
+    SetOnProjComponent
   ],
   imports: [
     CommonModule,
     AdminRoutingModule,
+    AutoCompleteModule,
     TableModule,
     MesComponentsModule,
     DividerModule,

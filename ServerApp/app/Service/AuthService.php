@@ -24,14 +24,14 @@ class AuthService
                 ])
             );
 
-            $buttons->push(
-                new NavigationButton([
-                    'caption' => 'Отчет',
-                    'iconClass' => 'book',
-                    'routerLink' => 'report',
-                ])
-            );
-
+            // $buttons->push(
+            //     new NavigationButton([
+            //         'caption' => 'Отчет',
+            //         'iconClass' => 'book',
+            //         'routerLink' => 'report',
+            //     ])
+            // );
+            //
             $buttons->push(
                 new NavigationButton([
                     'caption' => 'Проекты',
@@ -40,6 +40,14 @@ class AuthService
                 ])
             );
         }
+
+        $buttons->push(
+            new NavigationButton([
+                'caption' => 'Домашняя страница',
+                'iconClass' => 'home',
+                'routerLink' => 'home'
+            ])
+        );
 
         // временный проект
         $buttons->push(
@@ -50,30 +58,30 @@ class AuthService
             ])
         );
 
-        $buttons->push(
-            new NavigationButton([
-                'caption' => 'Исполнители',
-                'iconClass' => 'people',
-                'routerLink' => 'executors'
-            ])
-        );
-
-        $buttons->push(
-            new NavigationButton([
-                'caption' => 'Испытания',
-                'iconClass' => 'fact_check',
-                'routerLink' => 'experiments'
-            ])
-        );
-
-        $buttons->push(
-            new NavigationButton([
-                'caption' => 'Скрипты',
-                'iconClass' => 'description',
-                'routerLink' => 'scripts'
-            ])
-        );
-
+        // $buttons->push(
+        //     new NavigationButton([
+        //         'caption' => 'Исполнители',
+        //         'iconClass' => 'people',
+        //         'routerLink' => 'executors'
+        //     ])
+        // );
+        //
+        // $buttons->push(
+        //     new NavigationButton([
+        //         'caption' => 'Испытания',
+        //         'iconClass' => 'fact_check',
+        //         'routerLink' => 'experiments'
+        //     ])
+        // );
+        //
+        // $buttons->push(
+        //     new NavigationButton([
+        //         'caption' => 'Скрипты',
+        //         'iconClass' => 'description',
+        //         'routerLink' => 'scripts'
+        //     ])
+        // );
+        //
         return $buttons;
     }
 }

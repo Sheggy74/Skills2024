@@ -14,7 +14,7 @@
     </span>
     <span class="flex flex-col p-float-label w-full row-start-2 mt-6 col-span-2">
       <input type="text" #validate id="email" pAutoFocus [autofocus]="true" class="w-full" pInputText
-        [(ngModel)]="user!.email">
+        [(ngModel)]="user!.email" (input)="this.validate">
       <label for="inputtext">Email <span class="text-red-500">*</span></label>
       <small *ngIf="shouldShowError('email')" class="p-error text-xs ml-4">{{validationErrors.email}}</small>
     </span>
@@ -61,7 +61,7 @@
     </section>
 
     <div class="flex flex-row justify-between col-span-4 mt-8 row-start-6">
-      <button pButton [disabled]="shouldDisableButton()" (click)="createOrEdit()">{{isCreate ? 'Создать' :
+      <button pButton (click)="createOrEdit()">{{isCreate ? 'Создать' :
         'Сохранить'}}</button>
       <button pButton class="p-button-secondary" (click)="this.isOpen = false">Отменить</button>
     </div>

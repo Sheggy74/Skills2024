@@ -60,8 +60,9 @@ export class AddEditUserComponent extends ValidationComponent {
 
     this.step = this.user.role ? 2 : 1
   }
-  override validate() {
+  public override validate() {
     super.validate()
+    console.log('Validate');
 
     let loginIndex = this.userUIService.users.value.findIndex((user) => {
       let matchingCondition = user.login != null && user.login.trim().toLowerCase() == this.user.login?.trim().toLowerCase() &&
@@ -127,6 +128,8 @@ export class AddEditUserComponent extends ValidationComponent {
   }
   async createOrEdit() {
     this.validate()
+    if (this.validationErrors.length > 0)
+      return;
     this.pressedAdd.next(true)
     if (this.areThereAnyValidationErrors()) {
       return
