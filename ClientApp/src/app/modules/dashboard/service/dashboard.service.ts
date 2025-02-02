@@ -1,34 +1,51 @@
 import { Injectable } from '@angular/core';
-import { lastValueFrom, of } from 'rxjs';
+import { catchError, lastValueFrom, map, of } from 'rxjs';
 import { MyProject } from 'src/app/Models/MyProject';
+import { BaseApiService } from 'src/app/services/BaseApiService/base-api.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DashboardService {
+export class DashboardService extends BaseApiService {
 
-  constructor() { }
+  constructor() {
+    super()
+  }
 
   public getMyProjects(): Promise<MyProject[]> {
-    return lastValueFrom(of([
-      {
-        id: 1,
-        name: 'First Proj',
-        tasks_cnt: 4,
-        percent: 57.43
-      },
-      {
-        id: 2,
-        name: 'Second Proj',
-        tasks_cnt: 17,
-        percent: 31.27
-      },
-      {
-        id: 3,
-        name: 'Third Proj',
-        tasks_cnt: 37,
-        percent: 100
-      }
-    ]))
+    return new Promise(res => {
+      this.http.get(this.apiURL + '/dashboard/myprojects').subscribe((resp: any) => {
+        res(resp.map((item: any) => {
+          return {
+            id: 1, name: item.name, tasks_cnt: item.total_cnt, percent: item.finished_cnt / item.total_cnt * 100
+          }
+        }))
+      })
+    })
+  }
+
+  public getMyTasks(): Promise<any[]> {
+    return new Promise(res => {
+      this.http.get(this.apiURL + '/dashboard/mytasks').subscribe((resp: any) => {
+        res(resp.map((item: any) => {
+          return {
+            tasks_cnt: item.total_cnt, finished_cnt: item.finished_cnt
+          }
+        })[0])
+      })
+    })
+  }
+
+  public getSpentTime(): Promise<any> {
+    return new Promise(res => {
+      this.http.get(this.apiURL + '/dashboard/spenttime').subscribe((resp: any) => {
+        res(resp.map((item: any) => {
+          return {
+            name: item.name,
+            time_spent: item.time_spent
+          }
+        }))
+      })
+    })
   }
 }

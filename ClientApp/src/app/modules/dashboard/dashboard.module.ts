@@ -11,6 +11,7 @@ import { MyNotificationsComponent } from './pages/dashboard/my-notifications/my-
 import { MyChatComponent } from './pages/dashboard/my-chat/my-chat.component';
 import { MyAnalyticsComponent } from './pages/dashboard/my-analytics/my-analytics.component';
 import { ChartModule } from 'primeng/chart'
+import { TimeFormatPipe } from 'src/app/Shared/pipes/TimeFormat.pipe';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { ChartModule } from 'primeng/chart'
     DashboardRoutingModule,
     TableModule,
     CheckboxModule,
-    ChartModule
+    ChartModule,
+    TimeFormatPipe
   ]
 })
 export class DashboardModule { }

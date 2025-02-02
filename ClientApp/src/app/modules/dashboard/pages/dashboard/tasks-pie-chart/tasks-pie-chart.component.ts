@@ -1,5 +1,6 @@
 import { Component, PLATFORM_ID, inject } from '@angular/core';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
+import { DashboardService } from '../../../service/dashboard.service';
 
 @Component({
   selector: 'app-tasks-pie-chart',
@@ -13,22 +14,26 @@ export class TasksPieChartComponent extends BaseComponent {
 
   public options: any;
 
+  private dashboardService = inject(DashboardService)
+
   constructor() {
     super()
   }
 
-  override ngOnInit(): void {
-    this.initChart()
+  override async ngOnInit(): Promise<void> {
+    let data = await this.dashboardService.getMyTasks()
+    this.initChart(data)
   }
 
-  private initChart() {
+  private initChart(data: any) {
+
     this.data = {
-      labels: ['Красный', 'Синий', 'Жёлтый'],
+      labels: ['Не выполнено', 'Выполнено'],
       datasets: [
         {
-          data: [300, 50, 100],
-          backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
-          hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          data: [data.tasks_cnt - data.finished_cnt, data.finished_cnt],
+          backgroundColor: ['#36A2EB', '#3FA334'],
+          hoverBackgroundColor: ['#36A2EB', '#3FA334']
         }
       ]
     };
