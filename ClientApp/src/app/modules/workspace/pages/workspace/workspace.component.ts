@@ -59,6 +59,7 @@ export class WorkspaceComponent {
   activeItem!: MenuItem ;
   visibleClnd:boolean=false;
   editSidebarVisible: boolean = false;
+  displayedUsers: any[] = [];
 
   async ngOnInit(): Promise<void> {
     this.cols = [
@@ -90,6 +91,7 @@ export class WorkspaceComponent {
     this.workspaceService.project.subscribe(project => {
       this.project = project!;
       this.projectName = project?.name || '';
+      this.displayedUsers = project?.users ?? [];
     })
 
 

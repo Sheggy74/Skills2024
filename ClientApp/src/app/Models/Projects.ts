@@ -8,4 +8,5 @@ export interface Projects{
     theme?:string,
     tags?:Tags[],
     selectRows?:any[]
+    users?:any[]
 }
