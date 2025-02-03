@@ -16,11 +16,6 @@ class ReportFactory extends Factory
      */
     public function definition(): array
     {
-        return [
-            'series' => fake()->randomNumber(5),
-            'x' =>  fake()->randomFloat(2, 0,10),
-            'y' => fake()->randomFloat(2, 0,10),
-            'experiments_id'=>1,
-        ];
+        return [];
     }
 }

@@ -49,8 +49,8 @@ export class MyAnalyticsComponent extends BaseComponent {
       ]
     };
     this.options = {
-      responsive: false,
-      maintainAspectRatio: true,  // отключает автоматическое сохранение соотношения сторон
+      responsive: true,
+      maintainAspectRatio: false,  // отключает автоматическое сохранение соотношения сторон
       scales: {
         y: {
           beginAtZero: true

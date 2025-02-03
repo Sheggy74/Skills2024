@@ -13,13 +13,7 @@ return new class extends Migration
     {
         Schema::create('report', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('series');
-            $table->float('x');
-            $table->float('y');
-            $table->bigInteger('experiments_id');
             $table->timestamps();
-
-            $table->foreign('experiments_id')->references('id')->on('experiments');
         });
     }
 

@@ -13,7 +13,6 @@ class RuleProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        
-        RuleProject::factory(5)->create();
+        RuleProject::factory(15)->create();
     }
 }
