@@ -76,4 +76,9 @@
   p-sidebar{
     width: 500px;
   }
+  .skeletonCard{
+    display: flex;
+    gap:2px;
+  }
+  
   

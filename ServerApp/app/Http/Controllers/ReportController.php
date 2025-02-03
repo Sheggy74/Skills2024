@@ -21,7 +21,10 @@ use App\Http\Resources\UserResource;
 use App\Models\Report;
 use App\Models\ReportValues;
 use App\Models\Experiment;
+use App\Models\Project;
+use App\Models\Task;
 use App\Models\User;
+use Illuminate\Container\Attributes\Tag;
 
 class ReportController extends Controller 
 {
@@ -288,5 +291,110 @@ class ReportController extends Controller
                 ),
             ],
         ];
+    }
+
+    function ReportProject($id) {
+        $project=Project::query()->where('id',$id)->get();
+        $allTasks=Task::query()->where('project_id',$id)->get();
+        $completeTasks=Task::query()->where('project_id',$id)->
+            leftJoin('state_task','state_task.task_id','task.id')->
+            where('state_task.state_id',3)->get();
+        //просроченные задания
+        // $expiredTasks=Task::query()->where('project_id',$id)->
+        //     leftJoin('deadline','deadline.task_id','task.id')->where('deadline.date'<now())->get();
+        // return $completeTasks;
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        $sheet->setCellValue('A1', 'Проект');
+        $sheet->setCellValue('A2', 'ID');
+        $sheet->setCellValue('B2', $project['id']);
+        $sheet->setCellValue('A3', 'Название');
+        $sheet->setCellValue('B3', $project['name']);
+        $sheet->setCellValue('A4', 'Описание');
+        $sheet->setCellValue('B4', $project['description']);
+        $sheet->setCellValue('A5', 'Иконка');
+        $sheet->setCellValue('B5', $project['icon']);
+        $sheet->setCellValue('A6', 'Тема');
+        $sheet->setCellValue('B6', $project['theme']);
+        $sheet->setCellValue('A7', 'Дата создания');
+        $sheet->setCellValue('B7', $project['created_at']);
+        $sheet->setCellValue('A8', 'Дата обновления');
+        $sheet->setCellValue('B8', $project['updated_at']);
+        
+        // Заголовки для списка задач
+        $sheet->setCellValue('A10', 'Задачи');
+        $sheet->setCellValue('A11', 'ID');
+        $sheet->setCellValue('B11', 'Название');
+        $sheet->setCellValue('C11', 'Описание');
+        $sheet->setCellValue('D11', 'Дата создания');
+        
+        // Заполнение задач
+        $row = 12;
+        foreach ($allTasks as $task) {
+            $sheet->setCellValue('A' . $row, $task['id']);
+            $sheet->setCellValue('B' . $row, $task['name']);
+            $sheet->setCellValue('C' . $row, $task['description']);
+            $sheet->setCellValue('D' . $row, $task['date_create']);
+            $row++;
+        }
+        
+        // Заголовки для списка выполненных задач
+        $sheet->setCellValue('A' . $row + 2, 'Выполненные задачи');
+        $sheet->setCellValue('A' . $row + 3, 'ID');
+        $sheet->setCellValue('B' . $row + 3, 'Название');
+        $sheet->setCellValue('C' . $row + 3, 'Описание');
+        $sheet->setCellValue('D' . $row + 3, 'Дата создания');
+        
+        // Заполнение выполненных задач
+        $row = $row + 4;
+        foreach ($completeTasks as $task) {
+            $sheet->setCellValue('A' . $row, $task['id']);
+            $sheet->setCellValue('B' . $row, $task['name']);
+            $sheet->setCellValue('C' . $row, $task['description']);
+            $sheet->setCellValue('D' . $row, $task['date_create']);
+            $row++;
+        }
+        
+        // Создание графика (например, распределение задач по приоритетам)
+        $labels = ['Низкий', 'Средний', 'Высокий'];
+        $values = [1, 2, 0]; // Примерное количество задач по приоритетам (можно изменить)
+        
+        $dataSeriesLabels = [
+            new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_STRING, 'Задачи', null, 0),
+        ];
+        
+        $dataSeriesValues = [
+            new DataSeriesValues(DataSeriesValues::DATASERIES_TYPE_NUMBER, 'Задачи!$B$13:$B$15', null, 3)
+        ];
+        
+        $series = new DataSeries(
+            DataSeries::TYPE_BARCHART,
+            DataSeries::GROUPING_STANDARD,
+            range(0, count($values) - 1),
+            $dataSeriesLabels,
+            $values,
+            $labels
+        );
+        
+        $plotArea = new PlotArea(null, [$series]);
+        $chart = new Chart(
+            'Задачи по приоритетам',
+            new Title('Распределение задач по приоритетам'),
+            new Legend(Legend::POSITION_BOTTOM, null, false),
+            $plotArea,
+            true,
+            false
+        );
+        
+        $chart->setTopLeftPosition('F2');
+        $chart->setBottomRightPosition('M15');
+        
+        $sheet->addChart($chart);
+        
+        // Запись отчета в файл
+        $writer = new Xlsx($spreadsheet);
+        $writer->save('project_report.xlsx');
     }
 }
