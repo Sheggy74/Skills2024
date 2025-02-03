@@ -11,7 +11,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task>
-      <tr>
+      <tr [ngStyle]="selectedTask?.id == task.id ? {'border-width': '0 3px 0 3px', 'border-color': 'var(--primary-color)'} : {}" (click)="selectTask(task)">
         <td> {{task.name}} </td> <!-- название задачи -->
         <td> {{task.stateName}} </td> <!-- статус задачи -->
         <td>

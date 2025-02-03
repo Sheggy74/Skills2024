@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, inject} from '@angular/core';
+import { WorkspaceService } from '../../services/workspace.service';
 
 @Component({
   selector: 'app-task-sidebar',
@@ -6,12 +7,21 @@ import { Component, EventEmitter, Output, Input, OnChanges, SimpleChanges } from
   styleUrl: './task-sidebar.component.css'
 })
 export class TaskSidebarComponent {
-  @Input() visible: boolean = false;  // Получаем значение из родительского компонента
-  @Output() visibleChange: EventEmitter<boolean> = new EventEmitter<boolean>();  // Для двусторонней привязки
+  visible : boolean = false;
+  private workspaceService = inject(WorkspaceService);
+
 
   sidebarWidth: number = 500;  // Начальная ширина сайдбара
   isResizing: boolean = false;
   lastX: number = 0;
+
+  ngOnInit() {
+    this.workspaceService.sidebarVisible.subscribe(visible => {
+      this.visible = visible;
+      console.log("visibleSidebar = " + this.visible);
+      
+    })
+  }
 
   tabs = [
     { label: 'Чат', content: 'Content of Tab 1' },
@@ -19,8 +29,7 @@ export class TaskSidebarComponent {
     { label: 'Исполнители', content: 'Content of Tab 3' }
   ];
 
-  toggleSidebar() {
-    this.visible = !this.visible; 
-    this.visibleChange.emit(this.visible); 
+  closeSidebar() {
+    this.workspaceService.closeSidebarVisible();
   }
 }
