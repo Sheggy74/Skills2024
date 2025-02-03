@@ -45,6 +45,7 @@ export class ProjectListComponent implements OnInit{
   sidebarVisible:boolean=false;
   id:number=0;
   skeletonPlaceholder: number[] = new Array(5);
+  isManager:boolean=false;
 
   constructor(public projectService: ProjectService) {
     // super();
@@ -79,6 +80,7 @@ export class ProjectListComponent implements OnInit{
     this.projectService.project.subscribe(project=>{
       this.filteredProjects=project;
     })
+    this.projectService.checkRoleProject();
     // this.filteredProjects = this.projects;
     // Применяем фильтры после получения данных
     this.applyFilters();
@@ -89,7 +91,18 @@ export class ProjectListComponent implements OnInit{
 
 
     let localUser = JSON.parse(localStorage.getItem('[ATOM24][jwtDTO]')??'');
+    
     this.isAdmin=localUser?.user?.login==='admin'?true:false;
+   console.log(this.projectService.role.getValue());
+    this.projectService.role.subscribe((item)=>{
+      if(item?.role=='manager'){
+        this.isManager=true; console.log(this.isManager);
+        this.items.pop();
+      }
+      else{
+        this.isManager=false;
+      }
+    })
     console.log(localUser?.user?.login);
   }
 

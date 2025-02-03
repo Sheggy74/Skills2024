@@ -14,6 +14,6 @@ class StateTaskSeeder extends Seeder
      */
     public function run(): void
     {
-        StateTask::factory(5)->create();
+        StateTask::factory(50)->create();
     }
 }

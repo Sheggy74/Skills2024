@@ -17,7 +17,7 @@
     </ng-template>
   </p-multiSelect>
 
-  <p-button *ngIf="isAdmin" icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()"
+  <p-button *ngIf="isAdmin||isManager" icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()"
     class="bBtn" pTooltip="Добавить тег" />
 </div>
 <p-scrollPanel [style]="{ width: '100%', height: '700px' }" >
@@ -41,7 +41,7 @@
 
             <!-- Иконка в круге и название проекта -->
             <div class="icon-circle" [style.background-color]="project.theme">
-              <i [class]="project.icon" style="color: white;"></i>
+              <i [class]="project.icon" style="color: white;" (click)="this.projectService.selectedPrject.next(project);"></i>
             </div>
             <span>{{ project.name ?? 'Без имени' }}</span>
 
@@ -50,7 +50,7 @@
             <p-tag *ngFor="let tag of project.tags" [value]="tag.name">
             </p-tag>
           </div>
-          <div class="card-options" *ngIf="isAdmin">
+          <div class="card-options" *ngIf="isAdmin||isManager">
             <button pButton icon="pi pi-ellipsis-h" (click)="op.toggle($event);selectProject(project)"
               class="p-button-text"></button>
             <p-overlayPanel #op>

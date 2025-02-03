@@ -13,6 +13,6 @@ class PerformerSeeder extends Seeder
      */
     public function run(): void
     {
-        Performer::factory(5)->create();
+        Performer::factory(50)->create();
     }
 }

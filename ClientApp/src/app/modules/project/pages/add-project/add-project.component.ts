@@ -90,57 +90,13 @@ export class AddProjectComponent implements OnInit{
   }
   users:UserRolePr[]=[];
 
-users1: User1[] = [
-  { id: 1, name: 'Иван Иванов', selectedRole: 'admin' },
-  { id: 2, name: 'Петр Петров', selectedRole: 'editor' },
-  { id: 3, name: 'Сергей Сергеев', selectedRole: 'viewer' },
-];
-
-// Доступные роли
-roles1: Role1[] = [
-  { name: 'Администратор', code: 'admin' },
-  { name: 'Редактор', code: 'editor' },
-  { name: 'Просмотрщик', code: 'viewer' },
-];
-
-// Массив для хранения выбранных пользователей
-selectedUsers1: User1[] = [];
-
-  // get selectedUsers():UserRolePr[]{
-  //   return this._selectedUsers;
-  // }
-  // set selectedUsers(newValue:UserRolePr[]){
-  //   this._selectedUsers=newValue;
-  //   this.isDisabled=newValue.length===0?true:false;
-  //   console.log(this.selectedUsers);
-  // }
-
   selectedUsers: { id: number; fio: string; role_id: number,isSelected:boolean }[] = [];
-
-  // Данные для предварительно выбранных пользователей
-  selectRows = [
-    { id: 1, role_id: 2 },
-    { id: 2, role_id: 2 }
-  ];
 
   roles = [
     { role_id: 2, name: "исполнитель" },
     { role_id: 1, name: "менеджер" }
   ];
-  // users = [
-  //   { id: 1, fio: "Gladyce ru", role_id: 2 },
-  //   { id: 2, fio: "Marley re", role_id: 2 },
-  //   { id: 3, fio: "Jaren ef", role_id: 2 },
-  //   { id: 4, fio: "Dorcas ao", role_id: 2 },
-  //   { id: 5, fio: "Meda ir", role_id: 2 },
-  //   { id: 6, fio: "Odessa ic", role_id: 2 },
-  //   { id: 7, fio: "Gage le", role_id: 2 },
-  //   { id: 8, fio: "Vernon so", role_id: 2 },
-  //   { id: 9, fio: "Susie at", role_id: 2 },
-  //   { id: 10, fio: "Erika ic", role_id: 2 },
-  //   { id: 11, fio: "Lenore ae", role_id: 2 },
-  //   { id: 12, fio: "Lisette ho", role_id: 2 }
-  // ];
+
   icons = [
     { label: 'Молния', value: 'pi pi-bolt' },
     { label: 'Работа', value: 'pi pi-briefcase' },
@@ -194,6 +150,7 @@ selectedUsers1: User1[] = [];
     this.createProject.description=this.projectDescription;
     this.createProject.icon=this.selectedIcon;
     this.createProject.theme=this.selectedIconColor
+    console.log('project',this.projectService.selectedPrject);
     if(this.addEditBtn=='Создать'){
       this.retPrID =this.projectService.createProjects(this.createProject,this.selectedUsers);
       
