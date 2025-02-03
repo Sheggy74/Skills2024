@@ -20,18 +20,39 @@ export class WorkspaceService extends BaseApiService {
   priority = new BehaviorSubject<Priority[]>([])
   isLoadingState = new BehaviorSubject<boolean>(true);
   state = new BehaviorSubject<State[]>([])
+  
+  sidebarVisible = new BehaviorSubject<boolean>(false);
 
+  // обновление задач проекта
   async updateData(projectId: number) {
     this.isLoadingTask.next(true);
     this.tasks.next(await this.getTasksForProject(projectId));
     this.isLoadingTask.next(false);  
   }
 
+  // обновление данных проекта
   async updateProjectData(projectId: number) {
     this.isLoadingProject.next(true);
     this.project.next(await this.getProjectData(projectId));
     this.isLoadingProject.next(false);
     // console.log(this.project);
+  }
+
+  // обновление выбранной задачи
+  async updateSelectedTask(task: Task) {
+    this.selectedTask.next(task);
+    // console.log(this.project);
+  }
+
+  // переключение видимости боковой панели с информацией по задачи
+  async openSidebarVisible() {
+    this.sidebarVisible.next(true);
+    console.log(this.sidebarVisible);
+  }
+
+  async closeSidebarVisible() {
+    this.sidebarVisible.next(false);
+    console.log(this.sidebarVisible);
   }
 
   async updatePriority(projectId: number) {
