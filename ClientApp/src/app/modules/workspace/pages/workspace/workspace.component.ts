@@ -37,7 +37,7 @@ export class WorkspaceComponent {
   newTaskDescription: string = '';
   projectId: number = 0;
   projectName: string = "";
-  project!: Projects
+  project: any;
   userRoleId: string | undefined;
   isManagerOrAdmin: boolean = false;
   isLoadingProject: boolean = false;

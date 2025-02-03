@@ -58,7 +58,7 @@ class WorkspaceController extends Controller
     }
 
     public function showProjectData(Request $request, $id) {
-        $data = Project::query()->find($id);
+        $data = Project::with('users')->where('id', $id)->first();
         return $data;
     }
 

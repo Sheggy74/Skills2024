@@ -21,5 +21,10 @@ class Project extends Model
         'theme'
     ];
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'rule_project', 'project_id', 'user_id');
+    }
+
     protected $table = 'project';
 }

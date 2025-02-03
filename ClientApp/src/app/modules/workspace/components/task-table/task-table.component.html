@@ -22,7 +22,7 @@
               <p-avatar *ngIf="performer.photo_url != null"
                 [image]="'http://localhost:8000/storage/' + performer.photo_url" size="large" class="mr-2"
                 shape="circle" />
-              {{performer.first_name + ' ' + performer.second_name[0].toUpperCase() +'.'+ (performer.last_name ?
+              {{performer.second_name + ' ' + performer.first_name[0].toUpperCase() +'.'+ (performer.last_name ?
               performer.last_name[0].toUpperCase() + '.' :"")}}
             </div>
           </div>

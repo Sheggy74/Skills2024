@@ -13,14 +13,17 @@
           class="p-button-lg p-button-rounded p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
         <!-- <p-button label="Toggle Sidebar" icon="pi pi-bars" (onClick)="isSidebarVisible = !isSidebarVisible"></p-button> -->
-        <button pButton pRipple icon="pi pi-calendar" (click)="clnd.openDialog()"></button>
-        <p-avatarGroup styleClass="mb-3" *ngFor="let user of projectUser">
-          <p-avatar *ngIf="user.photoURL == null" size="large"
-                [label]="user.firstName ? user.firstName[0].toUpperCase() : 'A'" class="mr-2" shape="circle" />
-              <p-avatar *ngIf="user.photoURL != null"
-                [image]="'http://localhost:8000/storage/' + user.photoURL" size="large" class="mr-2"
-                shape="circle" />
-      </p-avatarGroup>
+        <!-- <button pButton pRipple icon="pi pi-calendar" (click)="clnd.openDialog()"></button> -->
+        <p-avatarGroup styleClass="mb-3">
+          <ng-container *ngFor="let user of project.users?.slice(5); index as i ">
+            <p-avatar *ngIf="user.photo_url == null && i <= 5" [label]="user.first_name ? user.first_name[0].toUpperCase() : 'A'"
+              class="mr-2" shape="circle" />
+            <p-avatar *ngIf="user.photo_url != null && i <= 5" [image]="'http://localhost:8000/storage/' + user.photo_url"
+              class="mr-2" shape="circle" />
+            <p-avatar *ngIf="i > 5" [label]="(project.users.length - 5).toString()"
+              class="mr-2" shape="circle" />
+          </ng-container>
+        </p-avatarGroup>
       </div>
     </ng-template>
     <div class="flex gap-10 items-center">
@@ -36,10 +39,7 @@
       </div>
     </div>
 
-    <p-tabMenu 
-        [model]="items" 
-        [activeItem]="activeItem" 
-        (activeItemChange)="onActiveItemChange($event);" />
+    <p-tabMenu [model]="items" [activeItem]="activeItem" (activeItemChange)="onActiveItemChange($event);" />
 
     <app-task-table [tasks]="tasks" *ngIf="activeItem == items[0]"></app-task-table>
   </p-card>
@@ -48,6 +48,6 @@
   <app-calendar #clnd *ngIf="activeItem == items[1]" [visibleClnd]="visibleClnd"></app-calendar>
   <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
   <app-add-project #add></app-add-project>
-  
+
 
 </div>
