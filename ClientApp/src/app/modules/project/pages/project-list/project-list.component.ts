@@ -44,6 +44,8 @@ export class ProjectListComponent implements OnInit{
   isAdmin:boolean=false;
   sidebarVisible:boolean=false;
   id:number=0;
+  skeletonPlaceholder: number[] = new Array(5);
+
   constructor(public projectService: ProjectService) {
     // super();
     this.items = [

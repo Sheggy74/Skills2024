@@ -16,7 +16,7 @@ export class ProjectService extends BaseApiService{
     project = new BehaviorSubject<Projects[]>([]);
     selectedPrject = new BehaviorSubject<Projects|undefined>(undefined);
     projectID=new BehaviorSubject<Projects|undefined>(undefined);
-    isLoading=new BehaviorSubject<boolean>(true);
+    isLoading=new BehaviorSubject<boolean>(false);
 
     async updateData(){
       this.project.next(await this.getProjects());
@@ -27,6 +27,7 @@ export class ProjectService extends BaseApiService{
           .pipe(
             map((project:any)=>{
               console.log(project.data);
+              this.isLoading.next(true);
               return project.data;
             }),
             catchError(this.exceptionService.getErrorHandlerList())));

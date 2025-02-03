@@ -20,8 +20,11 @@
   <p-button *ngIf="isAdmin" icon="pi pi-plus" (click)="tagsService.selectedTag.next(undefined);tags.showDialog()"
     class="bBtn" pTooltip="Добавить тег" />
 </div>
-<p-scrollPanel [style]="{ width: '100%', height: '700px' }">
-  <div class="card-container">
+<p-scrollPanel [style]="{ width: '100%', height: '700px' }" >
+  <div *ngIf="this.projectService.isLoading.getValue()==false" class="skeletonCard" class="card-container">
+    <p-skeleton *ngFor="let item of skeletonPlaceholder; let i = index" size="15rem" styleClass="mr-4"  />
+  </div>
+  <div class="card-container" *ngIf="this.projectService.isLoading.getValue()==true">
     <p-card [style]="{height: '150px' }" *ngIf="isAdmin">
       <ng-template pTemplate="content">
         <div style="display: flex;justify-content: center;">
@@ -32,48 +35,43 @@
         </div>
       </ng-template>
     </p-card>
+      <p-card *ngFor="let project of filteredProjects" #list>
+        <ng-template pTemplate="content">
+          <div class="header-content" (click)="showSidebar(project.id??0)">
 
-    <p-card *ngFor="let project of filteredProjects" #list >
-        <ng-template pTemplate="content" >
-            <div class="header-content" (click)="showSidebar(project.id??0)">
-              
-                <!-- Иконка в круге и название проекта -->
-                <div class="icon-circle" [style.background-color]="project.theme" >
-                  <i [class]="project.icon" style="color: white;"></i>
-                  </div>
-                <span>{{ project.name ?? 'Без имени' }}</span>
-                
-              </div>
-              <div class="tags">
-                <p-tag 
-                  *ngFor="let tag of project.tags" 
-                  [value]="tag.name">
-                </p-tag>
-              </div>
+            <!-- Иконка в круге и название проекта -->
+            <div class="icon-circle" [style.background-color]="project.theme">
+              <i [class]="project.icon" style="color: white;"></i>
+            </div>
+            <span>{{ project.name ?? 'Без имени' }}</span>
 
-
-
-        <div class="card-options" *ngIf="isAdmin">
-          <button pButton icon="pi pi-ellipsis-h" (click)="op.toggle($event);selectProject(project)"
-            class="p-button-text"></button>
-
-          <p-overlayPanel #op>
-            <p-menu [model]="items"></p-menu>
-          </p-overlayPanel>
-        </div>
-      </ng-template>
-
-    </p-card>
-  </div>
+          </div>
+          <div class="tags">
+            <p-tag *ngFor="let tag of project.tags" [value]="tag.name">
+            </p-tag>
+          </div>
+          <div class="card-options" *ngIf="isAdmin">
+            <button pButton icon="pi pi-ellipsis-h" (click)="op.toggle($event);selectProject(project)"
+              class="p-button-text"></button>
+            <p-overlayPanel #op>
+              <p-menu [model]="items"></p-menu>
+            </p-overlayPanel>
+          </div>
+        </ng-template>
+      </p-card>
+    </div>
+   
 </p-scrollPanel>
-  <app-add-project #add></app-add-project>
-  <app-add-tags #tags></app-add-tags>
-  <app-cntx-menu #cm [model]="cntMenuItems" ></app-cntx-menu>
-  
 
-  <!-- <p-sidebar [(visible)]="sidebarVisible" position="right" [style]="{'width':'850px'}"> -->
-    <!-- <app-calendar #clnd></app-calendar> -->
-    <!-- <router-outlet></router-outlet> -->
-    <!-- <app-project></app-project> -->
-    <!-- <workspace-project [id]="id"></workspace-project> -->
+
+<app-add-project #add></app-add-project>
+<app-add-tags #tags></app-add-tags>
+<app-cntx-menu #cm [model]="cntMenuItems"></app-cntx-menu>
+
+
+<!-- <p-sidebar [(visible)]="sidebarVisible" position="right" [style]="{'width':'850px'}"> -->
+<!-- <app-calendar #clnd></app-calendar> -->
+<!-- <router-outlet></router-outlet> -->
+<!-- <app-project></app-project> -->
+<!-- <workspace-project [id]="id"></workspace-project> -->
 <!-- </p-sidebar> -->
