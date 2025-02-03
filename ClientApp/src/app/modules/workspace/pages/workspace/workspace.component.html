@@ -44,7 +44,10 @@
   </p-card>
 
   <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>
-  <app-calendar #clnd *ngIf="activeItem == items[1]" [visibleClnd]="visibleClnd"></app-calendar>
+  <div style="padding-top: 10px;">
+    <app-calendar #clnd *ngIf="activeItem == items[1]" [visibleClnd]="visibleClnd"></app-calendar>
+  </div>
+  
   <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
   <app-add-project #add></app-add-project>
   <app-task-sidebar></app-task-sidebar>
