@@ -3,7 +3,6 @@ import { BaseComponent } from 'src/app/system-components/base-component/base.com
 import { ProjectService } from '../../services/project.service';
 import { Projects } from 'src/app/Models/Projects';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
-import { filter } from 'cypress/types/bluebird';
 import { BehaviorSubject, map } from 'rxjs';
 import { MenuItem } from 'primeng/api';
 import { Router } from '@angular/router';
