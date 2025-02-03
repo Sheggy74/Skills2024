@@ -10,7 +10,9 @@ RUN apt-get update && apt-get install -y \
     zip \
     libzip-dev \
     unzip \
-    inetutils-ping
+    inetutils-ping \ 
+    git
+	
 
 # Clear cache
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
