@@ -35,6 +35,7 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TaskSidebarComponent } from './components/task-sidebar/task-sidebar.component';
 import { TabViewModule } from 'primeng/tabview';
 import { TaskTableComponent } from './components/task-table/task-table.component';
+import { AvatarGroupModule } from 'primeng/avatargroup';
 
 
 @NgModule({
@@ -67,6 +68,7 @@ import { TaskTableComponent } from './components/task-table/task-table.component
     TabMenuModule,
     SidebarModule,
     TabViewModule,
+    AvatarGroupModule,
   ]
 
 })

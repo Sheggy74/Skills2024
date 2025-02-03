@@ -8,6 +8,7 @@ import { JwtService } from 'src/app/services/JWTService/jwt.service';
 import { StateService } from 'src/app/services/StateService/state.service';
 import { Priority } from 'src/app/Models/Priority';
 import { UserRole } from 'src/app/Models/UserRole';
+import { User } from 'src/app/Models/User';
 import { ProjectUserService } from '../../services/project-user.service';
 import { ProjectService } from 'src/app/modules/project/services/project.service';
 import { MenuItem } from 'primeng/api';
@@ -36,7 +37,7 @@ export class WorkspaceComponent {
   newTaskDescription: string = '';
   projectId: number = 0;
   projectName: string = "";
-  project!: Projects
+  project: any;
   userRoleId: string | undefined;
   isManagerOrAdmin: boolean = false;
   isLoadingProject: boolean = false;
@@ -107,7 +108,6 @@ export class WorkspaceComponent {
     this.projectUserService.updateProjectUser(this.projectId)
     this.projectUserService.projectUser.subscribe(projectUsers => {
       this.projectUsers = projectUsers;
-      console.log(this.projectUsers);
     })
 
 

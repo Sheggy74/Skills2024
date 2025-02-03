@@ -31,4 +31,9 @@ class DashboardController extends Controller
     {
         return $service->getMyChat($request);
     }
+
+    public function getMyResults(Request $request, DashboardService $service)
+    {
+        return $service->getMyResults($request);
+    }
 }
