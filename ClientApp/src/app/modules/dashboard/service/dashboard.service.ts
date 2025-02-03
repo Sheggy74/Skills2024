@@ -78,4 +78,19 @@ export class DashboardService extends BaseApiService {
     })
   }
 
+  public getMyResults(): Promise<any> {
+    return new Promise(res => {
+      this.http.get(this.apiURL + '/dashboard/myresults').subscribe((resp: any) => {
+        res(resp.map((item: any) => {
+          return {
+            month: item.month,
+            total_cnt: item.total_cnt,
+            inprogress_cnt: item.inprogress_cnt,
+            completed_cnt: item.completed_cnt
+          }
+        }))
+      })
+    })
+  }
+
 }

@@ -14,6 +14,17 @@ import { RoleProject } from 'src/app/Models/RoleProject';
 import { TableRowSelectEvent } from 'primeng/table';
 import { UserRolePr } from 'src/app/Models/UserRolePr';
 
+interface User1 {
+  id: number;
+  name: string;
+  selectedRole: string;  // Роль будет храниться в этом поле
+}
+
+interface Role1 {
+  name: string;
+  code: string;
+}
+
 @Component({
   selector: 'app-add-project',
   templateUrl: './add-project.component.html',
@@ -36,6 +47,10 @@ export class AddProjectComponent implements OnInit{
     this.rolePrService.roleProjects.subscribe(roles=>{
       this.rolePr=roles;
     });
+    this.userRoleService.users.subscribe(item=>{
+      this.users=item;
+      this.selectedUsers=item.filter(el=>el.isSelected==true);
+    })
     // this.userRoleService.selectedRoleUsers.subscribe(el=>{
     //   this.selectedUsers=el??[];
     // })
@@ -47,7 +62,7 @@ export class AddProjectComponent implements OnInit{
   projectDescription: string|undefined = '';
   selectedIcon: string|undefined = 'pi pi-book';
   selectedIconColor: string = this.getRandomColor(); // Стартовый цвет иконки (черный)
-  _selectedUsers: any[] = [];
+  _selectedUsers: UserRolePr[] = [];
   displayIconDialog: boolean = false;  // Флаг для отображения диалогового окна
   nameFilter: string = '';
   roleFilter: string = '';
@@ -57,7 +72,7 @@ export class AddProjectComponent implements OnInit{
   projectTagsService=inject(TagsprService);
   // users: UserRolePr[]|any[]=[];
   createProject:Projects={};
-  isDisabled:boolean=true;
+  isDisabled:boolean=false;
   addEditBtn:string='Создать';
   selectTags:Tags[]=[];
   retPrID:any;
@@ -72,7 +87,24 @@ export class AddProjectComponent implements OnInit{
   showDialog() {
     this.visible = true;
     this.isAddEditFunction();
-}
+  }
+  users:UserRolePr[]=[];
+
+users1: User1[] = [
+  { id: 1, name: 'Иван Иванов', selectedRole: 'admin' },
+  { id: 2, name: 'Петр Петров', selectedRole: 'editor' },
+  { id: 3, name: 'Сергей Сергеев', selectedRole: 'viewer' },
+];
+
+// Доступные роли
+roles1: Role1[] = [
+  { name: 'Администратор', code: 'admin' },
+  { name: 'Редактор', code: 'editor' },
+  { name: 'Просмотрщик', code: 'viewer' },
+];
+
+// Массив для хранения выбранных пользователей
+selectedUsers1: User1[] = [];
 
   // get selectedUsers():UserRolePr[]{
   //   return this._selectedUsers;
@@ -83,7 +115,7 @@ export class AddProjectComponent implements OnInit{
   //   console.log(this.selectedUsers);
   // }
 
-  selectedUsers: { id: number; fio: string; role_id: number }[] = [];
+  selectedUsers: { id: number; fio: string; role_id: number,isSelected:boolean }[] = [];
 
   // Данные для предварительно выбранных пользователей
   selectRows = [
@@ -95,20 +127,20 @@ export class AddProjectComponent implements OnInit{
     { role_id: 2, name: "исполнитель" },
     { role_id: 1, name: "менеджер" }
   ];
-  users = [
-    { id: 1, fio: "Gladyce ru", role_id: 2 },
-    { id: 2, fio: "Marley re", role_id: 2 },
-    { id: 3, fio: "Jaren ef", role_id: 2 },
-    { id: 4, fio: "Dorcas ao", role_id: 2 },
-    { id: 5, fio: "Meda ir", role_id: 2 },
-    { id: 6, fio: "Odessa ic", role_id: 2 },
-    { id: 7, fio: "Gage le", role_id: 2 },
-    { id: 8, fio: "Vernon so", role_id: 2 },
-    { id: 9, fio: "Susie at", role_id: 2 },
-    { id: 10, fio: "Erika ic", role_id: 2 },
-    { id: 11, fio: "Lenore ae", role_id: 2 },
-    { id: 12, fio: "Lisette ho", role_id: 2 }
-  ];
+  // users = [
+  //   { id: 1, fio: "Gladyce ru", role_id: 2 },
+  //   { id: 2, fio: "Marley re", role_id: 2 },
+  //   { id: 3, fio: "Jaren ef", role_id: 2 },
+  //   { id: 4, fio: "Dorcas ao", role_id: 2 },
+  //   { id: 5, fio: "Meda ir", role_id: 2 },
+  //   { id: 6, fio: "Odessa ic", role_id: 2 },
+  //   { id: 7, fio: "Gage le", role_id: 2 },
+  //   { id: 8, fio: "Vernon so", role_id: 2 },
+  //   { id: 9, fio: "Susie at", role_id: 2 },
+  //   { id: 10, fio: "Erika ic", role_id: 2 },
+  //   { id: 11, fio: "Lenore ae", role_id: 2 },
+  //   { id: 12, fio: "Lisette ho", role_id: 2 }
+  // ];
   icons = [
     { label: 'Молния', value: 'pi pi-bolt' },
     { label: 'Работа', value: 'pi pi-briefcase' },
@@ -210,9 +242,9 @@ export class AddProjectComponent implements OnInit{
       this.selectTags=project?.tags??[];
       this.header='Изменить проект';
       console.log(this.selectedUsers)
-      this.selectedUsers = this.users.filter(user =>
-        project?.selectRows?.some(selected => selected.id === user.id)
-      );
+      // this.selectedUsers = this.users.filter(user =>
+      //   project?.selectRows?.some(selected => selected.id === user.id)
+      // );
     }else{
       this.projectTitle= '';
       this.projectDescription= '';
@@ -225,18 +257,18 @@ export class AddProjectComponent implements OnInit{
     }
   }
   onRowSelect(event:TableRowSelectEvent){
-    const rowData = event.data; // Данные выбранной строки
-console.log(event.data);
-    // Проверяем, выбран ли в dropdown какой-либо элемент
-    // if (!rowData.role) {
-    //   // Если не выбран, показываем предупреждение и сбрасываем выбор строки
-    //   this.selectedUsers=this.selectedUsers.filter(el=>el.role!=null);
-    //   this.showWarning = true;
-    //   // this.isDisabled=true;
-    //   return;
-    // }
-    // this.showWarning = false;
-    // console.log('Выбранная строка:', rowData);
+//     const rowData = event.data; // Данные выбранной строки
+// console.log(event.data);
+//     // Проверяем, выбран ли в dropdown какой-либо элемент
+//     if (!rowData.role) {
+//       // Если не выбран, показываем предупреждение и сбрасываем выбор строки
+//       this.selectedUsers=this.selectedUsers.filter(el=>el.role_id!=null);
+//       this.showWarning = true;
+//       // this.isDisabled=true;
+//       return;
+//     }
+//     this.showWarning = false;
+//     console.log('Выбранная строка:', rowData);
   }
   closeWarning() {
     this.showWarning = false;

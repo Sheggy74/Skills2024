@@ -30,8 +30,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { CalendarComponent } from './pages/calendar/calendar.component';
 import { CalendarModule } from 'primeng/calendar';  
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { WorkspaceModule } from '../workspace/workspace.module';
-import { WorkspaceComponent } from '../workspace/pages/workspace/workspace.component';
+import { SkeletonModule } from 'primeng/skeleton';
 
 @NgModule({
   declarations: [
@@ -70,8 +69,7 @@ import { WorkspaceComponent } from '../workspace/pages/workspace/workspace.compo
     ScrollPanelModule,
     CalendarModule,
     FullCalendarModule,
-    // WorkspaceModule
-    // CalendarComponent
+    SkeletonModule,
   ],
   exports:[AddProjectComponent]
 
