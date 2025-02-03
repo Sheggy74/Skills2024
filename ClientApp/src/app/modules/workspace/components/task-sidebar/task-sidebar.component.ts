@@ -18,14 +18,13 @@ export class TaskSidebarComponent {
   ngOnInit() {
     this.workspaceService.sidebarVisible.subscribe(visible => {
       this.visible = visible;
-      console.log("visibleSidebar = " + this.visible);
       
     })
   }
 
   tabs = [
     { label: 'Чат', content: 'Content of Tab 1' },
-    { label: 'Редактирование', content: 'Content of Tab 2' },
+    { label: 'Редактирование', content: '<app-edit-task></app-edit-task>' },
     { label: 'Исполнители', content: 'Content of Tab 3' }
   ];
 

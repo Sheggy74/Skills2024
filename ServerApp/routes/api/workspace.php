@@ -7,6 +7,7 @@ Route::prefix('workspace')
     ->controller(\App\Http\Controllers\WorkspaceController::class)
     ->group(function () {
         Route::get('priority', 'showPriority');
+        Route::get('state/{projectId}', 'showState');
         Route::get('{id}', 'showTasksForProject');
         Route::put('{id}', 'editTask');
         Route::post('', 'createTask');

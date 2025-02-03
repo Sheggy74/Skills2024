@@ -6,7 +6,7 @@
     <ng-template pTemplate="header">
       <div class="flex items-center p-4 pl-5 gap-10">
         <span class="font-bold text-3xl capitalize">
-          <a class="text-blue-600 hover:underline" routerLink="/projects">проекты/</a>{{projectName}}
+          <a class="hover:underline" style="color: var(--primary-color)" routerLink="/projects">проекты/</a>{{projectName}}
         </span>
         <button pButton pRipple *ngIf="isManagerOrAdmin"
           (click)="this.projectService.selectedPrject.next(project);add.showDialog()" icon="pi pi-pencil"

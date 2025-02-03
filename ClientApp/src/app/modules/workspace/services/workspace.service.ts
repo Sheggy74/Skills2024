@@ -47,15 +47,13 @@ export class WorkspaceService extends BaseApiService {
   // переключение видимости боковой панели с информацией по задачи
   async openSidebarVisible() {
     this.sidebarVisible.next(true);
-    console.log(this.sidebarVisible);
   }
 
   async closeSidebarVisible() {
     this.sidebarVisible.next(false);
-    console.log(this.sidebarVisible);
   }
 
-  async updatePriority(projectId: number) {
+  async updatePriority() {
     this.isLoadingPriority.next(true);
     this.priority.next(await this.getPriority());
     this.isLoadingPriority.next(false);
@@ -63,7 +61,7 @@ export class WorkspaceService extends BaseApiService {
   
   async updateState(projectId: number) {
     this.isLoadingPriority.next(true);
-    this.priority.next(await this.getPriority());
+    this.state.next(await this.getState(projectId));
     this.isLoadingPriority.next(false);
   }
 
@@ -137,7 +135,6 @@ export class WorkspaceService extends BaseApiService {
     let retValue = lastValueFrom(this.http.get<Priority>(this.localAPIPath + "/priority" )
     .pipe(
       map((priority: any) => {
-        // console.log(project);
         return priority;
       }),
       catchError(this.exceptionService.getErrorHandlerList())));
@@ -145,12 +142,11 @@ export class WorkspaceService extends BaseApiService {
   return retValue;
   }
 
-  getState() :Promise<State[]> {
-    let retValue = lastValueFrom(this.http.get<State>(this.localAPIPath + "/state" )
+  getState(projectId: number) :Promise<State[]> {
+    let retValue = lastValueFrom(this.http.get<State>(this.localAPIPath + "/state/" + projectId )
     .pipe(
-      map((priority: any) => {
-        // console.log(project);
-        return priority;
+      map((state: any) => {
+        return state;
       }),
       catchError(this.exceptionService.getErrorHandlerList())));
 

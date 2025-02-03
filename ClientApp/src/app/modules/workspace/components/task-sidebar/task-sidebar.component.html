@@ -1,17 +1,28 @@
-<p-sidebar 
-  [(visible)]="visible" 
-  [style]="{ 'width.px': sidebarWidth }" 
-  position="right" 
-  [showCloseIcon]="true" 
-  [dismissible]="false" 
-  [modal]="false">
-  
+<p-sidebar [(visible)]="visible" [style]="{ 'width': '40%' }" position="right" [showCloseIcon]="true"
+  [dismissible]="false" [modal]="false">
+
   <div class="sidebar-content">
     <p-tabView>
-      <p-tabPanel *ngFor="let tab of tabs" [header]="tab.label">
-        <p>{{ tab.content }}</p>
+      <p-tabPanel header="Чат">
+        <p>
+          Lorem ipsum dolor sit amet...
+        </p>
+      </p-tabPanel>
+      <p-tabPanel header="Редактирование">
+        <app-edit-task></app-edit-task>
+      </p-tabPanel>
+      <p-tabPanel header="Описание">
+        <p>
+          Lorem ipsum dolor sit amet...
+        </p>
+      </p-tabPanel>
+      <p-tabPanel header="Исполнители">
+        <p>
+          Lorem ipsum dolor sit amet...
+        </p>
       </p-tabPanel>
     </p-tabView>
+
   </div>
 
   <!-- <div 

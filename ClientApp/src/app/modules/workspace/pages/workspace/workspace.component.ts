@@ -100,13 +100,6 @@ export class WorkspaceComponent {
       this.tasks = tasks;
     })
 
-    this.workspaceService.updatePriority(this.projectId)
-    this.workspaceService.priority.subscribe(priority => {
-      this.prioritys = priority;
-      console.log(this.prioritys);
-
-    })
-
     this.projectUserService.updateProjectUser(this.projectId)
     this.projectUserService.projectUser.subscribe(projectUsers => {
       this.projectUsers = projectUsers;
@@ -135,8 +128,6 @@ export class WorkspaceComponent {
 
   async addTask(newTask: Task) {
     this.tasks.push(newTask);
-    console.log(newTask);
-
   }
 
   getSeverityForTag(priorityId: number): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
@@ -147,11 +138,6 @@ export class WorkspaceComponent {
       case 4: { return 'danger'; }
       default: return undefined;
     }
-  }
-
-  getPerformersTask(taskId: number): number[] {
-    console.log(this.projectUserService.getExecutorTask(taskId));
-    return [1, 2, 3, 4]
   }
 
   onActiveItemChange(event: MenuItem) {

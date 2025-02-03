@@ -39,7 +39,7 @@ export class CreateTaskComponent {
         name: this.newTaskTitle,
         description: this.newTaskDescription,
         dateCreation: new Date(),
-        taskStateId: 1,
+        stateId: 1,
         priorityId: 0,
         projectId: this.projectId,
         performers: [],
