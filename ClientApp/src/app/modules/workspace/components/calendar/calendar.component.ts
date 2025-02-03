@@ -8,7 +8,8 @@ import timeGridPlugin from '@fullcalendar/timegrid';
 // import { DialogModule } from 'primeng/dialog';
 // import { formatDate } from '@fullcalendar/core'; // Импортируем форматирование дат
 import { TaskClndService } from '../../services/task-clnd.service';
-
+import ruLocale from '@fullcalendar/core/locales/ru';
+// import {Locale} from '@fullcalendar/core';
 // import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 
 @Component({
@@ -27,6 +28,7 @@ export class CalendarComponent implements OnInit,AfterViewInit {
   isLoading: boolean = true;
   @ViewChild(FullCalendarComponent) fullCalendar!: FullCalendarComponent;
   @Input()visibleClnd:boolean=false;
+  
   // calendarOptions: CalendarOptions = {
   //   initialView: 'dayGridMonth',
   //   plugins: [dayGridPlugin, interactionPlugin],
@@ -326,18 +328,23 @@ export class CalendarComponent implements OnInit,AfterViewInit {
   //     };
   //   }
   // };
+  
   calendarOptions = {
-    initialView: 'timeGridWeek',  // Устанавливаем вид по умолчанию (например, недельный)
+    initialView: 'timeGridWeek',
     plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'timeGridWeek,timeGridDay'  // Кнопки для выбора вида (день, неделя)
+      right: 'timeGridWeek,timeGridDay'
     },
     events: this.events,
-    editable: false,  // Включаем редактирование событий
-    droppable: false,  // Разрешаем перетаскивание событий
-    nowIndicator: true  // Показываем индикатор текущего времени
+    editable: false,
+    droppable: false,
+    nowIndicator: true,
+    eventLimit:3,  // Ограничивает количество событий на день
+    eventLimitText: 'дополнительно',  // Текст, который будет отображаться, если событий больше, чем eventLimit
+    dayMaxEventRows: true,
+    locale: ruLocale  // Включает событие для отображения скрытых событий
   };
   
   ngAfterViewInit() {

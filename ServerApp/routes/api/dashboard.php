@@ -10,4 +10,6 @@ Route::prefix('dashboard')
         Route::get('/myprojects', 'getMyProjects');
         Route::get('/mytasks', 'getMyTasks');
         Route::get('/spenttime', 'getSpentTime');
+        Route::get('/mynotifications', 'getMyNotifications');
+        Route::get('/mychat', 'getMyChat');
     });

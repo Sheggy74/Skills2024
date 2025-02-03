@@ -60,7 +60,7 @@ where total.cnt is not null
         $user = auth()->user();
 
         $query = "
-        select * from (select
+            select * from (select
 	            t.name,
 	            extract(EPOCH from (coalesce(st.created_at, now()) - t.created_at)) / 60 as time_spent
             from task t
@@ -69,6 +69,41 @@ where total.cnt is not null
             where p.user_id = $user->id and t.project_id = coalesce($project_id,t.project_id)
             ) a
             group by a.name, a.time_spent
+        ";
+        return DB::select($query);
+    }
+
+    public function getMyNotifications(Request $request)
+    {
+        $user = auth()->user();
+
+        $query = "
+           select n.message, n.created_at
+            from notifications n
+            where n.user_id = $user->id
+            order by n.created_at desc
+            limit 20
+        ";
+        return DB::select($query);
+    }
+
+    public function getMyChat(Request $request)
+    {
+        $user = auth()->user();
+
+        $query = "
+            select c.message,(select name from task where id = p.task_id) as name, c.created_at, 1 as type
+        ,(select last_name || ' ' || substr(first_name,1,1) ||'.'||substr(second_name,1,1) from users where id = c.user_id) as created_by
+                from chat c
+                join performer p on c.task_id = p.task_id
+                where p.user_id = $user->id
+                union all
+                select c.message, (select name from project where id = rp.project_id) as name, c.created_at, 2 as type
+
+        ,(select last_name || ' ' || substr(first_name,1,1) ||'.'||substr(second_name,1,1) from users where id = c.user_id) as created_by
+                from chat c
+                join rule_project rp on c.project_id = rp.project_id
+                where rp.user_id = $user->id and c.task_id is null
         ";
         return DB::select($query);
     }

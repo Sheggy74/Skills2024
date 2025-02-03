@@ -52,7 +52,7 @@ export class SetOnProjComponent extends BaseComponent {
   }
 
   public async setUserOnProj() {
-    let result = await this.adminService.setUserOnProject(this.selectedProject!.id!, Number.parseInt(this.selectedUser!.id!))
+    let result = await this.adminService.setUserOnProject(Number.parseInt(this.selectedUser!.id!), this.selectedProject!.id!, this.selectedProject!.name)
     if (result) {
       this.toastService.show(MessageType.Success, 'Пользователь успешно назначен на проект!')
       this.isOpen = false;

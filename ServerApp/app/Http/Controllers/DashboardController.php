@@ -21,4 +21,14 @@ class DashboardController extends Controller
     {
         return $service->getSpentTime($request);
     }
+
+    public function getMyNotifications(Request $request, DashboardService $service)
+    {
+        return $service->getMyNotifications($request);
+    }
+
+    public function getMyChat(Request $request, DashboardService $service)
+    {
+        return $service->getMyChat($request);
+    }
 }

@@ -48,4 +48,34 @@ export class DashboardService extends BaseApiService {
       })
     })
   }
+
+  public getMyNotifications(): Promise<any> {
+    return new Promise(res => {
+      this.http.get(this.apiURL + '/dashboard/mynotifications').subscribe((resp: any) => {
+        res(resp.map((item: any) => {
+          return {
+            message: item.message,
+            created_at: item.created_at
+          }
+        }))
+      })
+    })
+  }
+
+  public getMyChat(): Promise<any> {
+    return new Promise(res => {
+      this.http.get(this.apiURL + '/dashboard/mychat').subscribe((resp: any) => {
+        res(resp.map((item: any) => {
+          return {
+            message: item.message,
+            name: item.name,
+            type: item.type,
+            created_at: item.created_at,
+            created_by: item.created_by
+          }
+        }))
+      })
+    })
+  }
+
 }

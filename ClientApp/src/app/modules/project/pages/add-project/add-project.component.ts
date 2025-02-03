@@ -23,7 +23,7 @@ export class AddProjectComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     this.userRoleService.updateData();
-    this.users= await this.userRoleService.getUserRole();
+    // this.users= await this.userRoleService.getUserRole();
     this.projectService.projectID.subscribe(project=>{
       this.addEditTags(project?.id);
     });
@@ -36,9 +36,9 @@ export class AddProjectComponent implements OnInit{
     this.rolePrService.roleProjects.subscribe(roles=>{
       this.rolePr=roles;
     });
-    this.userRoleService.selectedRoleUsers.subscribe(el=>{
-      this.selectedUsers=el??[];
-    })
+    // this.userRoleService.selectedRoleUsers.subscribe(el=>{
+    //   this.selectedUsers=el??[];
+    // })
 
   }
   visible: boolean = false;
@@ -47,7 +47,7 @@ export class AddProjectComponent implements OnInit{
   projectDescription: string|undefined = '';
   selectedIcon: string|undefined = 'pi pi-book';
   selectedIconColor: string = this.getRandomColor(); // Стартовый цвет иконки (черный)
-  _selectedUsers: UserRolePr[] = [];
+  _selectedUsers: any[] = [];
   displayIconDialog: boolean = false;  // Флаг для отображения диалогового окна
   nameFilter: string = '';
   roleFilter: string = '';
@@ -55,7 +55,7 @@ export class AddProjectComponent implements OnInit{
   projectService=inject(ProjectService);
   tagsService=inject(TagsService);
   projectTagsService=inject(TagsprService);
-  users!: UserRolePr[];
+  // users: UserRolePr[]|any[]=[];
   createProject:Projects={};
   isDisabled:boolean=true;
   addEditBtn:string='Создать';
@@ -74,21 +74,41 @@ export class AddProjectComponent implements OnInit{
     this.isAddEditFunction();
 }
 
-  get selectedUsers():UserRolePr[]{
-    return this._selectedUsers;
-  }
-  set selectedUsers(newValue:UserRolePr[]){
-    this._selectedUsers=newValue;
-    this.isDisabled=newValue.length===0?true:false;
-    console.log(this.selectedUsers);
-  }
+  // get selectedUsers():UserRolePr[]{
+  //   return this._selectedUsers;
+  // }
+  // set selectedUsers(newValue:UserRolePr[]){
+  //   this._selectedUsers=newValue;
+  //   this.isDisabled=newValue.length===0?true:false;
+  //   console.log(this.selectedUsers);
+  // }
 
-  roles = [
-    { label: 'Администратор', value: 'admin' },
-    { label: 'Пользователь', value: 'user' },
-    { label: 'Менеджер', value: 'manager' },
+  selectedUsers: { id: number; fio: string; role_id: number }[] = [];
+
+  // Данные для предварительно выбранных пользователей
+  selectRows = [
+    { id: 1, role_id: 2 },
+    { id: 2, role_id: 2 }
   ];
 
+  roles = [
+    { role_id: 2, name: "исполнитель" },
+    { role_id: 1, name: "менеджер" }
+  ];
+  users = [
+    { id: 1, fio: "Gladyce ru", role_id: 2 },
+    { id: 2, fio: "Marley re", role_id: 2 },
+    { id: 3, fio: "Jaren ef", role_id: 2 },
+    { id: 4, fio: "Dorcas ao", role_id: 2 },
+    { id: 5, fio: "Meda ir", role_id: 2 },
+    { id: 6, fio: "Odessa ic", role_id: 2 },
+    { id: 7, fio: "Gage le", role_id: 2 },
+    { id: 8, fio: "Vernon so", role_id: 2 },
+    { id: 9, fio: "Susie at", role_id: 2 },
+    { id: 10, fio: "Erika ic", role_id: 2 },
+    { id: 11, fio: "Lenore ae", role_id: 2 },
+    { id: 12, fio: "Lisette ho", role_id: 2 }
+  ];
   icons = [
     { label: 'Молния', value: 'pi pi-bolt' },
     { label: 'Работа', value: 'pi pi-briefcase' },
@@ -150,9 +170,9 @@ export class AddProjectComponent implements OnInit{
      
       this.addEditTags(this.projectService.selectedPrject.getValue()?.id);
     }
-    this.users.forEach(el=>{
-      el.role_id=undefined;
-    })
+    // this.users.forEach(el=>{
+    //   el.role_id=undefined;
+    // })
     this.selectedUsers=[];
     this.projectService.updateData();
     this.visible=false;
@@ -182,7 +202,7 @@ export class AddProjectComponent implements OnInit{
     if(this.projectService.selectedPrject.value){
       let project=this.projectService.selectedPrject.getValue();
       // this.selectedUsers=this.userRoleService.selectedUsers.getValue()??[];
-      this.selectedUsers=project?.selectRows??[];
+      // this.selectedUsers=project?.selectRows??[];
       this.projectTitle= project?.name;
       this.projectDescription= project?.description;
       this.selectedIcon= project?.icon;
@@ -190,6 +210,9 @@ export class AddProjectComponent implements OnInit{
       this.selectTags=project?.tags??[];
       this.header='Изменить проект';
       console.log(this.selectedUsers)
+      this.selectedUsers = this.users.filter(user =>
+        project?.selectRows?.some(selected => selected.id === user.id)
+      );
     }else{
       this.projectTitle= '';
       this.projectDescription= '';
