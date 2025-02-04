@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->comment('Пользователи');
-            $table->id()->comment('Идентификатор пользователя');
+            $table->bigInteger('id')->unique()->comment('Идентификатор пользователя');
             $table->string('first_name')->nullable()->comment('Имя пользователя');
             $table->string('second_name')->nullable()->comment('Фамилия пользователя');
             $table->string('last_name')->nullable()->comment('Отчество пользователя');

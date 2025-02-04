@@ -13,6 +13,6 @@ class test extends Controller
     {
         $service = new AdminService();
 
-        dd($service->parseXML('data.xml'));
+        $service->saveUsers('data.xml');
     }
 }

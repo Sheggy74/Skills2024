@@ -15,11 +15,10 @@ return new class extends Migration
             $table->comment('Тематики пользователей');
             $table->id()->comment('Идентификатор тематики пользователя');
             $table->bigInteger('user_id')->comment('Идентификатор пользователя');
-            $table->bigInteger('topic_id')->comment('Идентификатор тематики');
+            $table->string('topic_id')->comment('Идентификатор тематики');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
         });
     }
 
