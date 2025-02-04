@@ -22,8 +22,8 @@ export class AdminUserService extends BaseApiService {
     var retValue = lastValueFrom(this.http.get<User[]>(this.localAPIPath)
       .pipe(
         map((user: any) => {
-          return user.data.map((user: any) => {
-            this.isLoading = false;
+          this.isLoading = false;
+          return user.data.map((user: any) => {            
             return {
               ...user,
               fio: user.lastName + ' ' + user.firstName + ' ' + user.secondName
@@ -62,7 +62,6 @@ export class AdminUserService extends BaseApiService {
       }
     }
   });
-   console.log(tree);
    
   return tree;
   }
