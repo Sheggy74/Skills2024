@@ -74,7 +74,8 @@ import { InputNumberModule } from 'primeng/inputnumber';
     TabViewModule,
     AvatarGroupModule,
     CalendarModule,
-    InputNumberModule
+    InputNumberModule,
+    DividerModule
   ]
 
 })

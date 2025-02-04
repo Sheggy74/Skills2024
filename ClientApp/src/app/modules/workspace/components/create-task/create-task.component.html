@@ -1,52 +1,55 @@
-<p-sidebar [(visible)]="visible" [style]="{ 'width': '30%' }" position="right" [showCloseIcon]="true"
-  [dismissible]="false" [modal]="false">
+<p-sidebar [(visible)]="visible" [fullScreen]="true" position="right" [showCloseIcon]="true" [dismissible]="false"
+  [modal]="false">
   <!-- <div class="flex gap-4 flex-col"> -->
   <p-divider></p-divider>
-  <div class="p-fluid mb-10 mt-12">
-    <div class="p-field">
-      <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
-      <label for="newTaskTitle">Название задачи</label>
-      <textarea class="w-full" id="newTaskTitle" pInputTextarea [(ngModel)]="newTaskTitle"></textarea>
-    </div>
-    <div class="p-field">
-      <div class="p-field">
-        <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
-        <label for="newTaskTitle">Тематика</label>
-        <p-dropdown [options]="Topics" [(ngModel)]="newTaskTopicId" optionLabel="name" optionValue="id"
-          placeholder="Выберите тематику" />
-      </div>
+  <div class="flex">
+    <div class="p-fluid mb-10 w-1/2">
       <div class="p-field">
         <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
         <label for="newTaskTitle">Название задачи</label>
-        <p-dropdown [options]="prioritys" [(ngModel)]="newTaskPriorityId" optionLabel="name" optionValue="id"
-          placeholder="Выберите приоритет" />
+        <textarea class="w-full" id="newTaskTitle" pInputTextarea [(ngModel)]="newTaskTitle"></textarea>
       </div>
       <div class="p-field">
-        <label for="editedTitle">Длительность выполнения</label>
-        <p-inputNumber [min]="0" [max]="20" mode="decimal" placeholder="Введите длительность выполнения"
-          [(ngModel)]="newTaskDays" />
+        <div class="p-field">
+          <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
+          <label for="newTaskTitle">Тематика</label>
+          <p-dropdown [options]="topics" [(ngModel)]="newTaskTopicId" optionLabel="name" optionValue="id"
+            placeholder="Выберите тематику" />
+        </div>
+        <div class="p-field">
+          <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
+          <label for="newTaskTitle">Название задачи</label>
+          <p-dropdown [options]="prioritys" [(ngModel)]="newTaskPriorityId" optionLabel="name" optionValue="id"
+            placeholder="Выберите приоритет" />
+        </div>
+        <div class="p-field">
+          <label for="editedTitle">Длительность выполнения</label>
+          <p-inputNumber [min]="0" [max]="20" mode="decimal" placeholder="Введите длительность выполнения"
+            [(ngModel)]="newTaskDays" />
+        </div>
       </div>
       <div class="p-field">
         <label for="newTaskTitle">Описание</label>
         <textarea class="w-full" id="newTaskTitle" pInputTextarea mode [(ngModel)]="newTaskDescription"></textarea>
       </div>
-      <div class="p-field">
-        <p-table selectionMode="single" [(selection)]="newTaskPerformer" [value]="(users)!"
-          [scrollable]="true">
-          <ng-template pTemplate="header">
-            <tr>
-              <th>ФИО</th>
-              <th>Тематика</th>
-            </tr>
-          </ng-template>
-          <ng-template pTemplate="body" let-performer>
-            <tr [pSelectableRow]="performer">
-              <td>{{performer.secondName + ' ' + performer.firstName[0] + '.' + (performer.lastName ? performer.lastName[0] + '.' : '')}}</td>
-              <td>{{performer.topics}}</td>
-            </tr>
-          </ng-template>
-        </p-table>
-      </div>
+    </div>
+    <p-divider></p-divider>
+    <div class="p-field w-1/2">
+      <p-table selectionMode="single" [(selection)]="newTaskPerformer" [value]="(users)!" [scrollable]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>ФИО</th>
+            <th>Тематика</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-performer>
+          <tr [pSelectableRow]="performer">
+            <td>{{performer.secondName + ' ' + performer.firstName[0] + '.' + (performer.lastName ?
+              performer.lastName[0] + '.' : '')}}</td>
+            <td>{{performer.topics}}</td>
+          </tr>
+        </ng-template>
+      </p-table>
     </div>
   </div>
   <ng-template class="" pTemplate="footer">

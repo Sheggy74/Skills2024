@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\TopicResource;
 use App\Models\Deadline;
 use App\Models\Topic;
 use Illuminate\Http\Request;
@@ -41,9 +42,7 @@ class PlanController extends Controller
     {
         // $users = DB::connection('pgsql')->table('users')->orWhere([['id', $id],['boss_id', $id]])->get();
         $topics = Topic::get();
-
-        // return $users;
-        return Topic::collection();
+        return TopicResource::collection($topics);
     }
 
     
