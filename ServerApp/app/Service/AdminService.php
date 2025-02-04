@@ -109,11 +109,6 @@ class AdminService{
         return $objects;
     }
         
-    
 
-    // private function getFromFile($path){
-    //     $file = file_get_contents($path);
-    //     return $file;
-    // }
 
 }

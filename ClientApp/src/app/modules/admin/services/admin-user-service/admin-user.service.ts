@@ -1,4 +1,5 @@
 import { HttpHeaders } from '@angular/common/http';
+import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { NavigationButton } from 'src/app/Models/NavigationButton';
@@ -28,6 +29,38 @@ export class AdminUserService extends BaseApiService {
 
     return retValue;
   }
+
+  async getUsersTree(){
+    let users = await this.getUsers();
+    return this.buildTree(users);
+  }
+
+  buildTree(users: any[]): any[] {
+    const map = new Map<number, any>();
+    const tree: any[] = [];
+  
+    // Создаем карту для быстрого доступа к каждому пользователю по его id
+    users.forEach(user => {
+      map.set(user.id, { ...user, children: [] });
+    });
+  
+    // Строим дерево
+    users.forEach(user => {
+      if (user.bossID === null) {
+        // Если bossID равен null, это корневой элемент
+        tree.push(map.get(user.id));
+      } else {
+        // Иначе добавляем пользователя как дочерний элемент своего начальника
+        const parent = map.get(user.bossID);
+        if (parent) {
+          parent.children.push(map.get(user.id));
+        }
+      }
+    });
+  
+    return tree;
+  }
+
   updateUser(user: User, file: File | undefined = undefined, password: string | undefined = undefined): Promise<User> {
 
     var formData = {
@@ -104,10 +137,26 @@ export class AdminUserService extends BaseApiService {
   }
 
   setUserOnProject(user_id: number, project_id: number, name: string = ''): Promise<boolean> {
+    
     let retValue = lastValueFrom(this.http.post<any>(this.apiURL + '/projects/setUserOnProject', { project_id: project_id, user_id: user_id, name: name })
       .pipe(
         map((response: any) => {
 
+          return true;
+        }),
+        catchError(this.exceptionService.getErrorHandlerList())
+      )
+    );
+    return (retValue as Promise<boolean>);
+  }
+
+  uploadUsers(userFile: File){
+    let formData = new FormData();
+    formData.append('file', userFile);
+
+    let retValue = lastValueFrom(this.http.post<any>(this.apiURL + '/admin/uploadUsers', formData)
+      .pipe(
+        map((response: any) => {
           return true;
         }),
         catchError(this.exceptionService.getErrorHandlerList())

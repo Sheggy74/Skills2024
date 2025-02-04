@@ -15,11 +15,12 @@ export class UserListComponent extends BaseComponent{
     userUIService = inject(UserUiService)
 
     selectedUser : User | undefined
-
+    users: any[] = [];
 
     override async ngOnInit(){
         super.ngOnInit()
-
-        this.userUIService.users.next(await this.adminUserService.getUsers())
+        this.users = await this.adminUserService.getUsersTree();
+        console.log(this.users);
+        
     }
 }

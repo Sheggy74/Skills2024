@@ -14,13 +14,14 @@ class UserResource extends JsonResource
             'firstName' => $this->first_name,
             'secondName' => $this->second_name,
             'lastName' => $this->last_name,
-            'photoURL' => $this->photo_url,
-            'email' => $this->email,
+            // 'photoURL' => $this->photo_url,
+            // 'email' => $this->email,
             'login' => $this->login,
             'role' => $this->roles && count($this->roles) > 0 ? $this->roles[0] : null,
-            'place' => $this->place,
-            'job' => $this->job,
-            'phone' => $this->phone
+            'position' => $this->position,
+            'bossId' => $this->boss_id,
+            'gender' => $this->gender,
+            'prof_level' => $this->prof_level
         ];
     }
 }

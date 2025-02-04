@@ -1,12 +1,13 @@
 <section >
-    <p-table  selectionMode="single" [(selection)]="selectedUser" (selectionChange)="userUIService.selectedUser.next(selectedUser)"
-        [value]="(userUIService.users | async)!" [scrollable]="true" >
+    <p-treeTable  selectionMode="single" [(selection)]="selectedUser" (selectionChange)="userUIService.selectedUser.next(selectedUser)"
+        [value]="users" [scrollable]="true" >
         <ng-template pTemplate="header">
             <tr>
                 <th>ФИО</th>
                 <th>Логин</th>
-                <th>Email</th>
-                <th>Роль</th>
+                <th>Должность</th>
+                <th>Профессиональный уровень</th>
+                <th></th>
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user >
@@ -17,5 +18,5 @@
                 <td>{{user.role ? user.role.title : 'Не назначена'}}</td>
             </tr>
         </ng-template>
-    </p-table>
+    </p-treeTable>
 </section>
