@@ -44,6 +44,12 @@ export class CreateTaskComponent {
     this.planService.topics.subscribe(topics => {
       this.topics = topics;
     })
+    this.cols = [
+      { field: 'code', header: 'Название' },
+      { field: 'name', header: 'Name' },
+      { field: 'category', header: 'Category' },
+      { field: 'quantity', header: 'Quantity' }
+    ];
   }
 
   showDialog() {
@@ -73,4 +79,7 @@ export class CreateTaskComponent {
       this.newTaskDescription = '';
     }
   }
+
+  cols: any[] = [];
+
 }

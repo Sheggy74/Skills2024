@@ -14,16 +14,13 @@ class PrioritySeeder extends Seeder
     public function run(): void
     {
         Priority::factory()->create([
-            'name'=>'низкий'
+            'name'=>'обычная'
         ]);
         Priority::factory()->create([
-            'name'=>'средний'
+            'name'=>'важная'
         ]);
         Priority::factory()->create([
-            'name'=>'высокий'
-        ]);
-        Priority::factory()->create([
-            'name'=>'крайне важно'
+            'name'=>'сверхважная'
         ]);
     }
 }
