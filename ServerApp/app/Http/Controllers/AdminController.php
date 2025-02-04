@@ -7,6 +7,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Photo;
 use App\Models\User;
 use App\Models\UserRole;
+use App\Service\AdminService;
 use Illuminate\Http\Request;
 
 class AdminController extends Controller implements CrudController
@@ -100,6 +101,14 @@ class AdminController extends Controller implements CrudController
     public function getPhoto(Request $request)
     {
         $file = Photo::find($request->id);
+
         return base64_decode(stream_get_contents($file->data));
+    }
+
+    public function uploadUsers(Request $request){
+        $service = new AdminService();
+        $path = $request->file('file')->store('', 'public');
+        $path = "storage/" . $path;
+        $service->saveUsers($path);
     }
 }
