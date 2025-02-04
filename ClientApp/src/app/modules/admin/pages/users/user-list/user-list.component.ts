@@ -18,14 +18,16 @@ export class UserListComponent extends BaseComponent{
     selectedUser : User | undefined
     users: any[] = [];
 
-    override async ngOnInit(){
-        super.ngOnInit()
-        this.users = await this.adminUserService.getUsersTree();
-       ;        
+    override ngOnInit(){
+        super.ngOnInit();
+        this.getUsers();     
     }
 
-    public onCheck(data: any){
-      
+    public onCheck(data: any){      
         this.adminUserService.setAdd(data.id,data.can_add)        
+    }
+
+    public async getUsers(){
+      this.users = await this.adminUserService.getUsersTree();  
     }
 }

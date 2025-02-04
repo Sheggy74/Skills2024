@@ -19,41 +19,14 @@ class AuthService
 
             $buttons->push(
                 new NavigationButton([
-                    'caption' => 'Пользователи',
+                    'caption' => 'Администрирование',
                     'iconClass' => 'person',
                     'routerLink' => 'admin/users'
                 ])
             );
-
-            $buttons->push(
-                new NavigationButton([
-                    'caption' => 'Проекты',
-                    'iconClass' => 'book',
-                    'routerLink' => 'projects',
-                ])
-            );
-        }
+            
+        }        
         
-        $buttons->push(
-            new NavigationButton([
-                'caption' => 'Домашняя страница',
-                'iconClass' => 'home',
-                'routerLink' => 'home'
-            ])
-        );
-        
-        $projects=DB::table('rule_project')->where('user_id',Auth::user()->id)
-            ->where('role_id',1)->get();
-
-        if( count($projects)!=0){
-            $buttons->push(
-                new NavigationButton([
-                    'caption' => 'Проекты',
-                    'iconClass' => 'book',
-                    'routerLink' => 'projects',
-                ])
-            );
-        }
 
 
         $buttons->push(
