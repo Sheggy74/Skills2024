@@ -2,7 +2,6 @@
   <!-- <div *ngIf="isLoadingProject && isLoadingTask" class="custom-skeleton p-4">
       <p-skeleton width="100%" height="150px"></p-skeleton>
     </div> -->
-<<<<<<< HEAD
   <p-card>
     <ng-template pTemplate="header">
       <div class="flex items-center p-4 pl-5 gap-10">
@@ -31,34 +30,3 @@
   <app-task-sidebar></app-task-sidebar>
 
 </div>
-=======
-    <p-card >
-      <ng-template pTemplate="header">
-        <div class="flex items-center p-4 pl-5 gap-10">
-          <span class="font-bold text-3xl capitalize">
-            Планы
-          </span>
-        </div>
-        <div>
-          <p-button icon="pi pi-plus" title="Занесение выполнения работ" class="bBtn" (click)="reportWork.onShow()"/>
-          <p-calendar [ngModel]="date"></p-calendar>
-          <p-button icon="pi pi-print"  class="bBtn" (click)="report()"/>
-        </div>
-      </ng-template>
-      <div class="flex gap-10 items-center">
-        <button pButton pRipple class="p-button-rounded p-button-primary p-button-text"
-          label="Добавить задачу" icon="pi pi-plus" (click)="createTaskDialog.showDialog()"></button>
-      </div>
-      <app-task></app-task>
-      <app-create-task #createTaskDialog></app-create-task>
-    </p-card>
-  
-    <!-- <app-create-task #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
-    
-    <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
-    <app-add-project #add></app-add-project>
-    <app-task-sidebar></app-task-sidebar>
-    <app-form-report #reportWork></app-form-report>
-  
-  </div>
->>>>>>> 537eabb5a2d64bc1545bcdf41bb2eba4ae175d45
