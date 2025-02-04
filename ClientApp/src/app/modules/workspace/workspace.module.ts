@@ -21,7 +21,7 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ScrollerModule } from 'primeng/scroller';
 import { TableModule } from 'primeng/table';
-import {AvatarModule} from 'primeng/avatar';
+import { AvatarModule } from 'primeng/avatar';
 import { ProjectComponent } from '../project/pages/project.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FullCalendarModule } from '@fullcalendar/angular';
@@ -29,7 +29,6 @@ import { MultiSelectModule } from 'primeng/multiselect';
 import { TagModule } from 'primeng/tag';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { ProjectModule } from '../project/project.module';
-import { AddProjectComponent } from '../project/pages/add-project/add-project.component';
 import { TabMenuModule } from 'primeng/tabmenu';
 import { TaskSidebarComponent } from './components/task-sidebar/task-sidebar.component';
 import { TabViewModule } from 'primeng/tabview';
@@ -42,6 +41,8 @@ import { PlanComponent } from './components/plan/plan.component';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { FormReportComponent } from './pages/form-report/form-report.component';
 import { ReportComponent } from './pages/report/report.component';
+import { MesComponentsModule } from 'src/app/Shared/MESComponentsModule/mes-components.module';
+import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives.module';
 
 
 @NgModule({
@@ -79,7 +80,9 @@ import { ReportComponent } from './pages/report/report.component';
     InputNumberModule,
     DividerModule,
     FormsModule,
-    DatePipe
+    DatePipe,
+    MesComponentsModule,
+    MesDirectivesModule,
   ]
 
 })
