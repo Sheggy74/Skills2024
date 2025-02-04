@@ -10,16 +10,30 @@
         </span>
       </div>
     </ng-template>
-    <div class="flex gap-10 mb-5 items-center">
+    <div class="flex gap-10 mb-5 items-center justify-between">
       <button pButton pRipple class="p-button-rounded p-button-primary p-button-text" label="Добавить задачу"
         icon="pi pi-plus" (click)="createTaskDialog.showDialog()"></button>
+      <div class="flex flex-row">
+        <p-dropdown [options]="uiSettings" [(ngModel)]="selectedUiSetting" optionLabel="name"
+          placeholder="Настройки интерфейса" (onChange)='setUiSetting($event)' />
+        <!-- <app-icon-button icon='download' (onClick)="isOrderDialogOpen = true" (></app-icon-button> -->
+        <p-button icon="pi pi-save " (onClick)="isOrderDialogOpen = true" class="mx-3" />
+        <p-checkbox [(ngModel)]='isEditable' [binary]="true" label='Режим редактирования'></p-checkbox>
+      </div>
     </div>
-    <div class="flex flex-col gap-5">
-      <app-plan></app-plan>
-      <app-plan></app-plan>
-      <app-plan></app-plan>
-      <app-plan></app-plan>
-    </div>
+    <p-table [value]=" plans" (onRowReorder)="handleRowReorder($event)">
+      <ng-template pTemplate="body" let-index="rowIndex">
+        <tr [pReorderableRow]="index">
+          <td *ngIf="isEditable">
+            <span class="pi pi-bars" pReorderableRowHandle></span>
+          </td>
+          <td>
+            <app-plan></app-plan>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+
     <app-create-task #createTaskDialog></app-create-task>
   </p-card>
 
@@ -30,3 +44,10 @@
   <app-task-sidebar></app-task-sidebar>
 
 </div>
+
+<p-dialog [header]="'Сохранить пресет'" [(visible)]="isOrderDialogOpen" class="orderDialog">
+  <section class="flex flex-col">
+    <input type="text" pInputText label='Название' class="mb-4" [(ngModel)]='newOrderName' />
+    <p-button (onClick)='saveOrder()'>Сохранить</p-button>
+  </section>
+</p-dialog>
