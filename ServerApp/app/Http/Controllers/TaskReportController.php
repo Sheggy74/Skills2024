@@ -20,7 +20,13 @@ use App\Models\RoleProject;
 use App\Models\RuleProject;
 use App\Models\Task;
 use DateTime;
+// use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+// use PhpOffice\PhpSpreadsheet\Spreadsheet;
+// use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class TaskReportController extends Controller
 {
@@ -87,24 +93,99 @@ class TaskReportController extends Controller
         return TaskReportResource::collection(array());
     }
 
-    function reportCompleteTask() {
-        $taskMonth=Task::query()->leftJoin('state_task','state_task.task_id','task.id')->
-            where('state_task.state_id',3)->whereDate('date','=',date('Y-m-d'));
-        return $taskMonth;
+    function reportCompleteTask($date) {
+        // $taskMonth=Task::query()->leftJoin('state_task','state_task.task_id','task.id')->
+        //     where('state_task.state_id',3)->whereDate('date','=',date('Y-m-d'));
+        // return $taskMonth;
+        $taskMonth=DB::select("WITH RECURSIVE topic_hierarchy AS (
+            -- Начинаем с корневых топиков (те, у которых нет родителя)
+            SELECT id, upper_level, name, CAST(name AS text) AS full_topic_name
+            FROM topics
+            WHERE upper_level IS NULL
+            
+            UNION ALL
+            
+            -- Рекурсивное соединение для дочерних топиков
+            SELECT t.id, t.upper_level , t.name, CONCAT(th.full_topic_name, '/', t.name) AS full_topic_name
+            FROM topics t
+            INNER JOIN topic_hierarchy th ON t.upper_level = th.id
+                )
+                SELECT 
+                    t.id,
+                    t.name,
+                    u.last_name, 
+                    u.first_name, 
+                    u.second_name, 
+                    st.created_at, 
+                    t.topic_id,
+                    th.full_topic_name
+                FROM task t
+                LEFT JOIN users u ON u.id = t.user_id
+                LEFT JOIN state_task st ON st.task_id = t.id
+                LEFT JOIN topic_hierarchy th ON th.id = t.topic_id
+                WHERE st.state_id = 3 and st.created_at::date between date_trunc('month',st.created_at) and to_date('".$date."','yyyy-mm-dd')");
+                // return $taskMonth;
+                $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
 
-        // $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        // Установим название отчета
+        $sheet->mergeCells('A1:D1');
+        $sheet->setCellValue('A1', 'Отчет контроля выполнения');
+        
+        // Применим стиль для названия отчета
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-        // // Создаем лист и добавляем данные
-        // $worksheet = $spreadsheet->getActiveSheet();
-        // $worksheet->setTitle('Отчет Контроля выполнения');
+        // Установим заголовки столбцов
+        $sheet->setCellValue('A2', 'Task Name')
+              ->setCellValue('B2', 'Исполнитель')
+              ->setCellValue('C2', 'Created At')
+              ->setCellValue('D2', 'Topic');
 
-        // foreach ($taskMonth as $task) {
-        //     $worksheet->setCellValue('A' . $row, $task['id'])
-        //             ->setCellValue('B' . $row, $task['name'])
-        //             ->setCellValue('C' . $row, $task['description'])
-        //             ->setCellValue('D' . $row, $task['date_create']);
-        //     $row++;
-        // }
+        // Применим стиль для шапки (жирный шрифт, выравнивание по центру)
+        $sheet->getStyle('A2:D2')->getFont()->setBold(true);
+        $sheet->getStyle('A2:D2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+        
+        // Применим границы для всех ячеек
+        $sheet->getStyle('A2:D' . (count($taskMonth) + 2))->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+        
+        // Заполнение данных
+        $row = 3;
+        foreach ($taskMonth as $item) {
+            $sheet->setCellValue('A' . $row, $item->name);
+            $sheet->setCellValue('B' . $row, $item->last_name . ' ' . $item->first_name . ' ' . $item->second_name); // Исполнитель
+            $sheet->setCellValue('C' . $row, Date::PHPToExcel(new \DateTime($item->created_at)));
+            $sheet->setCellValue('D' . $row, $item->full_topic_name); // Topic
+            $row++;
+        }
+
+        // Форматируем дату в нужный формат
+        $sheet->getStyle('C3:C' . $row)->getNumberFormat()->setFormatCode('YYYY-MM-DD HH:MM:SS');
+
+        // Применим отступы для всех ячеек
+        $sheet->getStyle('A2:D' . $row)->getAlignment()->setIndent(1);
+
+        // Устанавливаем ширину столбцов
+        $sheet->getColumnDimension('A')->setWidth(20); // Ширина для Task Name
+        $sheet->getColumnDimension('B')->setWidth(30); // Ширина для Исполнитель (ФИО)
+        $sheet->getColumnDimension('C')->setWidth(25); // Ширина для Created At (дата)
+        $sheet->getColumnDimension('D')->setWidth(40); // Ширина для Topic (так как Topic может быть длинным)
+
+        // Записываем файл
+        $writer = new Xlsx($spreadsheet);
+
+        // Отправляем файл на загрузку
+        $fileName = 'task_report.xlsx';
+        return response()->stream(
+            function() use ($writer) {
+                $writer->save('php://output');
+            },
+            200,
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="task_report.xlsx"',
+            ]
+        );
     }
 
 }

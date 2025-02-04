@@ -7,5 +7,8 @@ export interface ReportTask{
     date?:any,
     percent?:number,
     description?:string,
-    oldPercent?:number
+    oldPercent?:number,
+    validDate?:{},
+    validDescription?:{},
+    validPercent?:boolean
 }

@@ -2,7 +2,9 @@
     <p-table [value]="tasks"
         [(selection)]="selectedTasks"
         [paginator]="true"
-        [rows]=5>
+        [rows]=5
+        (onRowSelect)="onCheckboxChange($event)"
+        (onRowUnSelect)="onCheckboxChangeRemove($event)">
         
         <ng-template pTemplate="header">
             <tr>
@@ -16,7 +18,7 @@
           <ng-template pTemplate="body" let-task>
             <tr>
                 <td>
-                    <p-tableCheckbox [value]="task" />
+                    <p-tableCheckbox [value]="task"/>
                 </td>
               <td>{{task.name}}</td>
               <td>
@@ -35,9 +37,10 @@
                     mode="decimal"
                     [max]="100"
                     [min]="0"
-                    [class]="percentValid"
+                    [ngClass]="{error:task.validPercent}"
                     (onInput)="inputPercent($event,task)"
                     suffix="%"
+                    required
                 ></p-inputNumber>
               <div *ngIf="task.percent>100 || task.percent+task.oldPercent>100" style="color: red;">
                 Объем работ не должен превыщать 100% ({{task.percent+task.oldPercent}}%)
@@ -47,5 +50,5 @@
           </ng-template>
     </p-table>
 
-    <p-button (click)="save()">Сохранить</p-button>
+    <p-button (click)="save()" [disabled]="disable">Сохранить</p-button>
 </p-dialog>
