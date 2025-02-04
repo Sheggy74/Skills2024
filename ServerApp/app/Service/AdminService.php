@@ -43,7 +43,8 @@ class AdminService{
                 'position' => $user['@attributes']['Position'],
                 'boss_id' => $user['@attributes']['Boss_id'] ?? null,
                 'login' => $user['Account']['@attributes']['Login'],
-                'password' => $user['Account']['@attributes']['Pass']
+                'password' => $user['Account']['@attributes']['Pass'],
+                'can_add' => $user['@attributes']['ProfLevel'] >= 5 ? true : false 
             ]);
             if(isset($user['Topic_emp']))
             $userTopics = isset($user['Topic_emp']['UserTopic']) ? $user['Topic_emp']['UserTopic'] : [];
@@ -109,6 +110,11 @@ class AdminService{
         return $objects;
     }
         
+    public function setCanAdd(int $userId, bool $canAdd){
+        User::find($userId)->update([
+            'can_add' => $canAdd
+        ]);
+    }
 
 
 }

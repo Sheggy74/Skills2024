@@ -25,6 +25,7 @@ return new class extends Migration
             $table->date('birthday')->nullable()->comment('Дата рождения');
             $table->string('position')->nullable()->comment('Должность');
             $table->integer('prof_level')->nullable()->comment('Проф. уровень');
+            $table->boolean('can_add')->nullable()->comment('Пользователь может создавать задачи');
             $table->rememberToken();
             $table->timestamps();
         });
