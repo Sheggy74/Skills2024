@@ -14,7 +14,7 @@ class AdminController extends Controller implements CrudController
 {
     public function index(Request $request)
     {
-        return UserResource::collection(User::query()->orderBy('id', 'asc')->get());
+        return UserResource::collection(User::query()->whereNot('id',1)->orderBy('id', 'asc')->get());
     }
 
     public function show($id, Request $request)
