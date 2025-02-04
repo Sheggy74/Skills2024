@@ -18,6 +18,7 @@ import { SetOnProjComponent } from './pages/users/set-on-proj/set-on-proj.compon
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { FileUploadModule } from 'primeng/fileupload';
 import { TreeTableModule } from 'primeng/treetable';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
@@ -43,7 +44,8 @@ import { TreeTableModule } from 'primeng/treetable';
     ButtonModule,
     MesDirectivesModule,
     FileUploadModule,
-    TreeTableModule
+    TreeTableModule,
+    SkeletonModule
   ]
 })
 export class AdminModule { }
