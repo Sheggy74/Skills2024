@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Models\Topic;
 use App\Models\User;
+use App\Models\UserTopic;
 use Carbon\Carbon;
 
 
@@ -12,7 +13,8 @@ class AdminService{
     private $topics;
 
     public function saveUsers($path){
-        $data = $this->parseXML($path);        
+        $data = $this->parseXML($path);    
+        // dd($data)    ;
         $this->loadTopics();
         $this->loadUser($data);
     }
@@ -43,6 +45,14 @@ class AdminService{
                 'login' => $user['Account']['@attributes']['Login'],
                 'password' => $user['Account']['@attributes']['Pass']
             ]);
+            if(isset($user['Topic_emp']))
+            $userTopics = isset($user['Topic_emp']['UserTopic']) ? $user['Topic_emp']['UserTopic'] : [];
+            foreach($userTopics as $topic){
+                UserTopic::create([
+                    'user_id' => $user['@attributes']['ID'],
+                    'topic_id' => isset($topic['@attributes']) ? $topic['@attributes']['TopicId'] : $topic['TopicId']
+                ]);
+            }
         }
     }
 
