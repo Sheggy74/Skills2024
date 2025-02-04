@@ -10,7 +10,7 @@
                 <th>Пол</th>
                 <th>Профессиональный уровень</th>    
                 <th>Тематики</th>
-                <th>Заведение задач</th>                          
+                <th [width]="'150px'">Заведение задач</th>                          
             </tr>
         </ng-template>
         <ng-template pTemplate="body"  let-rowNode let-rowData="rowData" >
@@ -33,10 +33,13 @@
                         </div>
                     </div>
                 </td>
-                <td>
-                    <p-checkbox *ngIf="rowData.prof_level < 5"></p-checkbox>
+                <td [width]="'150px'">
+                    <div class="flex justify-center">
+                        <p-checkbox *ngIf="rowData.prof_level < 5" (onChange)="onCheck(rowData)" [(ngModel)]="rowData.can_add" [binary]="true" ></p-checkbox>
+                    </div>
                 </td>
             </tr>
         </ng-template>
     </p-treeTable>
+    <p-skeleton *ngIf="this.adminUserService.isLoading" height="4rem" styleClass="my-2 w-full" />
 </section>

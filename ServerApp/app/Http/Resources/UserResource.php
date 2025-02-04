@@ -29,6 +29,7 @@ class UserResource extends JsonResource
             'bossId' => $this->boss_id,
             'gender' => $this->gender,
             'prof_level' => $this->prof_level,
+            'can_add' => $this->can_add,
             'topics' => array_map(fn($item)=> $item->name,$topics)            
         ];
     }

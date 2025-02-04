@@ -4,6 +4,7 @@ import { BaseComponent } from 'src/app/system-components/base-component/base.com
 import { AdminUserService } from '../../../services/admin-user-service/admin-user.service';
 import { UserUiService } from '../user-ui-service/user-ui.service';
 
+
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
@@ -20,7 +21,11 @@ export class UserListComponent extends BaseComponent{
     override async ngOnInit(){
         super.ngOnInit()
         this.users = await this.adminUserService.getUsersTree();
-        console.log(this.users);
-        
+       ;        
+    }
+
+    public onCheck(data: any){
+      
+        this.adminUserService.setAdd(data.id,data.can_add)        
     }
 }

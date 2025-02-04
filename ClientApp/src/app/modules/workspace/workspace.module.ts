@@ -38,12 +38,20 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
 import { CalendarModule } from 'primeng/calendar';
 import { PlanPageComponent } from './pages/plan/plan-page.component';
 import { TaskComponent } from './components/task/task.component';
+<<<<<<< HEAD
 import { PlanComponent } from './components/plan/plan.component';
+=======
+import { FormReportComponent } from './pages/form-report/form-report.component';
+>>>>>>> 537eabb5a2d64bc1545bcdf41bb2eba4ae175d45
 import { InputNumberModule } from 'primeng/inputnumber';
 
 
 @NgModule({
+<<<<<<< HEAD
   declarations: [WorkspaceComponent, TaskComponent, PlanComponent, PlanPageComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent],
+=======
+  declarations: [WorkspaceComponent, TaskComponent, PlanPageComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent,FormReportComponent],
+>>>>>>> 537eabb5a2d64bc1545bcdf41bb2eba4ae175d45
   imports: [
     CommonModule,
     FormsModule,

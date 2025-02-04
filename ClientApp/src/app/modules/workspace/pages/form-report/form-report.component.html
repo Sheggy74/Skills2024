@@ -1,0 +1,51 @@
+<p-dialog modal="true" [(visible)]="visible">
+    <p-table [value]="tasks"
+        [(selection)]="selectedTasks"
+        [paginator]="true"
+        [rows]=5>
+        
+        <ng-template pTemplate="header">
+            <tr>
+            <th style="width: 4rem;"> <p-tableCheckbox></p-tableCheckbox></th>
+              <th>Задача</th>
+              <th>Дата</th>
+              <th>Кр. комментарий</th>
+              <th>% выполнения задачи</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-task>
+            <tr>
+                <td>
+                    <p-tableCheckbox [value]="task" />
+                </td>
+              <td>{{task.name}}</td>
+              <td>
+                <p-calendar
+                    inputId="calendar"
+                    [(ngModel)]="task.date"
+                    modal="true"
+                ></p-calendar>
+              </td>
+              <td>
+                <input type="text" pInputText [(ngModel)]="task.description">
+              </td>
+              <td>
+                <p-inputNumber
+                    [(ngModel)]="task.percent"
+                    mode="decimal"
+                    [max]="100"
+                    [min]="0"
+                    [class]="percentValid"
+                    (onInput)="inputPercent($event,task)"
+                    suffix="%"
+                ></p-inputNumber>
+              <div *ngIf="task.percent>100 || task.percent+task.oldPercent>101" style="color: red;">
+                Объем работ не должен превыщать 100%
+              </div>
+              </td>
+            </tr>
+          </ng-template>
+    </p-table>
+
+    <p-button (click)="save()">Сохранить</p-button>
+</p-dialog>

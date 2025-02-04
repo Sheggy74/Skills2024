@@ -111,4 +111,9 @@ class AdminController extends Controller implements CrudController
         $path = "storage/" . $path;
         $service->saveUsers($path);
     }
+
+    public function setAdd(Request $request){
+        $service = new AdminService();
+        $service->setCanAdd($request->user_id, $request->can_add);
+    }
 }

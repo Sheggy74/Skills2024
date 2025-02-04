@@ -15,11 +15,15 @@ export class AdminUserService extends BaseApiService {
 
   localAPIPath = this.apiURL + `/admin/users`
 
+  isLoading: boolean = false
+
   getUsers(): Promise<User[]> {
+    this.isLoading = true;
     var retValue = lastValueFrom(this.http.get<User[]>(this.localAPIPath)
       .pipe(
         map((user: any) => {
           return user.data.map((user: any) => {
+            this.isLoading = false;
             return {
               ...user,
               fio: user.lastName + ' ' + user.firstName + ' ' + user.secondName
@@ -165,5 +169,14 @@ export class AdminUserService extends BaseApiService {
       )
     );
     return (retValue as Promise<boolean>);
+  }
+
+  setAdd(user_id: number, can_add: boolean){
+    return lastValueFrom(
+      this.http.put(this.apiURL + '/admin/set-add',{
+        user_id: user_id,
+        can_add: can_add
+      })
+    )
   }
 }
