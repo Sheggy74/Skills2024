@@ -54,13 +54,15 @@ class AuthService
                 ])
             );
         }
-        // $buttons->push(
-        //     new NavigationButton([
-        //         'caption' => 'Исполнители',
-        //         'iconClass' => 'people',
-        //         'routerLink' => 'executors'
-        //     ])
-        // );
+
+
+        $buttons->push(
+            new NavigationButton([
+                'caption' => 'Планы',
+                'iconClass' => 'book',
+                'routerLink' => 'workspace'
+            ])
+        );
         //
         // $buttons->push(
         //     new NavigationButton([
