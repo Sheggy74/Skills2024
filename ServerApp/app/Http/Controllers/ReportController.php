@@ -369,22 +369,25 @@ class ReportController extends Controller
         // $allTasks=Task::query()->where('project_id',$id)->get();
         // $completeTasks=Task::query()->where('project_id',$id)->get();
         $dateTask=date("Y-m-d", strtotime($date));
-        $dateTask=new \Date($dateTask);
-        dump($dateTask); 
-        // $taskMonth=Task::query()->leftJoin('state_task','state_task.task_id','task.id')->
-        //     where('state_task.state_id',3)
-        //     where(DB::raw("to_date(state_task.created_at,'yyyy-mm-dd')"),'=',"'".date('Y-m-d')."'")
-        //     ->whereYear('state_task.created_at',$dateTask['year'])
-        //     ->whereMonth('state_task.created_at',$dateTask['month'])
-        //     ->whereDay('state_task.created_at',$dateTask['day'])
-        //     ->get();
+        // dump($dateTask); 
+        $taskMonth=Task::query()->select('task.name','users.first_name','users.second_name','users.last_name','state_task.created_at','task.topic_id')
+        ->leftJoin('users','users.id','task.user_id')
+        ->leftJoin('state_task','state_task.task_id','task.id')->
+            where('state_task.state_id',3)
+            // where(DB::raw("to_date(state_task.created_at,'yyyy-mm-dd')"),'=',"'".date('Y-m-d')."'")
+            // ->whereYear('state_task.created_at',$dateTask['year'])
+            // ->whereMonth('state_task.created_at',$dateTask['month'])
+            // ->whereDay('state_task.created_at',$dateTask['day'])
+            ->get();
+
+            dd($taskMonth);
         // return $taskMonth;
 
-        // $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
         // Создаем лист и добавляем данные
-        // $worksheet = $spreadsheet->getActiveSheet();
-        // $worksheet->setTitle('Отчет');
+        $worksheet = $spreadsheet->getActiveSheet();
+        $worksheet->setTitle('Отчет котроля выполнения');
 
         // Пример данных о проекте
         // $project = [
@@ -406,15 +409,8 @@ class ReportController extends Controller
         // ];
 
         // Добавляем информацию о проекте в начало отчета
-        // $worksheet->setCellValue('A1', 'Описание проекта:')
-        //         ->setCellValue('A2', 'ID проекта:')
-        //         ->setCellValue('B2', $project[0]['id'])
-        //         ->setCellValue('A3', 'Название проекта:')
-        //         ->setCellValue('B3', $project[0]['name'])
-        //         ->setCellValue('A4', 'Описание проекта:')
-        //         ->setCellValue('B4', $project[0]['description'])
-        //         ->setCellValue('A5', 'Дата создания:')
-        //         ->setCellValue('B5', $project[0]['created_at']);
+        $worksheet->setCellValue('A1', 'Имя задачи:')
+                ->setCellValue('','')
 
         // // Сделаем жирным шрифтом наименование колонок
         // $worksheet->getStyle('A1:A5')->getFont()->setBold(true);
