@@ -20,6 +20,9 @@ export class FormReportComponent {
   ngOnInit(){
     this.reportService.getTasks();
     this.reportService.tasks.subscribe(item=>{
+      item.forEach(el=>{
+        el.date=new Date()
+      })
       this.tasks=item;
     })
   }
@@ -32,19 +35,25 @@ export class FormReportComponent {
   save(){
     console.log('save',this.selectedTasks);
     this.selectedTasks.forEach(el=>{
+      console.log('save el',el);
       this.reportService.createProjects(el);
     });
+    this.selectedTasks=[];
     this.reportService.getTasks();
   }
 
   inputPercent(event:InputNumberInputEvent,task:ReportTask){
+    
     if(task.oldPercent){
-      if(Number(event.value)>task.oldPercent||task.oldPercent+Number(event.value)>100){
-        console.log(event.value)
-        this.validPercent=true;
-      }else{
-        this.validPercent=false;
-      }
+      console.log('sum',task.oldPercent+Number(event.value));
+      console.log('percent',Number(event.value));
+      console.log('old',task.oldPercent);
+      // if(Number(event.value)>task.oldPercent||task.oldPercent+Number(event.value)>100){
+      //   console.log(task.oldPercent+Number(event.value))
+      //   this.validPercent=true;
+      // }else{
+      //   this.validPercent=false;
+      // }
     }
     this.validPercent=false;
   }

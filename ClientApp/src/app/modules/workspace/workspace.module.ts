@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
 import { CardModule } from 'primeng/card';
 import { AccordionModule } from 'primeng/accordion';
@@ -40,10 +40,12 @@ import { PlanPageComponent } from './pages/plan/plan-page.component';
 import { TaskComponent } from './components/task/task.component';
 import { PlanComponent } from './components/plan/plan.component';
 import { InputNumberModule } from 'primeng/inputnumber';
+import { FormReportComponent } from './pages/form-report/form-report.component';
+import { ReportComponent } from './pages/report/report.component';
 
 
 @NgModule({
-  declarations: [WorkspaceComponent, TaskComponent, PlanComponent, PlanPageComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent],
+  declarations: [WorkspaceComponent, TaskComponent, PlanComponent, PlanPageComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent, FormReportComponent,ReportComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -75,7 +77,9 @@ import { InputNumberModule } from 'primeng/inputnumber';
     AvatarGroupModule,
     CalendarModule,
     InputNumberModule,
-    DividerModule
+    DividerModule,
+    FormsModule,
+    DatePipe
   ]
 
 })

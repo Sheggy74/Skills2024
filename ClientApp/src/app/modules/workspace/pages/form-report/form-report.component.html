@@ -39,8 +39,8 @@
                     (onInput)="inputPercent($event,task)"
                     suffix="%"
                 ></p-inputNumber>
-              <div *ngIf="task.percent>100 || task.percent+task.oldPercent>101" style="color: red;">
-                Объем работ не должен превыщать 100%
+              <div *ngIf="task.percent>100 || task.percent+task.oldPercent>100" style="color: red;">
+                Объем работ не должен превыщать 100% ({{task.percent+task.oldPercent}}%)
               </div>
               </td>
             </tr>

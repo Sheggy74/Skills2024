@@ -2,7 +2,7 @@
 
 namespace App\Http\Resources;
 
-use App\Models\ReportWork;
+use App\Models\ReportTask;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -16,16 +16,23 @@ class TaskReportResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        $percent=ReportWork::where('task_id',$this->id)->sum('percent');
+        $percent=ReportTask::where('task_id',$this->task_id)->sum('percent');
         return [
-            'id'=>$this->id,
+            // 'id'=>$this->id,
+            // 'task_id'=>$this->task_id,
+            // 'name'=>$this->name,
+            // 'date'=>$this->date,
+            // 'description'=>$this->description,
+            // 'percent'=>$this->percent,
+            // 'oldPercent'=>$percent
+
+            'id'=>null,
+            'task_id'=>$this->task_id,
             'name'=>$this->name,
-            'report_id'=>$this->report_id,
-            'date'=>$this->date,
-            'description'=>$this->description,
-            'percent'=>$this->percent,
+            'date'=>null,
+            'description'=>null,
+            'percent'=>null,
             'oldPercent'=>$percent
-            // 'task'=>
         ];
     }
 }

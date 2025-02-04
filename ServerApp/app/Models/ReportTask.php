@@ -3,7 +3,7 @@
 namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
-class ReportWork extends Model
+class ReportTask extends Model
 {
     
 
@@ -18,5 +18,5 @@ class ReportWork extends Model
         'percent'
     ];
 
-    protected $table = 'report_work';
+    protected $table = 'report_task';
 }
