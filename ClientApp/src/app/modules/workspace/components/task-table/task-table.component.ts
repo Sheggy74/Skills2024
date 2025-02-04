@@ -25,20 +25,8 @@ export class TaskTableComponent {
     _selectedColumns: Column[] = [];
   
     @Input() tasks: Task[] = [];
-    prioritys: Priority[] = [];
-    projectUsers: UserRole[] = [];
-    newTaskTitle: string = '';
-    newTaskDescription: string = '';
-    projectId: number = 0;
-    projectName: string = "";
-    userRoleId: string | undefined;
+    selectedTask?: Task;
     isManagerOrAdmin: boolean = false;
-    isLoadingProject: boolean = false;
-    isLoadingTask: boolean = false;
-    isLoadingPriority: boolean = false;
-    isLoadingProjectUser: boolean = false;
-    isOnlyExecutorsTasks: boolean = true;
-    isSidebarVisible: boolean = false;  
   
     private workspaceService = inject(WorkspaceService);
     private jwtService = inject(JwtService);
@@ -60,6 +48,9 @@ export class TaskTableComponent {
       ]
   
       this._selectedColumns = this.cols;
+      this.workspaceService.selectedTask.subscribe(task => {
+        this.selectedTask = task;
+      })
     }
   
   
@@ -80,6 +71,12 @@ export class TaskTableComponent {
         case 4: {return 'danger';}
         default: return undefined;
       }
+    }
+
+    selectTask(task: Task) {
+      this.workspaceService.updateSelectedTask(task);
+      this.workspaceService.openSidebarVisible();
+      
     }
   
 }

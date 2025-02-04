@@ -12,4 +12,5 @@ Route::prefix('dashboard')
         Route::get('/spenttime', 'getSpentTime');
         Route::get('/mynotifications', 'getMyNotifications');
         Route::get('/mychat', 'getMyChat');
+        Route::get('/myresults', 'getMyResults');
     });

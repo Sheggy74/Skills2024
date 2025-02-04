@@ -24,6 +24,7 @@ Route::prefix('project')
     Route::get('users/{id}','getRuleProject');
     Route::get('user/{id}','getUserRolePrId');
     Route::get('task/{id}','getTasksProject');
+    Route::get('checkRole','getRoleProject');
 });
 
 

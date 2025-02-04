@@ -69,6 +69,7 @@ where total.cnt is not null
             where p.user_id = $user->id and t.project_id = coalesce($project_id,t.project_id)
             ) a
             group by a.name, a.time_spent
+            order by a.time_spent desc
         ";
         return DB::select($query);
     }
@@ -105,6 +106,51 @@ where total.cnt is not null
                 join rule_project rp on c.project_id = rp.project_id
                 where rp.user_id = $user->id and c.task_id is null
         ";
+        return DB::select($query);
+    }
+
+    public function getMyResults(Request $request)
+    {
+        $user = auth()->user();
+
+        $query = "
+        with task_counts as (
+	            select
+		            date_trunc('month', t.created_at) as month,
+		            count(t.id) as total_tasks
+	            from task t
+	            join performer p on t.id = p.task_id
+	            where p.user_id = 11
+	            group by month
+            )
+            , completed_task_counts as (
+	            select
+		            date_trunc('month', t.created_at) as month,
+		            count(t.id) as completed_tasks
+	            from task t
+	            join performer p on t.id = p.task_id
+	            join state_task st on t.id = st.task_id
+	            where p.user_id = $user->id and st.state_id = 3
+	            group by month
+            ),
+            months as (
+	            select month
+	            from generate_series(
+	  	            date_trunc('month', current_date) - interval '11 months',
+	  	            date_trunc('month', current_date),
+	  	            interval '1 month'
+	            ) as month
+            )
+            select
+	            to_char(m.month,'YYYY-MM') as month,
+	            coalesce(tc.total_tasks,0) as total_cnt,
+	            coalesce(tc.total_tasks,0) - coalesce(cc.completed_tasks,0) as inprogress_cnt,
+	            coalesce(cc.completed_tasks,0) as completed_cnt
+            from months m
+            left join task_counts tc on tc.month = m.month
+            left join completed_task_counts cc on m.month = cc.month
+            order by m.month
+               ";
         return DB::select($query);
     }
 }

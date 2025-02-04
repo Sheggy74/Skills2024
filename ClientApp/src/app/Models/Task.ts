@@ -6,12 +6,13 @@ export interface Task {
   name: string;
   description: string;
   dateCreation: Date; 
-  taskStateId?: number;
+  stateId?: number;
   taskStateName?: number;
   projectId: number,
   performers: User[], 
   performersId: number[], 
   userId?: number,
   priorityId?: number,
+  deadline?: string,
   // ptask_Id: number,
 }

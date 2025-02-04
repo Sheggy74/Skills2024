@@ -16,6 +16,7 @@ if %ERRORLEVEL% neq 0 (
     timeout /t 5 >nul
     goto WAIT_FOR_POSTGRES
 )
+docker exec -t laravel-container php artisan storage:link
 
 REM Выполнение миграций в Laravel
 echo Running Laravel migrations...

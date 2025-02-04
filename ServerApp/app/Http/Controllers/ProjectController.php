@@ -29,7 +29,8 @@ class ProjectController extends Controller implements CrudController
             $data =  Project::query()->get();
         } else {
             $idUser = Auth::user()->id;
-            $data = Project::query()->leftJoin('rule_project', 'rule_project.project_id', 'project.id')
+            $data = Project::query()->select('project.id','project.name','description','icon','theme')
+                ->leftJoin('rule_project', 'rule_project.project_id', 'project.id')
                 ->where('rule_project.user_id', $idUser)->get();
         }
         return ProjectResource::collection($data);
@@ -254,6 +255,16 @@ class ProjectController extends Controller implements CrudController
         // $formattedDate = $dateTime->format('Y-m-d\TH:H:i');
         $formattedDate = $dateTime->format('Y-m-d');
         return $formattedDate;
+    }
+
+    function getRoleProject()  {
+        $projects=DB::table('rule_project')->where('user_id',Auth::user()->id)
+            ->where('role_id',1)->get();
+        if(count($projects)!=0){
+            return array('role'=>'manager');
+        }else{
+            return array('role'=>'user');
+        }
     }
 
 }

@@ -17,7 +17,7 @@ class ProjectResource extends JsonResource
     public function toArray(Request $request): array
     {
         $id=DB::table('tags_project')->select('tags.id','tags.name')->leftJoin('tags','tags.id','tags_project.tags_id')
-        ->where('tags_project.project_id',$this->id)->get();
+        ->where('tags_project.project_id',$this->id)->first();
         $selectRow=DB::table('rule_project')->select('user_id as id','role_id')->where('rule_project.project_id',$this['id'])->get();
         return [
             'id'=>$this['id'],

@@ -1,15 +1,24 @@
-<p-sidebar [(visible)]="visible" position="right" [style]="{ width: '400px' }" (onHide)="closeSidebar()">
-  <h2>Редактирование задачи</h2>
-  <div class="p-fluid">
-    <div class="p-field">
-      <label for="editedTitle">Название задачи</label>
-      <input id="editedTitle" type="text" pInputText [(ngModel)]="editedTitle" />
-      <textarea id="editedTitle" pInputTextarea [(ngModel)]="editedTitle"></textarea>
-    </div>
-    <div class="p-field">
-      <label for="editedDescription">Описание задачи</label>
-      <textarea id="editedDescription" pInputTextarea [(ngModel)]="editedDescription"></textarea>
-    </div>
+<div class="p-fluid">
+  <div class="p-field">
+    <label for="editedTitle">Название задачи</label>
+    <textarea id="editedTitle" pInputTextarea [(ngModel)]="editedTitle"></textarea>
+  </div>
+  <div class="p-field">
+    <label for="editedTitle">Состояние</label>
+    <p-dropdown [options]="states" [(ngModel)]="selectStateId" optionLabel="name" optionValue="id" [showClear]="true"
+      placeholder="Выберите состояние задачи" />
+  </div>
+  <div class="p-field">
+    <label for="editedTitle">Приоритет</label>
+    <p-dropdown [options]="prioritys" [(ngModel)]="selectPriorityId" optionLabel="name" optionValue="id"
+      [showClear]="true" placeholder="Выберите приоритет задачи" />
+  </div>
+  <div class="p-field">
+    <label for="editedTitle">Дедлайн</label>
+    <p-calendar [(ngModel)]="selectDeadline" [showTime]="true"  hourFormat="24" />
+  </div>
+
+  <div class="mt-5">
     <p-button label="Сохранить изменения" (onClick)="onSave()" styleClass="p-button-success"></p-button>
   </div>
-</p-sidebar>
+</div>
