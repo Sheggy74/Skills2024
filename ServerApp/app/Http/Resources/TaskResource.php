@@ -25,7 +25,8 @@ class TaskResource extends JsonResource
             'stateName' => $this->lastState?->state?->name ?? '',
             'priorityId' => $this?->priority?->id ?? 0,
             'priorityName' => $this?->priority?->name ?? '',
-            'performers' => $this->users,
+            // 'performers' => $this->users,
+            'performer' => $this?->user,
             'deadline' => $this?->deadline->date ?? ''
         ];
     }

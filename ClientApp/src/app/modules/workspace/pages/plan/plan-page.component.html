@@ -1,27 +1,32 @@
 <div class="max-width-full max-h-screen">
-    <!-- <div *ngIf="isLoadingProject && isLoadingTask" class="custom-skeleton p-4">
+  <!-- <div *ngIf="isLoadingProject && isLoadingTask" class="custom-skeleton p-4">
       <p-skeleton width="100%" height="150px"></p-skeleton>
     </div> -->
-    <p-card >
-      <ng-template pTemplate="header">
-        <div class="flex items-center p-4 pl-5 gap-10">
-          <span class="font-bold text-3xl capitalize">
-            Планы
-          </span>
-        </div>
-      </ng-template>
-      <div class="flex gap-10 items-center">
-        <button pButton pRipple class="p-button-rounded p-button-primary p-button-text"
-          label="Добавить задачу" icon="pi pi-plus" (click)="createTaskDialog.showDialog()"></button>
+  <p-card>
+    <ng-template pTemplate="header">
+      <div class="flex items-center p-4 pl-5 gap-10">
+        <span class="font-bold text-3xl capitalize">
+          Планы
+        </span>
       </div>
-      <app-task></app-task>
-      <app-create-task #createTaskDialog></app-create-task>
-    </p-card>
-  
-    <!-- <app-create-task #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
-    
-    <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
-    <app-add-project #add></app-add-project>
-    <app-task-sidebar></app-task-sidebar>
-  
-  </div>
+    </ng-template>
+    <div class="flex gap-10 mb-5 items-center">
+      <button pButton pRipple class="p-button-rounded p-button-primary p-button-text" label="Добавить задачу"
+        icon="pi pi-plus" (click)="createTaskDialog.showDialog()"></button>
+    </div>
+    <div class="flex flex-col gap-5">
+      <app-plan></app-plan>
+      <app-plan></app-plan>
+      <app-plan></app-plan>
+      <app-plan></app-plan>
+    </div>
+    <app-create-task #createTaskDialog></app-create-task>
+  </p-card>
+
+  <!-- <app-create-task #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
+
+  <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
+  <app-add-project #add></app-add-project>
+  <app-task-sidebar></app-task-sidebar>
+
+</div>

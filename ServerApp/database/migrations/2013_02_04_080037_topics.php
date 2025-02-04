@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('topics', function (Blueprint $table) {
             $table->comment('Тематики');
-            $table->string('id')->comment('TopicId');
+            $table->id()->comment('TopicId');
             $table->string('upper_level')->nullable()->comment('TopicUpperLevel');
             $table->string('name')->comment('Наименование');
         });

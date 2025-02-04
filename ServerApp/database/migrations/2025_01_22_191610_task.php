@@ -20,12 +20,15 @@ return new class extends Migration
             $table->bigInteger('project_id')->comment('Идентификатор проекта');
             $table->bigInteger('user_id')->nullable()->comment('Идентификатор пользователя');
             $table->bigInteger('priority_id')->nullable()->comment('Идентификатор приоритета');
-            $table->integer('ptask_id')->nullable()->comment('Идентификатор родителя задачи');
+            // $table->integer('ptask_id')->nullable()->comment('Идентификатор родителя задачи');
             $table->timestamp('created_at')->nullable()->comment('Дата создания');
             $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
+            $table->bigInteger('topic_id')->nullable()->comment('Тематика задачи');
+            $table->integer('days')->nullable()->comment('Тематика задачи');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('priority_id')->references('id')->on('priority')->onDelete('cascade');
+            $table->foreign('topic_id')->references('id')->on('topics')->onDelete('cascade');
             $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
         });
     }
