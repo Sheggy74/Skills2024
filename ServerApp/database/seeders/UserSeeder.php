@@ -15,10 +15,8 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory(10)->create();
-
         $user = User::factory()->create([
-            'email' => 'test@example.com',
+            'id' => 1,
             'login' => 'admin',
             'password' => bcrypt('admin')
         ]);
@@ -53,23 +51,23 @@ class UserSeeder extends Seeder
         //     'role_id' => $role->id
         // ]);
 
-        $user = User::factory()->create([
-            'email' => 'user@example.com',
-            'login' => 'user',
-            'password' => bcrypt('user')
-        ]);
+        // $user = User::factory()->create([
+        //     'email' => 'user@example.com',
+        //     'login' => 'user',
+        //     'password' => bcrypt('user')
+        // ]);
 
-        $role = Role::query()->create([
-            'name' => 'user',
-            'title' => 'Пользователь',
-            'starting_url' => '/user',
-            'image' => 'assets/user.webp'
-        ]);
+        // $role = Role::query()->create([
+        //     'name' => 'user',
+        //     'title' => 'Пользователь',
+        //     'starting_url' => '/user',
+        //     'image' => 'assets/user.webp'
+        // ]);
 
-        UserRole::query()->create([
-            'user_id' => $user->id,
-            'role_id' => $role->id
-        ]);
+        // UserRole::query()->create([
+        //     'user_id' => $user->id,
+        //     'role_id' => $role->id
+        // ]);
 
 
     }

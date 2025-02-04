@@ -31,19 +31,13 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        return [
+        return [            
             'first_name' => fake()->firstName,
             'second_name' => fake()->firstName,
             'last_name' => fake()->lastName(),
-            //'photo' => fake()->image(),
             'login' => fake()->unique()->userName(),
-            'email' => fake()->unique()->safeEmail(),
-            'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
-            'post' => $this->jobs[array_rand($this->jobs)],
-            'place' => $this->places[array_rand($this->places)],
-            'phone' => fake()->phoneNumber
         ];
     }
 
