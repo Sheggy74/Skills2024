@@ -1,21 +1,41 @@
 <section >
-    <p-treeTable  selectionMode="single" [(selection)]="selectedUser" (selectionChange)="userUIService.selectedUser.next(selectedUser)"
+    <p-treeTable 
         [value]="users" [scrollable]="true" >
         <ng-template pTemplate="header">
             <tr>
+                <th [width]="'50px'"></th>
                 <th>ФИО</th>
-                <th>Логин</th>
+                <!-- <th>Логин</th> -->
                 <th>Должность</th>
-                <th>Профессиональный уровень</th>
-                <th></th>
+                <th>Пол</th>
+                <th>Профессиональный уровень</th>    
+                <th>Тематики</th>
+                <th>Заведение задач</th>                          
             </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-user >
-            <tr [pSelectableRow]="user">
-                <td>{{user.firstName + ' ' + user.secondName + ' ' + user.lastName}}</td>
-                <td>{{user.login}}</td>
-                <td>{{user.email}}</td>
-                <td>{{user.role ? user.role.title : 'Не назначена'}}</td>
+        <ng-template pTemplate="body"  let-rowNode let-rowData="rowData" >
+            <tr [ttRow]="rowNode">                
+                <td [width]="'50px'">
+                    <p-treeTableToggler [rowNode]="rowNode" />
+                </td>
+                <td>                    
+                    {{rowData.fio}}
+                    <!-- {{rowData.firstName + ' ' + rowData.secondName + ' ' + rowData.lastName}} -->
+                </td>
+                <!-- <td>{{rowData.login}}</td> -->
+                <td>{{rowData.position}}</td>
+                <td>{{rowData.gender}}</td>
+                <td>{{rowData.prof_level}}</td>
+                <td>
+                    <div class="flex flex-col">
+                        <div class="topic" *ngFor="let topic of rowData.topics">
+                            {{topic}}
+                        </div>
+                    </div>
+                </td>
+                <td>
+                    <p-checkbox *ngIf="rowData.prof_level < 5"></p-checkbox>
+                </td>
             </tr>
         </ng-template>
     </p-treeTable>

@@ -1,6 +1,7 @@
 import { HttpHeaders } from '@angular/common/http';
 import { ThisReceiver } from '@angular/compiler';
 import { Injectable } from '@angular/core';
+import { TreeNode } from 'primeng/api';
 import { catchError, lastValueFrom, map } from 'rxjs';
 import { NavigationButton } from 'src/app/Models/NavigationButton';
 import { Role } from 'src/app/Models/Role';
@@ -37,28 +38,29 @@ export class AdminUserService extends BaseApiService {
 
   buildTree(users: any[]): any[] {
     const map = new Map<number, any>();
-    const tree: any[] = [];
-  
-    // Создаем карту для быстрого доступа к каждому пользователю по его id
-    users.forEach(user => {
-      map.set(user.id, { ...user, children: [] });
-    });
-  
-    // Строим дерево
-    users.forEach(user => {
-      if (user.bossID === null) {
-        // Если bossID равен null, это корневой элемент
-        tree.push(map.get(user.id));
-      } else {
-        // Иначе добавляем пользователя как дочерний элемент своего начальника
-        const parent = map.get(user.bossID);
-        if (parent) {
-          parent.children.push(map.get(user.id));
-        }
+  const tree: any[] = [];
+
+  // Создаем карту для быстрого доступа к каждому пользователю по его id
+  users.forEach(user => {
+    map.set(user.id, { data: { ...user }, children: [] });
+  });
+
+  // Строим дерево
+  users.forEach(user => {
+    if (user.bossId === null) {
+      // Если bossId равен null, это корневой элемент
+      tree.push(map.get(user.id));
+    } else {
+      // Иначе добавляем пользователя как дочерний элемент своего начальника
+      const parent = map.get(user.bossId);
+      if (parent) {
+        parent.children.push(map.get(user.id));
       }
-    });
-  
-    return tree;
+    }
+  });
+   console.log(tree);
+   
+  return tree;
   }
 
   updateUser(user: User, file: File | undefined = undefined, password: string | undefined = undefined): Promise<User> {

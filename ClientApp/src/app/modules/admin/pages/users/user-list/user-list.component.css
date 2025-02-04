@@ -4,3 +4,9 @@
 ::ng-deep .p-datatable .p-datatable-thead > tr > th{
     background-color: unset;
 } */
+.topic {
+    border: 1px solid var(--primary-color);
+    border-radius: 10px;
+    padding: 5px;
+    margin-bottom: 5px;
+}
