@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 //require 'vendor/autoload.php';
+use App\Http\Resources\TopicTaskResource;
 use DB;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -368,7 +369,7 @@ class ReportController extends Controller
         // $project=Project::query()->where('id',$id)->get();
         // $allTasks=Task::query()->where('project_id',$id)->get();
         // $completeTasks=Task::query()->where('project_id',$id)->get();
-        $dateTask=date("Y-m-d", strtotime($date));
+    $dateTask=date("Y-m-d", strtotime($date));
         // dump($dateTask); 
         $taskMonth=Task::query()->select('task.name','users.first_name','users.second_name','users.last_name','state_task.created_at','task.topic_id')
         ->leftJoin('users','users.id','task.user_id')
@@ -380,7 +381,7 @@ class ReportController extends Controller
             // ->whereDay('state_task.created_at',$dateTask['day'])
             ->get();
 
-            dd($taskMonth);
+            return TopicTaskResource::collection($taskMonth);
         // return $taskMonth;
 
         $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
@@ -410,7 +411,7 @@ class ReportController extends Controller
 
         // Добавляем информацию о проекте в начало отчета
         $worksheet->setCellValue('A1', 'Имя задачи:')
-                ->setCellValue('','')
+                ->setCellValue('','');
 
         // // Сделаем жирным шрифтом наименование колонок
         // $worksheet->getStyle('A1:A5')->getFont()->setBold(true);
@@ -567,5 +568,6 @@ class ReportController extends Controller
         // // Отправляем файл на скачивание
         // $writer->setIncludeCharts(true);
         // $writer->save('php://output');
+    
     }
 }
