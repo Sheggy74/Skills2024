@@ -9,6 +9,11 @@
             Планы
           </span>
         </div>
+        <div>
+          <p-button icon="pi pi-plus" title="Занесение выполнения работ" class="bBtn" (click)="reportWork.onShow()"/>
+          <p-calendar [ngModel]="date"></p-calendar>
+          <p-button icon="pi pi-print"  class="bBtn" (click)="report()"/>
+        </div>
       </ng-template>
       <div class="flex gap-10 items-center">
         <button pButton pRipple class="p-button-rounded p-button-primary p-button-text"
@@ -23,5 +28,6 @@
     <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
     <app-add-project #add></app-add-project>
     <app-task-sidebar></app-task-sidebar>
+    <app-form-report #reportWork></app-form-report>
   
   </div>

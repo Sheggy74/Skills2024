@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 //require 'vendor/autoload.php';
+use DB;
 use Illuminate\Http\Request;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
@@ -362,31 +363,28 @@ class ReportController extends Controller
         ];
     }
 
-    function ReportProject($id)
+    function ReportProject($date)
     {
-        $project=Project::query()->where('id',$id)->get();
-        $allTasks=Task::query()->where('project_id',$id)->get();
-        $completeTasks=Task::query()->where('project_id',$id)->get();
-        //     leftJoin('state_task','state_task.task_id','task.id')->
-        //     where('state_task.state_id',3)->get();
-        //просроченные задания
-        // $expiredTasks=Task::query()->where('project_id',$id)->
-        //     leftJoin('deadline','deadline.task_id','task.id')->where('deadline.date'<now())->get();
-        // return $completeTasks;
+        // $project=Project::query()->where('id',$id)->get();
+        // $allTasks=Task::query()->where('project_id',$id)->get();
+        // $completeTasks=Task::query()->where('project_id',$id)->get();
+        $dateTask=date("Y-m-d", strtotime($date));
+        $dateTask=new \Date($dateTask);
+        dump($dateTask); 
+        // $taskMonth=Task::query()->leftJoin('state_task','state_task.task_id','task.id')->
+        //     where('state_task.state_id',3)
+        //     where(DB::raw("to_date(state_task.created_at,'yyyy-mm-dd')"),'=',"'".date('Y-m-d')."'")
+        //     ->whereYear('state_task.created_at',$dateTask['year'])
+        //     ->whereMonth('state_task.created_at',$dateTask['month'])
+        //     ->whereDay('state_task.created_at',$dateTask['day'])
+        //     ->get();
+        // return $taskMonth;
 
-        // $projectData = [
-        //     'id' => 1,
-        //     'name' => 'Проект X',
-        //     'description' => 'Описание проекта X',
-        //     'created_at' => '2025-01-01',
-        //     'updated_at' => '2025-02-01'
-        // ];
-
-        $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
+        // $spreadsheet = new \PhpOffice\PhpSpreadsheet\Spreadsheet();
 
         // Создаем лист и добавляем данные
-        $worksheet = $spreadsheet->getActiveSheet();
-        $worksheet->setTitle('Отчет');
+        // $worksheet = $spreadsheet->getActiveSheet();
+        // $worksheet->setTitle('Отчет');
 
         // Пример данных о проекте
         // $project = [
@@ -408,170 +406,170 @@ class ReportController extends Controller
         // ];
 
         // Добавляем информацию о проекте в начало отчета
-        $worksheet->setCellValue('A1', 'Описание проекта:')
-                ->setCellValue('A2', 'ID проекта:')
-                ->setCellValue('B2', $project[0]['id'])
-                ->setCellValue('A3', 'Название проекта:')
-                ->setCellValue('B3', $project[0]['name'])
-                ->setCellValue('A4', 'Описание проекта:')
-                ->setCellValue('B4', $project[0]['description'])
-                ->setCellValue('A5', 'Дата создания:')
-                ->setCellValue('B5', $project[0]['created_at']);
+        // $worksheet->setCellValue('A1', 'Описание проекта:')
+        //         ->setCellValue('A2', 'ID проекта:')
+        //         ->setCellValue('B2', $project[0]['id'])
+        //         ->setCellValue('A3', 'Название проекта:')
+        //         ->setCellValue('B3', $project[0]['name'])
+        //         ->setCellValue('A4', 'Описание проекта:')
+        //         ->setCellValue('B4', $project[0]['description'])
+        //         ->setCellValue('A5', 'Дата создания:')
+        //         ->setCellValue('B5', $project[0]['created_at']);
 
-        // Сделаем жирным шрифтом наименование колонок
-        $worksheet->getStyle('A1:A5')->getFont()->setBold(true);
-        $worksheet->getStyle('B1:B5')->getFont()->setBold(true);
+        // // Сделаем жирным шрифтом наименование колонок
+        // $worksheet->getStyle('A1:A5')->getFont()->setBold(true);
+        // $worksheet->getStyle('B1:B5')->getFont()->setBold(true);
 
-        // Заголовки для задач
-        $worksheet->setCellValue('A9', 'Задачи')
-                ->setCellValue('A10', 'ID')
-                ->setCellValue('B10', 'Название')
-                ->setCellValue('C10', 'Описание')
-                ->setCellValue('D10', 'Дата создания');
+        // // Заголовки для задач
+        // $worksheet->setCellValue('A9', 'Задачи')
+        //         ->setCellValue('A10', 'ID')
+        //         ->setCellValue('B10', 'Название')
+        //         ->setCellValue('C10', 'Описание')
+        //         ->setCellValue('D10', 'Дата создания');
 
-        // Сделаем жирным шрифтом наименование колонок задач
-        $worksheet->getStyle('A10:D10')->getFont()->setBold(true);
+        // // Сделаем жирным шрифтом наименование колонок задач
+        // $worksheet->getStyle('A10:D10')->getFont()->setBold(true);
 
-        // Заполняем данные задач
-        $row = 11;
-        foreach ($allTasks as $task) {
-            $worksheet->setCellValue('A' . $row, $task['id'])
-                    ->setCellValue('B' . $row, $task['name'])
-                    ->setCellValue('C' . $row, $task['description'])
-                    ->setCellValue('D' . $row, $task['date_create']);
-            $row++;
-        }
+        // // Заполняем данные задач
+        // $row = 11;
+        // foreach ($allTasks as $task) {
+        //     $worksheet->setCellValue('A' . $row, $task['id'])
+        //             ->setCellValue('B' . $row, $task['name'])
+        //             ->setCellValue('C' . $row, $task['description'])
+        //             ->setCellValue('D' . $row, $task['date_create']);
+        //     $row++;
+        // }
 
-        // Устанавливаем ширину столбцов для задач
-        $worksheet->getColumnDimension('A')->setWidth(10); // ID
-        $worksheet->getColumnDimension('B')->setWidth(20); // Название
-        $worksheet->getColumnDimension('C')->setWidth(30); // Описание
-        $worksheet->getColumnDimension('D')->setWidth(20); // Дата создания
+        // // Устанавливаем ширину столбцов для задач
+        // $worksheet->getColumnDimension('A')->setWidth(10); // ID
+        // $worksheet->getColumnDimension('B')->setWidth(20); // Название
+        // $worksheet->getColumnDimension('C')->setWidth(30); // Описание
+        // $worksheet->getColumnDimension('D')->setWidth(20); // Дата создания
 
-        // Добавляем рамки ко всем ячейкам с задачами
-        $worksheet->getStyle('A10:D' . ($row - 1))
-                ->getBorders()
-                ->applyFromArray([
-                    'allBorders' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                        'color' => ['rgb' => '000000'],
-                    ],
-                ]);
+        // // Добавляем рамки ко всем ячейкам с задачами
+        // $worksheet->getStyle('A10:D' . ($row - 1))
+        //         ->getBorders()
+        //         ->applyFromArray([
+        //             'allBorders' => [
+        //                 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        //                 'color' => ['rgb' => '000000'],
+        //             ],
+        //         ]);
 
-        // Заголовки для выполненных задач
-        $worksheet->setCellValue('A' . $row + 2, 'Выполненные задачи')
-                ->setCellValue('A' . $row + 3, 'ID')
-                ->setCellValue('B' . $row + 3, 'Название')
-                ->setCellValue('C' . $row + 3, 'Описание')
-                ->setCellValue('D' . $row + 3, 'Дата создания');
+        // // Заголовки для выполненных задач
+        // $worksheet->setCellValue('A' . $row + 2, 'Выполненные задачи')
+        //         ->setCellValue('A' . $row + 3, 'ID')
+        //         ->setCellValue('B' . $row + 3, 'Название')
+        //         ->setCellValue('C' . $row + 3, 'Описание')
+        //         ->setCellValue('D' . $row + 3, 'Дата создания');
 
-        // Сделаем жирным шрифтом наименование колонок для выполненных задач
-        $worksheet->getStyle('A' . ($row + 3) . ':D' . ($row + 3))->getFont()->setBold(true);
+        // // Сделаем жирным шрифтом наименование колонок для выполненных задач
+        // $worksheet->getStyle('A' . ($row + 3) . ':D' . ($row + 3))->getFont()->setBold(true);
 
-        // Заполняем данные выполненных задач
-        $row = $row + 4;
-        foreach ($completeTasks as $task) {
-            $worksheet->setCellValue('A' . $row, $task['id'])
-                    ->setCellValue('B' . $row, $task['name'])
-                    ->setCellValue('C' . $row, $task['description'])
-                    ->setCellValue('D' . $row, $task['date_create']);
-            $row++;
-        }
+        // // Заполняем данные выполненных задач
+        // $row = $row + 4;
+        // foreach ($completeTasks as $task) {
+        //     $worksheet->setCellValue('A' . $row, $task['id'])
+        //             ->setCellValue('B' . $row, $task['name'])
+        //             ->setCellValue('C' . $row, $task['description'])
+        //             ->setCellValue('D' . $row, $task['date_create']);
+        //     $row++;
+        // }
 
-        // Устанавливаем ширину столбцов для выполненных задач
-        $worksheet->getColumnDimension('A')->setWidth(10); // ID
-        $worksheet->getColumnDimension('B')->setWidth(20); // Название
-        $worksheet->getColumnDimension('C')->setWidth(30); // Описание
-        $worksheet->getColumnDimension('D')->setWidth(20); // Дата создания
+        // // Устанавливаем ширину столбцов для выполненных задач
+        // $worksheet->getColumnDimension('A')->setWidth(10); // ID
+        // $worksheet->getColumnDimension('B')->setWidth(20); // Название
+        // $worksheet->getColumnDimension('C')->setWidth(30); // Описание
+        // $worksheet->getColumnDimension('D')->setWidth(20); // Дата создания
 
-        // Добавляем рамки ко всем ячейкам с выполненными задачами
-        $worksheet->getStyle('A' . ($row - count($completeTasks)) . ':D' . ($row - 1))
-                ->getBorders()
-                ->applyFromArray([
-                    'allBorders' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                        'color' => ['rgb' => '000000'],
-                    ],
-                ]);
+        // // Добавляем рамки ко всем ячейкам с выполненными задачами
+        // $worksheet->getStyle('A' . ($row - count($completeTasks)) . ':D' . ($row - 1))
+        //         ->getBorders()
+        //         ->applyFromArray([
+        //             'allBorders' => [
+        //                 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        //                 'color' => ['rgb' => '000000'],
+        //             ],
+        //         ]);
 
-        // Добавляем отдельную таблицу для статистики
-        $worksheet->setCellValue('H25', 'Общее количество задач:')->setCellValue('I25', count($allTasks));
-        $worksheet->setCellValue('H26', 'Общее количество выполненных задач:')->setCellValue('I26', count($completeTasks));
+        // // Добавляем отдельную таблицу для статистики
+        // $worksheet->setCellValue('H25', 'Общее количество задач:')->setCellValue('I25', count($allTasks));
+        // $worksheet->setCellValue('H26', 'Общее количество выполненных задач:')->setCellValue('I26', count($completeTasks));
 
-        // Сделаем жирным шрифтом наименование колонок статистики
-        $worksheet->getStyle('H' . ($row + 2) . ':I' . ($row + 3))->getFont()->setBold(true);
+        // // Сделаем жирным шрифтом наименование колонок статистики
+        // $worksheet->getStyle('H' . ($row + 2) . ':I' . ($row + 3))->getFont()->setBold(true);
 
-        // Устанавливаем ширину столбцов для статистики
-        $worksheet->getColumnDimension('A')->setWidth(30);
-        $worksheet->getColumnDimension('B')->setWidth(20);
+        // // Устанавливаем ширину столбцов для статистики
+        // $worksheet->getColumnDimension('A')->setWidth(30);
+        // $worksheet->getColumnDimension('B')->setWidth(20);
 
-        // Добавляем рамки для статистики
-        $worksheet->getStyle('H' . ($row + 2) . ':I' . ($row + 3))
-                ->getBorders()
-                ->applyFromArray([
-                    'allBorders' => [
-                        'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-                        'color' => ['rgb' => '000000'],
-                    ],
-                ]);
+        // // Добавляем рамки для статистики
+        // $worksheet->getStyle('H' . ($row + 2) . ':I' . ($row + 3))
+        //         ->getBorders()
+        //         ->applyFromArray([
+        //             'allBorders' => [
+        //                 'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+        //                 'color' => ['rgb' => '000000'],
+        //             ],
+        //         ]);
 
 
-        $dataSeriesLabels = [new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'H25:H26', NULL)];
-        $xAxisTickValues = [new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'I25:I26', NULL)];
-        $dataSeriesValues = [new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'I25:I26', NULL)];
-        // Создаем объект серии данных для диаграммы
-        $series = new DataSeries(
-            DataSeries::TYPE_PIECHART,  // тип диаграммы
-            null,                       // группировка
-            range(0, count($dataSeriesValues) - 1),
-            $dataSeriesLabels,
-            $xAxisTickValues,
-            $dataSeriesValues
-        );
+        // $dataSeriesLabels = [new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('String', 'H25:H26', NULL)];
+        // $xAxisTickValues = [new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'I25:I26', NULL)];
+        // $dataSeriesValues = [new \PhpOffice\PhpSpreadsheet\Chart\DataSeriesValues('Number', 'I25:I26', NULL)];
+        // // Создаем объект серии данных для диаграммы
+        // $series = new DataSeries(
+        //     DataSeries::TYPE_PIECHART,  // тип диаграммы
+        //     null,                       // группировка
+        //     range(0, count($dataSeriesValues) - 1),
+        //     $dataSeriesLabels,
+        //     $xAxisTickValues,
+        //     $dataSeriesValues
+        // );
 
-        // Создаем объект Layout
-        $layout = new Layout();
-        $layout->setShowVal(true);
-        $layout->setShowPercent(true);
+        // // Создаем объект Layout
+        // $layout = new Layout();
+        // $layout->setShowVal(true);
+        // $layout->setShowPercent(true);
 
-        // Создаем объект PlotArea с Layout и серией данных
-        $plotArea = new PlotArea($layout, [$series]);
+        // // Создаем объект PlotArea с Layout и серией данных
+        // $plotArea = new PlotArea($layout, [$series]);
 
-        // Настройка легенды
-        $legend = new Legend(Legend::POSITION_RIGHT, null, false);
+        // // Настройка легенды
+        // $legend = new Legend(Legend::POSITION_RIGHT, null, false);
 
-        // Заголовок для графика
-        $title = new Title('Распределение задач по приоритетам');
+        // // Заголовок для графика
+        // $title = new Title('Распределение задач по приоритетам');
 
-        // Создаем объект диаграммы
-        $chart = new Chart(
-            'chart',
-            $title,
-            $legend,
-            $plotArea,
-            true,
-            'gap',
-            null,
-            null
-        );
+        // // Создаем объект диаграммы
+        // $chart = new Chart(
+        //     'chart',
+        //     $title,
+        //     $legend,
+        //     $plotArea,
+        //     true,
+        //     'gap',
+        //     null,
+        //     null
+        // );
 
-        // Устанавливаем позицию графика на листе
-        $chart->setTopLeftPosition('H2');
-        $chart->setBottomRightPosition('M20');
+        // // Устанавливаем позицию графика на листе
+        // $chart->setTopLeftPosition('H2');
+        // $chart->setBottomRightPosition('M20');
 
-        // Добавляем график на лист
-        $worksheet->addChart($chart);
+        // // Добавляем график на лист
+        // $worksheet->addChart($chart);
 
-        // Устанавливаем заголовки для скачивания файла
-        header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        header('Content-Disposition: attachment;filename="project_report.xlsx"');
-        header('Cache-Control: max-age=0');
+        // // Устанавливаем заголовки для скачивания файла
+        // header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+        // header('Content-Disposition: attachment;filename="project_report.xlsx"');
+        // header('Cache-Control: max-age=0');
 
-        // Создаем объект для записи в файл Excel
-        $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
+        // // Создаем объект для записи в файл Excel
+        // $writer = IOFactory::createWriter($spreadsheet, 'Xlsx');
 
-        // Отправляем файл на скачивание
-        $writer->setIncludeCharts(true);
-        $writer->save('php://output');
+        // // Отправляем файл на скачивание
+        // $writer->setIncludeCharts(true);
+        // $writer->save('php://output');
     }
 }

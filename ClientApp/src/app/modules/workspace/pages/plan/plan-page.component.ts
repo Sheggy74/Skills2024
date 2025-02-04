@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component ,inject} from '@angular/core';
+import { TaskWorkService } from '../../services/task-work.service';
 
 @Component({
   selector: 'app-plan',
@@ -6,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './plan-page.component.css'
 })
 export class PlanPageComponent {
-
+  taskReportService=inject(TaskWorkService);
+  date:Date=new Date();
+  report(){
+    this.taskReportService.reportTaskDate(this.date)
+  }
 }
