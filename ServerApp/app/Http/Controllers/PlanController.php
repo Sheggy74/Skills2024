@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Deadline;
+use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use App\Models\Task;
@@ -23,18 +24,26 @@ class PlanController extends Controller
     public function showTasksForProject(Request $request, $id)
     {
         $tasks = Task::with(['priority', 'user', 'deadline'])->where('user_id', '=', $id)->get();
-        // return $tasks;
-        return TaskResource::collection($tasks);
+        return $tasks;
+        // return TaskResource::collection($tasks);
     }
 
 
     public function showUsers(Request $request, $id)
     {
-        // $tasks = Task::with(['priority', 'user', 'deadline'])->where('user_id', '=', $id)->get();
-        $users = User::orWhere([['id', $id], ['boss_id', $id]])->get();
-        // return $tasks;
-        return $users;
-        // return TaskResource::collection($tasks);
+        // $users = DB::connection('pgsql')->table('users')->orWhere([['id', $id],['boss_id', $id]])->get();
+        $users = User::orWhere([['id', $id],['boss_id', $id]])->get();
+        // return $users;
+        return UserResource::collection($users);
+    }
+
+    public function showTopics(Request $request)
+    {
+        // $users = DB::connection('pgsql')->table('users')->orWhere([['id', $id],['boss_id', $id]])->get();
+        $topics = Topic::get();
+
+        // return $users;
+        return Topic::collection();
     }
 
     

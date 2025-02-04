@@ -3,6 +3,7 @@ import { Task } from 'src/app/Models/Task';
 import { WorkspaceService } from '../../services/workspace.service';
 import { Priority } from 'src/app/Models/Priority';
 import { PlanService } from '../../services/plan.service';
+import { User } from 'src/app/Models/User';
 
 @Component({
   selector: 'app-create-task',
@@ -15,45 +16,30 @@ export class CreateTaskComponent {
   private workspaceService = inject(WorkspaceService);
   private planService = inject(PlanService);
 
-  visible: boolean = false; 
+  visible: boolean = false;
   newTaskTitle: string = '';
   newTaskDescription: string = '';
   newTaskTopicId?: number;
   newTaskPerformer?: any;
   newTaskDays?: number;
   prioritys: Priority[] = [];
-  newTaskPriorityId: number = 0; 
-  newTaskDeadline?: Date; 
+  newTaskPriorityId: number = 0;
+  newTaskDeadline?: Date;
   countWorkDays: number = 0;
+  users: User[] = [];
 
 
   ngOnInit() {
     this.workspaceService.priority.subscribe(prioritys => {
       this.prioritys = prioritys;
     })
-    
+
     this.countWorkDays = this.planService.countWorkDays(new Date().getFullYear(), new Date().getMonth())
     console.log(this.countWorkDays);
-    
+    this.planService.userAndPerformers.subscribe(users => {
+      this.users = users;
+    })
   }
-
-  performers: any[] = [
-    {
-      fio: 'Петров А.С',
-      position: 'Бухгалтер',
-      id: '4783',
-    },
-    {
-      fio: 'Боброва А.А',
-      position: 'Аудитор',
-      id: '9231',
-    },
-    {
-      fio: 'Янов А.В',
-      position: 'Инвестиционный аналитик',
-      id: '4783',
-    },
-  ]
 
   Topics: any[] = [
     {
@@ -100,8 +86,8 @@ export class CreateTaskComponent {
       };
       // this.createTask.emit(newTask); 
       this.workspaceService.createTask(newTask)
-      this.hideDialog(); 
-      this.newTaskTitle = ''; 
+      this.hideDialog();
+      this.newTaskTitle = '';
       this.newTaskDescription = '';
     }
   }

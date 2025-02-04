@@ -7,6 +7,7 @@ import { Priority } from "src/app/Models/Priority"
 import { State } from "src/app/Models/State";
 import { use } from "echarts";
 import { User } from "src/app/Models/User";
+import { Topics } from "src/app/Models/Topics";
 
 @Injectable({
   providedIn: 'root'
@@ -14,11 +15,16 @@ import { User } from "src/app/Models/User";
 export class PlanService extends BaseApiService {
   localApiPath = this.apiURL + '/plan';
 
-    userAndPerformers = new BehaviorSubject<User[]>([]);
-    loadingUsers = new BehaviorSubject<boolean>(false);
+  userAndPerformers = new BehaviorSubject<User[]>([]);
+  loadingUsers = new BehaviorSubject<boolean>(false);
+  topics = new BehaviorSubject<Topics[]>([]);
 
   async updateUserAndPerformers(userId: number) {
     this.userAndPerformers.next(await this.getPerformers(userId));
+  }
+
+  async updateTopics() {
+    this.topics.next(await this.getTopics());
   }
 
   getTasksForUser(userId: number): Promise<Task[]> {
@@ -49,12 +55,24 @@ export class PlanService extends BaseApiService {
     return weekdayCount;
   }
 
-  getPerformers(userId: number) :Promise<User[]> {
+  getPerformers(userId: number): Promise<User[]> {
     let retValue = lastValueFrom(this.http.get<User[]>(this.localApiPath + "/users/" + userId)
       .pipe(
         map((users: any) => {
           // console.log(tasks.data);
           return users.data;
+        }),
+        catchError(this.exceptionService.getErrorHandlerList())));
+
+    return retValue;
+  }
+
+  getTopics() : Promise<Topics[]> {
+    let retValue = lastValueFrom(this.http.get<User[]>(this.localApiPath + "/topics")
+      .pipe(
+        map((topics: any) => {
+          // console.log(tasks.data);
+          return topics.data;
         }),
         catchError(this.exceptionService.getErrorHandlerList())));
 

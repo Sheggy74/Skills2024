@@ -31,18 +31,18 @@
         <textarea class="w-full" id="newTaskTitle" pInputTextarea mode [(ngModel)]="newTaskDescription"></textarea>
       </div>
       <div class="p-field">
-        <p-table selectionMode="single" [(selection)]="newTaskPerformer" [value]="(performers)!"
+        <p-table selectionMode="single" [(selection)]="newTaskPerformer" [value]="(users)!"
           [scrollable]="true">
           <ng-template pTemplate="header">
             <tr>
               <th>ФИО</th>
-              <th>Роль</th>
+              <th>Тематика</th>
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-performer>
             <tr [pSelectableRow]="performer">
-              <td>{{performer.fio}}</td>
-              <td>{{performer.position}}</td>
+              <td>{{performer.secondName + ' ' + performer.firstName[0] + '.' + (performer.lastName ? performer.lastName[0] + '.' : '')}}</td>
+              <td>{{performer.topics}}</td>
             </tr>
           </ng-template>
         </p-table>

@@ -23,6 +23,8 @@ export class PlanPageComponent {
     const jwtToken = this.stateService.getCurrentJWT();
     this.userId = jwtToken.user?.id;
     
-    this.planService.getPerformers(Number(this.userId));
+    // this.planService.getPerformers(Number.parseInt(this.userId ?? ''));
+    this.planService.updateUserAndPerformers(Number.parseInt(this.userId ?? '0'))
+    this.planService.updateTopics();
   }
 }
