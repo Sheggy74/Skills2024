@@ -13,18 +13,19 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->comment('Пользователи');
-            $table->id()->comment('Идентификатор пользователя');
+            $table->bigInteger('id')->unique()->comment('Идентификатор пользователя');
             $table->string('first_name')->nullable()->comment('Имя пользователя');
             $table->string('second_name')->nullable()->comment('Фамилия пользователя');
             $table->string('last_name')->nullable()->comment('Отчество пользователя');
             $table->string('photo_url')->nullable()->comment('Путь до фото');
-            $table->string('login')->unique()->comment('Логин');
-            $table->string('email')->unique()->comment('Почта');
-            $table->timestamp('email_verified_at')->nullable()->comment('Дата проверки почты');
+            $table->string('login')->unique()->comment('Логин');                        
             $table->string('password')->comment('Пароль');
-            $table->string('place')->nullable()->comment('Профессия');
-            $table->string('job')->nullable()->comment('Место работы');
-            $table->string('phone')->nullable()->comment('Телефон');
+            $table->bigInteger('boss_id')->nullable()->comment('Идентификатор руководителя');
+            $table->string('gender')->nullable()->comment('Пол');
+            $table->date('birthday')->nullable()->comment('Дата рождения');
+            $table->string('position')->nullable()->comment('Должность');
+            $table->integer('prof_level')->nullable()->comment('Проф. уровень');
+            $table->boolean('can_add')->nullable()->comment('Пользователь может создавать задачи');
             $table->rememberToken();
             $table->timestamps();
         });

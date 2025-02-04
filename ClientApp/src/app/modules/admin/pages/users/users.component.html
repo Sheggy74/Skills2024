@@ -1,9 +1,9 @@
 <section class="flex flex-col h-full w-full">
   <div class="flex flex-row justify-end gap-2 p-2">
-    <button type="button" pButton [disabled]="(userUIService.selectedUser | async) == null"
-      (click)="setUser.open()">Добавить в
-      проект</button>
-    <app-icon-button icon="add" (onClick)="addEdit.createShow()">
+    <input style="display: none;" #fi type="file" [value]="userFile" (change)="onUpload($event)">
+    <button type="button" pButton
+      (click)="fi.click()">Загрузить пользователей</button>
+    <!-- <app-icon-button icon="add" (onClick)="addEdit.createShow()">
 
     </app-icon-button>
     <app-icon-button icon="edit" (onClick)="addEdit.editShow(userUIService.selectedUser.value!)"
@@ -13,7 +13,7 @@
     <app-icon-button disabledClass="text-red-200" activeClass="text-red-500 hover:bg-gray-100 active:bg-blue-100"
       icon="delete" [disabled]="(userUIService.selectedUser | async) == null" (onClick)="deleteSelectedUser()">
 
-    </app-icon-button>
+    </app-icon-button> -->
   </div>
   <!--
     <p-divider></p-divider> -->

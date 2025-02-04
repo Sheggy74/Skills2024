@@ -3,6 +3,12 @@ import { BlockService } from 'src/app/services/BlockService/block.service';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 import { AdminUserService } from '../../services/admin-user-service/admin-user.service';
 import { UserUiService } from './user-ui-service/user-ui.service';
+import { FileUploadEvent } from 'primeng/fileupload';
+
+interface UploadEvent {
+  originalEvent: Event;
+  files: File[];
+}
 
 @Component({
   selector: 'app-users',
@@ -14,33 +20,31 @@ export class UsersComponent extends BaseComponent {
     userUIService = inject(UserUiService)
     blockService = inject(BlockService)
     adminUserService = inject(AdminUserService)
+    userFile?: File;
+    users: any[] = [];
 
+    override async ngOnInit() {
+      
+    }
 
-    async deleteSelectedUser(){
-        if(this.userUIService.selectedUser.value?.id == null){
-            return
-        }
+    uploadUsers(){
+        if(this.userFile)
+            this.adminUserService.uploadUsers(this.userFile);
+    }
 
-        // let blockResult = await this.blockService.blockObject(this.userUIService.selectedUser.value.id)
-        // if(blockResult != ""){
-        //     return
-        // }
-        let isDeleted = await this.adminUserService.deleteUser(this.userUIService.selectedUser.value.id)
-        //let unblockResult = await this.blockService.unblockObject(this.userUIService.selectedUser.value.id)
-        if (isDeleted == false){
-            return
-        }
+    public onUpload(event: any){
+      const inputElement = event.target as HTMLInputElement;
+      if (inputElement.files && inputElement.files.length > 0) {
+        this.userFile = inputElement.files[0];
+        this.uploadUsers();
+      }
+      
+    }
 
-        let usersToChange = this.userUIService.users.value
-        let index = usersToChange.findIndex((value)=>{
-            return value.id == this.userUIService.selectedUser.value?.id
-        })
-        this.userUIService.selectedUser.next(undefined)
-        if(index == -1){
-            return
-        }
-        usersToChange.splice(index, 1)
-        this.userUIService.users.next(usersToChange)
+    test(event: any){
+      console.log(event);
+      console.log(this.userFile);
+      
     }
 
 }

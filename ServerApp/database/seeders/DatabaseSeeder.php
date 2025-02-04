@@ -16,18 +16,20 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
-        $this->call([
-            UserSeeder::class,
-            RoleProjectSeeder::class,
-            ReportSeeder::class,
-            ProjectSeeder::class,
-            RuleProjectSeeder::class,
-            StateSeeder::class,
-            PrioritySeeder::class,
-            TaskSeeder::class,
-            PerformerSeeder::class,
-            ChatSeeder::class,
-            StateTaskSeeder::class,
-        ]);
+       $this->call([
+           RoleProjectSeeder::class,           
+           ProjectSeeder::class,
+           UserSeeder::class,
+          // RuleProjectSeeder::class,
+           StateSeeder::class,
+           PrioritySeeder::class,
+           TaskSeeder::class,
+           PerformerSeeder::class,
+           ChatSeeder::class,
+           StateTaskSeeder::class,           
+
+       ])
+;
+
     }
 }

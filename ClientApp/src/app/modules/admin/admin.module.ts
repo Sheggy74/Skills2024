@@ -16,7 +16,9 @@ import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives
 import { RoleSelectorComponent } from "./pages/users/add-edit-user/role-selector/role-selector.component";
 import { SetOnProjComponent } from './pages/users/set-on-proj/set-on-proj.component';
 import { AutoCompleteModule } from 'primeng/autocomplete';
-
+import { FileUploadModule } from 'primeng/fileupload';
+import { TreeTableModule } from 'primeng/treetable';
+import { SkeletonModule } from 'primeng/skeleton';
 
 
 @NgModule({
@@ -40,7 +42,10 @@ import { AutoCompleteModule } from 'primeng/autocomplete';
     FormsModule,
     InputTextModule,
     ButtonModule,
-    MesDirectivesModule
+    MesDirectivesModule,
+    FileUploadModule,
+    TreeTableModule,
+    SkeletonModule
   ]
 })
 export class AdminModule { }

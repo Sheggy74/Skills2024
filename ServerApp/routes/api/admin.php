@@ -17,4 +17,6 @@ Route::prefix('admin')
         Route::post('users', 'create');
         Route::put('users/{id}', 'update');
         Route::delete('users/{id}', 'delete');
+        Route::post('uploadUsers','uploadUsers');
+        Route::put('set-add','setAdd');
     });

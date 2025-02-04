@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<File xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Department="Отдел финансов" >
+    <Headcount Count="13">
+        <Employee Lastname="Иванов" Firstname="Сергей" Middlename="Анатольевич" ID="7346" ProfLevel="9" Gender="М" Birthday="12.04.1987" Position="Начальник отдела финансов">
+            <Account Login="Ivan87" Pass="Eng33Iva"/>
+            <Topic_emp>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Петров" Firstname="Александр" Middlename="Сергеевич" ID="8341" ProfLevel="8" Boss_id="7346" Gender="М" Birthday="21.08.1985" Position="Заместитель начальника отдела финансов">
+            <Account Login="Petr85" Pass="Ale83ser"/>
+            <Topic_emp>
+                <UserTopic Name="Бюджетирование" TopicId="BUD"/>
+                <UserTopic Name="Управление денежными средствами" TopicId="CASH"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Михалков" Firstname="Александр" Middlename="Вячеславович" ID="2946" ProfLevel="7" Boss_id="7346" Gender="М" Birthday="09.11.1988" Position="Заместитель начальника отдела финансов">
+            <Account Login="Mih85" Pass="Alex88"/>
+            <Topic_emp>
+                <UserTopic Name="Финансовая отчетность" TopicId="REP"/>
+                <UserTopic Name="Налоговое планирование и отчетность" TopicId="TAX"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Власова" Firstname="Анастасия" Middlename="Сергеевна" ID="8263" ProfLevel="9" Boss_id="7346" Gender="Ж" Birthday="09.01.1988" Position="Заместитель начальника отдела финансов">
+            <Account Login="Vlas88" Pass="Anas88"/>
+            <Topic_emp>
+                <UserTopic Name="Финансовый анализ и прогнозирование" TopicId="FAN"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Бутусов" Firstname="Артем" Middlename="Евгеньевич" ID="9234" ProfLevel="5" Boss_id="8341" Gender="М" Birthday="04.12.2002" Position="Менеджер по бюджетированию и планированию">
+            <Account Login="Art02" Pass="But02"/>
+            <Topic_emp>
+                <UserTopic Name="Планирование бюджета" TopicId="BUD-1"/>
+                <UserTopic Name="Контроль исполнения бюджета" TopicId="BUD-2"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Семенов" Firstname="Виктор" Middlename="Дмитриевич" ID="1834" ProfLevel="3" Boss_id="8341" Gender="М" Birthday="25.12.1979" Position="Казначей">
+            <Account Login="Vikt79" Pass="Semen79"/>
+            <Topic_emp>
+                <UserTopic Name="Управление ликвидностью" TopicId="CASH-1"/>
+                <UserTopic Name="Прогнозирование денежных потоков" TopicId="CASH-2"/>
+                <UserTopic Name="Оптимизация денежных потоков" TopicId="CASH-3"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Митрофанова" Firstname="Елена" Middlename="Геннадьевна" ID="5285" ProfLevel="1" Boss_id="8341" Gender="Ж" Birthday="01.03.1971" Position="Аналитик финансового отдела">
+            <Account Login="Mitr71" Pass="Elen71"/>
+            <Topic_emp>
+                <UserTopic Name="Анализ отклонений" TopicId="BUD-1"/>
+                <UserTopic Name="Планирование бюджета" TopicId="BUD-4"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Боброва" Firstname="Анна" Middlename="Артемовна" ID="9231" ProfLevel="4" Boss_id="8341" Gender="Ж" Birthday="17.07.1971" Position="Аудитор">
+            <Account Login="Bobr71" Pass="Anna71"/>
+            <Topic_emp>
+                <UserTopic Name="Контроль исполнения бюджета" TopicId="BUD-3"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Оглы" Firstname="Шохзода" Middlename="Хамзяевна" ID="1262" ProfLevel="2" Boss_id="2946" Gender="Ж" Birthday="04.10.1981" Position="Специалист по финансовой отчетности">
+            <Account Login="Ogly81" Pass="Shish81"/>
+            <Topic_emp>
+                <UserTopic Name="Подготовка отчетности" TopicId="REP-1"/>
+                <UserTopic Name="Анализ финансовых показателей" TopicId="REP-2"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Преснецова" Firstname="Алина" Middlename="Леонидовна" ID="4783" ProfLevel="6" Boss_id="2946" Gender="Ж" Birthday="14.08.1982" Position="Бухгалтер">
+            <Account Login="Alin82" Pass="Pres82"/>
+            <Topic_emp>
+                <UserTopic Name="Подготовка отчетности" TopicId="REP-1"/>
+                <UserTopic Name="Расчет налогов" TopicId="TAX-1"/>
+            </Topic_emp>
+        </Employee>
+
+    <Employee Lastname="Бердников" Firstname="Антон" Middlename="Евгеньевич" ID="4347" ProfLevel="2" Boss_id="2946" Gender="М" Birthday="19.03.1991" Position="Бухгалтер">
+            <Account Login="Berd91" Pass="Anton91"/>
+            <Topic_emp>
+                <UserTopic Name="Оптимизация налоговой нагрузки" TopicId="TAX-2"/>
+                <UserTopic Name="Подготовка налоговой отчетности" TopicId="TAX-3"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Антонова" Firstname="Мария" Middlename="Юрьевна" ID="9025" ProfLevel="6" Boss_id="8263" Gender="Ж" Birthday="27.03.1995" Position="Аналитик финансового отдела">
+            <Account Login="Ant95" Pass="Mari95"/>
+            <Topic_emp>
+                <UserTopic Name="Анализ финансового состояния" TopicId="FAN-1"/>
+                <UserTopic Name="Прогнозирования финансовых результатов" TopicId="FAN-2"/>
+            </Topic_emp>
+        </Employee>
+
+        <Employee Lastname="Янов" Firstname="Алексей" Middlename="Владимирович" ID="1738" ProfLevel="5" Boss_id="8263" Gender="М" Birthday="28.11.1974" Position="Инвестиционный аналитик">
+            <Account Login="Yan74" Pass="Vlad74"/>
+            <Topic_emp>
+                <UserTopic Name="Анализ финансового состояния" TopicId="FAN-1"/>
+                <UserTopic Name="Прогнозирования финансовых результатов" TopicId="FAN-2"/>
+                <UserTopic Name="Оценка инвестиционных проетов" TopicId="FAN-3"/>
+            </Topic_emp>
+        </Employee>
+    </Headcount>
+
+    <Topics>
+        <Topic Name="Бюджетирование" TopicId="BUD"/>
+        <Topic Name="Финансовая отчетность" TopicId="REP"/>
+        <Topic Name="Управление денежными средствами" TopicId="CASH"/>
+        <Topic Name="Налоговое планирование и отчетность" TopicId="TAX"/>
+        <Topic Name="Финансовый анализ и прогнозирование" TopicId="FAN"/>
+
+        <Topic Name="Планирование бюджета" TopicId="BUD-1" TopicUpperLevel="BUD"/>
+        <Topic Name="Контроль исполнения бюджета" TopicId="BUD-2" TopicUpperLevel="BUD"/>
+        <Topic Name="Анализ отклонений" TopicId="BUD-3" TopicUpperLevel="BUD"/>
+        <Topic Name="Расчет заработной платы" TopicId="BUD-4" TopicUpperLevel="BUD"/>
+
+
+        <Topic Name="Подготовка отчетности" TopicId="REP-1" TopicUpperLevel="REP"/>
+        <Topic Name="Анализ финансовых показателей" TopicId="REP-2" TopicUpperLevel="REP"/>
+
+        <Topic Name="Управление ликвидностью" TopicId="CASH-1" TopicUpperLevel="CASH"/>
+        <Topic Name="Прогнозирование денежных потоков" TopicId="CASH-2" TopicUpperLevel="CASH"/>
+        <Topic Name="Оптимизация денежных потоков" TopicId="CASH-3" TopicUpperLevel="CASH"/>
+
+        <Topic Name="Расчет налогов" TopicId="TAX-1" TopicUpperLevel="TAX"/>
+        <Topic Name="Оптимизация налоговой нагрузки" TopicId="TAX-2" TopicUpperLevel="TAX"/>
+        <Topic Name="Подготовка налоговой отчетности" TopicId="TAX-3" TopicUpperLevel="TAX"/>
+
+        <Topic Name="Анализ финансового состояния" TopicId="FAN-1" TopicUpperLevel="FAN"/>
+        <Topic Name="Прогнозирования финансовых результатов" TopicId="FAN-2" TopicUpperLevel="FAN"/>
+        <Topic Name="Оценка инвестиционных проетов" TopicId="FAN-3" TopicUpperLevel="FAN"/>
+
+    </Topics>
+</File>
