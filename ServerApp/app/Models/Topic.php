@@ -14,5 +14,10 @@ class Topic extends Model
         'upper_level'
     ];
 
+    public function tasks()
+    {
+        return $this->hasMany(Task::class, 'priority_id');
+    }
+
     protected $table = 'topics';
 }

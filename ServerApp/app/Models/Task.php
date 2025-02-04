@@ -28,15 +28,26 @@ class Task extends Model
         'state_id',
     ];
 
-    public function users()
-    {
-        return $this->belongsToMany(User::class, 'rule_task', 'task_id', 'user_id');
-    }
+    // public function users()
+    // {
+    //     return $this->belongsToMany(User::class, 'rule_task', 'task_id', 'user_id');
+    // }
 
     public function priority()
     {
         return $this->belongsTo(Priority::class, 'priority_id');
     }
+
+    public function topic()
+    {
+        return $this->belongsTo(Priority::class, 'topic_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
 
     public function states()
     {

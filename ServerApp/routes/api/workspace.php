@@ -16,3 +16,12 @@ Route::prefix('workspace')
         Route::get('project/{id}', 'showProjectData');
         Route::get('projectuser/executorTask/{id}', 'showExecutorTask');
     });
+
+Route::prefix('plan')
+    ->middleware(['auth:api'])
+    ->controller(\App\Http\Controllers\PlanController::class)
+    ->group(function () {
+        Route::get('{id}', 'showPriority');
+        Route::get('users/{id}', 'showUsers');
+        Route::get('topics', 'showTopics');
+    });

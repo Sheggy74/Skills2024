@@ -108,6 +108,7 @@ export class WorkspaceComponent {
 
     const jwtToken = this.stateService.getCurrentJWT();
     this.userRoleId = jwtToken.roles?.pop()?.id;
+    jwtToken.user?.id
     this.isManagerOrAdmin = this.userRoleId == '1' || this.userRoleId == '2' ? true : false;
     this.taskClndService.getTasks(this.projectId);
 
