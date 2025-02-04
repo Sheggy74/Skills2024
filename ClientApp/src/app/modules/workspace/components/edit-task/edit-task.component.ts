@@ -31,7 +31,7 @@ export class EditTaskComponent {
         this.selectDeadline = new Date(this.task?.deadline);
       if (this.task != undefined) {
         this.workspaceService.updatePriority();
-        this.workspaceService.updateState(this.task.projectId);
+        this.workspaceService.updateState(this.task.projectId ?? 0);
         this.workspaceService.priority.subscribe(prioritys => {
           this.prioritys = prioritys;
         })
@@ -52,7 +52,7 @@ export class EditTaskComponent {
       this.task.name = this.editedTitle ?? '';
       this.workspaceService.editTask(this.task.id, this.task);
       this.workspaceService.closeSidebarVisible();
-      this.workspaceService.updateData(this.task.projectId)
+      this.workspaceService.updateData(this.task.projectId ?? 0)
     }
     
   }

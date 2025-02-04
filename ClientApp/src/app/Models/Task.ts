@@ -8,7 +8,7 @@ export interface Task {
   dateCreation: Date; 
   stateId?: number;
   taskStateName?: number;
-  projectId: number,
+  projectId?: number,
   performers: User[], 
   performersId: number[], 
   userId?: number,

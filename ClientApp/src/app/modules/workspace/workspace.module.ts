@@ -36,10 +36,12 @@ import { TabViewModule } from 'primeng/tabview';
 import { TaskTableComponent } from './components/task-table/task-table.component';
 import { AvatarGroupModule } from 'primeng/avatargroup';
 import { CalendarModule } from 'primeng/calendar';
+import { PlanPageComponent } from './pages/plan/plan-page.component';
+import { TaskComponent } from './components/task/task.component';
 
 
 @NgModule({
-  declarations: [WorkspaceComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent],
+  declarations: [WorkspaceComponent, TaskComponent, PlanPageComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent],
   imports: [
     CommonModule,
     FormsModule,

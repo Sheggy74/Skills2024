@@ -26,8 +26,8 @@
     </ng-template>
     <div class="flex gap-10 items-center">
       <button pButton pRipple class="p-button-rounded p-button-primary p-button-text" *ngIf="isManagerOrAdmin"
-        label="Добавить задачу" icon="pi pi-plus" (click)="createTaskDialog.showDialog()"></button>
-      <div *ngIf="!isManagerOrAdmin" class="flex gap-2 items-center">
+         label="Добавить задачу" icon="pi pi-plus" (click)="createTaskDialog.showDialog()"></button>
+               <div *ngIf="!isManagerOrAdmin" class="flex gap-2 items-center">
         <p-checkbox [(ngModel)]="isOnlyExecutorsTasks"></p-checkbox>
         <label for="binary">Показывать только мои задачи</label>
       </div>
@@ -40,7 +40,7 @@
     <app-task-table [tasks]="tasks" *ngIf="activeItem == items[0]"></app-task-table>
   </p-card>
 
-  <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task>
+  <app-create-task #createTaskDialog></app-create-task>
   <div style="padding-top: 10px;">
     <app-calendar #clnd *ngIf="activeItem == items[1]" [visibleClnd]="visibleClnd"></app-calendar>
   </div>
