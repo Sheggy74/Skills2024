@@ -67,10 +67,10 @@ export class AppComponent extends BaseComponent {
 
         let subscription2 = this.stateService.applicationName.subscribe((value) => {
             if(value.length < 1){
-                document.title = "LAB-система"
+                document.title = "TaskFlow"
                 return
             }
-            document.title = "LAB-система. " + value.substring(0,1).toUpperCase() + value.substring(1, value.length)
+            document.title = "TaskFlow" + value.substring(0,1).toUpperCase() + value.substring(1, value.length)
         });
         this.subscriptions.push(subscription2);
         // если токен исчез, перейти на страницу авторизации
@@ -79,6 +79,7 @@ export class AppComponent extends BaseComponent {
             if(currentJWT.accessToken == null || currentJWT.accessEndDateTime == null){
                 this.router.navigateByUrl("auth")
             }
+            else  this.router.navigateByUrl("workspace")
         }))
     }
 
