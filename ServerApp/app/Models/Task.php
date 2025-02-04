@@ -43,15 +43,19 @@ class Task extends Model
         return $this->belongsToMany(State::class, 'state_task')->withTimestamps();
     }
 
-    // Для получения последнего состояния задачи
     public function lastState()
     {
         return $this->hasOne(StateTask::class)->latest();
     }
 
+    public function deadlines()
+    {
+        return $this->belongsToMany(Deadline::class, 'deadline')->withTimestamps();
+    }
+
     public function deadline()
     {
-        return $this->hasOne(Deadline::class);
+        return $this->hasOne(Deadline::class)->orderBy('created_at','desc');
     }
 
 

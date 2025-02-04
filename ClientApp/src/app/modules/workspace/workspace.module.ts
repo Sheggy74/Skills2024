@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WorkspaceRoutingModule } from './workspace-routing.module';
-import { TaskComponent } from './components/task/task.component';
 import { CardModule } from 'primeng/card';
 import { AccordionModule } from 'primeng/accordion';
 import { DividerModule } from 'primeng/divider';
@@ -35,10 +34,14 @@ import { TabMenuModule } from 'primeng/tabmenu';
 import { TaskSidebarComponent } from './components/task-sidebar/task-sidebar.component';
 import { TabViewModule } from 'primeng/tabview';
 import { TaskTableComponent } from './components/task-table/task-table.component';
+import { AvatarGroupModule } from 'primeng/avatargroup';
+import { CalendarModule } from 'primeng/calendar';
+import { PlanPageComponent } from './pages/plan/plan-page.component';
+import { TaskComponent } from './components/task/task.component';
 
 
 @NgModule({
-  declarations: [TaskComponent, WorkspaceComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent],
+  declarations: [WorkspaceComponent, TaskComponent, PlanPageComponent, EditTaskComponent, CreateTaskComponent, SelectExecutorComponent, CalendarComponent, TaskSidebarComponent, TaskTableComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -67,6 +70,8 @@ import { TaskTableComponent } from './components/task-table/task-table.component
     TabMenuModule,
     SidebarModule,
     TabViewModule,
+    AvatarGroupModule,
+    CalendarModule
   ]
 
 })

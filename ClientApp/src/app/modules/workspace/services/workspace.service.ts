@@ -20,13 +20,17 @@ export class WorkspaceService extends BaseApiService {
   priority = new BehaviorSubject<Priority[]>([])
   isLoadingState = new BehaviorSubject<boolean>(true);
   state = new BehaviorSubject<State[]>([])
+  
+  sidebarVisible = new BehaviorSubject<boolean>(false);
 
+  // обновление задач проекта
   async updateData(projectId: number) {
     this.isLoadingTask.next(true);
     this.tasks.next(await this.getTasksForProject(projectId));
     this.isLoadingTask.next(false);  
   }
 
+  // обновление данных проекта
   async updateProjectData(projectId: number) {
     this.isLoadingProject.next(true);
     this.project.next(await this.getProjectData(projectId));
@@ -34,7 +38,22 @@ export class WorkspaceService extends BaseApiService {
     // console.log(this.project);
   }
 
-  async updatePriority(projectId: number) {
+  // обновление выбранной задачи
+  async updateSelectedTask(task: Task) {
+    this.selectedTask.next(task);
+    // console.log(this.project);
+  }
+
+  // переключение видимости боковой панели с информацией по задачи
+  async openSidebarVisible() {
+    this.sidebarVisible.next(true);
+  }
+
+  async closeSidebarVisible() {
+    this.sidebarVisible.next(false);
+  }
+
+  async updatePriority() {
     this.isLoadingPriority.next(true);
     this.priority.next(await this.getPriority());
     this.isLoadingPriority.next(false);
@@ -42,7 +61,7 @@ export class WorkspaceService extends BaseApiService {
   
   async updateState(projectId: number) {
     this.isLoadingPriority.next(true);
-    this.priority.next(await this.getPriority());
+    this.state.next(await this.getState(projectId));
     this.isLoadingPriority.next(false);
   }
 
@@ -116,7 +135,6 @@ export class WorkspaceService extends BaseApiService {
     let retValue = lastValueFrom(this.http.get<Priority>(this.localAPIPath + "/priority" )
     .pipe(
       map((priority: any) => {
-        // console.log(project);
         return priority;
       }),
       catchError(this.exceptionService.getErrorHandlerList())));
@@ -124,12 +142,11 @@ export class WorkspaceService extends BaseApiService {
   return retValue;
   }
 
-  getState() :Promise<State[]> {
-    let retValue = lastValueFrom(this.http.get<State>(this.localAPIPath + "/state" )
+  getState(projectId: number) :Promise<State[]> {
+    let retValue = lastValueFrom(this.http.get<State>(this.localAPIPath + "/state/" + projectId )
     .pipe(
-      map((priority: any) => {
-        // console.log(project);
-        return priority;
+      map((state: any) => {
+        return state;
       }),
       catchError(this.exceptionService.getErrorHandlerList())));
 

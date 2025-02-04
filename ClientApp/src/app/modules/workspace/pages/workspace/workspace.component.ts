@@ -8,6 +8,7 @@ import { JwtService } from 'src/app/services/JWTService/jwt.service';
 import { StateService } from 'src/app/services/StateService/state.service';
 import { Priority } from 'src/app/Models/Priority';
 import { UserRole } from 'src/app/Models/UserRole';
+import { User } from 'src/app/Models/User';
 import { ProjectUserService } from '../../services/project-user.service';
 import { ProjectService } from 'src/app/modules/project/services/project.service';
 import { MenuItem } from 'primeng/api';
@@ -36,7 +37,7 @@ export class WorkspaceComponent {
   newTaskDescription: string = '';
   projectId: number = 0;
   projectName: string = "";
-  project!: Projects
+  project: any;
   userRoleId: string | undefined;
   isManagerOrAdmin: boolean = false;
   isLoadingProject: boolean = false;
@@ -44,20 +45,21 @@ export class WorkspaceComponent {
   isLoadingPriority: boolean = false;
   isLoadingProjectUser: boolean = false;
   isOnlyExecutorsTasks: boolean = true;
-  isSidebarVisible: boolean = false;  
+  isSidebarVisible: boolean = false;
 
   private workspaceService = inject(WorkspaceService);
   private jwtService = inject(JwtService);
   private stateService = inject(StateService)
   private projectUserService = inject(ProjectUserService)
   projectService = inject(ProjectService)
-  taskClndService=inject(TaskClndService);
-  constructor(private route: ActivatedRoute) { }  
+  taskClndService = inject(TaskClndService);
+  constructor(private route: ActivatedRoute) { }
   priorityName: string = ""
-  items!: MenuItem[] ;
-  activeItem!: MenuItem ;
-  visibleClnd:boolean=false;
-  editSidebarVisible: boolean = false;
+  items!: MenuItem[];
+  activeItem!: MenuItem;
+  visibleClnd: boolean = false;
+  displayedUsers: any[] = [];
+  selectedTask?: Task;
 
   async ngOnInit(): Promise<void> {
     this.cols = [
@@ -89,6 +91,7 @@ export class WorkspaceComponent {
     this.workspaceService.project.subscribe(project => {
       this.project = project!;
       this.projectName = project?.name || '';
+      this.displayedUsers = project?.users ?? [];
     })
 
 
@@ -97,17 +100,9 @@ export class WorkspaceComponent {
       this.tasks = tasks;
     })
 
-    this.workspaceService.updatePriority(this.projectId)
-    this.workspaceService.priority.subscribe(priority => {
-      this.prioritys = priority;
-      console.log(this.prioritys);
-      
-    })
-
     this.projectUserService.updateProjectUser(this.projectId)
     this.projectUserService.projectUser.subscribe(projectUsers => {
       this.projectUsers = projectUsers;
-      console.log(this.projectUsers);
     })
 
 
@@ -117,51 +112,36 @@ export class WorkspaceComponent {
     this.taskClndService.getTasks(this.projectId);
 
     this.items = [
-      { label: 'Таблица', icon: 'pi pi-table' ,command:()=>{this.visibleClnd=false;}},
-      { label: 'Календарь', icon: 'pi pi-calendar',command:()=>{this.visibleClnd=true;}
-      // command:()=>{this.taskClndService.getTasks(this.projectId)} 
-    },
-  ];
+      { label: 'Таблица', icon: 'pi pi-table', command: () => { this.visibleClnd = false; } },
+      {
+        label: 'Календарь', icon: 'pi pi-calendar', command: () => { this.visibleClnd = true; }
+        // command:()=>{this.taskClndService.getTasks(this.projectId)} 
+      },
+    ];
 
-  this.activeItem = this.items[0];
+    this.workspaceService.selectedTask.subscribe(task => {
+      this.selectedTask = task;
+    })
+
+    this.activeItem = this.items[0];
   }
 
   async addTask(newTask: Task) {
     this.tasks.push(newTask);
-    console.log(newTask);
-    
   }
 
-  async removeTask(taskId: number) {
-    this.workspaceService.deleteTask(taskId);
-    await this.workspaceService.updateData(7);
-    this.tasks = this.workspaceService.tasks.value;
-  }
-
-  async changeTask(updatedTask: Task) {
-    this.workspaceService.editTask(updatedTask.id, updatedTask);
-    await this.workspaceService.updateData(7);
-    this.tasks = this.workspaceService.tasks.value;
-    this.editSidebarVisible = false;
-  }
-
-  getSeverityForTag(priorityId: number) : "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
-    switch(priorityId) {
-      case 1: {return 'success';}
-      case 2: {return 'info';}
-      case 3: {return 'warning';}
-      case 4: {return 'danger';}
+  getSeverityForTag(priorityId: number): "success" | "secondary" | "info" | "warning" | "danger" | "contrast" | undefined {
+    switch (priorityId) {
+      case 1: { return 'success'; }
+      case 2: { return 'info'; }
+      case 3: { return 'warning'; }
+      case 4: { return 'danger'; }
       default: return undefined;
     }
   }
 
-  getPerformersTask(taskId:number) : number[] {
-    console.log(this.projectUserService.getExecutorTask(taskId));
-    return [1,2,3,4]
-  }
-
   onActiveItemChange(event: MenuItem) {
     this.activeItem = event;
-}
+  }
 
 }

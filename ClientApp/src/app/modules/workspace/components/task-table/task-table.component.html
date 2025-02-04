@@ -11,7 +11,7 @@
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-task>
-      <tr>
+      <tr [ngStyle]="selectedTask?.id == task.id ? {'border-width': '0 3px 0 3px', 'border-color': 'var(--primary-color)'} : {}" (click)="selectTask(task)">
         <td> {{task.name}} </td> <!-- название задачи -->
         <td> {{task.stateName}} </td> <!-- статус задачи -->
         <td>
@@ -22,7 +22,7 @@
               <p-avatar *ngIf="performer.photo_url != null"
                 [image]="'http://localhost:8000/storage/' + performer.photo_url" size="large" class="mr-2"
                 shape="circle" />
-              {{performer.first_name + ' ' + performer.second_name[0].toUpperCase() +'.'+ (performer.last_name ?
+              {{performer.second_name + ' ' + performer.first_name[0].toUpperCase() +'.'+ (performer.last_name ?
               performer.last_name[0].toUpperCase() + '.' :"")}}
             </div>
           </div>

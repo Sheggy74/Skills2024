@@ -8,4 +8,5 @@ Route::prefix('report')
         Route::get('data','reportData');
         Route::get('report','data');
         Route::get('{id}','report');
+        Route::get('project/{id}','ReportProject');
     });

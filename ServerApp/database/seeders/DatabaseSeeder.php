@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
 
+<<<<<<< HEAD
        $this->call([
            RoleProjectSeeder::class,
            ToolSeeder::class,
@@ -36,5 +37,20 @@ class DatabaseSeeder extends Seeder
        ])
 ;
 
+=======
+        $this->call([
+            UserSeeder::class,
+            RoleProjectSeeder::class,
+            ReportSeeder::class,
+            ProjectSeeder::class,
+            RuleProjectSeeder::class,
+            StateSeeder::class,
+            PrioritySeeder::class,
+            TaskSeeder::class,
+            PerformerSeeder::class,
+            ChatSeeder::class,
+            StateTaskSeeder::class,
+        ]);
+>>>>>>> 06bc8f9a0864f94eead87ec004f1f339d96d6224
     }
 }

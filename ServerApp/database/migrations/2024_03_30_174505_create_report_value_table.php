@@ -15,12 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->float('value');
-            $table->string('conclusion');
-            $table->bigInteger('experiments_id');
             $table->timestamps();
-            
-            $table->foreign('experiments_id')->references('id')->on('experiments');
         });
     }
 

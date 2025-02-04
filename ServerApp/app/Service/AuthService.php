@@ -3,8 +3,9 @@
 namespace App\Service;
 
 use App\Entity\NavigationButton;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Collection;
-
+use Illuminate\Support\Facades\DB;
 
 class AuthService
 {
@@ -32,7 +33,7 @@ class AuthService
                 ])
             );
         }
-
+        
         $buttons->push(
             new NavigationButton([
                 'caption' => 'Домашняя страница',
@@ -40,14 +41,28 @@ class AuthService
                 'routerLink' => 'home'
             ])
         );
+        
+        $projects=DB::table('rule_project')->where('user_id',Auth::user()->id)
+            ->where('role_id',1)->get();
 
-        // $buttons->push(
-        //     new NavigationButton([
-        //         'caption' => 'Исполнители',
-        //         'iconClass' => 'people',
-        //         'routerLink' => 'executors'
-        //     ])
-        // );
+        if( count($projects)!=0){
+            $buttons->push(
+                new NavigationButton([
+                    'caption' => 'Проекты',
+                    'iconClass' => 'book',
+                    'routerLink' => 'projects',
+                ])
+            );
+        }
+
+
+        $buttons->push(
+            new NavigationButton([
+                'caption' => 'Планы',
+                'iconClass' => 'book',
+                'routerLink' => 'workspace'
+            ])
+        );
         //
         // $buttons->push(
         //     new NavigationButton([
@@ -67,4 +82,6 @@ class AuthService
         //
         return $buttons;
     }
+
+
 }

@@ -9,7 +9,6 @@ import { Priority } from 'src/app/Models/Priority';
   styleUrl: './create-task.component.css'
 })
 export class CreateTaskComponent {
-  @Input() projectId = 0;
   @Output() createTask = new EventEmitter<Task>();
   @Output() visibleChange = new EventEmitter<boolean>();
   private workspaceService = inject(WorkspaceService);
@@ -39,15 +38,13 @@ export class CreateTaskComponent {
         name: this.newTaskTitle,
         description: this.newTaskDescription,
         dateCreation: new Date(),
-        taskStateId: 1,
+        stateId: 1,
         priorityId: 0,
-        projectId: this.projectId,
         performers: [],
         performersId: [],
       };
       this.createTask.emit(newTask); 
       this.workspaceService.createTask(newTask)
-      this.workspaceService.updateData(this.projectId);
       this.hideDialog(); 
       this.newTaskTitle = ''; 
       this.newTaskDescription = '';
