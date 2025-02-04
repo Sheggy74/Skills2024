@@ -4,6 +4,7 @@ import { WorkspaceService } from '../../services/workspace.service';
 import { Priority } from 'src/app/Models/Priority';
 import { PlanService } from '../../services/plan.service';
 import { User } from 'src/app/Models/User';
+import { Topics } from 'src/app/Models/Topics';
 
 @Component({
   selector: 'app-create-task',
@@ -27,6 +28,7 @@ export class CreateTaskComponent {
   newTaskDeadline?: Date;
   countWorkDays: number = 0;
   users: User[] = [];
+  topics: Topics[] = [];
 
 
   ngOnInit() {
@@ -39,30 +41,16 @@ export class CreateTaskComponent {
     this.planService.userAndPerformers.subscribe(users => {
       this.users = users;
     })
+    this.planService.topics.subscribe(topics => {
+      this.topics = topics;
+    })
+    this.cols = [
+      { field: 'code', header: 'Название' },
+      { field: 'name', header: 'Name' },
+      { field: 'category', header: 'Category' },
+      { field: 'quantity', header: 'Quantity' }
+    ];
   }
-
-  Topics: any[] = [
-    {
-      id: 1,
-      name: 'Бюджетирование'
-    },
-    {
-      id: 2,
-      name: 'Финансовая отчетность'
-    },
-    {
-      id: 3,
-      name: 'Управление денежными средствами'
-    },
-    {
-      id: 4,
-      name: 'Налоговое планирование и отчетность'
-    },
-    {
-      id: 5,
-      name: 'Финансовый анализ и прогнозирование'
-    },
-  ]
 
   showDialog() {
     this.visible = true;
@@ -91,4 +79,7 @@ export class CreateTaskComponent {
       this.newTaskDescription = '';
     }
   }
+
+  cols: any[] = [];
+
 }

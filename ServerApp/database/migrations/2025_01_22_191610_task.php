@@ -25,6 +25,7 @@ return new class extends Migration
             $table->timestamp('updated_at')->nullable()->comment('Дата изменения');
             $table->string('topic_id')->nullable()->comment('Тематика задачи');
             $table->integer('days')->nullable()->comment('Тематика задачи');
+            $table->integer('order_number')->nullable()->comment('Порядковый номер');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('priority_id')->references('id')->on('priority')->onDelete('cascade');
