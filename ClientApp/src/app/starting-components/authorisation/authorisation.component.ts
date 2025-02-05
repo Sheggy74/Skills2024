@@ -42,7 +42,7 @@ export class AuthorisationComponent extends BaseComponent {
             if(result.roles?.length == 1 && result.roles[0].startingUrl != null){
                 this.router.navigateByUrl(result.roles[0].startingUrl)
             }else{
-                this.router.navigateByUrl("role-selection")
+                this.router.navigateByUrl("workspace")
             }
         }
 

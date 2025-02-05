@@ -18,6 +18,7 @@ export class PlanService extends BaseApiService {
   userAndPerformers = new BehaviorSubject<User[]>([]);
   loadingUsers = new BehaviorSubject<boolean>(false);
   topics = new BehaviorSubject<Topics[]>([]);
+  tasks: any[] = [];
 
   async updateUserAndPerformers(userId: number) {
     this.userAndPerformers.next(await this.getPerformers(userId));
@@ -90,6 +91,18 @@ export class PlanService extends BaseApiService {
         catchError(this.exceptionService.getErrorHandlerList())));
 
     return retValue;
+  }
+
+  getTasks() {
+    this.tasks = [];
+    return lastValueFrom(
+      this.http.get<any>(this.apiURL + '/plan/tasks')      
+      .pipe(
+        map((item: any) => {
+          this.tasks.push(item)
+        })
+      )
+    )
   }
 
 }

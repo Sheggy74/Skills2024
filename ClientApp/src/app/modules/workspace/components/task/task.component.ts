@@ -7,7 +7,7 @@ import { Task } from 'src/app/Models/Task';
   styleUrl: './task.component.css'
 })
 export class TaskComponent {
-  @Input() task: Task = {id: 0, name: ''};
+  @Input() task: any = {id: 0, name: ''};
   taskWidth: number = 300
   iter: number[] = [1,2,3,4,5]
   colors: any[] = [
