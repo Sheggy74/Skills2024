@@ -130,4 +130,16 @@ export class PlanService extends BaseApiService {
   return retValue;  
   }
 
+  getWorkloadUser(userId: number) : Promise<number> {
+    let retValue = lastValueFrom(this.http.get<Topics[]>(this.localApiPath + "/workload/" + userId)
+    .pipe(
+      map((workload: any) => {
+        // console.log(tasks.data);
+        return workload;
+      }),
+      catchError(this.exceptionService.getErrorHandlerList())));
+
+  return retValue;  
+  }
+
 }

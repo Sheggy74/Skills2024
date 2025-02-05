@@ -22,6 +22,7 @@ Route::prefix('plan')
     ->controller(\App\Http\Controllers\PlanController::class)
     ->group(function () {
         Route::get('manager', 'showManagerId');
+        Route::get('workload/{id}', 'showWorkloadUser');
         Route::get('allperformers/{id}', 'showAllSubardinates');
         Route::get('topics/{id}', 'showTopicsUser');
         Route::get('users/{id}', 'showUsers');

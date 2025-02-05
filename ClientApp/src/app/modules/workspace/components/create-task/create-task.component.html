@@ -1,86 +1,103 @@
 <p-sidebar [(visible)]="visible" [fullScreen]="true" position="right" [showCloseIcon]="true" [dismissible]="false"
   [modal]="false">
-  <!-- <div class="flex gap-4 flex-col"> -->
-  <div class="mb-2 flex gap-2">
-    <p-checkbox (onChange)="changeTaskType()" [(ngModel)]="isPlanTask" inputId="planCheck" [binary]="true" inputId="binary" />
-    <label class="mr-2" for="planCheck">Плановая задача</label>
+  <div *ngIf="isLoading">
+    <div class="flex gap-10 my-3">
+      <!-- <p-skeleton [style]="{width: '100%'}" height="30rem" /> -->
+      <p-skeleton width="100%" height="10rem" />
+    </div>
+    <p-skeleton width="100%" height="10rem" />
   </div>
-  <div class="flex">
-    <div class="p-fluid w-1/2">
-      <h1 class="text-xl font-bold">Выберите исполнителя</h1>
-      <p-table  scrollHeight="400px"  [scrollable]="true" selectionMode="single" [(selection)]="newTaskPerformer" [value]="(users)!" [scrollable]="true">
-        <ng-template pTemplate="header">
+  <div class="" *ngIf="!isLoading">
+    <div class="mb-2 flex gap-2">
+      <p-checkbox (onChange)="changeTaskType()" [(ngModel)]="isPlanTask" inputId="planCheck" [binary]="true"
+        inputId="binary" />
+      <label class="mr-2" for="planCheck">Плановая задача</label>
+    </div>
+    <div class="flex">
+      <div class="p-fluid w-1/2">
+        <h1 class="text-xl font-bold">Выберите исполнителя</h1>
+        <p-table scrollHeight="400px" [scrollable]="true" selectionMode="single" [(selection)]="newTaskPerformer"
+          [value]="(users)!" [scrollable]="true">
+          <ng-template pTemplate="header">
+            <tr>
+              <th>ФИО</th>
+              <th>Тематика</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-performer>
+            <tr (click)="changePerformer()" [pSelectableRow]="performer">
+              <td>{{performer.lastName + ' ' + performer.firstName[0] + '.' + (performer.secondName ?
+                performer.lastName[0] + '.' : '')}}</td>
+              <td>{{performer.topics}}</td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+      <p-divider layout="vertical"></p-divider>
+      <div class="p-fluid w-1/2">
+        <div class="p-field">
+          <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
+          <label for="newTaskTitle">Название задачи</label>
+          <textarea class="w-full" id="newTaskTitle" pInputTextarea [(ngModel)]="newTask.name"></textarea>
+        </div>
+        <div class="p-field">
+          <div class="p-field">
+            <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
+            <label for="newTaskTitle">Тематика</label>
+            <p-dropdown [disabled]="!newTaskPerformer" [options]="topics" (onChange)="changePerformer()"
+              [(ngModel)]="newTask.topic" optionLabel="name"
+              [placeholder]="!newTaskPerformer ? 'Сначала выберите исполнителя':'Выберите тематику'" />
+          </div>
+          <div class="p-field">
+            <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
+            <label for="newTaskTitle">Приоритет</label>
+            <p-dropdown [options]="prioritys" (onChange)="changePerformer()" [(ngModel)]="newTask.priorityId"
+              optionLabel="name" optionValue="id" placeholder="Выберите приоритет" />
+          </div>
+          <div class="p-field">
+            <label for="editedTitle">Длительность выполнения</label>
+            <p-inputNumber [min]="0" [disabled]="!newTaskPerformer" [max]="countWorkDays" mode="decimal"
+              placeholder="Введите длительность выполнения" [(ngModel)]="newTask.days" />
+            <span class="text-sm text-red-400 font-bold"
+              *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) < 0">{{'У исполнителя привышен
+              лимит рабочих дней (' + ((workload+(newTask.days ?? 0))-countWorkDays) + ')'}} </span>
+            <span class="text-sm text-green-400 font-bold"
+              *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) >= 0">{{'У исполнителя доступно
+              дней (' + (countWorkDays-(workload+(newTask.days ?? 0))) + ')'}} </span>
+          </div>
+        </div>
+        <div class="p-field">
+          <label for="newTaskTitle">Описание</label>
+          <textarea class="w-full" id="newTaskTitle" pInputTextarea mode [(ngModel)]="newTask.description"></textarea>
+        </div>
+      </div>
+      <p-divider></p-divider>
+    </div>
+    <div class="">
+      <p-table [value]="tasks" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+        <ng-template pTemplate="header" let-columns>
           <tr>
-            <th>ФИО</th>
-            <th>Тематика</th>
+            <th style="width:3rem"></th>
+            <th *ngFor="let col of columns" pReorderableColumn>
+              {{col.header}}
+            </th>
           </tr>
         </ng-template>
-        <ng-template pTemplate="body" let-performer>
-          <tr (click)="changePerformer()" [pSelectableRow]="performer">
-            <td>{{performer.lastName + ' ' + performer.firstName[0] + '.' + (performer.secondName ?
-              performer.lastName[0] + '.' : '')}}</td>
-            <td>{{performer.topics}}</td>
+        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+          <tr [pReorderableRow]="index">
+            <td>
+              <span class="pi pi-bars" pReorderableRowHandle></span>
+            </td>
+            <td *ngFor="let col of columns">
+              {{rowData[col.field]}}
+            </td>
           </tr>
         </ng-template>
       </p-table>
     </div>
-    <p-divider layout="vertical"></p-divider>
-    <div class="p-fluid w-1/2">
-      <div class="p-field">
-        <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
-        <label for="newTaskTitle">Название задачи</label>
-        <textarea class="w-full" id="newTaskTitle" pInputTextarea [(ngModel)]="newTask.name"></textarea>
-      </div>
-      <div class="p-field">
-        <div class="p-field">
-          <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
-          <label for="newTaskTitle">Тематика</label>
-          <p-dropdown [disabled]="!newTaskPerformer" [options]="topics" (onChange)="changePerformer()" [(ngModel)]="newTask.topic" optionLabel="name"
-            [placeholder]="!newTaskPerformer ? 'Сначала выберите исполнителя':'Выберите тематику'" />
-        </div>
-        <div class="p-field">
-          <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
-          <label for="newTaskTitle">Приоритет</label>
-          <p-dropdown [options]="prioritys" (onChange)="changePerformer()" [(ngModel)]="newTask.priorityId"
-            optionLabel="name" optionValue="id" placeholder="Выберите приоритет" />
-        </div>
-        <div class="p-field">
-          <label for="editedTitle">Длительность выполнения</label>
-          <p-inputNumber [min]="0" [max]="20" mode="decimal" placeholder="Введите длительность выполнения"
-            [(ngModel)]="newTask.days" />
-        </div>
-      </div>
-      <div class="p-field">
-        <label for="newTaskTitle">Описание</label>
-        <textarea class="w-full" id="newTaskTitle" pInputTextarea mode [(ngModel)]="newTask.description"></textarea>
-      </div>
-    </div>
-    <p-divider></p-divider>
+    <ng-template class="" pTemplate="footer">
+      <p-button label="Создать" (onClick)="onSubmit()" styleClass="p-button-success"></p-button>
+      <p-button label="Отмена" (onClick)="hideDialog()" styleClass="p-button-text"></p-button>
+    </ng-template>
   </div>
-  <div class="">
-    <p-table [value]="tasks" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
-      <ng-template pTemplate="header" let-columns>
-        <tr>
-          <th style="width:3rem"></th>
-          <th *ngFor="let col of columns" pReorderableColumn>
-            {{col.header}}
-          </th>
-        </tr>
-      </ng-template>
-      <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
-        <tr [pReorderableRow]="index">
-          <td>
-            <span class="pi pi-bars" pReorderableRowHandle></span>
-          </td>
-          <td *ngFor="let col of columns">
-            {{rowData[col.field] + ' ' + index}}
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-  </div>
-  <ng-template class="" pTemplate="footer">
-    <p-button label="Создать" (onClick)="onSubmit()" styleClass="p-button-success"></p-button>
-    <p-button label="Отмена" (onClick)="hideDialog()" styleClass="p-button-text"></p-button>
-  </ng-template>
 </p-sidebar>

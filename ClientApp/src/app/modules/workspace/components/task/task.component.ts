@@ -27,8 +27,10 @@ export class TaskComponent {
   taskColor: string = '';
 
   ngOnInit() {
+    console.log(this.task);
+    
     this.taskColor = this.colors.filter(el => {
-      return el.priority === this.task.priorityId;
+      return el.priorityId === this.task.priorityId;
     })[0];  
   }
 }
