@@ -81,7 +81,7 @@ export class CreateTaskComponent {
     this.visibleChange.emit(this.visible);
   }
 
-  onSubmit() {
+  async onSubmit() {
     console.log(this.newTask);
 
     if (this.newTask.name == '' || this.newTask.topic == undefined|| this.newTask.days == undefined || this.newTask.priorityId == undefined || this.newTask.description  == undefined){
@@ -98,7 +98,7 @@ export class CreateTaskComponent {
     this.newTask.newOrder = this.tasks.map((el,index) => {
       return {id: el.id, orderNumber: index};
     })
-    this.workspaceService.createTask(this.newTask);
+    let a = await this.workspaceService.createTask(this.newTask);
     this.newTask = {
       id: 0,
       name: '',

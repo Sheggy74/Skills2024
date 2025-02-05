@@ -128,5 +128,10 @@ class PlanController extends Controller
         DB::statement("insert into plan_order values($user->id,'$request->order')");
     }
 
+    public function getUserDataById(Request $request, $id){
+        $user = User::find($id);
+        return $user;
+    }
+
 
 }

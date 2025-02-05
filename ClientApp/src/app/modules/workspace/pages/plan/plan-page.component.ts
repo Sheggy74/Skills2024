@@ -3,6 +3,7 @@ import { WorkspaceService } from '../../services/workspace.service';
 import { StateService } from 'src/app/services/StateService/state.service';
 import { PlanService } from '../../services/plan.service';
 import { User } from 'src/app/Models/User';
+import { AdminModule } from 'src/app/modules/admin/admin.module';
 
 
 @Component({
@@ -14,8 +15,10 @@ export class PlanPageComponent {
   workspaceService = inject(WorkspaceService);
   planService = inject(PlanService)
   stateService = inject(StateService)
+  isUserCanCreateTask : boolean = false;
 
   userId?: string;
+  user?: User;
   userAndPerformers: User[] = []
 
   plans: any[] = [{ id: 1 }, { id: 2 }, { id: 3 }];
@@ -65,7 +68,9 @@ export class PlanPageComponent {
       
     });
     this.planService.getTasks();
-       
+    this.user = await this.planService.getUserById(Number.parseInt(this.userId ?? '0'));
+    console.log(this.user);
+    
   }
 
   // Обработчик события перетаскивания строк

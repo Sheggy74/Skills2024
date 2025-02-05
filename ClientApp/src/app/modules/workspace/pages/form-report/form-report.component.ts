@@ -44,8 +44,8 @@ export class FormReportComponent {
       this.reportService.createProjects(el);
     });
     this.selectedTasks=[];
-    this.reportService.getTasks();
     this.planService.getTasks();
+    this.reportService.getTasks();
   }
 
   inputPercent(event:InputNumberInputEvent,task:ReportTask){
