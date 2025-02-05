@@ -12,7 +12,7 @@
     </ng-template>
     <div class="flex gap-10 mb-5 items-center justify-between">
       <button pButton pRipple class="p-button-rounded p-button-primary p-button-text" label="Добавить задачу"
-        icon="pi pi-plus" *ngIf="user?.can_add || user?.prof_level ?? 0 >= 5" (click)="createTaskDialog.showDialog()"></button>
+        icon="pi pi-plus" *ngIf="(user?.can_add ?? false) || ((user?.prof_level ?? 0) >= 5)" (click)="createTaskDialog.showDialog()"></button>
       <div class="flex flex-row">
         <p-dropdown [options]="uiSettings" [(ngModel)]="selectedUiSetting" optionLabel="name"
           placeholder="Настройки интерфейса" (onChange)='setUiSetting($event)' />

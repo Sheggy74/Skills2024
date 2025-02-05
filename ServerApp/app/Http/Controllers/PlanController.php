@@ -96,7 +96,7 @@ class PlanController extends Controller
     public function showTopicsUser(Request $request, $id)
     {
         $subordinateIds = User::getAllSubordinates($id);
-
+        $subordinateIds[] = $id;
         $topics = DB::connection('pgsql')->table('user_topics')
             ->leftJoin('users', 'user_topics.user_id', '=', 'users.id')
             ->leftJoin('topics', 'user_topics.topic_id', '=', 'topics.id')

@@ -20,6 +20,7 @@ export class PlanPageComponent {
   userId?: string;
   user?: User;
   userAndPerformers: User[] = []
+  isCanAddTask : boolean = false;
 
   plans: any[] = [{ id: 1 }, { id: 2 }, { id: 3 }];
   isEditable: boolean = false;
@@ -55,14 +56,15 @@ export class PlanPageComponent {
           tasks: plan.tasks.sort((a:any, b:any) => (a.priority_id - b.priority_id == 0) ? (a.order_number - b.order_number) : b.priority_id - a.priority_id)
         }
       });
-      console.log(this.planService.tasks);
+      console.log();
       
     });
     this.planService.getTasks();
     this.user = await this.planService.getUserById(Number.parseInt(this.userId ?? '0'));
+    console.log(this.user);
+    
     
     this.uiSettings = await this.planService.getOrders();
-       
   }
 
   // Обработчик события перетаскивания строк
