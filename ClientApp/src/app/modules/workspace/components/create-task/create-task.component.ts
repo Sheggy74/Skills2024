@@ -44,6 +44,7 @@ export class CreateTaskComponent {
   isPlanTask: boolean = false;
   workload: number = 0;
   isLoading: boolean = false;
+  cols: any[] = [];
 
 
   async ngOnInit() {
@@ -82,7 +83,6 @@ export class CreateTaskComponent {
   }
 
   async onSubmit() {
-  async onSubmit() {
     console.log(this.newTask);
 
     if (this.newTask.name == '' || this.newTask.topic == undefined|| this.newTask.days == undefined || this.newTask.priorityId == undefined || this.newTask.description  == undefined){
@@ -108,8 +108,6 @@ export class CreateTaskComponent {
     this.tasks = [];
     this.hideDialog();
   }
-
-  cols: any[] = [];
 
   async changePerformer() {
     this.planService.updateTopics(Number.parseInt(this.newTaskPerformer?.id ?? ''))
