@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
+import { Task } from 'src/app/Models/Task';
+import { PlanService } from '../../services/plan.service';
 
 @Component({
   selector: 'app-plan',
@@ -6,6 +8,12 @@ import { Component } from '@angular/core';
   styleUrl: './plan.component.css'
 })
 export class PlanComponent {
-  iter: number[] = [1,2,3,4,5]
-  
+  @Input() userId: number = 0;
+  tasks: Task[] = [];
+  planService = inject(PlanService)
+
+  async ngOnInit() {
+    this.tasks = await this.planService.getTasksForUser(this.userId);
+  }
+
 }

@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { WorkspaceService } from '../../services/workspace.service';
 import { StateService } from 'src/app/services/StateService/state.service';
 import { PlanService } from '../../services/plan.service';
+import { User } from 'src/app/Models/User';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class PlanPageComponent {
   stateService = inject(StateService)
 
   userId?: string;
-  userAndPerformers: number[] = []
+  userAndPerformers: User[] = []
 
   plans: any[] = [{ id: 1 }, { id: 2 }, { id: 3 }];
   isEditable: boolean = false;
@@ -45,6 +46,10 @@ export class PlanPageComponent {
     // this.planService.getPerformers(Number.parseInt(this.userId ?? ''));
     this.planService.updateUserAndPerformers(Number.parseInt(this.userId ?? '0'))
     this.planService.updateTopics(Number.parseInt(this.userId ?? '0'));
+
+    this.planService.userAndPerformers.subscribe(user => {
+      this.userAndPerformers = user;
+    })
   }
 
   // Обработчик события перетаскивания строк
