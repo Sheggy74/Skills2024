@@ -6,3 +6,14 @@
     transform: scale(1.05); /* Увеличение карточки при наведении */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Тень при наведении */
 }
+
+p.content {
+    max-height: 250px;
+    max-width: 100%;
+    text-wrap: wrap;
+    word-break: break-all;
+    overflow: auto;
+}
+::ng-depp .p-card .p-card-body{
+    height: 100%;
+}
