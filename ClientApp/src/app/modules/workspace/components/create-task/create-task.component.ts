@@ -122,15 +122,15 @@ export class CreateTaskComponent {
   }
 
   async changeTaskType() {
-    if (this.isPlanTask) {
-      this.isLoading = true;
+    if (this.newTask.isPlanned) {
+      // this.isLoading = true;
       this.users = await this.planService.getAllPerformers(this.userId);
-      this.isLoading = false;
+      // this.isLoading = false;
     }
     else {
-      this.isLoading = true;
+      // this.isLoading = true;
       this.users = await this.planService.getPerformers(this.userId);
-      this.isLoading = false;
+      // this.isLoading = false;
     }
   }
 }
