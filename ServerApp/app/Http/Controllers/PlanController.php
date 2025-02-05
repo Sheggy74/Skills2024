@@ -113,6 +113,11 @@ class PlanController extends Controller
         return UserResource::collection($subardinates);
     }
 
+    public function showWorkloadUser(Request $request, $id) {
+        $workload = Task::where('user_id', $id)->sum('days');
+        return $workload;
+    }
+
 
 
 }

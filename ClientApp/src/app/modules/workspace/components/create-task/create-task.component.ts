@@ -39,9 +39,12 @@ export class CreateTaskComponent {
   managerId: number = 0;
   userId: number = 0;
   isPlanTask: boolean = false;
+  workload: number = 0;
+  isLoading: boolean = false;
 
 
   async ngOnInit() {
+    this.isLoading = true;
     this.workspaceService.priority.subscribe(prioritys => {
       this.prioritys = prioritys;
     })
@@ -63,6 +66,7 @@ export class CreateTaskComponent {
     const jwtToken = this.stateService.getCurrentJWT();
     this.userId = Number.parseInt(jwtToken.user?.id ?? '');
     this.users = await this.planService.getPerformers(this.userId);            
+    this.isLoading = false;
   }
 
   showDialog() {
@@ -77,18 +81,6 @@ export class CreateTaskComponent {
   onSubmit() {
     console.log(this.newTask);
 
-    if (this.newTaskTitle.trim() !== '') {
-      // const newTask: Task = {
-      //   id: 0,
-      //   name: this.newTaskTitle,
-      //   description: this.newTaskDescription,
-      //   userId: Number.parseFloat(this.newTaskPerformer?.id ?? ''),
-      //   days: this.newTaskDays,
-      //   priorityId: this.newTaskPriorityId,
-      //   topicId: this.newTaskTopicId?.id ?? '',
-      // };
-      // this.createTask.emit(newTask); 
-    }
     this.newTask.userId = Number.parseFloat(this.newTaskPerformer?.id ?? '');
     for (let i = 0; i < this.tasks.length; i++) {
       if (this.tasks[i].id === this.newTask.id){
@@ -104,6 +96,7 @@ export class CreateTaskComponent {
       id: 0,
       name: '',
     }
+    this.planService.getTasks();
     this.tasks = [];
     this.hideDialog();
   }
@@ -115,7 +108,10 @@ export class CreateTaskComponent {
     console.log(this.topics);
     this.tasks = (await this.planService.getTasksForUser(Number.parseInt(this.newTaskPerformer?.id ?? '')))
     this.newTask.topicName = this.newTask.topic?.name ?? '';
-
+    if (this.newTaskPerformer?.id)
+      this.workload = await this.planService.getWorkloadUser(Number.parseInt(this.newTaskPerformer?.id ?? '0'));
+    console.log(this.workload);
+    
     this.tasks.push(this.newTask)
     this.tasks = this.tasks.filter(el => {
       return el.priorityId === this.newTask.priorityId;
@@ -125,10 +121,14 @@ export class CreateTaskComponent {
 
   async changeTaskType() {
     if (this.isPlanTask) {
+      this.isLoading = true;
       this.users = await this.planService.getAllPerformers(this.userId);
+      this.isLoading = false;
     }
     else {
+      this.isLoading = true;
       this.users = await this.planService.getPerformers(this.userId);
+      this.isLoading = false;
     }
   }
 }
