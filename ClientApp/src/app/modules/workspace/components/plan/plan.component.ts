@@ -9,11 +9,13 @@ import { PlanService } from '../../services/plan.service';
 })
 export class PlanComponent {
   @Input() userId: number = 0;
-  tasks: Task[] = [];
+  @Input() tasks: Task[] = [];
   planService = inject(PlanService)
 
   async ngOnInit() {
-    this.tasks = await this.planService.getTasksForUser(this.userId);
+    //this.tasks = await this.planService.getTasksForUser(this.userId);
+    console.log(this.tasks);
+    
   }
 
 }

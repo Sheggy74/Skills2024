@@ -5,6 +5,7 @@ import { Priority } from 'src/app/Models/Priority';
 import { PlanService } from '../../services/plan.service';
 import { User } from 'src/app/Models/User';
 import { Topics } from 'src/app/Models/Topics';
+import { StateService } from 'src/app/services/StateService/state.service';
 
 @Component({
   selector: 'app-create-task',
@@ -15,6 +16,7 @@ export class CreateTaskComponent {
   @Output() createTask = new EventEmitter<Task>();
   @Output() visibleChange = new EventEmitter<boolean>();
   private workspaceService = inject(WorkspaceService);
+  private stateService = inject(StateService);
   private planService = inject(PlanService);
 
   visible: boolean = false;
@@ -34,6 +36,9 @@ export class CreateTaskComponent {
     id: 0,
     name: '',
   }
+  managerId: number = 0;
+  userId: number = 0;
+  isPlanTask: boolean = false;
 
 
   async ngOnInit() {
@@ -42,17 +47,22 @@ export class CreateTaskComponent {
     })
 
     this.countWorkDays = this.planService.countWorkDays(new Date().getFullYear(), new Date().getMonth())
-    this.planService.userAndPerformers.subscribe(users => {
-      this.users = users;
-    })
+    // this.planService.userAndPerformers.subscribe(users => {
+    //   this.users = users;
+    // })
     this.planService.topics.subscribe(topics => {
       this.topics = topics;
-
+      
     })
     this.cols = [
       { field: 'name', header: 'Название' },
       { field: 'topicName', header: 'Тематика' },
     ];
+    
+    this.managerId = await this.planService.getManager();
+    const jwtToken = this.stateService.getCurrentJWT();
+    this.userId = Number.parseInt(jwtToken.user?.id ?? '');
+    this.users = await this.planService.getPerformers(this.userId);            
   }
 
   showDialog() {
@@ -113,4 +123,12 @@ export class CreateTaskComponent {
     console.log(this.tasks);
   }
 
+  async changeTaskType() {
+    if (this.isPlanTask) {
+      this.users = await this.planService.getAllPerformers(this.userId);
+    }
+    else {
+      this.users = await this.planService.getPerformers(this.userId);
+    }
+  }
 }

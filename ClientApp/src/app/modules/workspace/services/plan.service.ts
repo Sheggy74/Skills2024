@@ -18,6 +18,7 @@ export class PlanService extends BaseApiService {
   userAndPerformers = new BehaviorSubject<User[]>([]);
   loadingUsers = new BehaviorSubject<boolean>(false);
   topics = new BehaviorSubject<Topics[]>([]);
+  tasks: any[] = [];
 
   async updateUserAndPerformers(userId: number) {
     this.userAndPerformers.next(await this.getPerformers(userId));
@@ -68,6 +69,18 @@ export class PlanService extends BaseApiService {
     return retValue;
   }
 
+  getAllPerformers(userId: number): Promise<User[]> {
+    let retValue = lastValueFrom(this.http.get<User[]>(this.localApiPath + "/allperformers/" + userId)
+      .pipe(
+        map((users: any) => {
+          // console.log(tasks.data);
+          return users.data;
+        }),
+        catchError(this.exceptionService.getErrorHandlerList())));
+
+    return retValue;
+  }
+
   getTopics() : Promise<Topics[]> {
     let retValue = lastValueFrom(this.http.get<User[]>(this.localApiPath + "/topics")
       .pipe(
@@ -90,6 +103,31 @@ export class PlanService extends BaseApiService {
         catchError(this.exceptionService.getErrorHandlerList())));
 
     return retValue;
+  }
+
+
+  getTasks() {
+    this.tasks = [];
+    return lastValueFrom(
+      this.http.get<any>(this.apiURL + '/plan/tasks')      
+      .pipe(
+        map((item: any) => {
+          this.tasks.push(item)
+        })
+      )
+    )
+  }
+
+  getManager() : Promise<number> {
+    let retValue = lastValueFrom(this.http.get<Topics[]>(this.localApiPath + "/manager")
+    .pipe(
+      map((manager: any) => {
+        // console.log(tasks.data);
+        return manager;
+      }),
+      catchError(this.exceptionService.getErrorHandlerList())));
+
+  return retValue;  
   }
 
 }

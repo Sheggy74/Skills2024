@@ -46,6 +46,36 @@ class PlanController extends Controller
         return UserResource::collection($users);
     }
 
+    public function getPlans(Request $request)
+    {
+        $query = "
+            select u.id, u.first_name,u.second_name,u.last_name
+            from users u
+            where u.id <> 1
+        ";
+        $users = DB::select($query);
+
+        $plans = [];
+        foreach( $users as $user ) {
+        $query = "
+            select t.id,
+                   t.name,
+                   t.description,
+                   to_char(t.created_at,'dd.mm.yyyy hh:MM') as dateCreation,
+                   tt.name as topic
+            from task t 
+            join topics tt on tt.id = t.topic_id
+            where t.user_id = $user->id";
+            $tasks = DB::select($query);
+            $plans[] = [
+                "user" => $user,
+                'tasks' => $tasks
+            ];
+        }
+
+        return $plans;
+    }
+
     public function showTopics(Request $request)
     {
         // $users = DB::connection('pgsql')->table('users')->orWhere([['id', $id],['boss_id', $id]])->get();
@@ -67,6 +97,17 @@ class PlanController extends Controller
     }
 
 
+    public function showManagerId(Request $request) {
+        $manager = User::where('boss_id', null)->first();
+        return $manager->id;
+    }
+
+    public function showAllSubardinates(Request $request, $id) {
+        $subordinateIds = User::getAllSubordinates($id);
+        $subordinateIds[] = $id;
+        $subardinates = User::whereIn('id', $subordinateIds)->get();
+        return UserResource::collection($subardinates);
+    }
 
 
 

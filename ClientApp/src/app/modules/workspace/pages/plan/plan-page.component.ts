@@ -37,7 +37,7 @@ export class PlanPageComponent {
 
   newOrderName: string = ''
 
-  ngOnInit() {
+  async ngOnInit() {
     this.workspaceService.updatePriority();
 
     const jwtToken = this.stateService.getCurrentJWT();
@@ -50,6 +50,9 @@ export class PlanPageComponent {
     this.planService.userAndPerformers.subscribe(user => {
       this.userAndPerformers = user;
     })
+    await this.planService.getTasks();
+    this.planService.tasks = this.planService.tasks[0].filter((plan: any) => plan.tasks.length > 0);
+    
   }
 
   // Обработчик события перетаскивания строк
