@@ -49,11 +49,13 @@ class PlanController extends Controller
 
     public function getPlans(Request $request)
     {
+        $user = auth()->user();
+        $whereSubs = $user->boss_id ? " and (u.id = $user->id or u.boss_id = $user->id" : '';
         $query = "
             select u.id, u.first_name,u.second_name,u.last_name
             from users u
             where u.id <> 1
-        ";
+        " . $whereSubs;
         $users = DB::select($query);
 
         $plans = [];
@@ -122,8 +124,13 @@ class PlanController extends Controller
     public function saveOrder(Request $request){
         $user = auth()->user();
 
-        DB::statement("insert into plan_order values($user->id,'$request->order')");
+        DB::statement("insert into plan_order (user_id, \"order\", name) values($user->id,'$request->order','$request->name')");
     }
 
+    public function getOrders(Request $request){
+        $user = auth()->user();
+        $query = "select * from plan_order where user_id = $user->id";
+        return DB::select($query);
+    }
 
 }

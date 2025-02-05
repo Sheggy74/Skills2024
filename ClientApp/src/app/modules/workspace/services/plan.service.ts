@@ -140,7 +140,11 @@ export class PlanService extends BaseApiService {
   return retValue;  
   }
 
-  saveOrder(order: string) : Promise<any> {
-    return lastValueFrom(this.http.post<any>(this.apiURL + '/plan/order',{order: order}));
+  saveOrder(name:string, order: string) : Promise<any> {
+    return lastValueFrom(this.http.post<any>(this.apiURL + '/plan/order',{order: order, name: name}));
+  }
+
+  getOrders() : Promise<any> {
+    return lastValueFrom(this.http.get<any>(this.apiURL + '/plan/orders'));
   }
 }
