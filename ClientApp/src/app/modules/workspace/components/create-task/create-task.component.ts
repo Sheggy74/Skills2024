@@ -50,19 +50,19 @@ export class CreateTaskComponent {
     // this.planService.userAndPerformers.subscribe(users => {
     //   this.users = users;
     // })
-    this.users = await this.planService.getPerformers(this.userId);
     this.planService.topics.subscribe(topics => {
       this.topics = topics;
-
+      
     })
     this.cols = [
       { field: 'name', header: 'Название' },
       { field: 'topicName', header: 'Тематика' },
     ];
-
+    
     this.managerId = await this.planService.getManager();
     const jwtToken = this.stateService.getCurrentJWT();
     this.userId = Number.parseInt(jwtToken.user?.id ?? '');
+    this.users = await this.planService.getPerformers(this.userId);            
   }
 
   showDialog() {
