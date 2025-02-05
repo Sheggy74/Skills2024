@@ -16,6 +16,7 @@ export class TaskWorkService extends BaseApiService {
 
   isLoading = new BehaviorSubject<boolean>(true);
   isManager=new BehaviorSubject<boolean>(false);
+  isBtnDisabled=new BehaviorSubject<boolean>(true);
 
   // async updateTasks(){
   //   this.tasks.next(await this.getTasks());
@@ -56,6 +57,14 @@ export class TaskWorkService extends BaseApiService {
     let retValue= lastValueFrom(this.http.get<number>(this.apiURL+'/manager/'+id))
       .then(el=>{
         this.isManager.next(el==1?true:false)
+      });
+    return retValue;
+  }
+
+  getBtnDisabled(id:number){
+    let retValue= lastValueFrom(this.http.get<number>(this.apiURL+'/btnDisable/'+id))
+      .then(el=>{
+        this.isBtnDisabled.next(el==1?true:false)
       });
     return retValue;
   }

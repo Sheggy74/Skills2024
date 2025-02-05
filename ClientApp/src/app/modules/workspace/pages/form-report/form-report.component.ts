@@ -6,6 +6,7 @@ import { InputNumberInputEvent } from 'primeng/inputnumber';
 import { number } from 'echarts';
 import { concat } from 'rxjs';
 import { PlanService } from '../../services/plan.service';
+import { TaskClndService } from '../../services/task-clnd.service';
 
 @Component({
   selector: 'app-form-report',
@@ -21,6 +22,7 @@ export class FormReportComponent {
   percentValid:string='';
   disable:boolean=true;
   planService = inject(PlanService);
+  taskReportService=inject(TaskWorkService);
   
   ngOnInit(){
     this.reportService.getTasks();
@@ -46,6 +48,10 @@ export class FormReportComponent {
     this.selectedTasks=[];
     this.planService.getTasks();
     this.reportService.getTasks();
+    this.visible=false;
+    let user = JSON.parse(localStorage.getItem('[ATOM24][jwtDTO]')??'');
+    this.taskReportService.getBtnDisabled(user?.user?.id);
+    
   }
 
   inputPercent(event:InputNumberInputEvent,task:ReportTask){

@@ -287,4 +287,16 @@ class TaskReportController extends Controller
             return 1;
         }
     }
+
+    function isButtonCheck($id) {
+        $date=date("Y-m-d")
+;        $btnDisable=DB::select('select * from report_task 
+            left join task t on t.id=report_task.task_id 
+            where t.user_id='.$id.' and report_task.date=to_date(\''.$date.'\',\'yyyy-mm-dd\')');
+        if(count($btnDisable)== 0){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
 }
