@@ -59,11 +59,12 @@
             <p-inputNumber [min]="0" [disabled]="!newTaskPerformer" [max]="countWorkDays" mode="decimal"
               placeholder="Введите длительность выполнения" [(ngModel)]="newTask.days" />
             <span class="text-sm text-red-400 font-bold"
-              *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) < 0">{{'У исполнителя привышен
-              лимит рабочих дней (' + ((workload+(newTask.days ?? 0))-countWorkDays) + ')'}} </span>
+              *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) < 0">{{'У исполнителя привышен лимит \
+              рабочих дней (' + ((workload+(newTask.days ?? 0))-countWorkDays) + ')'}} </span>
             <span class="text-sm text-green-400 font-bold"
-              *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) >= 0">{{'У исполнителя доступно
-              дней (' + (countWorkDays-(workload+(newTask.days ?? 0))) + ')'}} </span>
+              *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) >= 0">{{'У исполнителя доступнодней \
+              ('
+              + (countWorkDays-(workload+(newTask.days ?? 0))) + ')'}} </span>
           </div>
         </div>
         <div class="p-field">
@@ -95,9 +96,9 @@
         </ng-template>
       </p-table>
     </div>
-    <ng-template class="" pTemplate="footer">
-      <p-button label="Создать" (onClick)="onSubmit()" styleClass="p-button-success"></p-button>
-      <p-button label="Отмена" (onClick)="hideDialog()" styleClass="p-button-text"></p-button>
-    </ng-template>
   </div>
+  <ng-template class="" pTemplate="footer">
+    <p-button label="Создать" (onClick)="onSubmit()" styleClass="p-button-success"></p-button>
+    <p-button label="Отмена" (onClick)="hideDialog()" styleClass="p-button-text"></p-button>
+  </ng-template>
 </p-sidebar>
