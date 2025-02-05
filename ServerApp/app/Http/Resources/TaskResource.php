@@ -27,7 +27,9 @@ class TaskResource extends JsonResource
             'priorityName' => $this?->priority?->name ?? '',
             // 'performers' => $this->users,
             'performer' => $this?->user,
-            'deadline' => $this?->deadline->date ?? ''
+            'deadline' => $this?->deadline->date ?? '',
+            'topicId' => $this?->topic_id ?? 0,
+            'topicName' => $this?->topics_name ?? '',
         ];
     }
 }

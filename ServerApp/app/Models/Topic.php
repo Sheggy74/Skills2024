@@ -19,5 +19,10 @@ class Topic extends Model
         return $this->hasMany(Task::class, 'priority_id');
     }
 
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'user_topics', 'topic_id', 'user_id');
+    }
+
     protected $table = 'topics';
 }

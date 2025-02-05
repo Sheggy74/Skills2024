@@ -26,6 +26,9 @@ class Task extends Model
         'ptask_id', //родитель задачи(если это подзадача)
         'priority_id',
         'state_id',
+        'topic_id',
+        'days',
+        'order_number',
     ];
 
     // public function users()
@@ -40,7 +43,7 @@ class Task extends Model
 
     public function topic()
     {
-        return $this->belongsTo(Priority::class, 'topic_id');
+        return $this->belongsTo(Topic::class, 'topic_id');
     }
 
     public function user()

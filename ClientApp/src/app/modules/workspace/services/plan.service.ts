@@ -23,8 +23,9 @@ export class PlanService extends BaseApiService {
     this.userAndPerformers.next(await this.getPerformers(userId));
   }
 
-  async updateTopics() {
-    this.topics.next(await this.getTopics());
+  async updateTopics(userId: number) {
+    this.topics.next(await this.getTopicsUser(userId));
+    // this.topics.next(await this.getTopics());
   }
 
   getTasksForUser(userId: number): Promise<Task[]> {
@@ -69,6 +70,18 @@ export class PlanService extends BaseApiService {
 
   getTopics() : Promise<Topics[]> {
     let retValue = lastValueFrom(this.http.get<User[]>(this.localApiPath + "/topics")
+      .pipe(
+        map((topics: any) => {
+          // console.log(tasks.data);
+          return topics.data;
+        }),
+        catchError(this.exceptionService.getErrorHandlerList())));
+
+    return retValue;
+  }
+
+  getTopicsUser(userId: number) : Promise<Topics[]> {
+    let retValue = lastValueFrom(this.http.get<Topics[]>(this.localApiPath + "/topics/" + userId)
       .pipe(
         map((topics: any) => {
           // console.log(tasks.data);

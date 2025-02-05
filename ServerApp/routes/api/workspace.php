@@ -18,10 +18,11 @@ Route::prefix('workspace')
     });
 
 Route::prefix('plan')
-    ->middleware(['auth:api'])
+    // ->middleware(['auth:api'])
     ->controller(\App\Http\Controllers\PlanController::class)
     ->group(function () {
-        // Route::get('{id}', 'showPriority');
+        Route::get('{id}', 'showTasksForUser');
+        Route::get('topics/{id}', 'showTopicsUser');
         Route::get('users/{id}', 'showUsers');
         Route::get('topics', 'showTopics');
     });
