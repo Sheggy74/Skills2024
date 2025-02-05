@@ -105,18 +105,14 @@ export class CreateTaskComponent {
 
   async changePerformer() {
     this.planService.updateTopics(Number.parseInt(this.newTaskPerformer?.id ?? ''))
-    console.log(this.topics);
     this.tasks = (await this.planService.getTasksForUser(Number.parseInt(this.newTaskPerformer?.id ?? '')))
     this.newTask.topicName = this.newTask.topic?.name ?? '';
-    if (this.newTaskPerformer?.id)
-      this.workload = await this.planService.getWorkloadUser(Number.parseInt(this.newTaskPerformer?.id ?? '0'));
-    console.log(this.tasks);
-    
     this.tasks.push(this.newTask)
     this.tasks = this.tasks.filter(el => {
       return el.priorityId === this.newTask.priorityId;
     })
-    console.log(this.tasks);
+    if (this.newTaskPerformer?.id)
+      this.workload = await this.planService.getWorkloadUser(Number.parseInt(this.newTaskPerformer?.id ?? '0'));
   }
 
   async changeTaskType() {

@@ -43,6 +43,7 @@ import { FormReportComponent } from './pages/form-report/form-report.component';
 import { ReportComponent } from './pages/report/report.component';
 import { MesComponentsModule } from 'src/app/Shared/MESComponentsModule/mes-components.module';
 import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives.module';
+import { ProgressBarModule } from 'primeng/progressbar';
 
 
 @NgModule({
@@ -84,6 +85,7 @@ import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives
     MesComponentsModule,
     MesDirectivesModule,
     DividerModule,
+    ProgressBarModule,
   ]
 
 })

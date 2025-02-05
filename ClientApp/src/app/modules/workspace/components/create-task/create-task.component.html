@@ -62,7 +62,7 @@
               *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) < 0">{{'У исполнителя привышен лимит \
               рабочих дней (' + ((workload+(newTask.days ?? 0))-countWorkDays) + ')'}} </span>
             <span class="text-sm text-green-400 font-bold"
-              *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) >= 0">{{'У исполнителя доступнодней \
+              *ngIf="newTaskPerformer && countWorkDays-workload-(newTask.days ?? 0) >= 0">{{'У исполнителя доступно дней \
               ('
               + (countWorkDays-(workload+(newTask.days ?? 0))) + ')'}} </span>
           </div>
