@@ -22,7 +22,13 @@
         <p-checkbox [(ngModel)]='isEditable' [binary]="true" label='Режим редактирования'></p-checkbox>
       </div>
     </div>
-    <p-table [value]="planService.tasks"  (onRowReorder)="handleRowReorder($event)" >
+    <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto mb-3">
+      <section *ngFor="let item of planService.tasks">
+        <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
+        <app-plan [tasks]="item.tasks"></app-plan>
+      </section>       
+    </div>
+    <p-table *ngIf="isEditable" [value]="planService.tasks"  (onRowReorder)="handleRowReorder($event)" >
       <ng-template pTemplate="body" let-index="rowIndex" let-item>
         <tr [pReorderableRow]="index" class="scrollable-row">
           <td *ngIf="isEditable">

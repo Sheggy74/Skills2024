@@ -51,8 +51,15 @@ export class PlanPageComponent {
       this.userAndPerformers = user;
     })
     await this.planService.getTasks();
-    this.planService.tasks = this.planService.tasks[0].filter((plan: any) => plan.tasks.length > 0).sort((a:any, b:any) => a.order_num - b.order_num);
-    
+    this.planService.tasks = this.planService.tasks[0]
+    .filter((plan: any) => plan.tasks.length > 0)
+    .map((plan: any) => {
+      return {
+        user: plan.user,
+        tasks: plan.tasks.sort((a:any, b:any) => (a.priority_id - b.priority_id == 0) ? (a.order_num - b.order_num) : b.priority_id - a.priority_id)
+      }
+    })
+       
   }
 
   // Обработчик события перетаскивания строк
