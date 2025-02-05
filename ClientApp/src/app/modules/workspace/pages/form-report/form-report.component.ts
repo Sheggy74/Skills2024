@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { CSP_NONCE, Component, inject } from '@angular/core';
 import { TaskWorkService } from '../../services/task-work.service';
 import { Task } from 'src/app/Models/Task';
 import { ReportTask } from 'src/app/Models/reportTask';
 import { InputNumberInputEvent } from 'primeng/inputnumber';
 import { number } from 'echarts';
+import { concat } from 'rxjs';
 
 @Component({
   selector: 'app-form-report',
@@ -17,9 +18,14 @@ export class FormReportComponent {
   selectedTasks:ReportTask[]=[];
   validPercent:boolean=false;
   percentValid:string='';
+  disable:boolean=true;
+  
   ngOnInit(){
     this.reportService.getTasks();
     this.reportService.tasks.subscribe(item=>{
+      item.forEach(el=>{
+        el.date=new Date()
+      })
       this.tasks=item;
     })
   }
@@ -32,20 +38,55 @@ export class FormReportComponent {
   save(){
     console.log('save',this.selectedTasks);
     this.selectedTasks.forEach(el=>{
+      console.log('save el',el);
       this.reportService.createProjects(el);
     });
+    this.selectedTasks=[];
     this.reportService.getTasks();
   }
 
   inputPercent(event:InputNumberInputEvent,task:ReportTask){
-    if(task.oldPercent){
-      if(Number(event.value)>task.oldPercent||task.oldPercent+Number(event.value)>100){
-        console.log(event.value)
-        this.validPercent=true;
-      }else{
-        this.validPercent=false;
-      }
+    if(!task.percent){
+      task.validPercent=true;
+      this.disable=true;
+    }else{
+      task.validPercent=false;
+      this.disable=false;
     }
-    this.validPercent=false;
+  }
+  onCheckboxChange(event:any){
+    console.log(event);
+    let data=event.data;
+    
+      this.tasks.forEach(el=>{
+        if(el.task_id==event.data.task_id){
+          if(!event.data.percent){
+            el.validPercent=true;
+            this.disable=true;
+          }else{
+            el.validPercent=false;
+            this.disable=false;
+          }
+        
+        }
+      });
+    
+    // console.log(task);
+    //[ngClass]="{ 'ng-invalid': isInvalid(date), 'ng-dirty': isDirty(date) }">
+  }
+
+  onCheckboxChangeRemove(event:any){
+    if(this.selectedTasks.length==0){
+      this.disable=true;
+    }
+  }
+   // Пример проверки валидности
+   isInvalid(date: Date): boolean {
+    return !date;  // Пример: если дата не установлена, считаем, что она недействительна
+  }
+
+  // Пример проверки измененности
+  isDirty(date: Date): boolean {
+    return !!date;  // Пример: если дата установлена, она считается измененной
   }
 }

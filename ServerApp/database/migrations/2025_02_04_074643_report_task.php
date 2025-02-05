@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         //
-        Schema::create('report_work',function (Blueprint $table){
+        Schema::create('report_task',function (Blueprint $table){
             $table->comment('Отчет по работе');
             $table->id()->comment('Идентификатор отчета');
             $table->bigInteger('task_id')->comment('Идентификатор объема работы в день');
@@ -30,6 +30,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('report_work');
+        Schema::dropIfExists('report_task');
     }
 };

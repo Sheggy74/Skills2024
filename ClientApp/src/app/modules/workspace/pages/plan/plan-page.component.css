@@ -1,0 +1,8 @@
+::ng-deep .p-button {
+  height: 100%;
+}
+
+.orderDialog {
+  height: 400px;
+  width: 600px;
+}
