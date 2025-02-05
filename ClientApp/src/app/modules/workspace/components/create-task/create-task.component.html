@@ -35,8 +35,8 @@
         <div class="p-field">
           <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
           <label for="newTaskTitle">Тематика</label>
-          <p-dropdown [options]="topics" (onChange)="changePerformer()" [(ngModel)]="newTask.topic" optionLabel="name"
-            placeholder="Выберите тематику" />
+          <p-dropdown [disabled]="!newTaskPerformer" [options]="topics" (onChange)="changePerformer()" [(ngModel)]="newTask.topic" optionLabel="name"
+            [placeholder]="!newTaskPerformer ? 'Сначала выберите исполнителя':'Выберите тематику'" />
         </div>
         <div class="p-field">
           <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
