@@ -80,4 +80,38 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->belongsToMany(Project::class, 'rule_project', 'user_id', 'project_id');
     }
+
+    // подчиненые
+    public function subordinates()
+    {
+        return $this->hasMany(User::class, 'boss_id');
+    }
+
+    // тематики
+    public function topics()
+    {
+        return $this->belongsToMany(Topic::class, 'user_topics', 'user_id', 'topic_id');
+    }
+
+    public static function getAllSubordinates($userId, &$processedUsers = [])
+    {
+        // Если пользователь уже обработан, выходим из функции
+        if (in_array($userId, $processedUsers)) {
+            return [];
+        }
+
+        // Добавляем пользователя в список обработанных
+        $processedUsers[] = $userId;
+
+        // Ищем всех подчинённых текущего пользователя
+        $subordinates = User::where('boss_id', $userId)->get();
+        $allSubordinates = $subordinates->pluck('id')->toArray();
+
+        // Рекурсивно обрабатываем подчинённых каждого подчинённого
+        foreach ($subordinates as $subordinate) {
+            $allSubordinates = array_merge($allSubordinates, self::getAllSubordinates($subordinate->id, $processedUsers));
+        }
+
+        return array_unique($allSubordinates);  // Возвращаем уникальные ID
+    }
 }

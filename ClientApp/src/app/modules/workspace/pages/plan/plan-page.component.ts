@@ -25,6 +25,6 @@ export class PlanPageComponent {
     
     // this.planService.getPerformers(Number.parseInt(this.userId ?? ''));
     this.planService.updateUserAndPerformers(Number.parseInt(this.userId ?? '0'))
-    this.planService.updateTopics();
+    this.planService.updateTopics(Number.parseInt(this.userId ?? '0'));
   }
 }

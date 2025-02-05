@@ -16,8 +16,8 @@ return new class extends Migration
             $table->id()->comment('Идентификатор задачи');
             $table->string('name')->comment('Наименование задачи');
             $table->string('description')->nullable()->comment('Описание задачи');
-            $table->date('date_create')->comment('Дата создания');
-            $table->bigInteger('project_id')->comment('Идентификатор проекта');
+            $table->date('date_create')->nullable()->comment('Дата создания');
+            $table->bigInteger('project_id')->nullable()->comment('Идентификатор проекта');
             $table->bigInteger('user_id')->nullable()->comment('Идентификатор пользователя');
             $table->bigInteger('priority_id')->nullable()->comment('Идентификатор приоритета');
             // $table->integer('ptask_id')->nullable()->comment('Идентификатор родителя задачи');

@@ -21,7 +21,9 @@ class WorkspaceController extends Controller
 
     public function showTasksForProject(Request $request, $id)
     {
-        $tasks = Task::with(['users', 'priority', 'user', 'deadline'])->where('project_id', '=', $id)->get();
+        $tasks = Task::with(['users', 'priority', 'user', 'topic'])
+        ->where('project_id', '=', $id)
+        ->get();
         // return $tasks;
         return TaskResource::collection($tasks);
     }
@@ -61,11 +63,27 @@ class WorkspaceController extends Controller
         $date = Carbon::now()->format('Y-m-d');
         $data = Task::query()->create([
             'name' => $request->name,
-            'project_id' => $request->projectId,
+            'description' => $request->description,
+            'priority_id' => $request->priorityId,
+            'topic_id' => $request->topic['id'],
+            'user_id' => $request->userId,
+            'order_number' => $request->orderNumber+1,
+            'days' => $request->days,
+            // 'priority_id' => $request->priorityId,
             'date_create' => $request->dateCreation,
             // 'ptask_id' => ,
         ]);
-        // return new Task::collection($data);
+
+        foreach ($request->newOrder as $t) {
+            if ($t['id'] == 0) {
+                continue;
+            }
+            $task = Task::find($t['id']);
+            $task->update([
+                'order_number' => $t['orderNumber']+1,
+            ]);
+        }
+
     }
 
     public function deleteTask(Request $request, $id)

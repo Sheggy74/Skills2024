@@ -7,30 +7,30 @@
       <div class="p-field">
         <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
         <label for="newTaskTitle">Название задачи</label>
-        <textarea class="w-full" id="newTaskTitle" pInputTextarea [(ngModel)]="newTaskTitle"></textarea>
+        <textarea class="w-full" id="newTaskTitle" pInputTextarea [(ngModel)]="newTask.name"></textarea>
       </div>
       <div class="p-field">
         <div class="p-field">
           <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
           <label for="newTaskTitle">Тематика</label>
-          <p-dropdown [options]="topics" [(ngModel)]="newTaskTopicId" optionLabel="name" optionValue="id"
+          <p-dropdown [options]="topics" (onChange)="changePerformer()" [(ngModel)]="newTask.topic" optionLabel="name"
             placeholder="Выберите тематику" />
         </div>
         <div class="p-field">
           <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
-          <label for="newTaskTitle">Название задачи</label>
-          <p-dropdown [options]="prioritys" [(ngModel)]="newTaskPriorityId" optionLabel="name" optionValue="id"
+          <label for="newTaskTitle">Приоритет</label>
+          <p-dropdown [options]="prioritys" (onChange)="changePerformer()" [(ngModel)]="newTask.priorityId" optionLabel="name" optionValue="id"
             placeholder="Выберите приоритет" />
         </div>
         <div class="p-field">
           <label for="editedTitle">Длительность выполнения</label>
           <p-inputNumber [min]="0" [max]="20" mode="decimal" placeholder="Введите длительность выполнения"
-            [(ngModel)]="newTaskDays" />
+            [(ngModel)]="newTask.days" />
         </div>
       </div>
       <div class="p-field">
         <label for="newTaskTitle">Описание</label>
-        <textarea class="w-full" id="newTaskTitle" pInputTextarea mode [(ngModel)]="newTaskDescription"></textarea>
+        <textarea class="w-full" id="newTaskTitle" pInputTextarea mode [(ngModel)]="newTask.description"></textarea>
       </div>
     </div>
     <p-divider></p-divider>
@@ -43,7 +43,7 @@
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-performer>
-          <tr [pSelectableRow]="performer">
+          <tr (click)="changePerformer()" [pSelectableRow]="performer">
             <td>{{performer.secondName + ' ' + performer.firstName[0] + '.' + (performer.lastName ?
               performer.lastName[0] + '.' : '')}}</td>
             <td>{{performer.topics}}</td>
@@ -51,28 +51,28 @@
         </ng-template>
       </p-table>
     </div>
-    <div class="">
-      <!-- <p-table [value]="tasks" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
-        <ng-template pTemplate="header" let-columns>
-          <tr>
-            <th style="width:3rem"></th>
-            <th *ngFor="let col of columns" pReorderableColumn>
-              {{col.header}}
-            </th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
-          <tr [pReorderableRow]="index">
-            <td>
-              <span class="pi pi-bars" pReorderableRowHandle></span>
-            </td>
-            <td *ngFor="let col of columns">
-              {{rowData[col.field]}}
-            </td>
-          </tr>
-        </ng-template>
-      </p-table> -->
-    </div>
+  </div>
+  <div class="">
+    <p-table [value]="tasks" [columns]="cols" [reorderableColumns]="true" [tableStyle]="{'min-width': '50rem'}">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th style="width:3rem"></th>
+          <th *ngFor="let col of columns" pReorderableColumn>
+            {{col.header}}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns" let-index="rowIndex">
+        <tr [pReorderableRow]="index">
+          <td>
+            <span class="pi pi-bars" pReorderableRowHandle></span>
+          </td>
+          <td *ngFor="let col of columns">
+            {{rowData[col.field] + ' ' + index}}
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
   </div>
   <ng-template class="" pTemplate="footer">
     <p-button label="Создать" (onClick)="onSubmit()" styleClass="p-button-success"></p-button>

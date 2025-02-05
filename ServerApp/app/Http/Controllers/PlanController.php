@@ -22,18 +22,26 @@ use Carbon\Carbon;
 class PlanController extends Controller
 {
 
-    public function showTasksForProject(Request $request, $id)
+    public function showTasksForUser(Request $request, $id)
     {
-        $tasks = Task::with(['priority', 'user', 'deadline'])->where('user_id', '=', $id)->get();
-        return $tasks;
-        // return TaskResource::collection($tasks);
+        $tasks = Task::with(['priority', 'user'])
+            ->where('user_id', '=', $id)
+            ->rightJoin('topics', 'topics.id', '=', 'task.topic_id')
+            ->select('task.*', 'topics.name as topics_name')
+            ->orderBy('order_number')
+            ->whereBetween('created_at', [
+                Carbon::now()->startOfMonth(), // начало текущего месяца
+                Carbon::now()->endOfMonth()    // конец текущего месяца
+            ])->get();
+        // return $tasks;
+        return TaskResource::collection($tasks);
     }
 
 
     public function showUsers(Request $request, $id)
     {
         // $users = DB::connection('pgsql')->table('users')->orWhere([['id', $id],['boss_id', $id]])->get();
-        $users = User::orWhere([['id', $id],['boss_id', $id]])->get();
+        $users = User::orWhere([['id', $id], ['boss_id', $id]])->get();
         // return $users;
         return UserResource::collection($users);
     }
@@ -45,6 +53,21 @@ class PlanController extends Controller
         return TopicResource::collection($topics);
     }
 
-    
+    public function showTopicsUser(Request $request, $id)
+    {
+        $subordinateIds = User::getAllSubordinates($id);
+
+        $topics = DB::connection('pgsql')->table('user_topics')
+            ->leftJoin('users', 'user_topics.user_id', '=', 'users.id')
+            ->leftJoin('topics', 'user_topics.topic_id', '=', 'topics.id')
+            ->select("topics.*")
+            ->whereIn('users.id', $subordinateIds)->distinct()->get();
+        // return $topics;
+        return TopicResource::collection($topics);
+    }
+
+
+
+
 
 }
