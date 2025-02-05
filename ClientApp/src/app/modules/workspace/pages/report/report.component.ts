@@ -11,12 +11,17 @@ export class ReportComponent {
   isManager:boolean=false;
   taskReportService=inject(TaskWorkService);
   user:any;
+  btnDisabled:boolean=false;
   ngOnInit(){
     this.user = JSON.parse(localStorage.getItem('[ATOM24][jwtDTO]')??'');
     console.log(this.user?.user?.id);
     this.taskReportService.getRoleManager(this.user?.user?.id);
     this.taskReportService.isManager.subscribe(el=>{
       this.isManager=el;
+    })
+    this.taskReportService.getBtnDisabled(this.user?.user?.id);
+    this.taskReportService.isBtnDisabled.subscribe(el=>{
+      this.btnDisabled=el;
     })
   }
   getReport(){

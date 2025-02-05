@@ -14,4 +14,5 @@ Route::prefix('reportTask')
     });
 
     Route::get('manager/{id}',[TaskReportController::class, 'isManager']);
+    Route::get('btnDisable/{id}',[TaskReportController::class, 'isButtonCheck']);
 
