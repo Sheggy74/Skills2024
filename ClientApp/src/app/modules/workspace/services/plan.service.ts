@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, lastValueFrom, map, Observable, Subject } from "rxjs";
+import { BehaviorSubject, catchError, last, lastValueFrom, map, Observable, Subject } from "rxjs";
 import { Task } from "src/app/Models/Task";
 import { Projects } from "src/app/Models/Projects";
 import { BaseApiService } from "src/app/services/BaseApiService/base-api.service";
@@ -140,4 +140,7 @@ export class PlanService extends BaseApiService {
   return retValue;  
   }
 
+  saveOrder(order: string) : Promise<any> {
+    return lastValueFrom(this.http.post<any>(this.apiURL + '/plan/order',{order: order}));
+  }
 }
