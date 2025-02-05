@@ -62,9 +62,13 @@ class PlanController extends Controller
                    t.name,
                    t.description,
                    to_char(t.created_at,'dd.mm.yyyy hh:MM') as dateCreation,
-                   tt.name as topic
+                   tt.name as topic,
+                   t.days,
+                   t.order_number,
+                   t.priority_id,
+                   exists(select 1 from state_task st where st.task_id = t.id) as isCompleted
             from task t 
-            join topics tt on tt.id = t.topic_id
+            join topics tt on tt.id = t.topic_id            
             where t.user_id = $user->id";
             $tasks = DB::select($query);
             $plans[] = [
