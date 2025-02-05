@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('topic_id')->nullable()->comment('Тематика задачи');
             $table->integer('days')->nullable()->comment('Тематика задачи');
             $table->integer('order_number')->nullable()->comment('Порядковый номер');
+            $table->boolean('is_planned')->nullable()->comment('Плановая задача');
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('priority_id')->references('id')->on('priority')->onDelete('cascade');
