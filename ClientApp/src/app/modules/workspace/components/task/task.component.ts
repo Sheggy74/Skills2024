@@ -13,22 +13,26 @@ export class TaskComponent {
   colors: any[] = [
     {
       priorityId: 1,
-      color: 'var(--green-500)'
+      color: 'var(--blue-500)'
     },
     {
       priorityId: 2,
       color: 'var(--orange-500)'
     },
     {
-      priorityId: 1,
+      priorityId: 3,
       color: 'var(--red-500)'
     },
   ]
   taskColor: string = '';
 
   ngOnInit() {
-    this.taskColor = this.colors.filter(el => {
-      return el.priority === this.task.priorityId;
-    })[0];  
+    this.taskColor = this.colors.filter(el => {      
+      return el.priorityId === this.task.priority_id;
+    })[0].color;  
+    if(this.task.iscompleted)
+      this.taskColor = 'var(--green-500)';
+    
+    this.taskWidth = this.taskWidth + this.task.days * 10
   }
 }

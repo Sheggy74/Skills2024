@@ -6,3 +6,14 @@
   height: 400px;
   width: 600px;
 }
+
+.scrollable-row{
+  /* display: block; */
+  width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+::ng-deep .p-table table{
+  max-width: 100%;
+}

@@ -14,7 +14,7 @@ export class PlanComponent {
 
   async ngOnInit() {
     //this.tasks = await this.planService.getTasksForUser(this.userId);
-    console.log(this.tasks);
+    
     
   }
 
