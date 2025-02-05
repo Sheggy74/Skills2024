@@ -1,11 +1,14 @@
 <p-sidebar [(visible)]="visible" [fullScreen]="true" position="right" [showCloseIcon]="true" [dismissible]="false"
   [modal]="false">
   <!-- <div class="flex gap-4 flex-col"> -->
-  <p-divider></p-divider>
+  <div class="mb-2 flex gap-2">
+    <p-checkbox (onChange)="changeTaskType()" [(ngModel)]="isPlanTask" inputId="planCheck" [binary]="true" inputId="binary" />
+    <label class="mr-2" for="planCheck">Плановая задача</label>
+  </div>
   <div class="flex">
     <div class="p-fluid w-1/2">
-      <h2>Выберите исполнителя</h2>
-      <p-table selectionMode="single" [(selection)]="newTaskPerformer" [value]="(users)!" [scrollable]="true">
+      <h1 class="text-xl font-bold">Выберите исполнителя</h1>
+      <p-table  scrollHeight="400px"  [scrollable]="true" selectionMode="single" [(selection)]="newTaskPerformer" [value]="(users)!" [scrollable]="true">
         <ng-template pTemplate="header">
           <tr>
             <th>ФИО</th>
@@ -14,7 +17,7 @@
         </ng-template>
         <ng-template pTemplate="body" let-performer>
           <tr (click)="changePerformer()" [pSelectableRow]="performer">
-            <td>{{performer.secondName + ' ' + performer.firstName[0] + '.' + (performer.lastName ?
+            <td>{{performer.lastName + ' ' + performer.firstName[0] + '.' + (performer.secondName ?
               performer.lastName[0] + '.' : '')}}</td>
             <td>{{performer.topics}}</td>
           </tr>
@@ -38,8 +41,8 @@
         <div class="p-field">
           <!-- <input label="Название задачи" id="newTaskTitle" type="text" pInputText [(ngModel)]="newTaskTitle" /> -->
           <label for="newTaskTitle">Приоритет</label>
-          <p-dropdown [options]="prioritys" (onChange)="changePerformer()" [(ngModel)]="newTask.priorityId" optionLabel="name" optionValue="id"
-            placeholder="Выберите приоритет" />
+          <p-dropdown [options]="prioritys" (onChange)="changePerformer()" [(ngModel)]="newTask.priorityId"
+            optionLabel="name" optionValue="id" placeholder="Выберите приоритет" />
         </div>
         <div class="p-field">
           <label for="editedTitle">Длительность выполнения</label>

@@ -72,6 +72,13 @@ class PlanController extends Controller
         return $manager->id;
     }
 
+    public function showAllSubardinates(Request $request, $id) {
+        $subordinateIds = User::getAllSubordinates($id);
+        $subordinateIds[] = $id;
+        $subardinates = User::whereIn('id', $subordinateIds)->get();
+        return UserResource::collection($subardinates);
+    }
+
 
 
 }

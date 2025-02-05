@@ -87,6 +87,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(User::class, 'boss_id');
     }
 
+    public function allSubordinates()
+    {
+        return $this->subordinates()->with('allSubordinates');
+    }
+
     // тематики
     public function topics()
     {

@@ -18,11 +18,6 @@ export class PlanService extends BaseApiService {
   userAndPerformers = new BehaviorSubject<User[]>([]);
   loadingUsers = new BehaviorSubject<boolean>(false);
   topics = new BehaviorSubject<Topics[]>([]);
-  manager = new BehaviorSubject<User | undefined>(undefined);
-
-  async updateManger() {
-    this.manager.next(await this.getManager());
-  }
 
   async updateUserAndPerformers(userId: number) {
     this.userAndPerformers.next(await this.getPerformers(userId));
@@ -73,6 +68,18 @@ export class PlanService extends BaseApiService {
     return retValue;
   }
 
+  getAllPerformers(userId: number): Promise<User[]> {
+    let retValue = lastValueFrom(this.http.get<User[]>(this.localApiPath + "/allperformers/" + userId)
+      .pipe(
+        map((users: any) => {
+          // console.log(tasks.data);
+          return users.data;
+        }),
+        catchError(this.exceptionService.getErrorHandlerList())));
+
+    return retValue;
+  }
+
   getTopics() : Promise<Topics[]> {
     let retValue = lastValueFrom(this.http.get<User[]>(this.localApiPath + "/topics")
       .pipe(
@@ -97,7 +104,7 @@ export class PlanService extends BaseApiService {
     return retValue;
   }
 
-  getManager() : Promise<User> {
+  getManager() : Promise<number> {
     let retValue = lastValueFrom(this.http.get<Topics[]>(this.localApiPath + "/manager")
     .pipe(
       map((manager: any) => {
