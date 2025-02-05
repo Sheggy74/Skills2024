@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('plan_order',function (Blueprint $table){
             $table->comment('Настройки порядка планов');
+            $table->string('name')->comment('Наименование настройки');
             $table->bigInteger('user_id')->nullable()->comment('Идентификатор владельца плана');
             $table->string('order')->comment('Порядок планов');
 

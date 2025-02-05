@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class PlanOrder extends Model
 {
      protected $hidden = [];
-     protected $id = null;
+     protected $id = false;
+     protected $primaryKey = false;
  
      public $timestamps=false;
  
