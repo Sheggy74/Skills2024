@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TopicResource;
 use App\Models\Deadline;
+use App\Models\PlanOrder;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -118,6 +119,13 @@ class PlanController extends Controller
         return $workload;
     }
 
+    public function saveOrder(Request $request){
+        $user = auth()->user();
+        PlanOrder::create([
+            'user_id' => $user->id,
+            'order' => $request->order,
+        ]);
+    }
 
 
 }

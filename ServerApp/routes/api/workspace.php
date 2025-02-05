@@ -29,4 +29,5 @@ Route::prefix('plan')
         Route::get('topics', 'showTopics');
          Route::get('tasks', 'getPlans');
         Route::get('{id}', 'showTasksForUser');
+        Route::post('/order','SaveOrder');
     });

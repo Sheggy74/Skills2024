@@ -58,7 +58,7 @@ export class PlanPageComponent {
       .map((plan: any) => {
         return {
           user: plan.user,
-          tasks: plan.tasks.sort((a:any, b:any) => (a.priority_id - b.priority_id == 0) ? (a.order_num - b.order_num) : b.priority_id - a.priority_id)
+          tasks: plan.tasks.sort((a:any, b:any) => (a.priority_id - b.priority_id == 0) ? (a.order_number - b.order_number) : b.priority_id - a.priority_id)
         }
       });
       console.log(this.planService.tasks);
@@ -79,7 +79,7 @@ export class PlanPageComponent {
 
     // Лог для проверки результата
     console.log('Новый порядок строк:', orderedData);
-
+    this.planService.saveOrder(orderedData.map(item => item.id_object).join(', '))
   }
 
   setUiSetting(event: any) {
