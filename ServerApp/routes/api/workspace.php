@@ -31,4 +31,5 @@ Route::prefix('plan')
         Route::get('orders', 'getOrders');
         Route::get('{id}', 'showTasksForUser');
         Route::post('/order','SaveOrder');
+        Route::get('/userdata/{id}','getUserDataById');
     });

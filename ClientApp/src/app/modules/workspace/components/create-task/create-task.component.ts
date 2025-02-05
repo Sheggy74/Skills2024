@@ -37,12 +37,14 @@ export class CreateTaskComponent {
   newTask: Task = {
     id: 0,
     name: '',
+    isPlanned: false,
   }
   managerId: number = 0;
   userId: number = 0;
   isPlanTask: boolean = false;
   workload: number = 0;
   isLoading: boolean = false;
+  cols: any[] = [];
 
 
   async ngOnInit() {
@@ -106,8 +108,6 @@ export class CreateTaskComponent {
     this.hideDialog();
   }
 
-  cols: any[] = [];
-
   async changePerformer() {
     this.planService.updateTopics(Number.parseInt(this.newTaskPerformer?.id ?? ''))
     this.tasks = (await this.planService.getTasksForUser(Number.parseInt(this.newTaskPerformer?.id ?? '')))
@@ -121,15 +121,15 @@ export class CreateTaskComponent {
   }
 
   async changeTaskType() {
-    if (this.isPlanTask) {
-      this.isLoading = true;
+    if (this.newTask.isPlanned) {
+      // this.isLoading = true;
       this.users = await this.planService.getAllPerformers(this.userId);
-      this.isLoading = false;
+      // this.isLoading = false;
     }
     else {
-      this.isLoading = true;
+      // this.isLoading = true;
       this.users = await this.planService.getPerformers(this.userId);
-      this.isLoading = false;
+      // this.isLoading = false;
     }
   }
 }

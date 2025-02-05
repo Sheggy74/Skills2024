@@ -8,8 +8,8 @@
     <p-skeleton width="100%" height="10rem" />
   </div>
   <div class="" *ngIf="!isLoading">
-    <div class="mb-2 flex gap-2">
-      <p-checkbox (onChange)="changeTaskType()" [(ngModel)]="isPlanTask" inputId="planCheck" [binary]="true"
+    <div *ngIf="managerId == userId" class="mb-2 flex gap-2">
+      <p-checkbox (onChange)="changeTaskType()" [(ngModel)]="newTask.isPlanned" inputId="planCheck" [binary]="true"
         inputId="binary" />
       <label class="mr-2" for="planCheck">Плановая задача</label>
     </div>

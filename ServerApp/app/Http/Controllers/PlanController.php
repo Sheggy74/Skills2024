@@ -69,9 +69,12 @@ class PlanController extends Controller
                    t.days,
                    t.order_number,
                    t.priority_id,
+                   t.is_planned,
+                   rt.percent,
                    exists(select 1 from state_task st where st.task_id = t.id) as isCompleted
             from task t 
             join topics tt on tt.id = t.topic_id            
+            left join report_task rt on rt.task_id = t.id            
             where t.user_id = $user->id and date_trunc('month',t.created_at) = date_trunc('month',current_date)";
             $tasks = DB::select($query);
             $plans[] = [
@@ -125,6 +128,11 @@ class PlanController extends Controller
         $user = auth()->user();
 
         DB::statement("insert into plan_order (user_id, \"order\", name) values($user->id,'$request->order','$request->name')");
+    }
+
+    public function getUserDataById(Request $request, $id){
+        $user = User::find($id);
+        return $user;
     }
 
     public function getOrders(Request $request){
