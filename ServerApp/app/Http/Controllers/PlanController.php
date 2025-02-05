@@ -73,7 +73,7 @@ class PlanController extends Controller
             from task t 
             join topics tt on tt.id = t.topic_id            
             left join report_task rt on rt.task_id = t.id            
-            where t.user_id = $user->id";
+            where t.user_id = $user->id and date_trunc('month',t.created_at) = date_trunc('month',current_date)";
             $tasks = DB::select($query);
             $plans[] = [
                 "user" => $user,
@@ -124,10 +124,8 @@ class PlanController extends Controller
 
     public function saveOrder(Request $request){
         $user = auth()->user();
-        PlanOrder::create([
-            'user_id' => $user->id,
-            'order' => $request->order,
-        ]);
+
+        DB::statement("insert into plan_order values($user->id,'$request->order')");
     }
 
 
