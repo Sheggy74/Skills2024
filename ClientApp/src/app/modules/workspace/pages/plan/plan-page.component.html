@@ -12,59 +12,62 @@
     </ng-template>
     <div class="flex gap-10 mb-5 items-center justify-between">
       <button pButton pRipple class="p-button-rounded p-button-primary p-button-text" label="Добавить задачу"
-        icon="pi pi-plus" *ngIf="(user?.can_add ?? false) || ((user?.prof_level ?? 0) >= 5)" (click)="createTaskDialog.showDialog()"></button>
+        icon="pi pi-plus" *ngIf="(user?.can_add ?? false) || ((user?.prof_level ?? 0) >= 5)"
+        (click)="createTaskDialog.showDialog()"></button>
       <div class="flex flex-row">
         <p-dropdown [options]="uiSettings" [(ngModel)]="selectedUiSetting" optionLabel="name"
           placeholder="Настройки интерфейса" (onChange)='setUiSetting($event)' />
         <!-- <app-icon-button icon='download' (onClick)="isOrderDialogOpen = true" (></app-icon-button> -->
         <p-button icon="pi pi-save " (onClick)="isOrderDialogOpen = true" class="mx-3" />
         <p-checkbox [(ngModel)]='isEditable' [binary]="true" label='Режим редактирования'></p-checkbox>
+        <app-create-task #createTaskDialog></app-create-task>
       </div>
     </div>
 
-    <!-- <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto mb-3">
+    <!-- <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto mb-3"> -->
     <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto mb-5">
       <section *ngFor="let item of planService.tasks">
         <div *ngIf="item.user.id==this.userId" style="font-weight: bold;">
 
-    <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto">
-      <section *ngFor="let item of planService.tasks" class="mb-5">
-        <div *ngIf="item.user.id==this.userId" style="font-weight: bold;" class="mb-2">
+          <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto">
+            <section *ngFor="let item of planService.tasks" class="mb-5">
+              <div *ngIf="item.user.id==this.userId" style="font-weight: bold;" class="mb-2">
 
-          <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
-        </div>
-        <div *ngIf="item.user.id!=this.userId" class="mb-2">
-          <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
-        </div>
-        <app-plan [tasks]="item.tasks"></app-plan>
-      </section>       
-    </div> -->
-    <p-table *ngIf="isEditable" [value]="planService.tasks"  (onRowReorder)="handleRowReorder($event)" >
-      <ng-template pTemplate="body" let-index="rowIndex" let-item>
-        <tr [pReorderableRow]="index" class="scrollable-row">
-          <td *ngIf="isEditable">
-            <span class="pi pi-bars" pReorderableRowHandle></span>
-          </td>
-          <td>
-            <div class="flex flex-col">
-              <div *ngIf="item.user.id==this.userId" style="font-weight: bold;">
                 <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
               </div>
-              <div *ngIf="item.user.id!=this.userId">
+              <div *ngIf="item.user.id!=this.userId" class="mb-2">
                 <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
               </div>
-              
-              <!-- <div class="overflow-x-auto">
+              <app-plan [tasks]="item.tasks"></app-plan>
+            </section>
+          </div>
+          <p-table *ngIf="isEditable" [value]="planService.tasks" (onRowReorder)="handleRowReorder($event)">
+            <ng-template pTemplate="body" let-index="rowIndex" let-item>
+              <tr [pReorderableRow]="index" class="scrollable-row">
+                <td *ngIf="isEditable">
+                  <span class="pi pi-bars" pReorderableRowHandle></span>
+                </td>
+                <td>
+                  <div class="flex flex-col">
+                    <div *ngIf="item.user.id==this.userId" style="font-weight: bold;">
+                      <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
+                    </div>
+                    <div *ngIf="item.user.id!=this.userId">
+                      <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
+                    </div>
+
+                    <!-- <div class="overflow-x-auto">
 
                 <app-plan [tasks]="item.tasks"></app-plan>
               </div>  -->
-            </div>
-          </td>
-        </tr>
-      </ng-template>
-    </p-table>
-    <div class="flex flex-col" *ngIf="!isEditable"></div>
-    <app-create-task #createTaskDialog></app-create-task>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </section>
+    </div>
   </p-card>
 
   <!-- <app-create-task #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
