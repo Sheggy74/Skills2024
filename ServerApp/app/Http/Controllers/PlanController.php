@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\TopicResource;
 use App\Models\Deadline;
+use App\Models\PlanOrder;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
@@ -69,7 +70,7 @@ class PlanController extends Controller
                    exists(select 1 from state_task st where st.task_id = t.id) as isCompleted
             from task t 
             join topics tt on tt.id = t.topic_id            
-            where t.user_id = $user->id";
+            where t.user_id = $user->id and date_trunc('month',t.created_at) = date_trunc('month',current_date)";
             $tasks = DB::select($query);
             $plans[] = [
                 "user" => $user,
@@ -118,6 +119,11 @@ class PlanController extends Controller
         return $workload;
     }
 
+    public function saveOrder(Request $request){
+        $user = auth()->user();
+
+        DB::statement("insert into plan_order values($user->id,'$request->order')");
+    }
 
 
 }

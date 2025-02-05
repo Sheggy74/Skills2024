@@ -6,6 +6,7 @@ import { PlanService } from '../../services/plan.service';
 import { User } from 'src/app/Models/User';
 import { Topics } from 'src/app/Models/Topics';
 import { StateService } from 'src/app/services/StateService/state.service';
+import { MessageType, ToastService } from 'src/app/services/ToastService/toast.service';
 
 @Component({
   selector: 'app-create-task',
@@ -18,6 +19,7 @@ export class CreateTaskComponent {
   private workspaceService = inject(WorkspaceService);
   private stateService = inject(StateService);
   private planService = inject(PlanService);
+  private toastService = inject(ToastService);
 
   visible: boolean = false;
   newTaskTitle: string = '';
@@ -81,6 +83,10 @@ export class CreateTaskComponent {
   onSubmit() {
     console.log(this.newTask);
 
+    if (this.newTask.name == '' || this.newTask.topic == undefined|| this.newTask.days == undefined || this.newTask.priorityId == undefined || this.newTask.description  == undefined){
+      this.toastService.show(MessageType.Warning, "Заполните поля")
+      return;
+    }
     this.newTask.userId = Number.parseFloat(this.newTaskPerformer?.id ?? '');
     for (let i = 0; i < this.tasks.length; i++) {
       if (this.tasks[i].id === this.newTask.id){
@@ -96,7 +102,7 @@ export class CreateTaskComponent {
       id: 0,
       name: '',
     }
-    this.planService.getTasks();
+    this.planService.getTasks()
     this.tasks = [];
     this.hideDialog();
   }
