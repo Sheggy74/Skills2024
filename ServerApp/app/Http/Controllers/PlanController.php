@@ -49,11 +49,13 @@ class PlanController extends Controller
 
     public function getPlans(Request $request)
     {
+        $user = auth()->user();
+        $whereSubs = $user->boss_id ? " and (u.id = $user->id or u.boss_id = $user->id)" : '';
         $query = "
             select u.id, u.first_name,u.second_name,u.last_name
             from users u
             where u.id <> 1
-        ";
+        " . $whereSubs;
         $users = DB::select($query);
 
         $plans = [];
@@ -67,9 +69,12 @@ class PlanController extends Controller
                    t.days,
                    t.order_number,
                    t.priority_id,
+                   t.is_planned,
+                   rt.percent,
                    exists(select 1 from state_task st where st.task_id = t.id) as isCompleted
             from task t 
             join topics tt on tt.id = t.topic_id            
+            left join report_task rt on rt.task_id = t.id            
             where t.user_id = $user->id and date_trunc('month',t.created_at) = date_trunc('month',current_date)";
             $tasks = DB::select($query);
             $plans[] = [
@@ -122,8 +127,18 @@ class PlanController extends Controller
     public function saveOrder(Request $request){
         $user = auth()->user();
 
-        DB::statement("insert into plan_order values($user->id,'$request->order')");
+        DB::statement("insert into plan_order (user_id, \"order\", name) values($user->id,'$request->order','$request->name')");
     }
 
+    public function getUserDataById(Request $request, $id){
+        $user = User::find($id);
+        return $user;
+    }
+
+    public function getOrders(Request $request){
+        $user = auth()->user();
+        $query = "select * from plan_order where user_id = $user->id";
+        return DB::select($query);
+    }
 
 }

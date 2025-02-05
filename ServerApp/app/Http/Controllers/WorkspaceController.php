@@ -71,6 +71,7 @@ class WorkspaceController extends Controller
             'days' => $request->days,
             // 'priority_id' => $request->priorityId,
             'date_create' => $request->dateCreation,
+            'is_planned' => $request->isPlanned,
             // 'ptask_id' => ,
         ]);
 

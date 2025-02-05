@@ -1,5 +1,5 @@
 #navigationButton[data-selected=true]{
-   background-color : rgb(213 223 235)
+   background-color : var(--surface-100)
 }
 #navigationButton[data-selected=false]:hover{
     @apply bg-slate-100

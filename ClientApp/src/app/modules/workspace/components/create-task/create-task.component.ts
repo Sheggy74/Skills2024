@@ -37,12 +37,14 @@ export class CreateTaskComponent {
   newTask: Task = {
     id: 0,
     name: '',
+    isPlanned: false,
   }
   managerId: number = 0;
   userId: number = 0;
   isPlanTask: boolean = false;
   workload: number = 0;
   isLoading: boolean = false;
+  cols: any[] = [];
 
 
   async ngOnInit() {
@@ -100,17 +102,14 @@ export class CreateTaskComponent {
     this.newTask.newOrder = this.tasks.map((el,index) => {
       return {id: el.id, orderNumber: index};
     })
-    this.workspaceService.createTask(this.newTask);
+    this.workspaceService.createTask(this.newTask).then(res => this.planService.getTasks());
     this.newTask = {
       id: 0,
       name: '',
-    }
-    this.planService.getTasks()
+    }    
     this.tasks = [];
     this.hideDialog();
   }
-
-  cols: any[] = [];
 
   async changePerformer() {
     this.planService.updateTopics(Number.parseInt(this.newTaskPerformer?.id ?? ''))
@@ -125,15 +124,15 @@ export class CreateTaskComponent {
   }
 
   async changeTaskType() {
-    if (this.isPlanTask) {
-      this.isLoading = true;
+    if (this.newTask.isPlanned) {
+      // this.isLoading = true;
       this.users = await this.planService.getAllPerformers(this.userId);
-      this.isLoading = false;
+      // this.isLoading = false;
     }
     else {
-      this.isLoading = true;
+      // this.isLoading = true;
       this.users = await this.planService.getPerformers(this.userId);
-      this.isLoading = false;
+      // this.isLoading = false;
     }
   }
 }

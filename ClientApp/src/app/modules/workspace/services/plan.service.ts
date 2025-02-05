@@ -18,7 +18,7 @@ export class PlanService extends BaseApiService {
   userAndPerformers = new BehaviorSubject<User[]>([]);
   loadingUsers = new BehaviorSubject<boolean>(false);
   topics = new BehaviorSubject<Topics[]>([]);
-  tasks: any[] = [];
+  tasks: any[] = []; 
 
   hasNewTasks: BehaviorSubject<any> = new BehaviorSubject([])
 
@@ -140,7 +140,23 @@ export class PlanService extends BaseApiService {
   return retValue;  
   }
 
-  saveOrder(order: string) : Promise<any> {
-    return lastValueFrom(this.http.post<any>(this.apiURL + '/plan/order',{order: order}));
+  saveOrder(name:string, order: string) : Promise<any> {
+    return lastValueFrom(this.http.post<any>(this.apiURL + '/plan/order',{order: order, name: name}));
+  }
+
+  getOrders() : Promise<any> {
+    return lastValueFrom(this.http.get<any>(this.apiURL + '/plan/orders'));
+  }
+
+  getUserById(userId: number) : Promise<User> {
+    let retValue = lastValueFrom(this.http.get<Topics[]>(this.localApiPath + "/userdata/" + userId)
+    .pipe(
+      map((user: any) => {
+        // console.log(tasks.data);
+        return user;
+      }),
+      catchError(this.exceptionService.getErrorHandlerList())));
+
+  return retValue;  
   }
 }

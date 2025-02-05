@@ -5,6 +5,7 @@ import { ReportTask } from 'src/app/Models/reportTask';
 import { InputNumberInputEvent } from 'primeng/inputnumber';
 import { number } from 'echarts';
 import { concat } from 'rxjs';
+import { PlanService } from '../../services/plan.service';
 
 @Component({
   selector: 'app-form-report',
@@ -19,6 +20,7 @@ export class FormReportComponent {
   validPercent:boolean=false;
   percentValid:string='';
   disable:boolean=true;
+  planService = inject(PlanService);
   
   ngOnInit(){
     this.reportService.getTasks();
@@ -42,6 +44,7 @@ export class FormReportComponent {
       this.reportService.createProjects(el);
     });
     this.selectedTasks=[];
+    this.planService.getTasks();
     this.reportService.getTasks();
   }
 

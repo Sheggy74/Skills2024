@@ -12,7 +12,7 @@
     </ng-template>
     <div class="flex gap-10 mb-5 items-center justify-between">
       <button pButton pRipple class="p-button-rounded p-button-primary p-button-text" label="Добавить задачу"
-        icon="pi pi-plus" (click)="createTaskDialog.showDialog()"></button>
+        icon="pi pi-plus" *ngIf="user?.can_add || user?.prof_level ?? 0 >= 5" (click)="createTaskDialog.showDialog()"></button>
       <div class="flex flex-row">
         <p-dropdown [options]="uiSettings" [(ngModel)]="selectedUiSetting" optionLabel="name"
           placeholder="Настройки интерфейса" (onChange)='setUiSetting($event)' />
@@ -21,13 +21,19 @@
         <p-checkbox [(ngModel)]='isEditable' [binary]="true" label='Режим редактирования'></p-checkbox>
       </div>
     </div>
+
     <!-- <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto mb-3">
     <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto mb-5">
       <section *ngFor="let item of planService.tasks">
         <div *ngIf="item.user.id==this.userId" style="font-weight: bold;">
+
+    <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto">
+      <section *ngFor="let item of planService.tasks" class="mb-5">
+        <div *ngIf="item.user.id==this.userId" style="font-weight: bold;" class="mb-2">
+
           <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
         </div>
-        <div *ngIf="item.user.id!=this.userId">
+        <div *ngIf="item.user.id!=this.userId" class="mb-2">
           <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
         </div>
         <app-plan [tasks]="item.tasks"></app-plan>

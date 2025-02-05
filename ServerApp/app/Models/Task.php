@@ -28,6 +28,7 @@ class Task extends Model
         'topic_id',
         'days',
         'order_number',
+        'is_planned'
     ];
 
     // public function users()

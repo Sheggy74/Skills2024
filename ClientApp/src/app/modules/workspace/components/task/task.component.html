@@ -1,14 +1,19 @@
-<p-card [header]="task.name" styleClass="custom-card" [style]="{ width: taskWidth+'px', background: (this.taskColor ?? 'var(--orange-500)'), color: 'var(--primary-color-text)', height: '500px' }">
+<p-card styleClass="custom-card"
+    [style]="{ width: taskWidth+'px', background: (this.taskColor ?? 'var(--orange-500)'), color: 'var(--primary-color-text)', height: '500px' }">
     <ng-template pTemplate="header">
+        <div class="flex p-3">
+            <p class="text-xl font-bold basis-4/5">{{task.name}}</p>
+            <p *ngIf="task.is_planned" class="pi pi-calendar text-end relative right-0 basis-1/5 " style="font-size: 1.5rem"></p>
+        </div>
     </ng-template>
     <p class="content">
         {{task.description}}
     </p>
     <ng-template pTemplate="footer">
         <div class="flex flex-col justify-between gap-3 mt-1 h-full">
-            <p class="text-wrap break-words">Тематика: {{task.topic}}</p>    
+            <p class="text-wrap break-words">Тематика: {{task.topic}}</p>
             <p>Датв создания: {{task.datecreation}}</p>
-            <p-progressBar [value]="50" />
+            <p-progressBar color="var(--green-500)" [ngStyle]="{color:'white'}" [value]="task.percent" />
         </div>
     </ng-template>
 </p-card>

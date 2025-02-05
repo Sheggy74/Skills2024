@@ -21,5 +21,6 @@ export interface Task {
   topic?: Topics,
   orderNumber?: number,
   newOrder?: any[];
+  isPlanned?: boolean;
   // ptask_Id: number,
 }
