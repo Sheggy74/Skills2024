@@ -110,7 +110,7 @@ export class CreateTaskComponent {
     this.newTask.topicName = this.newTask.topic?.name ?? '';
     if (this.newTaskPerformer?.id)
       this.workload = await this.planService.getWorkloadUser(Number.parseInt(this.newTaskPerformer?.id ?? '0'));
-    console.log(this.workload);
+    console.log(this.tasks);
     
     this.tasks.push(this.newTask)
     this.tasks = this.tasks.filter(el => {
