@@ -49,10 +49,11 @@ export class NavigationMenuComponent extends BaseComponent {
         super.createSubscriptions()
 
 		this.subscriptions.push(this.stateService.applicationURL.subscribe(async (application) => {
-			if(this.lastApplication() != application){
-                this.lastApplication.set(application)  
-				this.updateNavigationButtons(application)
-			}            
+			console.log('app',application);
+				if(this.lastApplication() != application){
+					this.lastApplication.set(application)  
+					this.updateNavigationButtons(application)
+				}   
         }))
 	}
 	async updateNavigationButtons(application: string) {

@@ -69,7 +69,10 @@ export class CreateTaskComponent {
     this.managerId = await this.planService.getManager();
     const jwtToken = this.stateService.getCurrentJWT();
     this.userId = Number.parseInt(jwtToken.user?.id ?? '');
-    this.users = await this.planService.getPerformers(this.userId);            
+    if(!isNaN(this.userId)){
+      this.users = await this.planService.getPerformers(this.userId);            
+    }
+    
     this.isLoading = false;
   }
 
@@ -82,7 +85,7 @@ export class CreateTaskComponent {
     this.visibleChange.emit(this.visible);
   }
 
-  async onSubmit() {
+  onSubmit() {
     console.log(this.newTask);
 
     if (this.newTask.name == '' || this.newTask.topic == undefined|| this.newTask.days == undefined || this.newTask.priorityId == undefined || this.newTask.description  == undefined){
@@ -99,12 +102,11 @@ export class CreateTaskComponent {
     this.newTask.newOrder = this.tasks.map((el,index) => {
       return {id: el.id, orderNumber: index};
     })
-    await this.workspaceService.createTask(this.newTask);
+    this.workspaceService.createTask(this.newTask).then(res => this.planService.getTasks());
     this.newTask = {
       id: 0,
       name: '',
-    }
-    this.planService.getTasks()
+    }    
     this.tasks = [];
     this.hideDialog();
   }

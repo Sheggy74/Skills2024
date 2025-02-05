@@ -16,9 +16,6 @@ return new class extends Migration
             $table->comment('Справочник состояния задач');
             $table->id()->comment('Идентификатор состояния');
             $table->string('name')->comment('Наименование состояния');
-            $table->bigInteger('project_id')->nullable()->comment('Идентификатор проекта');
-
-            $table->foreign('project_id')->references('id')->on('project')->onDelete('cascade');
         });
     }
 

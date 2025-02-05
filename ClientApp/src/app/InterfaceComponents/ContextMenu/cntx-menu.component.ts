@@ -2,7 +2,6 @@ import { Component, ViewChild, OnInit, Input } from '@angular/core';
 import { ContextMenu } from 'primeng/contextmenu';
 import { MenuItem } from 'primeng/api';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
-import { ProjectListComponent } from 'src/app/modules/project/pages/project-list/project-list.component';
 
 @Component({
   selector: 'app-cntx-menu',

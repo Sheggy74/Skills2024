@@ -60,6 +60,7 @@ export class StateService {
         this.jwtChanged.next(this.getCurrentJWT())        
     }
     updateApplication(event: any) {
+        console.log('1',event);
         if (event instanceof NavigationStart == false) {
             return
         }
@@ -74,6 +75,7 @@ export class StateService {
         }
     }
     updateApplicationByURL(url : string){
+        console.log('2',event);
         var urlArray = url.split('/');
         if (urlArray.length < 2) {
             this.applicationURL.next('')

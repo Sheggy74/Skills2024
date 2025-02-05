@@ -36,12 +36,13 @@ export class AuthorisationComponent extends BaseComponent {
         this.isLoading = true;
 
         let result = await this.jwtService.getToken(this.login,this.password, event)
-
+        console.log('event');
         if(result.accessToken != null){
             this.stateService.setJWT(result)
             if(result.roles?.length == 1 && result.roles[0].startingUrl != null){
                 this.router.navigateByUrl(result.roles[0].startingUrl)
-            }else{
+            }
+            else{
                 this.router.navigateByUrl("workspace")
             }
         }

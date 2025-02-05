@@ -26,6 +26,8 @@ export class ErrorService {
     }
     getErrorHandlerList(event : PointerEvent | undefined = undefined){
         return (error: any) => {
+            console.log('ERROR',error);
+            
             this.handleError(error,event);
             return of([]);
         }
@@ -83,8 +85,10 @@ export class ErrorService {
 
         console.debug("asdf",error)
         // Display through toast service
-        var code = this.error?.status.toString() != null ? this.error?.status.toString() : ''
-        messageToShow = code + ' ' + this.error.error
+        if(this.error){
+            var code = this.error?.status.toString() != null ? this.error?.status.toString() : ''
+            messageToShow = code + ' ' + this.error.error
+        }
         
         this.error = error;
         this.toastService.show(MessageType.Error, messageToShow)

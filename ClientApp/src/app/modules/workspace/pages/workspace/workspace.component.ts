@@ -10,7 +10,6 @@ import { Priority } from 'src/app/Models/Priority';
 import { UserRole } from 'src/app/Models/UserRole';
 import { User } from 'src/app/Models/User';
 import { ProjectUserService } from '../../services/project-user.service';
-import { ProjectService } from 'src/app/modules/project/services/project.service';
 import { MenuItem } from 'primeng/api';
 import { TaskClndService } from '../../services/task-clnd.service';
 import { Projects } from 'src/app/Models/Projects';
@@ -51,7 +50,6 @@ export class WorkspaceComponent {
   private jwtService = inject(JwtService);
   private stateService = inject(StateService)
   private projectUserService = inject(ProjectUserService)
-  projectService = inject(ProjectService)
   taskClndService = inject(TaskClndService);
   constructor(private route: ActivatedRoute) { }
   priorityName: string = ""

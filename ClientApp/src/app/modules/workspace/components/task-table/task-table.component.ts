@@ -9,7 +9,6 @@ import { StateService } from 'src/app/services/StateService/state.service';
 import { Priority } from 'src/app/Models/Priority';
 import { UserRole } from 'src/app/Models/UserRole';
 import { ProjectUserService } from '../../services/project-user.service';
-import { ProjectService } from 'src/app/modules/project/services/project.service';
 
 interface Column {
   field: string;
@@ -32,7 +31,6 @@ export class TaskTableComponent {
     private jwtService = inject(JwtService);
     private stateService = inject(StateService)
     private projectUserService = inject(ProjectUserService)
-    projectService = inject(ProjectService)
     constructor(private route: ActivatedRoute) { }  
     priorityName: string = ""
   

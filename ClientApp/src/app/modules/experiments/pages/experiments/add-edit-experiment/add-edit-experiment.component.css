@@ -1,7 +1,0 @@
-:host ::ng-deep .p-autocomplete button, :host ::ng-deep .p-calendar button{
-  padding: 19px 0;
-}
-
-:host ::ng-deep p-calendar span{
-  width: 100%;
-}
