@@ -50,7 +50,7 @@ class PlanController extends Controller
     public function getPlans(Request $request)
     {
         $user = auth()->user();
-        $whereSubs = $user->boss_id ? " and (u.id = $user->id or u.boss_id = $user->id" : '';
+        $whereSubs = $user->boss_id ? " and (u.id = $user->id or u.boss_id = $user->id)" : '';
         $query = "
             select u.id, u.first_name,u.second_name,u.last_name
             from users u
