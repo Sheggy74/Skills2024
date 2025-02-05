@@ -25,4 +25,5 @@ Route::prefix('plan')
         Route::get('topics/{id}', 'showTopicsUser');
         Route::get('users/{id}', 'showUsers');
         Route::get('topics', 'showTopics');
+        Route::get('manager', 'showManager');
     });

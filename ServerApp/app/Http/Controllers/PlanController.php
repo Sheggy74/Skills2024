@@ -67,6 +67,10 @@ class PlanController extends Controller
     }
 
 
+    public function showManagerId(Request $request) {
+        $manager = User::where('boss_id', null)->first();
+        return $manager->id;
+    }
 
 
 
