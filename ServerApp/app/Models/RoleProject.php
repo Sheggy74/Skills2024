@@ -12,7 +12,7 @@ class RoleProject extends Model
 
     protected $fillable = [
         'id',
-        'name'
+        'name' 
     ];
 
     protected $table = 'role_project';
