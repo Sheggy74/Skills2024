@@ -97,6 +97,17 @@ class PlanController extends Controller
     }
 
 
+    public function showManagerId(Request $request) {
+        $manager = User::where('boss_id', null)->first();
+        return $manager->id;
+    }
+
+    public function showAllSubardinates(Request $request, $id) {
+        $subordinateIds = User::getAllSubordinates($id);
+        $subordinateIds[] = $id;
+        $subardinates = User::whereIn('id', $subordinateIds)->get();
+        return UserResource::collection($subardinates);
+    }
 
 
 

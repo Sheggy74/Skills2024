@@ -83,6 +83,7 @@ import { MesDirectivesModule } from 'src/app/Shared/MESDirectives/mes-directives
     DatePipe,
     MesComponentsModule,
     MesDirectivesModule,
+    DividerModule,
   ]
 
 })

@@ -21,10 +21,11 @@ Route::prefix('plan')
     // ->middleware(['auth:api'])
     ->controller(\App\Http\Controllers\PlanController::class)
     ->group(function () {
-      
+        Route::get('manager', 'showManagerId');
+        Route::get('allperformers/{id}', 'showAllSubardinates');
         Route::get('topics/{id}', 'showTopicsUser');
         Route::get('users/{id}', 'showUsers');
         Route::get('topics', 'showTopics');
-        Route::get('tasks', 'getPlans');
+         Route::get('tasks', 'getPlans');
         Route::get('{id}', 'showTasksForUser');
     });
