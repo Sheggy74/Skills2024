@@ -42,7 +42,6 @@ export class PlanPageComponent {
       this.userAndPerformers = user;
     })
     this.planService.hasNewTasks.subscribe(res => {
-      console.log('RES',res);
       
       this.planService.tasks = res
       .filter((plan: any) => plan.tasks.length > 0)
@@ -52,7 +51,6 @@ export class PlanPageComponent {
           tasks: plan.tasks.sort((a:any, b:any) => (a.priority_id - b.priority_id == 0) ? (a.order_number - b.order_number) : b.priority_id - a.priority_id)
         }
       });
-      console.log(this.planService.tasks);
       
     });
     this.planService.getTasks();

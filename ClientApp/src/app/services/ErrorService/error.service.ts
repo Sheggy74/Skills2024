@@ -26,6 +26,8 @@ export class ErrorService {
     }
     getErrorHandlerList(event : PointerEvent | undefined = undefined){
         return (error: any) => {
+            console.log('ERROR',error);
+            
             this.handleError(error,event);
             return of([]);
         }

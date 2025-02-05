@@ -13,15 +13,15 @@ export class TaskComponent {
   colors: any[] = [
     {
       priorityId: 1,
-      color: 'var(--blue-500)'
+      color: '#7FA7E4'
     },
     {
       priorityId: 2,
-      color: 'var(--orange-500)'
+      color: '#CFC653'
     },
     {
       priorityId: 3,
-      color: 'var(--red-500)'
+      color: '#EF6F61'
     },
   ]
   taskColor: string = '';
@@ -31,7 +31,7 @@ export class TaskComponent {
       return el.priorityId === this.task.priority_id;
     })[0].color;  
     if(this.task.iscompleted)
-      this.taskColor = 'var(--green-500)';
+      this.taskColor = '#72B992';
     
     this.taskWidth = this.taskWidth + this.task.days * 10
   }
