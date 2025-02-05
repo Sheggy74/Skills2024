@@ -67,7 +67,10 @@ export class CreateTaskComponent {
     this.managerId = await this.planService.getManager();
     const jwtToken = this.stateService.getCurrentJWT();
     this.userId = Number.parseInt(jwtToken.user?.id ?? '');
-    this.users = await this.planService.getPerformers(this.userId);            
+    if(!isNaN(this.userId)){
+      this.users = await this.planService.getPerformers(this.userId);            
+    }
+    
     this.isLoading = false;
   }
 

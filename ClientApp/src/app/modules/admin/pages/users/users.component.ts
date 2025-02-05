@@ -21,7 +21,7 @@ export class UsersComponent extends BaseComponent {
     userUIService = inject(UserUiService)
     blockService = inject(BlockService)
     adminUserService = inject(AdminUserService)
-    userFile?: File;
+    userFile?: File=undefined;
     users: any[] = [];
     @ViewChild(
       'user_list'

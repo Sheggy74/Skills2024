@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { UserUiService } from '../user-ui-service/user-ui.service';
 import { User } from 'src/app/Models/User';
-import { ProjectService } from 'src/app/modules/project/services/project.service';
 import { BaseComponent } from 'src/app/system-components/base-component/base.component';
 import { Projects } from 'src/app/Models/Projects';
 import { AdminUserService } from '../../../services/admin-user-service/admin-user.service';
@@ -19,7 +18,6 @@ export class SetOnProjComponent extends BaseComponent {
 
   private userUiService: UserUiService = inject(UserUiService)
   private adminService: AdminUserService = inject(AdminUserService)
-  private projectService: ProjectService = inject(ProjectService)
   private toastService: ToastService = inject(ToastService)
 
   public title: string = ''
@@ -33,15 +31,12 @@ export class SetOnProjComponent extends BaseComponent {
   constructor() {
     super()
     this.userUiService.selectedUser.subscribe((user: User | undefined) => {
-      this.title = 'Назначить пользователя ' + user!.fio + ' в проект'
+      let userfio=user?user.fio:'';
+      this.title = 'Назначить пользователя ' + userfio + ' в проект'
       this.selectedUser = user
     })
   }
 
-  override async ngOnInit(): Promise<void> {
-    this.projects = await this.projectService.getProjects()
-    this.projectsFiltered = this.projects
-  }
 
   public open() {
     this.isOpen = true;

@@ -9,7 +9,7 @@
           <a class="hover:underline" style="color: var(--primary-color)" routerLink="/projects">проекты/</a>{{projectName}}
         </span>
         <button pButton pRipple *ngIf="isManagerOrAdmin"
-          (click)="this.projectService.selectedPrject.next(project);add.showDialog()" icon="pi pi-pencil"
+         icon="pi pi-pencil"
           class="p-button-lg p-button-rounded p-button-text" label="" pTooltip="Добавить пользователя"
           [showDelay]="1000"></button>
         <p-avatarGroup styleClass="">
@@ -46,7 +46,6 @@
   </div>
   
   <!-- <app-create-task [projectId]="projectId" #createTaskDialog (createTask)="addTask($event)"></app-create-task> -->
-  <app-add-project #add></app-add-project>
   <app-task-sidebar></app-task-sidebar>
 
 </div>
