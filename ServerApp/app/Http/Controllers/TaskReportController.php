@@ -48,15 +48,27 @@ class TaskReportController extends Controller
         // where st.state_id<>3 '
         //     );
 
-        $task=DB::select('SELECT t.id as task_id, t.name
-        FROM state_task st
-        LEFT JOIN (
-            SELECT task.id, task.name
-            FROM task
-            WHERE task.user_id = '. Auth::user()->id .' 
-            GROUP BY task.id, task.name
-        ) AS t ON t.id = st.task_id
-        WHERE st.state_id <> 3
+        // $task=DB::select('SELECT t.id as task_id, t.name
+        // FROM state_task st
+        // LEFT JOIN (
+        //     SELECT task.id, task.name
+        //     FROM task
+        //     WHERE task.user_id = '. Auth::user()->id .' 
+        //     GROUP BY task.id, task.name
+        // ) AS t ON t.id = st.task_id
+        // WHERE st.state_id <> 3 and t.id is not null
+        // AND NOT EXISTS (
+        //     SELECT 1
+        //     FROM state_task st2
+        //     WHERE st2.task_id = st.task_id
+        //     AND st2.state_id = 3
+        // )
+        // GROUP BY t.id, t.name');
+
+        $task=DB::select(' SELECT t.id as task_id, t.name
+        FROM task t
+        LEFT JOIN state_task st on st.task_id=t.id
+        WHERE  t.id is not null and t.user_id = '. Auth::user()->id .' 
         AND NOT EXISTS (
             SELECT 1
             FROM state_task st2
@@ -189,7 +201,7 @@ class TaskReportController extends Controller
     }
 
     function reportBoss($id,$date) {
-        $tasks=DB::select('select t.name,rt.description ,rt."date" ,rt."percent" ,rt.description ,concat(u.last_name,\' \',substr(u.second_name,1,1),\'.\' ,substr(u.first_name,1,1)) as fio from report_task rt 
+        $tasks=DB::select('select t.name,rt.description ,rt."date" ,rt."percent" ,rt.description ,u.last_name,u.second_name,u.first_name from report_task rt 
             left join task t on t.id=rt.task_id
             left join state_task st on st.task_id=t.id
             left join (
@@ -227,7 +239,7 @@ class TaskReportController extends Controller
         $row = 3;
         foreach ($tasks as $item) {
             $sheet->setCellValue('A' . $row, $item->name); // имя задачи
-            $sheet->setCellValue('B' . $row, $item->fio); // Исполнитель
+            $sheet->setCellValue('B' . $row, $item->last_name . ' ' . $item->first_name . ' ' . $item->second_name); // Исполнитель
             $sheet->setCellValue('C' . $row, Date::PHPToExcel(new \DateTime($item->date)));
             $sheet->setCellValue('D' . $row, $item->description); // опсианние задачи
             $sheet->setCellValue('E' . $row, $item->percent); // %

@@ -2,7 +2,7 @@
     <p-button label="Внести отчетность за день" (click)="report.onShow()"></p-button>
     <p-calendar [ngModel]="dateReport"></p-calendar>
     <p-button label="Отчет выполнения" icon="pi pi-print" (click)="getReport()"></p-button>
-    <p-button *ngIf="isManager" label="Отчет промежуточный контроль" icon="pi pi-print" (click)="getReportBoss()"></p-button>
+    <p-button *ngIf="isManager" label="Отчет промежуточный контроль" [disabled]="!isManager" icon="pi pi-print" (click)="getReportBoss()"></p-button>
 </div>
 
 <app-form-report #report></app-form-report>
