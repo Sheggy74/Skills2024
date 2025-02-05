@@ -37,6 +37,7 @@ export class CreateTaskComponent {
   newTask: Task = {
     id: 0,
     name: '',
+    isPlanned: false,
   }
   managerId: number = 0;
   userId: number = 0;

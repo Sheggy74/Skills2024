@@ -67,9 +67,12 @@ class PlanController extends Controller
                    t.days,
                    t.order_number,
                    t.priority_id,
+                   t.is_planned,
+                   rt.percent,
                    exists(select 1 from state_task st where st.task_id = t.id) as isCompleted
             from task t 
             join topics tt on tt.id = t.topic_id            
+            left join report_task rt on rt.task_id = t.id            
             where t.user_id = $user->id";
             $tasks = DB::select($query);
             $plans[] = [
