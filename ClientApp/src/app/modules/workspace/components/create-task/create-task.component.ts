@@ -96,7 +96,7 @@ export class CreateTaskComponent {
       id: 0,
       name: '',
     }
-    this.planService.getTasks();
+    this.planService.getTasks()
     this.tasks = [];
     this.hideDialog();
   }

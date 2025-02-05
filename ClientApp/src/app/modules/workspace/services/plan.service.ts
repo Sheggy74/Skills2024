@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, catchError, lastValueFrom, map } from "rxjs";
+import { BehaviorSubject, catchError, lastValueFrom, map, Observable, Subject } from "rxjs";
 import { Task } from "src/app/Models/Task";
 import { Projects } from "src/app/Models/Projects";
 import { BaseApiService } from "src/app/services/BaseApiService/base-api.service";
@@ -19,6 +19,8 @@ export class PlanService extends BaseApiService {
   loadingUsers = new BehaviorSubject<boolean>(false);
   topics = new BehaviorSubject<Topics[]>([]);
   tasks: any[] = [];
+
+  hasNewTasks: BehaviorSubject<any> = new BehaviorSubject([])
 
   async updateUserAndPerformers(userId: number) {
     this.userAndPerformers.next(await this.getPerformers(userId));
@@ -106,16 +108,12 @@ export class PlanService extends BaseApiService {
   }
 
 
-  getTasks() {
-    this.tasks = [];
-    return lastValueFrom(
-      this.http.get<any>(this.apiURL + '/plan/tasks')      
-      .pipe(
-        map((item: any) => {
-          this.tasks.push(item)
-        })
-      )
+  getTasks()  {    
+    this.http.get<any>(this.apiURL + '/plan/tasks').subscribe(
+      
+      (res: any) => {this.hasNewTasks.next(res)}
     )
+      
   }
 
   getManager() : Promise<number> {
