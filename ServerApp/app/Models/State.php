@@ -16,7 +16,6 @@ class State extends Model
     protected $fillable = [
         'id',
         'name',
-        'project_id'
     ];
 
     public function tasks()

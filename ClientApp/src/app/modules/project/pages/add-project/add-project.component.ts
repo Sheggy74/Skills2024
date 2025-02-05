@@ -33,24 +33,24 @@ interface Role1 {
 export class AddProjectComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
-    this.userRoleService.updateData();
-    // this.users= await this.userRoleService.getUserRole();
-    this.projectService.projectID.subscribe(project=>{
-      this.addEditTags(project?.id);
-    });
-    this.projectTagsService.tagsID.subscribe(tags=>{
-      this.projectService.updateData();
-    })
-    let user = JSON.parse(localStorage.getItem('[ATOM24][jwtDTO]')??'');
-    this.roleUser=user?.user?.login;
-    this.rolePrService.updateData();
-    this.rolePrService.roleProjects.subscribe(roles=>{
-      this.rolePr=roles;
-    });
-    this.userRoleService.users.subscribe(item=>{
-      this.users=item;
-      this.selectedUsers=item.filter(el=>el.isSelected==true);
-    })
+    // this.userRoleService.updateData();
+    // // this.users= await this.userRoleService.getUserRole();
+    // this.projectService.projectID.subscribe(project=>{
+    //   this.addEditTags(project?.id);
+    // });
+    // this.projectTagsService.tagsID.subscribe(tags=>{
+    //   this.projectService.updateData();
+    // })
+    // let user = JSON.parse(localStorage.getItem('[ATOM24][jwtDTO]')??'');
+    // this.roleUser=user?.user?.login;
+    // this.rolePrService.updateData();
+    // this.rolePrService.roleProjects.subscribe(roles=>{
+    //   this.rolePr=roles;
+    // });
+    // this.userRoleService.users.subscribe(item=>{
+    //   this.users=item;
+    //   this.selectedUsers=item.filter(el=>el.isSelected==true);
+    // })
     // this.userRoleService.selectedRoleUsers.subscribe(el=>{
     //   this.selectedUsers=el??[];
     // })

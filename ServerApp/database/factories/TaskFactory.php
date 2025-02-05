@@ -21,10 +21,9 @@ class TaskFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->word(),
-            'description' => fake()->sentence(3),
+            'name' => fake()->randomElement(['Прочитать документы','Отчитаться в бухшалтерии','Подсчет убытков','Проанализировать прибыль','Пойти на совещание']),
+            'description' => fake()->randomElement(['Не опаздывать','Взять с собой документы','Замени форму в документе','Все значения переданы секретарю','Убери 1 лист','Заведи всех сотрудников']),
             'date_create' => fake()->date(),
-            'project_id' => Project::query()->inRandomOrder()->first()->id,
             'user_id' => User::query()->inRandomOrder()->first()->id,
             'priority_id' => Priority::query()->inRandomOrder()->first()->id,
             'created_at' => Carbon::parse(fake()->dateTimeBetween('-365 days', 'now'))->setTime(rand(9, 18), rand(0, 59), rand(0, 59)),

@@ -35,17 +35,7 @@ Route::prefix('auth')
 
 
 require_once __DIR__ . "/api/admin.php";
-// require_once __DIR__ . "/api/experiments.php";
-// require_once __DIR__ . "/api/tools.php";
-// require_once __DIR__ . "/api/scripts.php";
-require_once __DIR__ . "/api/report.php";
-require_once __DIR__ . "/api/executors.php";
-require_once __DIR__ .  "/api/project.php";
-require_once __DIR__ .  "/api/tags.php";
-require_once __DIR__ .  "/api/tagsProject.php";
 require_once __DIR__ .  "/api/workspace.php";
-require_once __DIR__ .  "/api/notifications.php";
-require_once __DIR__ .  "/api/roleProject.php";
 require_once __DIR__ .  "/api/dashboard.php";
 require_once __DIR__ .  "/api/taskReport.php";
 
