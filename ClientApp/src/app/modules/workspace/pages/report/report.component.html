@@ -1,7 +1,8 @@
 <div class="flex items-end p-5 gap-5">
     <p-button label="Внести отчетность за день" (click)="report.onShow()"></p-button>
     <p-calendar [ngModel]="dateReport"></p-calendar>
-    <p-button icon="pi pi-print" (click)="getReport()"></p-button>
+    <p-button label="Отчет выполнения" icon="pi pi-print" (click)="getReport()"></p-button>
+    <p-button *ngIf="isManager" label="Отчет промежуточный контроль" icon="pi pi-print" (click)="getReportBoss()"></p-button>
 </div>
 
 <app-form-report #report></app-form-report>

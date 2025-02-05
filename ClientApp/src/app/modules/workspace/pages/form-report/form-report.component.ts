@@ -54,6 +54,16 @@ export class FormReportComponent {
       this.disable=false;
     }
   }
+  inputDescription(event:any,task:ReportTask){
+    
+    if(!task.description){
+      task.validDescription=true;
+      this.disable=true;
+    }else{
+      task.validDescription=false;
+      this.disable=false;
+    }
+  }
   onCheckboxChange(event:any){
     console.log(event);
     let data=event.data;
@@ -62,9 +72,11 @@ export class FormReportComponent {
         if(el.task_id==event.data.task_id){
           if(!event.data.percent){
             el.validPercent=true;
+            el.validDescription=true;
             this.disable=true;
           }else{
             el.validPercent=false;
+            el.validDescription=false;
             this.disable=false;
           }
         
@@ -76,9 +88,21 @@ export class FormReportComponent {
   }
 
   onCheckboxChangeRemove(event:any){
+    console.log(event);
     if(this.selectedTasks.length==0){
       this.disable=true;
     }
+    this.tasks.forEach(el=>{
+      if(el.task_id==event.data.task_id){
+       
+          el.validPercent=false;
+          el.validDescription=false;
+          this.disable=false;
+        
+      
+      }
+    });
+  
   }
    // Пример проверки валидности
    isInvalid(date: Date): boolean {

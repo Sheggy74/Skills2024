@@ -137,10 +137,10 @@ class TaskReportController extends Controller
         $sheet->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
         // Установим заголовки столбцов
-        $sheet->setCellValue('A2', 'Task Name')
+        $sheet->setCellValue('A2', 'Задача')
               ->setCellValue('B2', 'Исполнитель')
-              ->setCellValue('C2', 'Created At')
-              ->setCellValue('D2', 'Topic');
+              ->setCellValue('C2', 'Дата выполнения')
+              ->setCellValue('D2', 'Тематика');
 
         // Применим стиль для шапки (жирный шрифт, выравнивание по центру)
         $sheet->getStyle('A2:D2')->getFont()->setBold(true);
@@ -169,7 +169,7 @@ class TaskReportController extends Controller
         $sheet->getColumnDimension('A')->setWidth(20); // Ширина для Task Name
         $sheet->getColumnDimension('B')->setWidth(30); // Ширина для Исполнитель (ФИО)
         $sheet->getColumnDimension('C')->setWidth(25); // Ширина для Created At (дата)
-        $sheet->getColumnDimension('D')->setWidth(40); // Ширина для Topic (так как Topic может быть длинным)
+        $sheet->getColumnDimension('D')->setWidth(80); // Ширина для Topic (так как Topic может быть длинным)
 
         // Записываем файл
         $writer = new Xlsx($spreadsheet);
@@ -188,4 +188,91 @@ class TaskReportController extends Controller
         );
     }
 
+    function reportBoss($id,$date) {
+        $tasks=DB::select('select t.name,rt.description ,rt."date" ,rt."percent" ,rt.description ,concat(u.last_name,\' \',substr(u.second_name,1,1),\'.\' ,substr(u.first_name,1,1)) as fio from report_task rt 
+            left join task t on t.id=rt.task_id
+            left join state_task st on st.task_id=t.id
+            left join (
+                with recursive cte as(
+                select users.* from users where users.boss_id='.$id.' 
+                union all
+                select users.* from users,cte where users.boss_id =cte.id
+                )select * from cte
+            ) u on u.id=t.user_id 
+            where st.state_id=3 and date=to_date(\''.$date.'\',\'yyyy-mm-dd\')');
+            // return $tasks;
+
+        $spreadsheet = new Spreadsheet();
+        $sheet = $spreadsheet->getActiveSheet();
+
+        // Установим название отчета
+        $sheet->mergeCells('A1:E1');
+        $sheet->setCellValue('A1', 'Отчет промежуточного контроля '. $date);
+
+        $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(16);
+        $sheet->getStyle('A1')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        // Установим заголовки столбцов
+        $sheet->setCellValue('A2', 'Задача')
+              ->setCellValue('B2', 'Исполнитель')
+              ->setCellValue('C2', 'Дата выполнения')
+              ->setCellValue('D2', 'Описание задачи')
+              ->setCellValue('E2', 'Степень выполнения');
+
+        $sheet->getStyle('A2:E2')->getFont()->setBold(true);
+        $sheet->getStyle('A2:E2')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+        $sheet->getStyle('A2:E' . (count($tasks) + 2))->getBorders()->getAllBorders()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN);
+
+        $row = 3;
+        foreach ($tasks as $item) {
+            $sheet->setCellValue('A' . $row, $item->name); // имя задачи
+            $sheet->setCellValue('B' . $row, $item->fio); // Исполнитель
+            $sheet->setCellValue('C' . $row, Date::PHPToExcel(new \DateTime($item->date)));
+            $sheet->setCellValue('D' . $row, $item->description); // опсианние задачи
+            $sheet->setCellValue('E' . $row, $item->percent); // %
+            $row++;
+        }
+        
+         // Форматируем дату в нужный формат
+         $sheet->getStyle('C3:C' . $row)->getNumberFormat()->setFormatCode('YYYY-MM-DD');
+
+         // Применим отступы для всех ячеек
+         $sheet->getStyle('A2:E' . $row)->getAlignment()->setIndent(1);
+
+         // Устанавливаем ширину столбцов
+        $sheet->getColumnDimension('A')->setWidth(20); 
+        $sheet->getColumnDimension('B')->setWidth(30); 
+        $sheet->getColumnDimension('C')->setWidth(25); 
+        $sheet->getColumnDimension('D')->setWidth(40); 
+        $sheet->getColumnDimension('E')->setWidth(20); 
+
+        $writer = new Xlsx($spreadsheet);
+
+        // Отправляем файл на загрузку
+        $fileName = 'report-'.$date.'.xlsx';
+        return response()->stream(
+            function() use ($writer) {
+                $writer->save('php://output');
+            },
+            200,
+            [
+                'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'Content-Disposition' => 'attachment; filename="task_report.xlsx"',
+            ]
+        );
+    }
+
+    function isManager($id)  {
+        $workersBoss=DB::select('with recursive cte as(
+            select users.* from users where users.boss_id='.$id.' 
+            union all
+            select users.* from users,cte where users.boss_id =cte.id
+            )select * from cte');
+        if(count($workersBoss)==0){
+            return 0;
+        }else{
+            return 1;
+        }
+    }
 }

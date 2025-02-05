@@ -9,4 +9,9 @@ Route::prefix('reportTask')
         Route::get('','workTask');
         Route::post('','createReport');
         Route::get('{date}','reportCompleteTask');
+        Route::get('boss/{id}/{date}','reportBoss');
+        
     });
+
+    Route::get('manager/{id}',[TaskReportController::class, 'isManager']);
+

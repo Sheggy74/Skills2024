@@ -4,7 +4,7 @@
         [paginator]="true"
         [rows]=5
         (onRowSelect)="onCheckboxChange($event)"
-        (onRowUnSelect)="onCheckboxChangeRemove($event)">
+        (onRowUnselect)="onCheckboxChangeRemove($event)">
         
         <ng-template pTemplate="header">
             <tr>
@@ -25,11 +25,13 @@
                 <p-calendar
                     inputId="calendar"
                     [(ngModel)]="task.date"
-                    modal="true"
-                ></p-calendar>
+                    modal="true"    
+                ></p-calendar>         
               </td>
               <td>
-                <input type="text" pInputText [(ngModel)]="task.description">
+                <input type="text" pInputText [(ngModel)]="task.description"
+                [ngClass]="{error:task.validDescription}" (keyup)="inputDescription($event,task)">
+                <div *ngIf="task.validDescription" style="color: red;">Поле не должно быть пустым</div>
               </td>
               <td>
                 <p-inputNumber
@@ -41,6 +43,7 @@
                     (onInput)="inputPercent($event,task)"
                     suffix="%"
                     required
+                    showClear="true"
                 ></p-inputNumber>
               <div *ngIf="task.percent>100 || task.percent+task.oldPercent>100" style="color: red;">
                 Объем работ не должен превыщать 100% ({{task.percent+task.oldPercent}}%)
