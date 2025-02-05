@@ -22,7 +22,7 @@ export class AboutComponent extends BaseComponent {
     notificationsService=inject(NotificationsService);
 
     isInfoOverlayOpen: boolean = false;
-    countNotification:string='';
+    countNotification:string='0';
     messNotification:Notifications[]=[];
     
 
@@ -36,13 +36,13 @@ export class AboutComponent extends BaseComponent {
         let user = JSON.parse(localStorage.getItem('[ATOM24][jwtDTO]')??'');
         console.log(user?.user?.id);
         
-        this.notificationsService.notifications.subscribe(n=>{
-            this.countNotification=n.length.toString();
-            this.messNotification=n;
-        })
-        setInterval(()=>{
-            this.notificationsService.getNotificationID(user?.user?.id);
-        },10000);
+        // this.notificationsService.notifications.subscribe(n=>{
+        //     this.countNotification=n.length.toString();
+        //     this.messNotification=n;
+        // })
+        // setInterval(()=>{
+        //     this.notificationsService.getNotificationID(user?.user?.id);
+        // },10000);
         super.ngOnInit()
     }
     getLogoID(department: any) {
