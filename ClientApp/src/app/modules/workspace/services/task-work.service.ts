@@ -15,6 +15,7 @@ export class TaskWorkService extends BaseApiService {
   selectedTask = new BehaviorSubject<ReportTask[] | undefined>(undefined);
 
   isLoading = new BehaviorSubject<boolean>(true);
+  isManager=new BehaviorSubject<boolean>(false);
 
   // async updateTasks(){
   //   this.tasks.next(await this.getTasks());
@@ -49,6 +50,13 @@ export class TaskWorkService extends BaseApiService {
   reportTaskDate(date: Date) {
     let d = date.getFullYear + '-' + date.getMonth() + '-' + date.getDay();
     // window.location.href='http://localhost:8000/api/reportTask/'+d;
+  }
 
+  getRoleManager(id:number){
+    let retValue= lastValueFrom(this.http.get<number>(this.apiURL+'/manager/'+id))
+      .then(el=>{
+        this.isManager.next(el==1?true:false)
+      });
+    return retValue;
   }
 }
