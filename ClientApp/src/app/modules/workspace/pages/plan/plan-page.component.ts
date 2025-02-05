@@ -50,15 +50,21 @@ export class PlanPageComponent {
     this.planService.userAndPerformers.subscribe(user => {
       this.userAndPerformers = user;
     })
-    await this.planService.getTasks();
-    this.planService.tasks = this.planService.tasks[0]
-    .filter((plan: any) => plan.tasks.length > 0)
-    .map((plan: any) => {
-      return {
-        user: plan.user,
-        tasks: plan.tasks.sort((a:any, b:any) => (a.priority_id - b.priority_id == 0) ? (a.order_num - b.order_num) : b.priority_id - a.priority_id)
-      }
-    })
+    this.planService.hasNewTasks.subscribe(res => {
+      console.log('RES',res);
+      
+      this.planService.tasks = res
+      .filter((plan: any) => plan.tasks.length > 0)
+      .map((plan: any) => {
+        return {
+          user: plan.user,
+          tasks: plan.tasks.sort((a:any, b:any) => (a.priority_id - b.priority_id == 0) ? (a.order_num - b.order_num) : b.priority_id - a.priority_id)
+        }
+      });
+      console.log(this.planService.tasks);
+      
+    });
+    this.planService.getTasks();
        
   }
 
@@ -66,8 +72,8 @@ export class PlanPageComponent {
   handleRowReorder(event: any): void {
     // После перетаскивания rows в plans уже будет новый порядок.
     // Создаем массив с объектами вида {id_object: number, index_row: number}
-    const orderedData = this.plans.map((item, index) => ({
-      id_object: item.id,
+    const orderedData = this.planService.tasks.map((item, index) => ({
+      id_object: item.user.id,
       index_row: index
     }));
 

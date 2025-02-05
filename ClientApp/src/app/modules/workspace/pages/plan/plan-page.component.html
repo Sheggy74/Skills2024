@@ -21,9 +21,14 @@
         <p-checkbox [(ngModel)]='isEditable' [binary]="true" label='Режим редактирования'></p-checkbox>
       </div>
     </div>
-    <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto mb-3">
+    <div *ngIf="!isEditable" class="flex flex-col max-w-full overflow-auto mb-5">
       <section *ngFor="let item of planService.tasks">
-        <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
+        <div *ngIf="item.user.id==this.userId" style="font-weight: bold;">
+          <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
+        </div>
+        <div *ngIf="item.user.id!=this.userId">
+          <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
+        </div>
         <app-plan [tasks]="item.tasks"></app-plan>
       </section>       
     </div>
@@ -42,10 +47,10 @@
                 <h2> {{item.user.last_name + ' ' + item.user.first_name + ' ' + item.user.second_name }}</h2>
               </div>
               
-              <div class="overflow-x-auto">
+              <!-- <div class="overflow-x-auto">
 
                 <app-plan [tasks]="item.tasks"></app-plan>
-              </div>
+              </div>  -->
             </div>
           </td>
         </tr>
