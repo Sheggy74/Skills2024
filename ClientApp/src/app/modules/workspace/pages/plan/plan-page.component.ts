@@ -24,16 +24,7 @@ export class PlanPageComponent {
   plans: any[] = [{ id: 1 }, { id: 2 }, { id: 3 }];
   isEditable: boolean = false;
 
-  uiSettings: any[] = [
-    {
-      name: "123",
-      order: [1, 2, 3]
-    },
-    {
-      name: '321',
-      order: [3, 2, 1]
-    }
-  ]
+  uiSettings: any[] = []
 
   selectedUiSetting?: any;
   isOrderDialogOpen: boolean = false;
@@ -69,8 +60,9 @@ export class PlanPageComponent {
     });
     this.planService.getTasks();
     this.user = await this.planService.getUserById(Number.parseInt(this.userId ?? '0'));
-    console.log(this.user);
     
+    this.uiSettings = await this.planService.getOrders();
+       
   }
 
   // Обработчик события перетаскивания строк
@@ -84,17 +76,24 @@ export class PlanPageComponent {
 
     // Лог для проверки результата
     console.log('Новый порядок строк:', orderedData);
-    this.planService.saveOrder(orderedData.map(item => item.id_object).join(', '))
+    // this.planService.saveOrder(orderedData.map(item => item.id_object).join(', '))
   }
 
   setUiSetting(event: any) {
     let order = event.value.order
-    this.plans.sort((a: any, b: any) => order.indexOf(a.id) - order.indexOf(b.id))
+    console.log(order);
+    
+    this.planService.hasNewTasks.next(this.planService.tasks.sort((a: any, b: any) => order.indexOf(a.user.id) - order.indexOf(b.user.id)))
   }
 
   saveOrder() {
-    this.uiSettings.push({ name: this.newOrderName, order: this.plans.map(item => item.id) })
+    this.uiSettings.push({ name: this.newOrderName, order: this.planService.tasks.map(item => item.user.id) })
     this.isOrderDialogOpen = false;
+    const orderedData = this.planService.tasks.map((item, index) => ({
+      id_object: item.user.id,
+      index_row: index
+    }));
+    this.planService.saveOrder(this.newOrderName, orderedData.map(item => item.id_object).join(', '))
   }
 
 }
